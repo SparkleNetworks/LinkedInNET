@@ -8,6 +8,11 @@ namespace Sparkle.LinkedInNET.Internals
 
     public class BaseApi
     {
+        protected string BaseUrl
+        {
+            get { return "https://api.linkedin.com"; }
+        }
+
         protected static string FormatUrl(string format, params string[] values)
         {
             var result = format;

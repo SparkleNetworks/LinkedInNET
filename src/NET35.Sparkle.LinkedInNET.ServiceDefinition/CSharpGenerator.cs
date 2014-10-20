@@ -160,9 +160,10 @@ namespace Sparkle.LinkedInNET.ServiceDefinition
             foreach (var method in apiGroup.Methods)
             {
                 var returnType = "void";
+                ReturnType returnTypeType = null;
                 if (method.ReturnType != null)
                 {
-                    var returnTypeType = context.FindReturnType(method.ReturnType, apiGroup.Name);
+                    returnTypeType = context.FindReturnType(method.ReturnType, apiGroup.Name);
                     if (returnTypeType != null)
                     {
                         returnType = this.GetPropertyName(returnTypeType.ClassName, returnTypeType.Name);
@@ -198,7 +199,35 @@ namespace Sparkle.LinkedInNET.ServiceDefinition
                 else
                     this.text.WriteLine(indent, "var url = FormatUrl(urlFormat);");
 
-                this.text.WriteLine(indent, "throw new NotImplementedException(url);");
+                text.WriteLine(indent, "var context = new RequestContext();");
+                text.WriteLine(indent, "context.Method =  \"" + method.HttpMethod + "\";");
+                text.WriteLine(indent, "context.UrlPath = this.BaseUrl + url;");
+
+                text.WriteLine(indent, "var response = this.client.ExecuteQuery(context);");
+
+                if (false /*method.ReturnRawResult*/)
+                {
+                    text.WriteLine(indent, "return response;");
+                }
+                else
+                {
+                    text.WriteLine(indent, "");
+                    if (returnTypeType != null)
+                    {
+                        text.WriteLine(indent, "var result = JsonConvert.DeserializeObject<BaseResponse<" + returnType + ">>(response);");
+                    }
+                    else
+                    {
+                        text.WriteLine(indent, "var result = JsonConvert.DeserializeObject<BaseResponse>(response);");
+                    }
+
+                    text.WriteLine(indent, "this.HandleErrors(result);");
+
+                    if (returnType != null)
+                        text.WriteLine(indent, "return result.Data;");
+                }
+
+                ////this.text.WriteLine(indent, "throw new NotImplementedException(url);");
                 this.text.WriteLine(--indent, "}");
                 this.text.WriteLine(indent, "");
             }

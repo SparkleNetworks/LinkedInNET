@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Root>
   <ApiGroup Name="Profiles">
-    <ApiMethod MethodName="GetMyProfile" Title="the profile of the current user" Path="/v1/people/~" ReturnType="Person" />
-    <ApiMethod MethodName="GetProfileById" Title="the profile of a user in the network" Path="/v1/people/id={MemberToken}" ReturnType="Person" />
-    <ApiMethod MethodName="GetPublicprofile" Title="the public profile of a user" Path="/v1/people/url={PublicProfileUrl}" ReturnType="Person" />
+    <ApiMethod MethodName="GetMyProfile"     HttpMethod="GET" Title="the profile of the current user" Path="/v1/people/~" ReturnType="Person" />
+    <ApiMethod MethodName="GetProfileById"   HttpMethod="GET" Title="the profile of a user in the network" Path="/v1/people/id={MemberToken}" ReturnType="Person" />
+    <ApiMethod MethodName="GetPublicprofile" HttpMethod="GET" Title="the public profile of a user" Path="/v1/people/url={PublicProfileUrl}" ReturnType="Person" />
     
     <ReturnType Name="person" ClassName="Person">
       <Field Name="first-name" PropertyName="Firstname" Title="the member's first name" IsDefault="1" />

@@ -21,5 +21,8 @@ namespace Sparkle.LinkedInNET.ServiceDefinition
 
         [XmlAttribute]
         public string MethodName { get; set; }
+
+        [XmlAttribute]
+        public string HttpMethod { get; set; }
     }
 }

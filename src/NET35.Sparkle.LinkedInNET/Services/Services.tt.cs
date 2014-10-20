@@ -272,7 +272,14 @@ namespace Sparkle.LinkedInNET.Profiles
         {
             const string urlFormat = "/v1/people/~";
             var url = FormatUrl(urlFormat);
-            throw new NotImplementedException(url);
+            var context = new RequestContext();
+            context.Method =  "GET";
+            context.UrlPath = this.BaseUrl + url;
+            var response = this.client.ExecuteQuery(context);
+            
+            var result = JsonConvert.DeserializeObject<BaseResponse<Person>>(response);
+            this.HandleErrors(result);
+            return result.Data;
         }
         
         /// <summary>
@@ -284,7 +291,14 @@ namespace Sparkle.LinkedInNET.Profiles
         {
             const string urlFormat = "/v1/people/id={MemberToken}";
             var url = FormatUrl(urlFormat, "MemberToken", MemberToken);
-            throw new NotImplementedException(url);
+            var context = new RequestContext();
+            context.Method =  "GET";
+            context.UrlPath = this.BaseUrl + url;
+            var response = this.client.ExecuteQuery(context);
+            
+            var result = JsonConvert.DeserializeObject<BaseResponse<Person>>(response);
+            this.HandleErrors(result);
+            return result.Data;
         }
         
         /// <summary>
@@ -296,7 +310,14 @@ namespace Sparkle.LinkedInNET.Profiles
         {
             const string urlFormat = "/v1/people/url={PublicProfileUrl}";
             var url = FormatUrl(urlFormat, "PublicProfileUrl", PublicProfileUrl);
-            throw new NotImplementedException(url);
+            var context = new RequestContext();
+            context.Method =  "GET";
+            context.UrlPath = this.BaseUrl + url;
+            var response = this.client.ExecuteQuery(context);
+            
+            var result = JsonConvert.DeserializeObject<BaseResponse<Person>>(response);
+            this.HandleErrors(result);
+            return result.Data;
         }
         
     }
