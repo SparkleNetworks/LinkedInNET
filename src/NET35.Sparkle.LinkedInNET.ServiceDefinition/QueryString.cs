@@ -7,10 +7,9 @@ namespace Sparkle.LinkedInNET.ServiceDefinition
     using System.Text;
     using System.Xml.Serialization;
 
-    [Serializable, XmlRoot]
-    public class ApisRoot
+    [Serializable]
+    public class QueryString
     {
-        [XmlElement(ElementName = "ApiGroup")]
-        public IList<ApiGroup> ApiGroups { get; set; }
+        public int MyProperty { get; set; }
     }
 }

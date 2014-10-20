@@ -7,7 +7,7 @@ namespace Sparkle.LinkedInNET.ServiceDefinition
     using System.Text;
     using System.Xml.Serialization;
 
-    [Serializable, XmlElement(ElementName = "ApiMethod")]
+    [Serializable]
     public class ApiMethod
     {
         [XmlAttribute]
@@ -16,6 +16,10 @@ namespace Sparkle.LinkedInNET.ServiceDefinition
         [XmlAttribute]
         public string Path { get; set; }
 
-        public QueryString QueryString { get; set; }
+        [XmlAttribute]
+        public string ReturnType { get; set; }
+
+        [XmlAttribute]
+        public string MethodName { get; set; }
     }
 }
