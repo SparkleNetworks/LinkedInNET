@@ -6,6 +6,7 @@ namespace Sparkle.LinkedInNET.ServiceDefinition
     using System.IO;
     using System.Linq;
     using System.Text;
+    using System.Text.RegularExpressions;
 
     public class CSharpGenerator
     {
@@ -35,78 +36,189 @@ namespace Sparkle.LinkedInNET.ServiceDefinition
 
         private void WriteEverything(GeneratorContext context)
         {
-            
-            foreach (var apiGroup in context.Root.ApiGroups)
             {
-                // generate extra return types
-                foreach (var returnType in apiGroup.ReturnTypes.ToArray())
+                foreach (var apiGroup in context.Root.ApiGroups)
                 {
-                    foreach (var item in returnType.Fields)
+                    // generate extra return types
+                    foreach (var returnType in apiGroup.ReturnTypes.ToArray())
                     {
-                        var parts = item.Name.Split(new char[] { ':', }, 2);
-                        var mainPart = parts.Length == 1 ? parts[0] : parts[0];
-                        var subPart = parts.Length == 2 ? parts[1] : null;
-
-                        if (parts.Length > 1)
+                        foreach (var item in returnType.Fields)
                         {
-                            var subReturnType = context.FindReturnType(mainPart, apiGroup.Name, subPart: subPart);
+                            var parts = item.Name.Split(new char[] { ':', }, 2);
+                            var mainPart = parts.Length == 1 ? parts[0] : parts[0];
+                            var subPart = parts.Length == 2 ? parts[1] : null;
+
+                            if (parts.Length > 1)
+                            {
+                                var subReturnType = context.FindReturnType(mainPart, apiGroup.Name, subPart: subPart);
+                            }
                         }
                     }
                 }
             }
 
-            foreach (var apiGroup in context.Root.ApiGroups)
             {
-                // write all return types
-                foreach (var returnType in apiGroup.ReturnTypes.ToArray())
+                foreach (var apiGroup in context.Root.ApiGroups)
                 {
-                    this.Write(context, returnType, apiGroup);
+                    // write all return types
+                    foreach (var returnType in apiGroup.ReturnTypes.ToArray())
+                    {
+                        this.WriteReturnTypes(context, returnType, apiGroup);
+                    }
                 }
+
+                foreach (var apiGroup in context.Root.ApiGroups)
+                {
+                    // write client class
+                    this.WriteApiGroup(context, apiGroup);
+                }
+
+                this.WriteRootServices(context);
             }
 
-            /*
-
-foreach (var apiGroup in root.ApiGroups)
-{
-#>
-namespace <#=nameSpace#>.Services.<#=apiGroup.Name#>
-{
-	public class <#=apiGroup.Name#>Api
-	{
-<#
-		foreach (var item in apiGroup.Methods) {
-#>
-		public <#=item.ReturnType#> <#=item.MethodName#>()
-		{
-
-		}
-<#
-		}
-#>
-	}
-
-
-<#
-	foreach (var returnType in apiGroup.ReturnTypes)
-	{
-#>
-	public class <#=returnType.Name#>
-	{
-
-	}
-<#
-	}
-#>
-
-}
-<#
-}
-
-            */
 
         }
 
-        private void Write(GeneratorContext context, ReturnType returnType, ApiGroup apiGroup)
+        private void WriteRootServices(GeneratorContext context)
+        {
+            int indent = 0;
+            this.text.WriteLine(indent, "namespace " + this.RootNamespace);
+            this.text.WriteLine(indent++, "{");
+            this.WriteNamespace(indent, "System");
+            this.WriteNamespace(indent, "System.Xml.Serialization");
+            this.WriteNamespace(indent, this.RootNamespace + ".Internals");
+
+            foreach (var item in context.Root.ApiGroups)
+            {
+                var name = this.GetPropertyName(null, item.Name);
+                this.WriteNamespace(indent, this.RootNamespace + "." + name);
+            }
+
+            this.text.WriteLine();
+            this.text.WriteLine(indent, "/// <summary>");
+            this.text.WriteLine(indent, "/// </summary>");
+            this.text.WriteLine(indent, "public class LinkedInApi : BaseApi");
+            this.text.WriteLine(indent++, "{");
+
+            // ctor
+
+
+            // methods
+            foreach (var item in context.Root.ApiGroups)
+            {
+                var name = this.GetPropertyName(null, item.Name);
+                this.text.WriteLine(indent++, "public " + name + "Api " + name + "{");
+                this.text.WriteLine(indent, "get { return new "+name+"Api(this); }");
+                this.text.WriteLine(--indent, "}");
+                this.text.WriteLine();
+            }
+
+            this.text.WriteLine(--indent, "}");
+            this.text.WriteLine(--indent, "}");
+            this.text.WriteLine();
+
+        }
+
+        private void WriteApiGroup(GeneratorContext context, ApiGroup apiGroup)
+        {
+            var className = this.GetPropertyName(null, apiGroup.Name) + "Api";
+
+            int indent = 0;
+            this.text.WriteLine(indent, "namespace " + this.RootNamespace + "." + apiGroup.Name);
+            this.text.WriteLine(indent++, "{");
+            this.WriteNamespace(indent, "System");
+            this.WriteNamespace(indent, "System.Xml.Serialization");
+            this.WriteNamespace(indent, this.RootNamespace + ".Internals");
+            this.text.WriteLine();
+            this.text.WriteLine(indent, "/// <summary>");
+            this.text.WriteLine(indent, "/// Name: '" + apiGroup.Name + "'");
+            this.text.WriteLine(indent, "/// </summary>");
+            this.text.WriteLine(indent, "public class " + className + " : BaseApi");
+            this.text.WriteLine(indent++, "{");
+
+            // ctor
+
+            this.text.WriteLine(indent, "private LinkedInApi linkedInApi;");
+            this.text.WriteLine(indent, "");
+            this.text.WriteLine(indent, "public " + className + "(LinkedInApi linkedInApi)");
+            this.text.WriteLine(indent++, "{");
+            this.text.WriteLine(indent, "this.linkedInApi = linkedInApi;");
+            this.text.WriteLine(--indent, "}");
+            this.text.WriteLine(indent, "");
+
+
+            // methods
+            WriteMethod(context, apiGroup, indent);
+
+            this.text.WriteLine(--indent, "}");
+            this.text.WriteLine(--indent, "}");
+            this.text.WriteLine();
+        }
+
+        private void WriteMethod(GeneratorContext context, ApiGroup apiGroup, int indent)
+        {
+            foreach (var method in apiGroup.Methods)
+            {
+                var returnType = "void";
+                if (method.ReturnType != null)
+                {
+                    var returnTypeType = context.FindReturnType(method.ReturnType, apiGroup.Name);
+                    if (returnTypeType != null)
+                    {
+                        returnType = this.GetPropertyName(returnTypeType.ClassName, returnTypeType.Name);
+                    }
+                }
+
+
+                var parameters = new List<TupleStruct<string, string>>();
+                var urlParams = this.GetUrlParameters(method.Path);
+                foreach (var urlParam in urlParams)
+                {
+                    parameters.Add(new TupleStruct<string, string>("string", urlParam.Key));
+                }
+
+                this.text.WriteLine(indent, "/// <summary>");
+                this.text.WriteLine(indent, "/// " + method.Title);
+                this.text.WriteLine(indent, "/// </summary>");
+                this.text.WriteLine(indent++, "public " + returnType + " " + this.GetPropertyName(method.MethodName, method.Path) + "(");
+
+                var sep = "";
+                foreach (var parameter in parameters)
+                {
+                    this.text.WriteLine(indent, sep + parameter.Value1 + " " + parameter.Value2);
+                    sep = ", ";
+                }
+
+                this.text.WriteLine(--indent, ")");
+                this.text.WriteLine(indent++, "{");
+
+                this.text.WriteLine(indent, "const string urlFormat = \"" + method.Path + "\";");
+                if (parameters.Count > 0)
+                    this.text.WriteLine(indent, "var url = FormatUrl(urlFormat, " + string.Join(", ", parameters.Select(p => "\"" + p.Value2 + "\", " + p.Value2).ToArray()) + ");");
+                else
+                    this.text.WriteLine(indent, "var url = FormatUrl(urlFormat);");
+
+                this.text.WriteLine(indent, "throw new NotImplementedException(url);");
+                this.text.WriteLine(--indent, "}");
+                this.text.WriteLine(indent, "");
+            }
+        }
+
+        private Regex urlParametersRegex = new Regex("\\{([^{}]+)\\}", RegexOptions.Compiled);
+        private IDictionary<string, string> GetUrlParameters(string path)
+        {
+            var values = new Dictionary<string, string>();
+            var matches = urlParametersRegex.Matches(path);
+            foreach (Match match in matches)
+            {
+                var key = match.Groups[1].Captures[0].Value;
+                values.Add(key, key);
+            }
+
+            return values;
+        }
+
+        private void WriteReturnTypes(GeneratorContext context, ReturnType returnType, ApiGroup apiGroup)
         {
             int indent = 0;
             this.text.WriteLine(indent, "namespace " + this.RootNamespace + "." + apiGroup.Name);
@@ -114,6 +226,15 @@ namespace <#=nameSpace#>.Services.<#=apiGroup.Name#>
             this.WriteNamespace(indent, "System");
             this.WriteNamespace(indent, "System.Xml.Serialization");
             this.text.WriteLine();
+            this.text.WriteLine(indent, "/// <summary>");
+            this.text.WriteLine(indent, "/// Name: '" + returnType.Name + "'");
+            this.text.WriteLine(indent, "/// </summary>");
+            if (returnType.Remark != null)
+            {
+                this.text.WriteLine(indent, "/// <remarks>");
+                this.text.WriteLine(indent, "/// " + returnType.Remark + "");
+                this.text.WriteLine(indent, "/// </remarks>");
+            }
             this.text.WriteLine(indent, "[Serializable]");
             this.text.WriteLine(indent, "public class " + this.GetPropertyName(returnType.ClassName, returnType.Name));
             this.text.WriteLine(indent++, "{");
@@ -148,7 +269,7 @@ namespace <#=nameSpace#>.Services.<#=apiGroup.Name#>
                 this.text.WriteLine(indent, "/// <summary>");
                 foreach (var subItem in itemGroup)
                 {
-                    this.text.WriteLine(indent, "/// Field: '" + subItem.Name + "'"); 
+                    this.text.WriteLine(indent, "/// Field: '" + subItem.Name + "' (" + (subItem.IsDefault ? "default" : "on-demand") + ")");
                 }
 
                 this.text.WriteLine(indent, "/// </summary>");
@@ -162,12 +283,12 @@ namespace <#=nameSpace#>.Services.<#=apiGroup.Name#>
             this.text.WriteLine();
         }
 
-        private string GetPropertyName(string p1, string p2)
+        private string GetPropertyName(string propertyName, string name)
         {
-            if (p1 != null)
-                return p1;
+            if (propertyName != null)
+                return propertyName;
 
-            var words = p2.Split(new char[] { '-', '/', });
+            var words = name.Split(new char[] { '-', '/', });
 
             return string.Join("", words.Select(w => w[0].ToString().ToUpperInvariant() + new string(w.Skip(1).ToArray())).ToArray());
         }
@@ -179,7 +300,6 @@ namespace <#=nameSpace#>.Services.<#=apiGroup.Name#>
 
         public class GeneratorContext
         {
-
             public ApisRoot Root { get; set; }
 
             internal ReturnType FindReturnType(string name, string apiGroupName = null, string subPart = null)

@@ -42,6 +42,7 @@
     <Compile Include="ApiMethod.cs" />
     <Compile Include="ApisRoot.cs" />
     <Compile Include="CSharpGenerator.cs" />
+    <Compile Include="CSharpProperty.cs" />
     <Compile Include="Field.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QueryString.cs" />

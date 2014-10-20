@@ -22,8 +22,8 @@ namespace Sparkle.LinkedInNET.ServiceDefinition
         [XmlAttribute]
         public string Remark { get; set; }
 
-        [XmlAttribute]
-        public bool IsDefault { get; set; }
+        ////[XmlAttribute]
+        ////public bool IsDefault { get; set; }
 
         [XmlElement(ElementName = "Field")]
         public List<Field> Fields { get; set; }

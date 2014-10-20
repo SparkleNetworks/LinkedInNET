@@ -16,166 +16,169 @@ namespace Sparkle.LinkedInNET.Profiles
     using System;
     using System.Xml.Serialization;
 
+    /// <summary>
+    /// Name: 'person'
+    /// </summary>
     [Serializable]
     public class Person
     {
         /// <summary>
-        /// Field: 'first-name'
+        /// Field: 'first-name' (default)
         /// </summary>
         [XmlElement(ElementName = "first-name")]
         public string Firstname { get; set; }
 
         /// <summary>
-        /// Field: 'last-name'
+        /// Field: 'last-name' (default)
         /// </summary>
         [XmlElement(ElementName = "last-name")]
         public string Lastname { get; set; }
 
         /// <summary>
-        /// Field: 'headline'
-        /// Field: 'headline'
+        /// Field: 'headline' (default)
+        /// Field: 'headline' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "headline")]
         public string Headline { get; set; }
 
         /// <summary>
-        /// Field: 'site-standard-profile-request/url'
+        /// Field: 'site-standard-profile-request/url' (default)
         /// </summary>
         [XmlElement(ElementName = "site-standard-profile-request/url")]
         public string SiteStandardProfileRequestUrl { get; set; }
 
         /// <summary>
-        /// Field: 'id'
+        /// Field: 'id' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "id")]
         public string Id { get; set; }
 
         /// <summary>
-        /// Field: 'maiden-name'
+        /// Field: 'maiden-name' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "maiden-name")]
         public string MaidenName { get; set; }
 
         /// <summary>
-        /// Field: 'formatted-name'
+        /// Field: 'formatted-name' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "formatted-name")]
         public string FormattedName { get; set; }
 
         /// <summary>
-        /// Field: 'phonetic-first-name'
+        /// Field: 'phonetic-first-name' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "phonetic-first-name")]
         public string PhoneticFirstName { get; set; }
 
         /// <summary>
-        /// Field: 'phonetic-last-name'
+        /// Field: 'phonetic-last-name' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "phonetic-last-name")]
         public string PhoneticLastName { get; set; }
 
         /// <summary>
-        /// Field: 'formatted-phonetic-name'
+        /// Field: 'formatted-phonetic-name' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "formatted-phonetic-name")]
         public string FormattedPhoneticName { get; set; }
 
         /// <summary>
-        /// Field: 'location:(name)'
-        /// Field: 'location:(country:(code))'
+        /// Field: 'location:(name)' (on-demand)
+        /// Field: 'location:(country:(code))' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "location")]
         public Location Location { get; set; }
 
         /// <summary>
-        /// Field: 'industry'
+        /// Field: 'industry' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "industry")]
         public string Industry { get; set; }
 
         /// <summary>
-        /// Field: 'distance'
+        /// Field: 'distance' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "distance")]
         public string Distance { get; set; }
 
         /// <summary>
-        /// Field: 'relation-to-viewer:(distance)'
-        /// Field: 'relation-to-viewer:(related-connections)'
-        /// Field: 'relation-to-viewer:(connections)'
+        /// Field: 'relation-to-viewer:(distance)' (on-demand)
+        /// Field: 'relation-to-viewer:(related-connections)' (on-demand)
+        /// Field: 'relation-to-viewer:(connections)' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "relation-to-viewer")]
         public RelationToViewer RelationToViewer { get; set; }
 
         /// <summary>
-        /// Field: 'current-status'
+        /// Field: 'current-status' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "current-status")]
         public string CurrentStatus { get; set; }
 
         /// <summary>
-        /// Field: 'current-status-timestamp'
+        /// Field: 'current-status-timestamp' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "current-status-timestamp")]
         public string CurrentStatusTimestamp { get; set; }
 
         /// <summary>
-        /// Field: 'current-share'
+        /// Field: 'current-share' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "current-share")]
         public string CurrentShare { get; set; }
 
         /// <summary>
-        /// Field: 'num-connections'
+        /// Field: 'num-connections' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "num-connections")]
         public string NumConnections { get; set; }
 
         /// <summary>
-        /// Field: 'num-connections-capped'
+        /// Field: 'num-connections-capped' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "num-connections-capped")]
         public string NumConnectionsCapped { get; set; }
 
         /// <summary>
-        /// Field: 'summary'
+        /// Field: 'summary' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "summary")]
         public string Summary { get; set; }
 
         /// <summary>
-        /// Field: 'specialties'
+        /// Field: 'specialties' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "specialties")]
         public string Specialties { get; set; }
 
         /// <summary>
-        /// Field: 'positions'
+        /// Field: 'positions' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "positions")]
         public string Positions { get; set; }
 
         /// <summary>
-        /// Field: 'picture-url'
+        /// Field: 'picture-url' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "picture-url")]
         public string PictureUrl { get; set; }
 
         /// <summary>
-        /// Field: 'site-standard-profile-request'
+        /// Field: 'site-standard-profile-request' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "site-standard-profile-request")]
         public string SiteStandardProfileRequest { get; set; }
 
         /// <summary>
-        /// Field: 'api-standard-profile-request:(url)'
-        /// Field: 'api-standard-profile-request:(headers)'
+        /// Field: 'api-standard-profile-request:(url)' (on-demand)
+        /// Field: 'api-standard-profile-request:(headers)' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "api-standard-profile-request")]
         public ApiStandardProfileRequest ApiStandardProfileRequest { get; set; }
 
         /// <summary>
-        /// Field: 'public-profile-url'
+        /// Field: 'public-profile-url' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "public-profile-url")]
         public string PublicProfileUrl { get; set; }
@@ -188,11 +191,14 @@ namespace Sparkle.LinkedInNET.Profiles
     using System;
     using System.Xml.Serialization;
 
+    /// <summary>
+    /// Name: 'location'
+    /// </summary>
     [Serializable]
     public class Location
     {
         /// <summary>
-        /// Field: 'name'
+        /// Field: 'name' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "name")]
         public string Name { get; set; }
@@ -205,11 +211,14 @@ namespace Sparkle.LinkedInNET.Profiles
     using System;
     using System.Xml.Serialization;
 
+    /// <summary>
+    /// Name: 'relation-to-viewer'
+    /// </summary>
     [Serializable]
     public class RelationToViewer
     {
         /// <summary>
-        /// Field: 'distance'
+        /// Field: 'distance' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "distance")]
         public string Distance { get; set; }
@@ -222,14 +231,91 @@ namespace Sparkle.LinkedInNET.Profiles
     using System;
     using System.Xml.Serialization;
 
+    /// <summary>
+    /// Name: 'api-standard-profile-request'
+    /// </summary>
     [Serializable]
     public class ApiStandardProfileRequest
     {
         /// <summary>
-        /// Field: 'url'
+        /// Field: 'url' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "url")]
         public string Url { get; set; }
+
+    }
+}
+
+namespace Sparkle.LinkedInNET.Profiles
+{
+    using System;
+    using System.Xml.Serialization;
+    using Sparkle.LinkedInNET.Internals;
+
+    /// <summary>
+    /// Name: 'Profiles'
+    /// </summary>
+    public class ProfilesApi : BaseApi
+    {
+        private LinkedInApi linkedInApi;
+        
+        public ProfilesApi(LinkedInApi linkedInApi)
+        {
+            this.linkedInApi = linkedInApi;
+        }
+        
+        /// <summary>
+        /// the profile of the current user
+        /// </summary>
+        public Person GetMyProfile(
+        )
+        {
+            const string urlFormat = "/v1/people/~";
+            var url = FormatUrl(urlFormat);
+            throw new NotImplementedException(url);
+        }
+        
+        /// <summary>
+        /// the profile of a user in the network
+        /// </summary>
+        public Person GetProfileById(
+            string MemberToken
+        )
+        {
+            const string urlFormat = "/v1/people/id={MemberToken}";
+            var url = FormatUrl(urlFormat, "MemberToken", MemberToken);
+            throw new NotImplementedException(url);
+        }
+        
+        /// <summary>
+        /// the public profile of a user
+        /// </summary>
+        public Person GetPublicprofile(
+            string PublicProfileUrl
+        )
+        {
+            const string urlFormat = "/v1/people/url={PublicProfileUrl}";
+            var url = FormatUrl(urlFormat, "PublicProfileUrl", PublicProfileUrl);
+            throw new NotImplementedException(url);
+        }
+        
+    }
+}
+
+namespace Sparkle.LinkedInNET
+{
+    using System;
+    using System.Xml.Serialization;
+    using Sparkle.LinkedInNET.Internals;
+    using Sparkle.LinkedInNET.Profiles;
+
+    /// <summary>
+    /// </summary>
+    public class LinkedInApi : BaseApi
+    {
+        public ProfilesApi Profiles{
+            get { return new ProfilesApi(this); }
+        }
 
     }
 }
