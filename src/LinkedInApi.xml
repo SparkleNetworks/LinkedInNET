@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Root>
+  <ApiGroup>
+    <ApiMethod Title="the profile of the current user" Path="/v1/people/~" ReturnType="Person" />
+    <ApiMethod Title="the profile of a user in the network" Path="/v1/people/id={MemberToken}" ReturnType="Person" />
+    <ApiMethod Title="the public profile of a user" Path="/v1/people/url={PublicProfileUrl}" ReturnType="Person" />
+    
+    <ReturnType Name="Person">
+      <Field Name="first-name" PropertyName="Firstname" Title="the member's first name" IsDefault="True" />
+      <Field Name="last-name" PropertyName="Lastname" Title="the member's last name" IsDefault="True" />
+      <Field Name="headline" Title="the member's headline (often &quot;Job Title at Company&quot;)" IsDefault="True" />
+      <Field Name="site-standard-profile-request/url" Title="the URL to the member's authenticated profile on LinkedIn (requires a login to be viewed, unlike public profiles)" IsDefault="True" />
+
+      <Field Name="id" Title="a unique identifier token for this member" />
+      
+      
+    </ReturnType>
+  </ApiGroup>
+</Root>
