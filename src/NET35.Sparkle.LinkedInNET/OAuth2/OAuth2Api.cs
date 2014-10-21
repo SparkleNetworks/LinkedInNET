@@ -102,42 +102,25 @@ namespace Sparkle.LinkedInNET.OAuth2
                 Uri.EscapeDataString(this.LinkedInApi.Configuration.ApiKey),
                 Uri.EscapeDataString(this.LinkedInApi.Configuration.ApiSecretKey));
 
-            var request = (HttpWebRequest)HttpWebRequest.Create(url);
-            request.Method = "POST";
-            request.UserAgent = LibraryInfo.UserAgent;
-            
-            // get response
-            HttpWebResponse response;
-            string json;
+            var context = new RequestContext
+            {
+                Method= "POST",
+                UrlPath = url,
+            };
+            this.ExecuteQuery(context);
+
             AuthorizationAccessToken result = null;
+            var reader = new StreamReader(context.ResponseStream, Encoding.UTF8);
+            var json = reader.ReadToEnd();
+
+            // read response content
             try
             {
-                response = (HttpWebResponse)request.GetResponse();
-                var readStream = response.GetResponseStream();
-                var reader = new StreamReader(readStream, Encoding.UTF8);
-                json = reader.ReadToEnd();
-
-                // read response content
-                try
-                {
-                    result = JsonConvert.DeserializeObject<AuthorizationAccessToken>(json);
-                }
-                catch (Exception ex)
-                {
-                    throw new InvalidOperationException("Failed to read API response", ex);
-                }
-
-                // check HTTP code
-                if (response.StatusCode != HttpStatusCode.OK)
-                {
-                    throw new InvalidOperationException("Error from API (HTTP " + (int)(response.StatusCode) + ")");
-                }
+                result = JsonConvert.DeserializeObject<AuthorizationAccessToken>(json);
             }
-            catch (WebException ex)
+            catch (Exception ex)
             {
-                response = (HttpWebResponse)ex.Response;
-
-                throw new InvalidOperationException("Error from API: " + ex.Message, ex);
+                throw new InvalidOperationException("Failed to read API response", ex);
             }
 
             if (result == null)
