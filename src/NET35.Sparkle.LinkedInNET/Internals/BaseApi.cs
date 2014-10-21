@@ -6,21 +6,24 @@ namespace Sparkle.LinkedInNET.Internals
     using System.Linq;
     using System.Text;
 
+    /// <summary>
+    /// Base class for LinkedIn APIs.
+    /// </summary>
     public class BaseApi
     {
         private LinkedInApi linkedInApi;
 
-        public BaseApi(LinkedInApi linkedInApi)
+        internal BaseApi(LinkedInApi linkedInApi)
         {
             this.linkedInApi = linkedInApi;
         }
 
-        protected LinkedInApi LinkedInApi
+        internal LinkedInApi LinkedInApi
         {
             get { return this.linkedInApi; }
         }
 
-        protected static string FormatUrl(string format, params string[] values)
+        internal static string FormatUrl(string format, params string[] values)
         {
             var result = format;
 
@@ -45,7 +48,7 @@ namespace Sparkle.LinkedInNET.Internals
             return result;
         }
 
-        protected void CheckConfiguration(bool apiKey = false, bool apiSecretKey = false)
+        internal void CheckConfiguration(bool apiKey = false, bool apiSecretKey = false)
         {
             var config = this.linkedInApi.Configuration;
             if (config == null)

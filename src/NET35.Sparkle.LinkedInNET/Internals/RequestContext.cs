@@ -7,7 +7,7 @@ namespace Sparkle.LinkedInNET.Internals
     using System.Linq;
     using System.Text;
 
-    public class RequestContext
+    internal class RequestContext
     {
         private Dictionary<string, string> queryStrings;
         private Dictionary<string, string> postQueryStrings;

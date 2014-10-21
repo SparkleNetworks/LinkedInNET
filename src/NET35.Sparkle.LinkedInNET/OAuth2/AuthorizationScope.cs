@@ -3,6 +3,9 @@ namespace Sparkle.LinkedInNET.OAuth2
 {
     using System;
 
+    /// <summary>
+    /// Permissions for authorization requests.
+    /// </summary>
     [Flags]
     public enum AuthorizationScope : ushort
     {

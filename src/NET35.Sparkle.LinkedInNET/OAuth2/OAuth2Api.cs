@@ -11,18 +11,34 @@ namespace Sparkle.LinkedInNET.OAuth2
     using Sparkle.LinkedInNET.Internals;
 
     /// <summary>
-    /// 
+    /// OAuth2 operations for LinkedIn.
     /// </summary>
     /// <remarks>
     /// https://developer.linkedin.com/documents/authentication
     /// </remarks>
     public class OAuth2Api : BaseApi
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="OAuth2Api"/> class.
+        /// </summary>
+        /// <param name="linkedInApi">The linked information API.</param>
         public OAuth2Api(LinkedInApi linkedInApi)
             : base(linkedInApi)
         {
         }
 
+        /// <summary>
+        /// Gets the authorization URL.
+        /// </summary>
+        /// <param name="scope">An enum of permissions.</param>
+        /// <param name="state">A unique identifier to use as a CSRF check.</param>
+        /// <param name="redirectUri">The redirect URI.</param>
+        /// <returns></returns>
+        /// <exception cref="System.ArgumentException">
+        /// The value cannot be empty;state
+        /// or
+        /// The value cannot be empty;redirectUri
+        /// </exception>
         public Uri GetAuthorizationUrl(AuthorizationScope scope, string state, string redirectUri)
         {
             if (string.IsNullOrEmpty(state))
@@ -49,6 +65,26 @@ namespace Sparkle.LinkedInNET.OAuth2
             return new Uri(url);
         }
 
+        /// <summary>
+        /// Gets the access token for a authorization code.
+        /// </summary>
+        /// <param name="authorizationCode">The authorization code.</param>
+        /// <param name="redirectUri">The redirect URI.</param>
+        /// <returns></returns>
+        /// <exception cref="System.ArgumentException">
+        /// The value cannot be empty;authorizationCode
+        /// or
+        /// The value cannot be empty;redirectUri
+        /// </exception>
+        /// <exception cref="System.InvalidOperationException">
+        /// Failed to read API response
+        /// or
+        /// Error from API (HTTP  + (int)(response.StatusCode) + )
+        /// or
+        /// Error from API:  + ex.Message
+        /// or
+        /// API responded with an empty response
+        /// </exception>
         public AuthorizationAccessToken GetAccessToken(string authorizationCode, string redirectUri)
         {
             if (string.IsNullOrEmpty(authorizationCode))
