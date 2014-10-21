@@ -9,11 +9,12 @@
 
 // XML document found at '\src\NET35.Sparkle.LinkedInNET\..\LinkedInApi.xml'
 // return types: '0'
-// API groups: '1'
+// API groups: '4'
 
 namespace Sparkle.LinkedInNET.Profiles
 {
     using System;
+    using System.Collections.Generic;
     using System.Xml.Serialization;
 
     /// <summary>
@@ -189,6 +190,28 @@ namespace Sparkle.LinkedInNET.Profiles
 namespace Sparkle.LinkedInNET.Profiles
 {
     using System;
+    using System.Collections.Generic;
+    using System.Xml.Serialization;
+
+    /// <summary>
+    /// Name: 'connections'
+    /// </summary>
+    [Serializable, XmlRoot("connections")]
+    public class Connections
+    {
+        /// <summary>
+        /// Field: 'person' (on-demand)
+        /// </summary>
+        [XmlElement(ElementName = "person")]
+        public List<string> Person { get; set; }
+
+    }
+}
+
+namespace Sparkle.LinkedInNET.Profiles
+{
+    using System;
+    using System.Collections.Generic;
     using System.Xml.Serialization;
 
     /// <summary>
@@ -209,6 +232,7 @@ namespace Sparkle.LinkedInNET.Profiles
 namespace Sparkle.LinkedInNET.Profiles
 {
     using System;
+    using System.Collections.Generic;
     using System.Xml.Serialization;
 
     /// <summary>
@@ -229,6 +253,7 @@ namespace Sparkle.LinkedInNET.Profiles
 namespace Sparkle.LinkedInNET.Profiles
 {
     using System;
+    using System.Collections.Generic;
     using System.Xml.Serialization;
 
     /// <summary>
@@ -242,6 +267,33 @@ namespace Sparkle.LinkedInNET.Profiles
         /// </summary>
         [XmlElement(ElementName = "url")]
         public string Url { get; set; }
+
+    }
+}
+
+namespace Sparkle.LinkedInNET.Companies
+{
+    using System;
+    using System.Collections.Generic;
+    using System.Xml.Serialization;
+
+    /// <summary>
+    /// Name: 'company'
+    /// </summary>
+    [Serializable, XmlRoot("company")]
+    public class Company
+    {
+        /// <summary>
+        /// Field: 'id' (default)
+        /// </summary>
+        [XmlElement(ElementName = "id")]
+        public string Id { get; set; }
+
+        /// <summary>
+        /// Field: 'name' (default)
+        /// </summary>
+        [XmlElement(ElementName = "name")]
+        public string Name { get; set; }
 
     }
 }
@@ -335,6 +387,209 @@ namespace Sparkle.LinkedInNET.Profiles
             return result;
         }
         
+        /// <summary>
+        /// returns a list of 1st degree connections for a user 
+        /// </summary>
+        public Person GetMyConnections(
+              UserAuthorization user
+        )
+        {
+            var url = "/v1/people/~/connections";
+
+            var context = new RequestContext();
+            context.UserAuthorization = user;
+            context.Method =  "GET";
+            context.UrlPath = this.LinkedInApi.Configuration.BaseApiUrl + url;
+
+            this.ExecuteQuery(context);
+
+            
+            ////var response = new System.IO.StreamReader(context.ResponseStream).ReadToEnd();
+            var serializer = new XmlSerializer(typeof(Person));
+            var result = (Person)serializer.Deserialize(context.ResponseStream);
+            return result;
+        }
+        
+        /// <summary>
+        /// returns a list of 1st degree connections for a user 
+        /// </summary>
+        public Person GetConnectionsByProfileId(
+              UserAuthorization user
+            , string memberToken
+        )
+        {
+            const string urlFormat = "/v1/people/id={MemberToken}/connections";
+            var url = FormatUrl(urlFormat, "MemberToken", memberToken);
+
+            var context = new RequestContext();
+            context.UserAuthorization = user;
+            context.Method =  "GET";
+            context.UrlPath = this.LinkedInApi.Configuration.BaseApiUrl + url;
+
+            this.ExecuteQuery(context);
+
+            
+            ////var response = new System.IO.StreamReader(context.ResponseStream).ReadToEnd();
+            var serializer = new XmlSerializer(typeof(Person));
+            var result = (Person)serializer.Deserialize(context.ResponseStream);
+            return result;
+        }
+        
+    }
+}
+
+namespace Sparkle.LinkedInNET.Companies
+{
+    using System;
+    using System.Xml.Serialization;
+    using Sparkle.LinkedInNET.Internals;
+
+    /// <summary>
+    /// Name: 'Companies'
+    /// </summary>
+    public class CompaniesApi : BaseApi
+    {
+        public CompaniesApi(LinkedInApi linkedInApi)
+            : base(linkedInApi)
+        {
+        }
+        
+        /// <summary>
+        /// Hacker Summary
+        /// </summary>
+        public Company GetList(
+              UserAuthorization user
+        )
+        {
+            var url = "/v1/companies";
+
+            var context = new RequestContext();
+            context.UserAuthorization = user;
+            context.Method =  "GET";
+            context.UrlPath = this.LinkedInApi.Configuration.BaseApiUrl + url;
+
+            this.ExecuteQuery(context);
+
+            
+            ////var response = new System.IO.StreamReader(context.ResponseStream).ReadToEnd();
+            var serializer = new XmlSerializer(typeof(Company));
+            var result = (Company)serializer.Deserialize(context.ResponseStream);
+            return result;
+        }
+        
+        /// <summary>
+        /// retrieve a company by using the company ID
+        /// </summary>
+        public Company GetById(
+              UserAuthorization user
+            , string companyId
+        )
+        {
+            const string urlFormat = "/v1/companies/{CompanyId}";
+            var url = FormatUrl(urlFormat, "CompanyId", companyId);
+
+            var context = new RequestContext();
+            context.UserAuthorization = user;
+            context.Method =  "GET";
+            context.UrlPath = this.LinkedInApi.Configuration.BaseApiUrl + url;
+
+            this.ExecuteQuery(context);
+
+            
+            ////var response = new System.IO.StreamReader(context.ResponseStream).ReadToEnd();
+            var serializer = new XmlSerializer(typeof(Company));
+            var result = (Company)serializer.Deserialize(context.ResponseStream);
+            return result;
+        }
+        
+        /// <summary>
+        /// Retrieve a company by universal-name.
+        /// </summary>
+        public Company GetByName(
+              UserAuthorization user
+            , string universalName
+        )
+        {
+            const string urlFormat = "/v1/companies/universal-name={UniversalName}";
+            var url = FormatUrl(urlFormat, "UniversalName", universalName);
+
+            var context = new RequestContext();
+            context.UserAuthorization = user;
+            context.Method =  "GET";
+            context.UrlPath = this.LinkedInApi.Configuration.BaseApiUrl + url;
+
+            this.ExecuteQuery(context);
+
+            
+            ////var response = new System.IO.StreamReader(context.ResponseStream).ReadToEnd();
+            var serializer = new XmlSerializer(typeof(Company));
+            var result = (Company)serializer.Deserialize(context.ResponseStream);
+            return result;
+        }
+        
+        /// <summary>
+        /// This returns an array of companies that match to the specified email domain.
+        /// </summary>
+        public Company GetListByEmailDomain(
+              UserAuthorization user
+            , string universalName
+        )
+        {
+            const string urlFormat = "/v1/companies/universal-name={UniversalName}";
+            var url = FormatUrl(urlFormat, "UniversalName", universalName);
+
+            var context = new RequestContext();
+            context.UserAuthorization = user;
+            context.Method =  "GET";
+            context.UrlPath = this.LinkedInApi.Configuration.BaseApiUrl + url;
+
+            this.ExecuteQuery(context);
+
+            
+            ////var response = new System.IO.StreamReader(context.ResponseStream).ReadToEnd();
+            var serializer = new XmlSerializer(typeof(Company));
+            var result = (Company)serializer.Deserialize(context.ResponseStream);
+            return result;
+        }
+        
+    }
+}
+
+namespace Sparkle.LinkedInNET.Groups
+{
+    using System;
+    using System.Xml.Serialization;
+    using Sparkle.LinkedInNET.Internals;
+
+    /// <summary>
+    /// Name: 'Groups'
+    /// </summary>
+    public class GroupsApi : BaseApi
+    {
+        public GroupsApi(LinkedInApi linkedInApi)
+            : base(linkedInApi)
+        {
+        }
+        
+    }
+}
+
+namespace Sparkle.LinkedInNET.Jobs
+{
+    using System;
+    using System.Xml.Serialization;
+    using Sparkle.LinkedInNET.Internals;
+
+    /// <summary>
+    /// Name: 'Jobs'
+    /// </summary>
+    public class JobsApi : BaseApi
+    {
+        public JobsApi(LinkedInApi linkedInApi)
+            : base(linkedInApi)
+        {
+        }
+        
     }
 }
 
@@ -344,6 +599,9 @@ namespace Sparkle.LinkedInNET
     using System.Xml.Serialization;
     using Sparkle.LinkedInNET.Internals;
     using Sparkle.LinkedInNET.Profiles;
+    using Sparkle.LinkedInNET.Companies;
+    using Sparkle.LinkedInNET.Groups;
+    using Sparkle.LinkedInNET.Jobs;
 
     /// <summary>
     /// </summary>
@@ -351,6 +609,18 @@ namespace Sparkle.LinkedInNET
     {
         public ProfilesApi Profiles{
             get { return new ProfilesApi(this); }
+        }
+
+        public CompaniesApi Companies{
+            get { return new CompaniesApi(this); }
+        }
+
+        public GroupsApi Groups{
+            get { return new GroupsApi(this); }
+        }
+
+        public JobsApi Jobs{
+            get { return new JobsApi(this); }
         }
 
     }

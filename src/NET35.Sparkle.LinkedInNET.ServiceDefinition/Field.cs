@@ -23,6 +23,9 @@ namespace Sparkle.LinkedInNET.ServiceDefinition
         public bool IsDefault { get; set; }
 
         [XmlAttribute]
+        public bool IsCollection { get; set; }
+
+        [XmlAttribute]
         public string ReturnType { get; set; }
 
         public string GetMainName()

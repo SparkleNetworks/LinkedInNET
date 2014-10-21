@@ -243,7 +243,7 @@ namespace Sparkle.LinkedInNET.ServiceDefinition
                     if (returnTypeType != null)
                     {
                         text.WriteLine(indent, "////var response = new System.IO.StreamReader(context.ResponseStream).ReadToEnd();");
-                        text.WriteLine(indent, "var serializer = new XmlSerializer(typeof(Person));");
+                        text.WriteLine(indent, "var serializer = new XmlSerializer(typeof(" + returnType + "));");
                         text.WriteLine(indent, "var result = (" + returnType + ")serializer.Deserialize(context.ResponseStream);");
                     }
                     else
@@ -290,6 +290,7 @@ namespace Sparkle.LinkedInNET.ServiceDefinition
             this.text.WriteLine(indent, "namespace " + this.RootNamespace + "." + apiGroup.Name);
             this.text.WriteLine(indent++, "{");
             this.WriteNamespace(indent, "System");
+            this.WriteNamespace(indent, "System.Collections.Generic");
             this.WriteNamespace(indent, "System.Xml.Serialization");
             this.text.WriteLine();
             this.text.WriteLine(indent, "/// <summary>");
@@ -311,6 +312,7 @@ namespace Sparkle.LinkedInNET.ServiceDefinition
                 var parts = item.Name.Split(new char[] { ':', }, 2);
                 var mainPart = parts.Length == 1 ? parts[0] : parts[0];
                 var subPart = parts.Length == 2 ? parts[1] : null;
+                var isCollection = item.IsCollection;
 
                 var type = "string";
                 if (parts.Length > 1)
@@ -324,6 +326,11 @@ namespace Sparkle.LinkedInNET.ServiceDefinition
                     {
                         type = this.GetPropertyName(null, mainPart);
                     }
+                }
+
+                if (isCollection)
+                {
+                    type = "List<" + type + ">";
                 }
 
                 this.text.WriteLine(indent, "/// <summary>");

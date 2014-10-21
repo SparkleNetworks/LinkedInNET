@@ -1,4 +1,4 @@
-LinkedInNET
+﻿LinkedInNET
 ===========
 
 Sparkle.LinkedInNET will help you query the LinkedIn API :)
@@ -54,6 +54,7 @@ References
 https://developer.linkedin.com/apis  
 https://developer.linkedin.com/documents/authentication  
 
+
 .NET version
 ------------
 
@@ -62,4 +63,11 @@ The initial library targets 3.5.
 We are using a lot of code generation so it won't be difficult to target 4.5 or any other framework.
 
 
+Status
+------------
 
+We are just at the beginning.
+
+* code generation is ok but still changing a lot
+* api coverage is very low
+* requesting fields: nothing yet, important thing to do

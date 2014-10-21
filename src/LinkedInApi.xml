@@ -4,6 +4,8 @@
     <ApiMethod MethodName="GetMyProfile"     HttpMethod="GET" Title="the profile of the current user" Path="/v1/people/~" ReturnType="Person" RequiresUserAuthentication="1" />
     <ApiMethod MethodName="GetProfileById"   HttpMethod="GET" Title="the profile of a user in the network" Path="/v1/people/id={MemberToken}" ReturnType="Person" RequiresUserAuthentication="1" />
     <ApiMethod MethodName="GetPublicprofile" HttpMethod="GET" Title="the public profile of a user" Path="/v1/people/url={PublicProfileUrl}" ReturnType="Person" RequiresUserAuthentication="1" />
+    <ApiMethod MethodName="GetMyConnections"     HttpMethod="GET" Title="returns a list of 1st degree connections for a user " Path="/v1/people/~/connections" ReturnType="Person" RequiresUserAuthentication="1" />
+    <ApiMethod MethodName="GetConnectionsByProfileId"     HttpMethod="GET" Title="returns a list of 1st degree connections for a user " Path="/v1/people/id={MemberToken}/connections" ReturnType="Person" RequiresUserAuthentication="1" />
     
     <ReturnType Name="person" ClassName="Person">
       <Field Name="first-name" PropertyName="Firstname" Title="the member's first name" IsDefault="1" />
@@ -39,5 +41,27 @@
       <Field Name="api-standard-profile-request:(headers)" Title="A collection of fields that can be re-used as HTTP headers to request an out of network profile programmatically" Remark="Use the name returned as the name of an HTTP header with the value returned as it's value" />
       <Field Name="public-profile-url" Title="A URL to the member's public profile, if enabled" Remark="This field is only available when requested using a field selector in a profile or connections call." />
     </ReturnType>
+
+    <ReturnType Name="connections">
+      <Field Name="person" IsCollection="1" ReturnType="Person" />
+    </ReturnType>
+  </ApiGroup>
+  
+  <ApiGroup Name="Companies">
+    <ApiMethod MethodName="GetList" HttpMethod="GET" Title="Hacker Summary" Path="/v1/companies" ReturnType="Company" RequiresUserAuthentication="1" />
+    <ApiMethod MethodName="GetById"   HttpMethod="GET" Title="retrieve a company by using the company ID" Path="/v1/companies/{CompanyId}" ReturnType="Company" RequiresUserAuthentication="1" />
+    <ApiMethod MethodName="GetByName"   HttpMethod="GET" Title="Retrieve a company by universal-name." Path="/v1/companies/universal-name={UniversalName}" ReturnType="Company" RequiresUserAuthentication="1" />
+    <ApiMethod MethodName="GetListByEmailDomain"   HttpMethod="GET" Title="This returns an array of companies that match to the specified email domain." Path="/v1/companies/universal-name={UniversalName}" ReturnType="Company" RequiresUserAuthentication="1" />
+
+    <ReturnType Name="company" ClassName="Company">
+      <Field Name="id" IsDefault="1" />
+      <Field Name="name" IsDefault="1" />
+    </ReturnType>
+  </ApiGroup>
+  
+  <ApiGroup Name="Groups">
+  </ApiGroup>
+  
+  <ApiGroup Name="Jobs">
   </ApiGroup>
 </Root>
