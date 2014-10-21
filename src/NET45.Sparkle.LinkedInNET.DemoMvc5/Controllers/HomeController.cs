@@ -30,6 +30,11 @@ namespace Sparkle.LinkedInNET.DemoMvc5.Controllers
 
             this.ViewBag.Url = authorizeUrl;
 
+            if (this.data.HasAccessToken)
+            {
+                this.ViewBag.Token = this.data.GetAccessToken();
+            }
+
             return this.View();
         }
 
@@ -40,6 +45,8 @@ namespace Sparkle.LinkedInNET.DemoMvc5.Controllers
 
             this.ViewBag.Code = code;
             this.ViewBag.Token = result.AccessToken;
+
+            this.data.SaveAccessToken(result.AccessToken);
 
             var user = new UserAuthorization(result.AccessToken);
 

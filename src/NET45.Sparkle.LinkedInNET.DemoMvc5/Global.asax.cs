@@ -33,8 +33,7 @@ namespace Sparkle.LinkedInNET.DemoMvc5
         {
             var kernel = new StandardKernel();
             kernel.Load(Assembly.GetExecutingAssembly());
-            kernel.Bind<IDataStore>().To<DataStore>();
-            kernel.Bind<DataService>().ToSelf().InRequestScope();
+            kernel.Bind<DataService>().ToSelf().InRequestScope().WithConstructorArgument<IDataStore<DataService.RootData>>(new JsonFileDataStore<DataService.RootData>(this.Server.MapPath("~/App_Data/data.json")));
             return kernel;
         }
     }
