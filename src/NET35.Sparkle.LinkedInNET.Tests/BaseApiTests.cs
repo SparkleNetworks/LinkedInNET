@@ -38,6 +38,16 @@ namespace Sparkle.LinkedInNET.Tests
 
     public class Api : BaseApi
     {
+        public Api()
+            : base(null)
+        {
+        }
+
+        public Api(LinkedInApi linkedInApi)
+            : base(linkedInApi)
+        {
+        }
+
         public string FormatUrlInvoke(string format, params string[] values)
         {
             return FormatUrl(format, values);

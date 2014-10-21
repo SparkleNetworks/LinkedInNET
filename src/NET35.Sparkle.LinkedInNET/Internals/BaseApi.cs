@@ -8,9 +8,16 @@ namespace Sparkle.LinkedInNET.Internals
 
     public class BaseApi
     {
-        protected string BaseUrl
+        private LinkedInApi linkedInApi;
+
+        public BaseApi(LinkedInApi linkedInApi)
         {
-            get { return "https://api.linkedin.com"; }
+            this.linkedInApi = linkedInApi;
+        }
+
+        protected LinkedInApi LinkedInApi
+        {
+            get { return this.linkedInApi; }
         }
 
         protected static string FormatUrl(string format, params string[] values)
@@ -36,6 +43,22 @@ namespace Sparkle.LinkedInNET.Internals
             }
 
             return result;
+        }
+
+        protected void CheckConfiguration(bool apiKey = false, bool apiSecretKey = false)
+        {
+            var config = this.linkedInApi.Configuration;
+            if (config == null)
+                throw new InvalidOperationException("Configuration is not set");
+
+            if (apiSecretKey)
+                apiKey = true;
+
+            if (apiKey && string.IsNullOrEmpty(config.ApiKey))
+                throw new InvalidOperationException("Missing API Key in configuration");
+
+            if (apiSecretKey && string.IsNullOrEmpty(config.ApiSecretKey))
+                throw new InvalidOperationException("Missing API Secret Key in configuration");
         }
     }
 }

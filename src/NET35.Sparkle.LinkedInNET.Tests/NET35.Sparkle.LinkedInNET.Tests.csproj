@@ -55,7 +55,7 @@
   <ItemGroup>
     <Compile Include="BaseApiTests.cs" />
     <Compile Include="CSharpGeneratorTests.cs" />
-    <Compile Include="OAuth2Api.cs" />
+    <Compile Include="OAuth2ApiTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

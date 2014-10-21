@@ -16,17 +16,22 @@ namespace Sparkle.LinkedInNET.OAuth2
     /// <remarks>
     /// https://developer.linkedin.com/documents/authentication
     /// </remarks>
-    public class OAuth2Api
+    public class OAuth2Api : BaseApi
     {
-        private LinkedInApi linkedInApi;
-
         public OAuth2Api(LinkedInApi linkedInApi)
+            : base(linkedInApi)
         {
-            this.linkedInApi = linkedInApi;
         }
 
         public Uri GetAuthorizationUrl(AuthorizationScope scope, string state, string redirectUri)
         {
+            if (string.IsNullOrEmpty(state))
+                throw new ArgumentException("The value cannot be empty", "state");
+            if (string.IsNullOrEmpty(redirectUri))
+                throw new ArgumentException("The value cannot be empty", "redirectUri");
+
+            this.CheckConfiguration(apiKey: true);
+
             var flags = Enum.GetValues(typeof(AuthorizationScope))
                 .Cast<AuthorizationScope>()
                 .Where(s => (scope & s) == s)
@@ -36,8 +41,8 @@ namespace Sparkle.LinkedInNET.OAuth2
 
             var url = string.Format(
                 "{0}/uas/oauth2/authorization?response_type=code&client_id={1}&scope={2}&state={3}&redirect_uri={4}",
-                this.linkedInApi.Configuration.BaseOAuthUrl,
-                Uri.EscapeDataString(this.linkedInApi.Configuration.ApiKey),
+                this.LinkedInApi.Configuration.BaseOAuthUrl,
+                Uri.EscapeDataString(this.LinkedInApi.Configuration.ApiKey),
                 Uri.EscapeDataString(scopeAsString),
                 Uri.EscapeDataString(state),
                 Uri.EscapeDataString(redirectUri));
@@ -46,13 +51,20 @@ namespace Sparkle.LinkedInNET.OAuth2
 
         public AuthorizationAccessToken GetAccessToken(string authorizationCode, string redirectUri)
         {
+            if (string.IsNullOrEmpty(authorizationCode))
+                throw new ArgumentException("The value cannot be empty", "authorizationCode");
+            if (string.IsNullOrEmpty(redirectUri))
+                throw new ArgumentException("The value cannot be empty", "redirectUri");
+
+            this.CheckConfiguration(apiSecretKey: true);
+
             var url = string.Format(
                 "{0}/uas/oauth2/accessToken?grant_type=authorization_code&code={1}&redirect_uri={2}&client_id={3}&client_secret={4}",
-                this.linkedInApi.Configuration.BaseOAuthUrl,
+                this.LinkedInApi.Configuration.BaseOAuthUrl,
                 Uri.EscapeDataString(authorizationCode),
                 Uri.EscapeDataString(redirectUri),
-                Uri.EscapeDataString(this.linkedInApi.Configuration.ApiKey),
-                Uri.EscapeDataString(this.linkedInApi.Configuration.ApiSecretKey));
+                Uri.EscapeDataString(this.LinkedInApi.Configuration.ApiKey),
+                Uri.EscapeDataString(this.LinkedInApi.Configuration.ApiSecretKey));
 
             var request = (HttpWebRequest)HttpWebRequest.Create(url);
             request.Method = "POST";
