@@ -32,7 +32,19 @@ namespace Sparkle.LinkedInNET.DemoMvc5.Controllers
 
             if (this.data.HasAccessToken)
             {
-                this.ViewBag.Token = this.data.GetAccessToken();
+                var token = this.data.GetAccessToken();
+                this.ViewBag.Token = token;
+                var user = new UserAuthorization(token);
+
+                try
+                {
+                    var profile = this.api.Profiles.GetMyProfile(user);
+                    this.ViewBag.Profile = profile;
+                }
+                catch (Exception ex)
+                {
+                    this.ViewBag.ProfileError = ex.ToString();
+                }
             }
 
             return this.View();

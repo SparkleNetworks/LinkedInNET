@@ -242,8 +242,9 @@ namespace Sparkle.LinkedInNET.ServiceDefinition
                     text.WriteLine(indent, "");
                     if (returnTypeType != null)
                     {
-                        text.WriteLine(indent, "var response = new System.IO.StreamReader(context.ResponseStream).ReadToEnd();");
-                        text.WriteLine(indent, "var result = Newtonsoft.Json.JsonConvert.DeserializeObject<" + returnType + ">(response);");
+                        text.WriteLine(indent, "////var response = new System.IO.StreamReader(context.ResponseStream).ReadToEnd();");
+                        text.WriteLine(indent, "var serializer = new XmlSerializer(typeof(Person));");
+                        text.WriteLine(indent, "var result = (" + returnType + ")serializer.Deserialize(context.ResponseStream);");
                     }
                     else
                     {
@@ -300,18 +301,12 @@ namespace Sparkle.LinkedInNET.ServiceDefinition
                 this.text.WriteLine(indent, "/// " + returnType.Remark + "");
                 this.text.WriteLine(indent, "/// </remarks>");
             }
-            this.text.WriteLine(indent, "[Serializable]");
+            this.text.WriteLine(indent, "[Serializable, XmlRoot(\""+returnType.Name+"\")]");
             this.text.WriteLine(indent, "public class " + this.GetPropertyName(returnType.ClassName, returnType.Name));
             this.text.WriteLine(indent++, "{");
 
             foreach (var itemGroup in returnType.Fields.GroupBy(f => this.GetPropertyName(f.PropertyName, f.GetMainName())).ToArray())
             {
-                ////int itemIndex = -1;
-                ////foreach (var item in itemGroup)
-                ////{
-                ////    itemIndex++;
-                ////}
-
                 var item = itemGroup.First();
                 var parts = item.Name.Split(new char[] { ':', }, 2);
                 var mainPart = parts.Length == 1 ? parts[0] : parts[0];

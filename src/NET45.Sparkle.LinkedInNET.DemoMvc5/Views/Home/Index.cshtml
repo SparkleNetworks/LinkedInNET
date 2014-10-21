@@ -9,3 +9,25 @@
 
 <h2>2. Store token @(this.ViewBag.Token != null ? "(ok)" : "(todo, see 1.)")</h2>
 <pre>@this.ViewBag.Token</pre>
+
+<h2>3. Fetch user profile</h2>
+@{
+    var profile = (Sparkle.LinkedInNET.Profiles.Person)this.ViewBag.Profile;
+}
+@if (profile != null)
+{
+<dl>
+    <dt>Firstname</dt>
+    <dd>@profile.Firstname</dd>
+    <dt>Lastname</dt>
+    <dd>@profile.Lastname</dd>
+    <dt>Headline</dt>
+    <dd>@profile.Headline</dd>
+    <dt>SiteStandardProfileRequestUrl</dt>
+    <dd>@profile.SiteStandardProfileRequestUrl</dd>
+</dl>
+}
+@if (this.ViewBag.ProfileError != null)
+{
+<pre>@this.ViewBag.ProfileError</pre>
+}

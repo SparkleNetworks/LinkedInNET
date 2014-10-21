@@ -19,7 +19,7 @@ namespace Sparkle.LinkedInNET.Profiles
     /// <summary>
     /// Name: 'person'
     /// </summary>
-    [Serializable]
+    [Serializable, XmlRoot("person")]
     public class Person
     {
         /// <summary>
@@ -194,7 +194,7 @@ namespace Sparkle.LinkedInNET.Profiles
     /// <summary>
     /// Name: 'location'
     /// </summary>
-    [Serializable]
+    [Serializable, XmlRoot("location")]
     public class Location
     {
         /// <summary>
@@ -214,7 +214,7 @@ namespace Sparkle.LinkedInNET.Profiles
     /// <summary>
     /// Name: 'relation-to-viewer'
     /// </summary>
-    [Serializable]
+    [Serializable, XmlRoot("relation-to-viewer")]
     public class RelationToViewer
     {
         /// <summary>
@@ -234,7 +234,7 @@ namespace Sparkle.LinkedInNET.Profiles
     /// <summary>
     /// Name: 'api-standard-profile-request'
     /// </summary>
-    [Serializable]
+    [Serializable, XmlRoot("api-standard-profile-request")]
     public class ApiStandardProfileRequest
     {
         /// <summary>
@@ -279,8 +279,9 @@ namespace Sparkle.LinkedInNET.Profiles
             this.ExecuteQuery(context);
 
             
-            var response = new System.IO.StreamReader(context.ResponseStream).ReadToEnd();
-            var result = Newtonsoft.Json.JsonConvert.DeserializeObject<Person>(response);
+            ////var response = new System.IO.StreamReader(context.ResponseStream).ReadToEnd();
+            var serializer = new XmlSerializer(typeof(Person));
+            var result = (Person)serializer.Deserialize(context.ResponseStream);
             return result;
         }
         
@@ -303,8 +304,9 @@ namespace Sparkle.LinkedInNET.Profiles
             this.ExecuteQuery(context);
 
             
-            var response = new System.IO.StreamReader(context.ResponseStream).ReadToEnd();
-            var result = Newtonsoft.Json.JsonConvert.DeserializeObject<Person>(response);
+            ////var response = new System.IO.StreamReader(context.ResponseStream).ReadToEnd();
+            var serializer = new XmlSerializer(typeof(Person));
+            var result = (Person)serializer.Deserialize(context.ResponseStream);
             return result;
         }
         
@@ -327,8 +329,9 @@ namespace Sparkle.LinkedInNET.Profiles
             this.ExecuteQuery(context);
 
             
-            var response = new System.IO.StreamReader(context.ResponseStream).ReadToEnd();
-            var result = Newtonsoft.Json.JsonConvert.DeserializeObject<Person>(response);
+            ////var response = new System.IO.StreamReader(context.ResponseStream).ReadToEnd();
+            var serializer = new XmlSerializer(typeof(Person));
+            var result = (Person)serializer.Deserialize(context.ResponseStream);
             return result;
         }
         
