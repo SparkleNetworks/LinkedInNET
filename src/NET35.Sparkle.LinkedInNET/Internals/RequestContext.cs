@@ -4,6 +4,7 @@ namespace Sparkle.LinkedInNET.Internals
     using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
+    using System.IO;
     using System.Linq;
     using System.Text;
 
@@ -11,10 +12,13 @@ namespace Sparkle.LinkedInNET.Internals
     {
         private Dictionary<string, string> queryStrings;
         private Dictionary<string, string> postQueryStrings;
+        private bool bufferizeResponseStream = true;
 
         public string Method { get; set; }
 
         public string UrlPath { get; set; }
+
+        public UserAuthorization UserAuthorization { get; set; }
 
         public Dictionary<string, string> QueryStrings
         {
@@ -24,6 +28,12 @@ namespace Sparkle.LinkedInNET.Internals
         public Dictionary<string, string> PostQueryStrings
         {
             get { return this.postQueryStrings; }
+        }
+
+        public bool BufferizeResponseStream
+        {
+            get { return this.bufferizeResponseStream; }
+            set { this.bufferizeResponseStream = value; }
         }
 
         internal void AddUrlArgumentToUrlQueryString(string key, string value)
@@ -41,5 +51,7 @@ namespace Sparkle.LinkedInNET.Internals
 
             this.postQueryStrings.Add(key, value);
         }
+
+        public Stream ResponseStream { get; set; }
     }
 }

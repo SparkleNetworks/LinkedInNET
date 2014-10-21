@@ -24,5 +24,8 @@ namespace Sparkle.LinkedInNET.ServiceDefinition
 
         [XmlAttribute]
         public string HttpMethod { get; set; }
+
+        [XmlAttribute]
+        public bool RequiresUserAuthentication { get; set; }
     }
 }

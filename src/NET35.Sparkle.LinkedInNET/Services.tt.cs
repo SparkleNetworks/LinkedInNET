@@ -257,67 +257,79 @@ namespace Sparkle.LinkedInNET.Profiles
     /// </summary>
     public class ProfilesApi : BaseApi
     {
-        private LinkedInApi linkedInApi;
-        
         public ProfilesApi(LinkedInApi linkedInApi)
+            : base(linkedInApi)
         {
-            this.linkedInApi = linkedInApi;
         }
         
         /// <summary>
         /// the profile of the current user
         /// </summary>
         public Person GetMyProfile(
+              UserAuthorization user
         )
         {
-            const string urlFormat = "/v1/people/~";
-            var url = FormatUrl(urlFormat);
+            var url = "/v1/people/~";
+
             var context = new RequestContext();
+            context.UserAuthorization = user;
             context.Method =  "GET";
-            context.UrlPath = this.BaseUrl + url;
-            var response = this.client.ExecuteQuery(context);
+            context.UrlPath = this.LinkedInApi.Configuration.BaseApiUrl + url;
+
+            this.ExecuteQuery(context);
+
             
-            var result = JsonConvert.DeserializeObject<BaseResponse<Person>>(response);
-            this.HandleErrors(result);
-            return result.Data;
+            var response = new System.IO.StreamReader(context.ResponseStream).ReadToEnd();
+            var result = Newtonsoft.Json.JsonConvert.DeserializeObject<Person>(response);
+            return result;
         }
         
         /// <summary>
         /// the profile of a user in the network
         /// </summary>
         public Person GetProfileById(
-            string MemberToken
+              UserAuthorization user
+            , string memberToken
         )
         {
             const string urlFormat = "/v1/people/id={MemberToken}";
-            var url = FormatUrl(urlFormat, "MemberToken", MemberToken);
+            var url = FormatUrl(urlFormat, "MemberToken", memberToken);
+
             var context = new RequestContext();
+            context.UserAuthorization = user;
             context.Method =  "GET";
-            context.UrlPath = this.BaseUrl + url;
-            var response = this.client.ExecuteQuery(context);
+            context.UrlPath = this.LinkedInApi.Configuration.BaseApiUrl + url;
+
+            this.ExecuteQuery(context);
+
             
-            var result = JsonConvert.DeserializeObject<BaseResponse<Person>>(response);
-            this.HandleErrors(result);
-            return result.Data;
+            var response = new System.IO.StreamReader(context.ResponseStream).ReadToEnd();
+            var result = Newtonsoft.Json.JsonConvert.DeserializeObject<Person>(response);
+            return result;
         }
         
         /// <summary>
         /// the public profile of a user
         /// </summary>
         public Person GetPublicprofile(
-            string PublicProfileUrl
+              UserAuthorization user
+            , string publicProfileUrl
         )
         {
             const string urlFormat = "/v1/people/url={PublicProfileUrl}";
-            var url = FormatUrl(urlFormat, "PublicProfileUrl", PublicProfileUrl);
+            var url = FormatUrl(urlFormat, "PublicProfileUrl", publicProfileUrl);
+
             var context = new RequestContext();
+            context.UserAuthorization = user;
             context.Method =  "GET";
-            context.UrlPath = this.BaseUrl + url;
-            var response = this.client.ExecuteQuery(context);
+            context.UrlPath = this.LinkedInApi.Configuration.BaseApiUrl + url;
+
+            this.ExecuteQuery(context);
+
             
-            var result = JsonConvert.DeserializeObject<BaseResponse<Person>>(response);
-            this.HandleErrors(result);
-            return result.Data;
+            var response = new System.IO.StreamReader(context.ResponseStream).ReadToEnd();
+            var result = Newtonsoft.Json.JsonConvert.DeserializeObject<Person>(response);
+            return result;
         }
         
     }

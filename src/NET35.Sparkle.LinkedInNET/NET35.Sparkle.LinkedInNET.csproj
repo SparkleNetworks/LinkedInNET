@@ -51,6 +51,7 @@
   <ItemGroup>
     <Compile Include="Internals\BaseApi.cs" />
     <Compile Include="Internals\Extensions.cs" />
+    <Compile Include="Internals\LibraryInfo.cs" />
     <Compile Include="Internals\RequestContext.cs" />
     <Compile Include="LinkedInApi.cs" />
     <Compile Include="LinkedInApiConfiguration.cs" />
@@ -58,11 +59,12 @@
     <Compile Include="OAuth2\AuthorizationScope.cs" />
     <Compile Include="OAuth2\OAuth2Api.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <None Include="Services.tt.cs">
+    <Compile Include="Services.tt.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Services.tt</DependentUpon>
-    </None>
+    </Compile>
+    <Compile Include="UserAuthorization.cs" />
     <None Include="SparklePublicCode.pfx" />
   </ItemGroup>
   <ItemGroup>

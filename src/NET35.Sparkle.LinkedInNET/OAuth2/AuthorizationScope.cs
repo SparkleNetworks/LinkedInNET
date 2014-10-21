@@ -7,7 +7,7 @@ namespace Sparkle.LinkedInNET.OAuth2
     /// Permissions for authorization requests.
     /// </summary>
     [Flags]
-    public enum AuthorizationScope : ushort
+    public enum AuthorizationScope : int
     {
         /// <summary>
         /// The read basic profile (r_basicprofile).

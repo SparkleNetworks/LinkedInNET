@@ -12,6 +12,7 @@ namespace Sparkle.LinkedInNET.ServiceDefinition
     {
         private readonly TextWriter text;
         private string rootNamespace = "Sparkle.LinkedInNET";
+        private static Regex urlParametersRegex = new Regex("\\{(?:([^{} ]+) +)?([^{}]+)\\}", RegexOptions.Compiled);
 
         public CSharpGenerator(TextWriter text)
         {
@@ -138,11 +139,9 @@ namespace Sparkle.LinkedInNET.ServiceDefinition
 
             // ctor
 
-            this.text.WriteLine(indent, "private LinkedInApi linkedInApi;");
-            this.text.WriteLine(indent, "");
             this.text.WriteLine(indent, "public " + className + "(LinkedInApi linkedInApi)");
+            this.text.WriteLine(indent, "    : base(linkedInApi)");
             this.text.WriteLine(indent++, "{");
-            this.text.WriteLine(indent, "this.linkedInApi = linkedInApi;");
             this.text.WriteLine(--indent, "}");
             this.text.WriteLine(indent, "");
 
@@ -172,18 +171,27 @@ namespace Sparkle.LinkedInNET.ServiceDefinition
 
 
                 var parameters = new List<TupleStruct<string, string>>();
-                var urlParams = this.GetUrlParameters(method.Path);
-                foreach (var urlParam in urlParams)
+
+                if (method.RequiresUserAuthentication)
                 {
-                    parameters.Add(new TupleStruct<string, string>("string", urlParam.Key));
+                    parameters.Add(new TupleStruct<string, string>("UserAuthorization", "user"));
                 }
 
+                var urlParams = this.GetUrlPathParameters(method.Path, NameTransformation.PascalCase);
+                foreach (var urlParam in urlParams)
+                {
+                    parameters.Add(new TupleStruct<string, string>(urlParam.Value.Type ?? "string", urlParam.Value.Name));
+                }
+
+                // doc
                 this.text.WriteLine(indent, "/// <summary>");
                 this.text.WriteLine(indent, "/// " + method.Title);
                 this.text.WriteLine(indent, "/// </summary>");
+
+                // name and arguments
                 this.text.WriteLine(indent++, "public " + returnType + " " + this.GetPropertyName(method.MethodName, method.Path) + "(");
 
-                var sep = "";
+                var sep = "  ";
                 foreach (var parameter in parameters)
                 {
                     this.text.WriteLine(indent, sep + parameter.Value1 + " " + parameter.Value2);
@@ -193,18 +201,38 @@ namespace Sparkle.LinkedInNET.ServiceDefinition
                 this.text.WriteLine(--indent, ")");
                 this.text.WriteLine(indent++, "{");
 
-                this.text.WriteLine(indent, "const string urlFormat = \"" + method.Path + "\";");
-                if (parameters.Count > 0)
-                    this.text.WriteLine(indent, "var url = FormatUrl(urlFormat, " + string.Join(", ", parameters.Select(p => "\"" + p.Value2 + "\", " + p.Value2).ToArray()) + ");");
+                // body / format url
+                if (urlParams.Count > 0)
+                {
+                    this.text.WriteLine(indent, "const string urlFormat = \"" + method.Path + "\";");
+                    this.text.WriteLine(indent, "var url = FormatUrl(urlFormat, " + string.Join(", ", urlParams.Values.Select(p => "\"" + p.OriginalName + "\", " + p.Name).ToArray()) + ");");
+                }
                 else
-                    this.text.WriteLine(indent, "var url = FormatUrl(urlFormat);");
+                {
+                    this.text.WriteLine(indent, "var url = \"" + method.Path + "\";");
+                }
 
+                // body / create context
+                this.text.WriteLine();
                 text.WriteLine(indent, "var context = new RequestContext();");
+
+                if (method.RequiresUserAuthentication)
+                {
+                    text.WriteLine(indent, "context.UserAuthorization = user;");
+                }
+
                 text.WriteLine(indent, "context.Method =  \"" + method.HttpMethod + "\";");
-                text.WriteLine(indent, "context.UrlPath = this.BaseUrl + url;");
+                text.WriteLine(indent, "context.UrlPath = this.LinkedInApi.Configuration.BaseApiUrl + url;");
 
-                text.WriteLine(indent, "var response = this.client.ExecuteQuery(context);");
+                // body / execute
+                this.text.WriteLine();
+                text.WriteLine(indent, "this.ExecuteQuery(context);");
 
+                // body / handle
+
+
+                // body / return
+                this.text.WriteLine();
                 if (false /*method.ReturnRawResult*/)
                 {
                     text.WriteLine(indent, "return response;");
@@ -214,17 +242,18 @@ namespace Sparkle.LinkedInNET.ServiceDefinition
                     text.WriteLine(indent, "");
                     if (returnTypeType != null)
                     {
-                        text.WriteLine(indent, "var result = JsonConvert.DeserializeObject<BaseResponse<" + returnType + ">>(response);");
+                        text.WriteLine(indent, "var response = new System.IO.StreamReader(context.ResponseStream).ReadToEnd();");
+                        text.WriteLine(indent, "var result = Newtonsoft.Json.JsonConvert.DeserializeObject<" + returnType + ">(response);");
                     }
                     else
                     {
                         text.WriteLine(indent, "var result = JsonConvert.DeserializeObject<BaseResponse>(response);");
                     }
 
-                    text.WriteLine(indent, "this.HandleErrors(result);");
+                    ////text.WriteLine(indent, "this.HandleErrors(result);");
 
                     if (returnType != null)
-                        text.WriteLine(indent, "return result.Data;");
+                        text.WriteLine(indent, "return result;");
                 }
 
                 ////this.text.WriteLine(indent, "throw new NotImplementedException(url);");
@@ -233,15 +262,22 @@ namespace Sparkle.LinkedInNET.ServiceDefinition
             }
         }
 
-        private Regex urlParametersRegex = new Regex("\\{([^{}]+)\\}", RegexOptions.Compiled);
-        private IDictionary<string, string> GetUrlParameters(string path)
+        protected IDictionary<string, Parameter> GetUrlPathParameters(string path, NameTransformation transform = NameTransformation.None)
         {
-            var values = new Dictionary<string, string>();
+            var values = new Dictionary<string, Parameter>();
             var matches = urlParametersRegex.Matches(path);
             foreach (Match match in matches)
             {
-                var key = match.Groups[1].Captures[0].Value;
-                values.Add(key, key);
+                var key = match.Groups[2].Captures[0].Value;
+                var type = match.Groups[1].Success ? match.Groups[1].Captures[0].Value : null;
+                var item = new Parameter
+                {
+                    OriginalName = key,
+                    Name = Namify(key, transform),
+                    Type = type,
+                };
+
+                values.Add(key, item);
             }
 
             return values;
@@ -319,7 +355,33 @@ namespace Sparkle.LinkedInNET.ServiceDefinition
 
             var words = name.Split(new char[] { '-', '/', });
 
-            return string.Join("", words.Select(w => w[0].ToString().ToUpperInvariant() + new string(w.Skip(1).ToArray())).ToArray());
+            return string.Join("", words.Select(w => Namify(w, NameTransformation.CamelCase)).ToArray());
+        }
+
+        private static string Namify(string value, NameTransformation transform = NameTransformation.CamelCase, string unifier = "")
+        {
+            var result = string.Empty;
+            var words = value.Split(new char[] { '-', '/', });
+            var newWords = new string[words.Length];
+
+            for (int i = 0; i < words.Length; i++)
+            {
+                string word = words[i];
+                if ((transform & NameTransformation.PascalCase) == NameTransformation.PascalCase)
+                {
+                    word = word[0].ToString().ToLowerInvariant() + new string(word.Skip(1).ToArray());
+                }
+
+                if ((transform & NameTransformation.CamelCase) == NameTransformation.CamelCase)
+                {
+                    word = word[0].ToString().ToUpperInvariant() + new string(word.Skip(1).ToArray());
+                }
+
+                newWords[i] = word;
+            }
+
+
+            return string.Join(unifier, newWords);
         }
 
         private void WriteNamespace(int indent, string value)
@@ -380,6 +442,14 @@ namespace Sparkle.LinkedInNET.ServiceDefinition
 
                 return returnItem;
             }
+        }
+
+        [Flags]
+        public enum NameTransformation
+        {
+            None = 0,
+            CamelCase  = 0x0001,
+            PascalCase = 0x0002,
         }
     }
 }

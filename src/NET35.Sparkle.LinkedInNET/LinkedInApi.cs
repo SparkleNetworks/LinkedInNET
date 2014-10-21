@@ -20,6 +20,7 @@ namespace Sparkle.LinkedInNET
         /// <param name="configuration">The configuration.</param>
         /// <exception cref="System.ArgumentNullException">configuration</exception>
         public LinkedInApi(LinkedInApiConfiguration configuration)
+            : base(null)
         {
             if (configuration == null)
                 throw new ArgumentNullException("configuration");

@@ -104,7 +104,7 @@ namespace Sparkle.LinkedInNET.OAuth2
 
             var request = (HttpWebRequest)HttpWebRequest.Create(url);
             request.Method = "POST";
-            request.UserAgent = "Sparkle.LinkedInNET";
+            request.UserAgent = LibraryInfo.UserAgent;
             
             // get response
             HttpWebResponse response;
