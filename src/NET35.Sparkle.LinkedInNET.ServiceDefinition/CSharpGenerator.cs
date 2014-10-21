@@ -97,7 +97,7 @@ namespace Sparkle.LinkedInNET.ServiceDefinition
             this.text.WriteLine();
             this.text.WriteLine(indent, "/// <summary>");
             this.text.WriteLine(indent, "/// </summary>");
-            this.text.WriteLine(indent, "public class LinkedInApi : BaseApi");
+            this.text.WriteLine(indent, "public partial class LinkedInApi : BaseApi");
             this.text.WriteLine(indent++, "{");
 
             // ctor

@@ -21,7 +21,7 @@
 
 var currentDirectory = Path.GetDirectoryName(Host.ResolvePath("Services.tt"));
 var solutionDirectory = Path.GetDirectoryName(Path.GetDirectoryName(currentDirectory));
-var xmlPath = Path.Combine(currentDirectory, "..\\..\\LinkedInApi.xml");
+var xmlPath = Path.Combine(currentDirectory, "..\\LinkedInApi.xml");
 if (!File.Exists(xmlPath)){
 	this.WriteLine("#error ERROR: XML document not found at '"+xmlPath.Replace(solutionDirectory, "")+"'");
 }else{

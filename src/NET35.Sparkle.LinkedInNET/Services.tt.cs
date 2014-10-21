@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-// XML document found at '\NET35.Sparkle.LinkedInNET\Services\..\..\LinkedInApi.xml'
+// XML document found at '\src\NET35.Sparkle.LinkedInNET\..\LinkedInApi.xml'
 // return types: '0'
 // API groups: '1'
 
@@ -332,7 +332,7 @@ namespace Sparkle.LinkedInNET
 
     /// <summary>
     /// </summary>
-    public class LinkedInApi : BaseApi
+    public partial class LinkedInApi : BaseApi
     {
         public ProfilesApi Profiles{
             get { return new ProfilesApi(this); }
