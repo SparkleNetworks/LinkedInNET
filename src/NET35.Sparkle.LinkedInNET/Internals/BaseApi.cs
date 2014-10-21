@@ -102,8 +102,9 @@ namespace Sparkle.LinkedInNET.Internals
             try
             {
                 response = (HttpWebResponse)request.GetResponse();
-                var readStream = response.GetResponseStream();
+                context.HttpStatusCode = (int)response.StatusCode;
 
+                var readStream = response.GetResponseStream();
                 BufferizeResponse(context, readStream);
 
                 // check HTTP code
@@ -118,6 +119,14 @@ namespace Sparkle.LinkedInNET.Internals
 
                 if (response != null)
                 {
+                    context.HttpStatusCode = (int)response.StatusCode;
+
+                    var stream = response.GetResponseStream();
+                    if (stream != null)
+                    {
+                        BufferizeResponse(context, stream);
+                    }
+
                     throw new InvalidOperationException("Error from API (HTTP " + (int)(response.StatusCode) + "): " + ex.Message, ex);
                 }
                 else

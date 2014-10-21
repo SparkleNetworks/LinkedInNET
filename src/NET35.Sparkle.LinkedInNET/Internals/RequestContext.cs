@@ -53,5 +53,7 @@ namespace Sparkle.LinkedInNET.Internals
         }
 
         public Stream ResponseStream { get; set; }
+
+        public int HttpStatusCode { get; set; }
     }
 }

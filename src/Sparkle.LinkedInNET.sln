@@ -12,6 +12,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NET35.Sparkle.LinkedInNET.S
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NET35.Sparkle.LinkedInNET.Tests", "NET35.Sparkle.LinkedInNET.Tests\NET35.Sparkle.LinkedInNET.Tests.csproj", "{4E3C5D54-ED8F-435A-A54F-1AEDD6069346}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NET45.Sparkle.LinkedInNET.DemoMvc5", "NET45.Sparkle.LinkedInNET.DemoMvc5\NET45.Sparkle.LinkedInNET.DemoMvc5.csproj", "{716EF2B0-5139-4ABC-9530-8152D8A0C8D8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,6 +32,10 @@ Global
 		{4E3C5D54-ED8F-435A-A54F-1AEDD6069346}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4E3C5D54-ED8F-435A-A54F-1AEDD6069346}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4E3C5D54-ED8F-435A-A54F-1AEDD6069346}.Release|Any CPU.Build.0 = Release|Any CPU
+		{716EF2B0-5139-4ABC-9530-8152D8A0C8D8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{716EF2B0-5139-4ABC-9530-8152D8A0C8D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{716EF2B0-5139-4ABC-9530-8152D8A0C8D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{716EF2B0-5139-4ABC-9530-8152D8A0C8D8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

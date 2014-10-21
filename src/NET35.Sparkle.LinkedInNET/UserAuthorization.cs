@@ -8,6 +8,15 @@ namespace Sparkle.LinkedInNET
 
     public class UserAuthorization
     {
+        public UserAuthorization()
+        {
+        }
+
+        public UserAuthorization(string accessToken)
+        {
+            this.AccessToken = accessToken;
+        }
+
         public string AccessToken { get; set; }
     }
 }

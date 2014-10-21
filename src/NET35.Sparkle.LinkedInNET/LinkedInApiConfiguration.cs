@@ -3,6 +3,7 @@ namespace Sparkle.LinkedInNET
 {
     using System;
     using System.Collections.Generic;
+    using System.Configuration;
     using System.Linq;
     using System.Text;
 
@@ -51,6 +52,21 @@ namespace Sparkle.LinkedInNET
         /// Gets or sets the API secret key.
         /// </summary>
         public string ApiSecretKey { get; set; }
+
+        public static LinkedInApiConfiguration FromAppSettings(string prefix)
+        {
+            if (prefix != null)
+            {
+                if (!prefix.EndsWith("."))
+                    prefix += ".";
+            }
+
+            var me = new LinkedInApiConfiguration();
+            me.ApiKey = ConfigurationManager.AppSettings[prefix + "ApiKey"];
+            me.ApiSecretKey = ConfigurationManager.AppSettings[prefix + "ApiSecretKey"];
+
+            return me;
+        }
 
         internal LinkedInApiConfiguration Clone()
         {
