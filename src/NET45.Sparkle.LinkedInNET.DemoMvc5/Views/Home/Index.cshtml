@@ -27,27 +27,28 @@
 <p>Your Web.config contains 2 appSettings entries to fill with your API keys.</p>
 <pre>  &lt;appSettings&gt;
     <span class="@(string.IsNullOrEmpty(configuration.ApiKey) ? "error" : "ok")">&lt;add key="MyDemo.LinkedInConnect.ApiKey" value="@configuration.ApiKey" /&gt;</span>
-    <span class="@(string.IsNullOrEmpty(configuration.ApiSecretKey) ? "error" : "ok")">&lt;add key="MyDemo.LinkedInConnect.ApiSecretKey" value="@configuration.ApiSecretKey" /&gt;</span>
+    <span class="@(string.IsNullOrEmpty(configuration.ApiSecretKey) ? "error" : "ok")">&lt;add key="MyDemo.LinkedInConnect.ApiSecretKey" value="@(new string(configuration.ApiSecretKey.Select(c => '•').ToArray()))" /&gt;</span>
   &lt;/appSettings&gt;</pre>
 
 <h2>2. Authorize user @(this.ViewBag.Url != null ? "(ok)" : "")</h2>
 <p>The user will navigate to LinkedIn to authorize your app.</p>
 @if (this.ViewBag.Url != null){
 <p><a href="@this.ViewBag.Url" class="button">Authorize now</a></p>
-<pre>@this.ViewBag.Url</pre>
+<pre>@Html.Raw(((Uri)this.ViewBag.Url).OriginalString.Replace(configuration.ApiKey, "<span class=\"ok\">" + configuration.ApiKey + "</span>"))</pre>
 <p>After authorization, the user will come back to:</p>
 <pre>@this.ViewBag.LocalRedirectUrl</pre>
 }else{
     <p class="error">You have to configure this app (step 1.)</p>
 }
-<h2>2. Store token @(this.ViewBag.Token != null ? "(ok)" : "(todo)")</h2>
+<h2>3. Store token @(this.ViewBag.Token != null ? "(ok)" : "(todo)")</h2>
 <pre>@this.ViewBag.Token</pre>
 @if (this.ViewBag.ProfileDuration != null)
 {
 <p>API call duration: @this.ViewBag.ProfileDuration</p>
 }
 
-<h2>3. Fetch user profile</h2>
+<h2>4. Make API calls</h2>
+<p>Here is the user's profile.</p>
 @{
     var profile = (Sparkle.LinkedInNET.Profiles.Person)this.ViewBag.Profile;
 }
