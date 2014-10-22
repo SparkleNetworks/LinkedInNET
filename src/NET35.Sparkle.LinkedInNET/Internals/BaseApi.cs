@@ -7,6 +7,7 @@ namespace Sparkle.LinkedInNET.Internals
     using System.Linq;
     using System.Net;
     using System.Text;
+    using System.Xml.Serialization;
 
     /// <summary>
     /// Base class for LinkedIn APIs.
@@ -144,6 +145,51 @@ namespace Sparkle.LinkedInNET.Internals
                     throw new InvalidOperationException("Error from API: " + ex.Message, ex);
                 }
             }
+        }
+
+        private static int[] validHttpCodes = new int[] { 200, 201, 202, };
+        private static int[] errorHttpCodes = new int[] { 400, 401, 403, 404, 500, };
+
+        internal T HandleXmlResponse<T>(RequestContext context)
+            where T : class, new()
+        {
+            T result = null;
+            ApiError errorResult = null;
+            ////try
+            {
+                var serializer = new XmlSerializer(typeof(T));
+                var errorSerializer = new XmlSerializer(typeof(ApiError));
+
+                if (validHttpCodes.Contains(context.HttpStatusCode))
+                {
+                    result = (T)serializer.Deserialize(context.ResponseStream);
+                }
+                else if (errorHttpCodes.Contains(context.HttpStatusCode))
+                {
+                    errorResult = (ApiError)serializer.Deserialize(context.ResponseStream);
+                    var ex = FX.ApiException("ApiErrorResult", errorResult.Status, errorResult.Message);
+                    ex.Data.Add("ErrorResult", errorResult);
+                }
+                else
+                {
+                    throw FX.ApiException("ApiUnknownError", context.HttpStatusCode);
+                }
+            }
+            ////catch (LinkedInApiException)
+            ////{
+            ////    throw;
+            ////}
+            ////catch (Exception ex)
+            ////{
+            ////    throw new InvalidOperationException("Failed to read API response", ex);
+            ////}
+
+            if (result == null)
+            {
+                throw FX.ApiException("ApiEmptyResult");
+            }
+
+            return result;
         }
 
         private static void BufferizeResponse(RequestContext context, Stream readStream)

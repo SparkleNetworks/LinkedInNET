@@ -329,11 +329,7 @@ namespace Sparkle.LinkedInNET.Profiles
             context.UrlPath = this.LinkedInApi.Configuration.BaseApiUrl + url;
 
             this.ExecuteQuery(context);
-
-            
-            ////var response = new System.IO.StreamReader(context.ResponseStream).ReadToEnd();
-            var serializer = new XmlSerializer(typeof(Person));
-            var result = (Person)serializer.Deserialize(context.ResponseStream);
+            var result = this.HandleXmlResponse<Person>(context);
             return result;
         }
         
@@ -354,11 +350,7 @@ namespace Sparkle.LinkedInNET.Profiles
             context.UrlPath = this.LinkedInApi.Configuration.BaseApiUrl + url;
 
             this.ExecuteQuery(context);
-
-            
-            ////var response = new System.IO.StreamReader(context.ResponseStream).ReadToEnd();
-            var serializer = new XmlSerializer(typeof(Person));
-            var result = (Person)serializer.Deserialize(context.ResponseStream);
+            var result = this.HandleXmlResponse<Person>(context);
             return result;
         }
         
@@ -379,11 +371,7 @@ namespace Sparkle.LinkedInNET.Profiles
             context.UrlPath = this.LinkedInApi.Configuration.BaseApiUrl + url;
 
             this.ExecuteQuery(context);
-
-            
-            ////var response = new System.IO.StreamReader(context.ResponseStream).ReadToEnd();
-            var serializer = new XmlSerializer(typeof(Person));
-            var result = (Person)serializer.Deserialize(context.ResponseStream);
+            var result = this.HandleXmlResponse<Person>(context);
             return result;
         }
         
@@ -402,11 +390,7 @@ namespace Sparkle.LinkedInNET.Profiles
             context.UrlPath = this.LinkedInApi.Configuration.BaseApiUrl + url;
 
             this.ExecuteQuery(context);
-
-            
-            ////var response = new System.IO.StreamReader(context.ResponseStream).ReadToEnd();
-            var serializer = new XmlSerializer(typeof(Person));
-            var result = (Person)serializer.Deserialize(context.ResponseStream);
+            var result = this.HandleXmlResponse<Person>(context);
             return result;
         }
         
@@ -427,11 +411,7 @@ namespace Sparkle.LinkedInNET.Profiles
             context.UrlPath = this.LinkedInApi.Configuration.BaseApiUrl + url;
 
             this.ExecuteQuery(context);
-
-            
-            ////var response = new System.IO.StreamReader(context.ResponseStream).ReadToEnd();
-            var serializer = new XmlSerializer(typeof(Person));
-            var result = (Person)serializer.Deserialize(context.ResponseStream);
+            var result = this.HandleXmlResponse<Person>(context);
             return result;
         }
         
@@ -469,11 +449,7 @@ namespace Sparkle.LinkedInNET.Companies
             context.UrlPath = this.LinkedInApi.Configuration.BaseApiUrl + url;
 
             this.ExecuteQuery(context);
-
-            
-            ////var response = new System.IO.StreamReader(context.ResponseStream).ReadToEnd();
-            var serializer = new XmlSerializer(typeof(Company));
-            var result = (Company)serializer.Deserialize(context.ResponseStream);
+            var result = this.HandleXmlResponse<Company>(context);
             return result;
         }
         
@@ -494,11 +470,7 @@ namespace Sparkle.LinkedInNET.Companies
             context.UrlPath = this.LinkedInApi.Configuration.BaseApiUrl + url;
 
             this.ExecuteQuery(context);
-
-            
-            ////var response = new System.IO.StreamReader(context.ResponseStream).ReadToEnd();
-            var serializer = new XmlSerializer(typeof(Company));
-            var result = (Company)serializer.Deserialize(context.ResponseStream);
+            var result = this.HandleXmlResponse<Company>(context);
             return result;
         }
         
@@ -519,11 +491,7 @@ namespace Sparkle.LinkedInNET.Companies
             context.UrlPath = this.LinkedInApi.Configuration.BaseApiUrl + url;
 
             this.ExecuteQuery(context);
-
-            
-            ////var response = new System.IO.StreamReader(context.ResponseStream).ReadToEnd();
-            var serializer = new XmlSerializer(typeof(Company));
-            var result = (Company)serializer.Deserialize(context.ResponseStream);
+            var result = this.HandleXmlResponse<Company>(context);
             return result;
         }
         
@@ -544,11 +512,7 @@ namespace Sparkle.LinkedInNET.Companies
             context.UrlPath = this.LinkedInApi.Configuration.BaseApiUrl + url;
 
             this.ExecuteQuery(context);
-
-            
-            ////var response = new System.IO.StreamReader(context.ResponseStream).ReadToEnd();
-            var serializer = new XmlSerializer(typeof(Company));
-            var result = (Company)serializer.Deserialize(context.ResponseStream);
+            var result = this.HandleXmlResponse<Company>(context);
             return result;
         }
         

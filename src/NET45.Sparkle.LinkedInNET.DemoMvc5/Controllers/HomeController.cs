@@ -56,6 +56,7 @@ namespace Sparkle.LinkedInNET.DemoMvc5.Controllers
                 try
                 {
                     var profile = this.api.Profiles.GetMyProfile(user);
+                    ////var full = this.api.Profiles.GetMyProfile();
                     this.ViewBag.Profile = profile;
                 }
                 catch (Exception ex)

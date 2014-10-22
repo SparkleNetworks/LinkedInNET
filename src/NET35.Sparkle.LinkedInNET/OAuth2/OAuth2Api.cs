@@ -110,13 +110,22 @@ namespace Sparkle.LinkedInNET.OAuth2
             this.ExecuteQuery(context);
 
             AuthorizationAccessToken result = null;
+            OAuth2Error errorResult = null;
             var reader = new StreamReader(context.ResponseStream, Encoding.UTF8);
             var json = reader.ReadToEnd();
 
             // read response content
             try
             {
-                result = JsonConvert.DeserializeObject<AuthorizationAccessToken>(json);
+                if (context.HttpStatusCode == 200 || context.HttpStatusCode == 201)
+                {
+                    result = JsonConvert.DeserializeObject<AuthorizationAccessToken>(json);
+                }
+                else
+                {
+                    errorResult = JsonConvert.DeserializeObject<OAuth2Error>(json);
+                    throw FX.ApiException("OAuth2ErrorResult", errorResult.Error, errorResult.ErrorMessage);
+                }
             }
             catch (Exception ex)
             {

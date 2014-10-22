@@ -236,29 +236,27 @@ namespace Sparkle.LinkedInNET.ServiceDefinition
 
 
                 // body / return
-                this.text.WriteLine();
-                if (false /*method.ReturnRawResult*/)
+                ////this.text.WriteLine();
+                ////if (false /*method.ReturnRawResult*/)
+                ////{
+                ////    text.WriteLine(indent, "#error raw response type is not supported");
+                ////}
+                ////else
                 {
-                    text.WriteLine(indent, "return response;");
-                }
-                else
-                {
-                    text.WriteLine(indent, "");
+                    ////text.WriteLine(indent, "");
                     if (returnTypeType != null)
                     {
-                        text.WriteLine(indent, "////var response = new System.IO.StreamReader(context.ResponseStream).ReadToEnd();");
-                        text.WriteLine(indent, "var serializer = new XmlSerializer(typeof(" + returnType + "));");
-                        text.WriteLine(indent, "var result = (" + returnType + ")serializer.Deserialize(context.ResponseStream);");
+                        text.WriteLine(indent, "var result = this.HandleXmlResponse<" + returnType + ">(context);");
                     }
                     else
                     {
-                        text.WriteLine(indent, "var result = JsonConvert.DeserializeObject<BaseResponse>(response);");
+                        text.WriteLine(indent, "#error void response type is not supported");
                     }
 
-                    ////text.WriteLine(indent, "this.HandleErrors(result);");
-
                     if (returnType != null)
+                    {
                         text.WriteLine(indent, "return result;");
+                    }
                 }
 
                 ////this.text.WriteLine(indent, "throw new NotImplementedException(url);");
