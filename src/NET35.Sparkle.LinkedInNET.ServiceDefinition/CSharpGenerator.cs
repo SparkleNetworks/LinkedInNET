@@ -66,6 +66,8 @@ namespace Sparkle.LinkedInNET.ServiceDefinition
                     {
                         this.WriteReturnTypes(context, returnType, apiGroup);
                     }
+
+                    this.WriteReturnTypeFields(context, apiGroup, apiGroup.ReturnTypes.ToArray());
                 }
 
                 foreach (var apiGroup in context.Root.ApiGroups)
@@ -78,6 +80,52 @@ namespace Sparkle.LinkedInNET.ServiceDefinition
             }
 
 
+        }
+
+        private void WriteReturnTypeFields(GeneratorContext context, ApiGroup apiGroup, ReturnType[] returnTypes)
+        {
+            int indent = 0;
+            this.text.WriteLine(indent, "namespace " + this.RootNamespace + "." + apiGroup.Name);
+            this.text.WriteLine(indent++, "{");
+            this.WriteNamespace(indent, "System");
+            this.WriteNamespace(indent, "System.Collections.Generic");
+            this.WriteNamespace(indent, "System.Xml.Serialization");
+            this.text.WriteLine();
+
+            this.text.WriteLine(indent, "");
+            this.text.WriteLine(indent++, "public static class " + apiGroup.Name + "Fields {");
+
+            foreach (var returnType in returnTypes)
+            {
+                ////var returnTypeName = this.GetPropertyName(returnType.ClassName, returnType.Name);
+                ////this.text.WriteLine(indent++, "public static FieldSelector<" + returnTypeName + "> Fields(this FieldSelector<" + returnTypeName + "> me) {");
+                ////this.text.WriteLine(indent, "return me.Add(\"" + field.Name + "\");");
+                ////this.text.WriteLine(--indent, "}");
+                ////this.text.WriteLine(indent, "");
+
+                foreach (var fieldGroup in returnType.Fields.GroupBy(f => this.GetPropertyName(f.PropertyName, f.GetMainName())).ToArray())
+                {
+                    var field = fieldGroup.First();
+                    var fieldName = this.GetPropertyName(field.PropertyName, field.Name);
+
+                    if (fieldName.Contains(":") || fieldName.Contains("/"))
+                    {
+                        this.text.WriteLine(indent, "#warning ReturnType '"+returnType.Name+"', Field '" + field.Name + "': unsupported syntax");
+                        this.text.WriteLine();
+                        continue;
+                    }
+
+                    var returnTypeName = this.GetPropertyName(returnType.ClassName, returnType.Name);
+                    this.text.WriteLine(indent++, "public static FieldSelector<" + returnTypeName + "> With" + fieldName + "(this FieldSelector<" + returnTypeName + "> me) {");
+                    this.text.WriteLine(indent, "return me.Add(\"" + field.Name + "\");");
+                    this.text.WriteLine(--indent, "}");
+                    this.text.WriteLine(indent, "");
+                }
+            }
+
+            this.text.WriteLine(--indent, "}");
+            this.text.WriteLine(--indent, "}");
+            this.text.WriteLine();
         }
 
         private void WriteRootServices(GeneratorContext context)
@@ -202,6 +250,8 @@ namespace Sparkle.LinkedInNET.ServiceDefinition
                     sep = ", ";
                 }
 
+                if (returnType != null)
+                    this.text.WriteLine(indent, ", FieldSelector<" + returnType + "> fields = null");
                 this.text.WriteLine(--indent, ")");
                 this.text.WriteLine(indent++, "{");
 
@@ -304,6 +354,7 @@ namespace Sparkle.LinkedInNET.ServiceDefinition
                 this.text.WriteLine(indent, "/// " + returnType.Remark + "");
                 this.text.WriteLine(indent, "/// </remarks>");
             }
+
             this.text.WriteLine(indent, "[Serializable, XmlRoot(\""+returnType.Name+"\")]");
             this.text.WriteLine(indent, "public class " + this.GetPropertyName(returnType.ClassName, returnType.Name));
             this.text.WriteLine(indent++, "{");

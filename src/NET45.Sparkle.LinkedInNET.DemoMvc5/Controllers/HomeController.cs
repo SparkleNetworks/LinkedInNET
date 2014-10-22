@@ -10,6 +10,7 @@ namespace Sparkle.LinkedInNET.DemoMvc5.Controllers
     using Ninject;
     using Sparkle.LinkedInNET.DemoMvc5.Domain;
     using Sparkle.LinkedInNET.OAuth2;
+    using Sparkle.LinkedInNET.Profiles;
 
     public class HomeController : Controller
     {
@@ -57,6 +58,12 @@ namespace Sparkle.LinkedInNET.DemoMvc5.Controllers
                 {
                     var profile = this.api.Profiles.GetMyProfile(user);
                     ////var full = this.api.Profiles.GetMyProfile();
+
+
+                    var fields = FieldSelector.For<Person>().WithSummary().WithPictureUrl().WithPhoneticLastName().Add("").WithPersonalInfos();
+                    this.api.Profiles.GetMyProfile(user, fields);
+
+
                     this.ViewBag.Profile = profile;
                 }
                 catch (Exception ex)

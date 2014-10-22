@@ -271,6 +271,131 @@ namespace Sparkle.LinkedInNET.Profiles
     }
 }
 
+namespace Sparkle.LinkedInNET.Profiles
+{
+    using System;
+    using System.Collections.Generic;
+    using System.Xml.Serialization;
+
+    
+    public static class ProfilesFields {
+        public static FieldSelector<Person> WithFirstname(this FieldSelector<Person> me) {
+            return me.Add("first-name");
+        }
+        
+        public static FieldSelector<Person> WithLastname(this FieldSelector<Person> me) {
+            return me.Add("last-name");
+        }
+        
+        public static FieldSelector<Person> WithHeadline(this FieldSelector<Person> me) {
+            return me.Add("headline");
+        }
+        
+        public static FieldSelector<Person> WithSiteStandardProfileRequestUrl(this FieldSelector<Person> me) {
+            return me.Add("site-standard-profile-request/url");
+        }
+        
+        public static FieldSelector<Person> WithId(this FieldSelector<Person> me) {
+            return me.Add("id");
+        }
+        
+        public static FieldSelector<Person> WithMaidenName(this FieldSelector<Person> me) {
+            return me.Add("maiden-name");
+        }
+        
+        public static FieldSelector<Person> WithFormattedName(this FieldSelector<Person> me) {
+            return me.Add("formatted-name");
+        }
+        
+        public static FieldSelector<Person> WithPhoneticFirstName(this FieldSelector<Person> me) {
+            return me.Add("phonetic-first-name");
+        }
+        
+        public static FieldSelector<Person> WithPhoneticLastName(this FieldSelector<Person> me) {
+            return me.Add("phonetic-last-name");
+        }
+        
+        public static FieldSelector<Person> WithFormattedPhoneticName(this FieldSelector<Person> me) {
+            return me.Add("formatted-phonetic-name");
+        }
+        
+        #warning ReturnType 'person', Field 'location:(name)': unsupported syntax
+
+        public static FieldSelector<Person> WithIndustry(this FieldSelector<Person> me) {
+            return me.Add("industry");
+        }
+        
+        public static FieldSelector<Person> WithDistance(this FieldSelector<Person> me) {
+            return me.Add("distance");
+        }
+        
+        #warning ReturnType 'person', Field 'relation-to-viewer:(distance)': unsupported syntax
+
+        public static FieldSelector<Person> WithCurrentStatus(this FieldSelector<Person> me) {
+            return me.Add("current-status");
+        }
+        
+        public static FieldSelector<Person> WithCurrentStatusTimestamp(this FieldSelector<Person> me) {
+            return me.Add("current-status-timestamp");
+        }
+        
+        public static FieldSelector<Person> WithCurrentShare(this FieldSelector<Person> me) {
+            return me.Add("current-share");
+        }
+        
+        public static FieldSelector<Person> WithNumConnections(this FieldSelector<Person> me) {
+            return me.Add("num-connections");
+        }
+        
+        public static FieldSelector<Person> WithNumConnectionsCapped(this FieldSelector<Person> me) {
+            return me.Add("num-connections-capped");
+        }
+        
+        public static FieldSelector<Person> WithSummary(this FieldSelector<Person> me) {
+            return me.Add("summary");
+        }
+        
+        public static FieldSelector<Person> WithSpecialties(this FieldSelector<Person> me) {
+            return me.Add("specialties");
+        }
+        
+        public static FieldSelector<Person> WithPositions(this FieldSelector<Person> me) {
+            return me.Add("positions");
+        }
+        
+        public static FieldSelector<Person> WithPictureUrl(this FieldSelector<Person> me) {
+            return me.Add("picture-url");
+        }
+        
+        public static FieldSelector<Person> WithSiteStandardProfileRequest(this FieldSelector<Person> me) {
+            return me.Add("site-standard-profile-request");
+        }
+        
+        #warning ReturnType 'person', Field 'api-standard-profile-request:(url)': unsupported syntax
+
+        public static FieldSelector<Person> WithPublicProfileUrl(this FieldSelector<Person> me) {
+            return me.Add("public-profile-url");
+        }
+        
+        public static FieldSelector<Connections> WithPerson(this FieldSelector<Connections> me) {
+            return me.Add("person");
+        }
+        
+        public static FieldSelector<Location> WithName(this FieldSelector<Location> me) {
+            return me.Add("name");
+        }
+        
+        public static FieldSelector<RelationToViewer> WithDistance(this FieldSelector<RelationToViewer> me) {
+            return me.Add("distance");
+        }
+        
+        public static FieldSelector<ApiStandardProfileRequest> WithUrl(this FieldSelector<ApiStandardProfileRequest> me) {
+            return me.Add("url");
+        }
+        
+    }
+}
+
 namespace Sparkle.LinkedInNET.Companies
 {
     using System;
@@ -298,6 +423,47 @@ namespace Sparkle.LinkedInNET.Companies
     }
 }
 
+namespace Sparkle.LinkedInNET.Companies
+{
+    using System;
+    using System.Collections.Generic;
+    using System.Xml.Serialization;
+
+    
+    public static class CompaniesFields {
+        public static FieldSelector<Company> WithId(this FieldSelector<Company> me) {
+            return me.Add("id");
+        }
+        
+        public static FieldSelector<Company> WithName(this FieldSelector<Company> me) {
+            return me.Add("name");
+        }
+        
+    }
+}
+
+namespace Sparkle.LinkedInNET.Groups
+{
+    using System;
+    using System.Collections.Generic;
+    using System.Xml.Serialization;
+
+    
+    public static class GroupsFields {
+    }
+}
+
+namespace Sparkle.LinkedInNET.Jobs
+{
+    using System;
+    using System.Collections.Generic;
+    using System.Xml.Serialization;
+
+    
+    public static class JobsFields {
+    }
+}
+
 namespace Sparkle.LinkedInNET.Profiles
 {
     using System;
@@ -319,6 +485,7 @@ namespace Sparkle.LinkedInNET.Profiles
         /// </summary>
         public Person GetMyProfile(
               UserAuthorization user
+            , FieldSelector<Person> fields = null
         )
         {
             var url = "/v1/people/~";
@@ -339,6 +506,7 @@ namespace Sparkle.LinkedInNET.Profiles
         public Person GetProfileById(
               UserAuthorization user
             , string memberToken
+            , FieldSelector<Person> fields = null
         )
         {
             const string urlFormat = "/v1/people/id={MemberToken}";
@@ -360,6 +528,7 @@ namespace Sparkle.LinkedInNET.Profiles
         public Person GetPublicProfile(
               UserAuthorization user
             , string publicProfileUrl
+            , FieldSelector<Person> fields = null
         )
         {
             const string urlFormat = "/v1/people/url={PublicProfileUrl}";
@@ -380,6 +549,7 @@ namespace Sparkle.LinkedInNET.Profiles
         /// </summary>
         public Person GetMyConnections(
               UserAuthorization user
+            , FieldSelector<Person> fields = null
         )
         {
             var url = "/v1/people/~/connections";
@@ -400,6 +570,7 @@ namespace Sparkle.LinkedInNET.Profiles
         public Person GetConnectionsByProfileId(
               UserAuthorization user
             , string memberToken
+            , FieldSelector<Person> fields = null
         )
         {
             const string urlFormat = "/v1/people/id={MemberToken}/connections";
@@ -439,6 +610,7 @@ namespace Sparkle.LinkedInNET.Companies
         /// </summary>
         public Company GetList(
               UserAuthorization user
+            , FieldSelector<Company> fields = null
         )
         {
             var url = "/v1/companies";
@@ -459,6 +631,7 @@ namespace Sparkle.LinkedInNET.Companies
         public Company GetById(
               UserAuthorization user
             , string companyId
+            , FieldSelector<Company> fields = null
         )
         {
             const string urlFormat = "/v1/companies/{CompanyId}";
@@ -480,6 +653,7 @@ namespace Sparkle.LinkedInNET.Companies
         public Company GetByName(
               UserAuthorization user
             , string universalName
+            , FieldSelector<Company> fields = null
         )
         {
             const string urlFormat = "/v1/companies/universal-name={UniversalName}";
@@ -501,6 +675,7 @@ namespace Sparkle.LinkedInNET.Companies
         public Company GetListByEmailDomain(
               UserAuthorization user
             , string universalName
+            , FieldSelector<Company> fields = null
         )
         {
             const string urlFormat = "/v1/companies/universal-name={UniversalName}";

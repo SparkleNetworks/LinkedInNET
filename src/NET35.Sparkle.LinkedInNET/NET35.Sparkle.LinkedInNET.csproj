@@ -51,6 +51,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApiError.cs" />
+    <Compile Include="FieldSelector.cs" />
     <Compile Include="Internals\BaseApi.cs" />
     <Compile Include="Internals\Extensions.cs" />
     <Compile Include="Internals\FX.cs" />
