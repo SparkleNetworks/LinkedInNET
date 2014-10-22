@@ -3,6 +3,7 @@ namespace Sparkle.LinkedInNET.DemoMvc5.Controllers
 {
     using System;
     using System.Collections.Generic;
+    using System.Diagnostics;
     using System.Linq;
     using System.Web;
     using System.Web.Mvc;
@@ -14,28 +15,44 @@ namespace Sparkle.LinkedInNET.DemoMvc5.Controllers
     {
         private LinkedInApi api;
         private DataService data;
+        private LinkedInApiConfiguration apiConfig;
 
-        public HomeController(LinkedInApi api, DataService data)
+        public HomeController(LinkedInApi api, DataService data, LinkedInApiConfiguration apiConfig)
         {
             this.api = api;
             this.data = data;
+            this.apiConfig = apiConfig;
         }
 
         public ActionResult Index()
         {
+            // step 1: configuration
+            this.ViewBag.Configuration = this.apiConfig;
+            
+            // step 2: authorize url
             var scope = AuthorizationScope.ReadBasicProfile | AuthorizationScope.ReadEmailAddress;
             var state = Guid.NewGuid().ToString();
             var redirectUrl = this.Request.Compose() + this.Url.Action("OAuth2");
-            var authorizeUrl = this.api.OAuth2.GetAuthorizationUrl(scope, state, redirectUrl);
+            this.ViewBag.LocalRedirectUrl = redirectUrl;
+            if (this.apiConfig != null && !string.IsNullOrEmpty(this.apiConfig.ApiKey))
+            {
+                var authorizeUrl = this.api.OAuth2.GetAuthorizationUrl(scope, state, redirectUrl);
+                this.ViewBag.Url = authorizeUrl;
+            }
+            else
+            {
+                this.ViewBag.Url = null;
+            }
 
-            this.ViewBag.Url = authorizeUrl;
-
+            // step 3
             if (this.data.HasAccessToken)
             {
                 var token = this.data.GetAccessToken();
                 this.ViewBag.Token = token;
                 var user = new UserAuthorization(token);
 
+                var watch = new Stopwatch();
+                watch.Start();
                 try
                 {
                     var profile = this.api.Profiles.GetMyProfile(user);
@@ -45,6 +62,8 @@ namespace Sparkle.LinkedInNET.DemoMvc5.Controllers
                 {
                     this.ViewBag.ProfileError = ex.ToString();
                 }
+                watch.Stop();
+                this.ViewBag.ProfileDuration = watch.Elapsed;
             }
 
             return this.View();

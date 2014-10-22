@@ -1,14 +1,51 @@
 ﻿@{
     ViewBag.Title = "Index";
+    var configuration = (Sparkle.LinkedInNET.LinkedInApiConfiguration)this.ViewBag.Configuration ?? new Sparkle.LinkedInNET.LinkedInApiConfiguration();
+    var configIsValid = !string.IsNullOrEmpty(configuration.ApiKey) && !string.IsNullOrEmpty(configuration.ApiSecretKey);
 }
 
-<h2>1. Authorize @(this.ViewBag.Token != null ? "(ok)" : "")</h2>
+<style type="text/css">
+    .ok
+    {
+        color:#00b017;
+    }
+    .error
+    {
+        color:#f00;
+    }
+    a.button
+    {
+        display: inline-block;
+        border:1px solid gray;
+        background: #e8e8e8;
+        border-radius: 2px;
+        padding: 5px;
+    }
+</style>
 
-<p><a href="@this.ViewBag.Url">Authorize now (redirects to LinkedIn)</a></p>
+<h2>1. Configure this app @(configIsValid ? "(ok)" : "(todo)")</h2>
+<p>Your Web.config contains 2 appSettings entries to fill with your API keys.</p>
+<pre>  &lt;appSettings&gt;
+    <span class="@(string.IsNullOrEmpty(configuration.ApiKey) ? "error" : "ok")">&lt;add key="MyDemo.LinkedInConnect.ApiKey" value="@configuration.ApiKey" /&gt;</span>
+    <span class="@(string.IsNullOrEmpty(configuration.ApiSecretKey) ? "error" : "ok")">&lt;add key="MyDemo.LinkedInConnect.ApiSecretKey" value="@configuration.ApiSecretKey" /&gt;</span>
+  &lt;/appSettings&gt;</pre>
+
+<h2>2. Authorize user @(this.ViewBag.Url != null ? "(ok)" : "")</h2>
+<p>The user will navigate to LinkedIn to authorize your app.</p>
+@if (this.ViewBag.Url != null){
+<p><a href="@this.ViewBag.Url" class="button">Authorize now</a></p>
 <pre>@this.ViewBag.Url</pre>
-
-<h2>2. Store token @(this.ViewBag.Token != null ? "(ok)" : "(todo, see 1.)")</h2>
+<p>After authorization, the user will come back to:</p>
+<pre>@this.ViewBag.LocalRedirectUrl</pre>
+}else{
+    <p class="error">You have to configure this app (step 1.)</p>
+}
+<h2>2. Store token @(this.ViewBag.Token != null ? "(ok)" : "(todo)")</h2>
 <pre>@this.ViewBag.Token</pre>
+@if (this.ViewBag.ProfileDuration != null)
+{
+<p>API call duration: @this.ViewBag.ProfileDuration</p>
+}
 
 <h2>3. Fetch user profile</h2>
 @{
@@ -23,8 +60,6 @@
     <dd>@profile.Lastname</dd>
     <dt>Headline</dt>
     <dd>@profile.Headline</dd>
-    <dt>SiteStandardProfileRequestUrl</dt>
-    <dd>@profile.SiteStandardProfileRequestUrl</dd>
 </dl>
 }
 @if (this.ViewBag.ProfileError != null)
