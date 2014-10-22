@@ -15,6 +15,10 @@ namespace Sparkle.LinkedInNET.Internals
     {
         private LinkedInApi linkedInApi;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="BaseApi"/> class.
+        /// </summary>
+        /// <param name="linkedInApi">The API factory.</param>
         internal protected BaseApi(LinkedInApi linkedInApi)
         {
             this.linkedInApi = linkedInApi;
@@ -30,6 +34,12 @@ namespace Sparkle.LinkedInNET.Internals
         ////    get {  }
         ////}
 
+        /// <summary>
+        /// Formats the URL.
+        /// </summary>
+        /// <param name="format">The format.</param>
+        /// <param name="values">The values.</param>
+        /// <returns></returns>
         protected string FormatUrl(string format, params string[] values)
         {
             var result = format;

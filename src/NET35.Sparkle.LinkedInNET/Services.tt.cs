@@ -309,7 +309,7 @@ namespace Sparkle.LinkedInNET.Profiles
     /// </summary>
     public class ProfilesApi : BaseApi
     {
-        public ProfilesApi(LinkedInApi linkedInApi)
+        internal ProfilesApi(LinkedInApi linkedInApi)
             : base(linkedInApi)
         {
         }
@@ -365,7 +365,7 @@ namespace Sparkle.LinkedInNET.Profiles
         /// <summary>
         /// the public profile of a user
         /// </summary>
-        public Person GetPublicprofile(
+        public Person GetPublicProfile(
               UserAuthorization user
             , string publicProfileUrl
         )
@@ -449,7 +449,7 @@ namespace Sparkle.LinkedInNET.Companies
     /// </summary>
     public class CompaniesApi : BaseApi
     {
-        public CompaniesApi(LinkedInApi linkedInApi)
+        internal CompaniesApi(LinkedInApi linkedInApi)
             : base(linkedInApi)
         {
         }
@@ -566,7 +566,7 @@ namespace Sparkle.LinkedInNET.Groups
     /// </summary>
     public class GroupsApi : BaseApi
     {
-        public GroupsApi(LinkedInApi linkedInApi)
+        internal GroupsApi(LinkedInApi linkedInApi)
             : base(linkedInApi)
         {
         }
@@ -585,7 +585,7 @@ namespace Sparkle.LinkedInNET.Jobs
     /// </summary>
     public class JobsApi : BaseApi
     {
-        public JobsApi(LinkedInApi linkedInApi)
+        internal JobsApi(LinkedInApi linkedInApi)
             : base(linkedInApi)
         {
         }
@@ -604,21 +604,34 @@ namespace Sparkle.LinkedInNET
     using Sparkle.LinkedInNET.Jobs;
 
     /// <summary>
+    /// The factory for LinkedIn APIs.
     /// </summary>
     public partial class LinkedInApi : BaseApi
     {
+        /// <summary>
+        /// The Profiles API.
+        /// </summary>
         public ProfilesApi Profiles{
             get { return new ProfilesApi(this); }
         }
 
+        /// <summary>
+        /// The Companies API.
+        /// </summary>
         public CompaniesApi Companies{
             get { return new CompaniesApi(this); }
         }
 
+        /// <summary>
+        /// The Groups API.
+        /// </summary>
         public GroupsApi Groups{
             get { return new GroupsApi(this); }
         }
 
+        /// <summary>
+        /// The Jobs API.
+        /// </summary>
         public JobsApi Jobs{
             get { return new JobsApi(this); }
         }

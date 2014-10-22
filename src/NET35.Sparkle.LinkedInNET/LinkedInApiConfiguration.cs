@@ -53,6 +53,11 @@ namespace Sparkle.LinkedInNET
         /// </summary>
         public string ApiSecretKey { get; set; }
 
+        /// <summary>
+        /// Creates a configuration object froms the application settings.
+        /// </summary>
+        /// <param name="prefix">The prefix.</param>
+        /// <returns></returns>
         public static LinkedInApiConfiguration FromAppSettings(string prefix)
         {
             if (prefix != null)

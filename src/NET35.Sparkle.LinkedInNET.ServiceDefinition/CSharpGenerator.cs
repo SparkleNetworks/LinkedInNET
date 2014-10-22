@@ -97,6 +97,7 @@ namespace Sparkle.LinkedInNET.ServiceDefinition
 
             this.text.WriteLine();
             this.text.WriteLine(indent, "/// <summary>");
+            this.text.WriteLine(indent, "/// The factory for LinkedIn APIs.");
             this.text.WriteLine(indent, "/// </summary>");
             this.text.WriteLine(indent, "public partial class LinkedInApi : BaseApi");
             this.text.WriteLine(indent++, "{");
@@ -108,6 +109,9 @@ namespace Sparkle.LinkedInNET.ServiceDefinition
             foreach (var item in context.Root.ApiGroups)
             {
                 var name = this.GetPropertyName(null, item.Name);
+                this.text.WriteLine(indent, "/// <summary>");
+                this.text.WriteLine(indent, "/// The " + name + " API.");
+                this.text.WriteLine(indent, "/// </summary>");
                 this.text.WriteLine(indent++, "public " + name + "Api " + name + "{");
                 this.text.WriteLine(indent, "get { return new "+name+"Api(this); }");
                 this.text.WriteLine(--indent, "}");
@@ -139,7 +143,7 @@ namespace Sparkle.LinkedInNET.ServiceDefinition
 
             // ctor
 
-            this.text.WriteLine(indent, "public " + className + "(LinkedInApi linkedInApi)");
+            this.text.WriteLine(indent, "internal " + className + "(LinkedInApi linkedInApi)");
             this.text.WriteLine(indent, "    : base(linkedInApi)");
             this.text.WriteLine(indent++, "{");
             this.text.WriteLine(--indent, "}");
