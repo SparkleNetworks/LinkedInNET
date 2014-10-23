@@ -1,0 +1,120 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{8680529C-5040-4799-AC12-6ABE541AB1A5}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Sparkle.LinkedInNET</RootNamespace>
+    <AssemblyName>Sparkle.LinkedInNET</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;NET40</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Debug\Sparkle.LinkedInNET.xml</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE;NET40</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Release\Sparkle.LinkedInNET.xml</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>SparklePublicCode.pfx</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\NET35.Sparkle.LinkedInNET\ApiError.cs">
+      <Link>ApiError.cs</Link>
+    </Compile>
+    <Compile Include="..\NET35.Sparkle.LinkedInNET\FieldSelector.cs">
+      <Link>FieldSelector.cs</Link>
+    </Compile>
+    <Compile Include="..\NET35.Sparkle.LinkedInNET\Internals\BaseApi.cs">
+      <Link>Internals\BaseApi.cs</Link>
+    </Compile>
+    <Compile Include="..\NET35.Sparkle.LinkedInNET\Internals\Extensions.cs">
+      <Link>Internals\Extensions.cs</Link>
+    </Compile>
+    <Compile Include="..\NET35.Sparkle.LinkedInNET\Internals\FX.cs">
+      <Link>Internals\FX.cs</Link>
+    </Compile>
+    <Compile Include="..\NET35.Sparkle.LinkedInNET\Internals\LibraryInfo.cs">
+      <Link>Internals\LibraryInfo.cs</Link>
+    </Compile>
+    <Compile Include="..\NET35.Sparkle.LinkedInNET\Internals\RequestContext.cs">
+      <Link>Internals\RequestContext.cs</Link>
+    </Compile>
+    <Compile Include="..\NET35.Sparkle.LinkedInNET\Internals\Strings.Designer.cs">
+      <Link>Internals\Strings.Designer.cs</Link>
+    </Compile>
+    <Compile Include="..\NET35.Sparkle.LinkedInNET\LinkedInApi.cs">
+      <Link>LinkedInApi.cs</Link>
+    </Compile>
+    <Compile Include="..\NET35.Sparkle.LinkedInNET\LinkedInApiConfiguration.cs">
+      <Link>LinkedInApiConfiguration.cs</Link>
+    </Compile>
+    <Compile Include="..\NET35.Sparkle.LinkedInNET\LinkedInApiException.cs">
+      <Link>LinkedInApiException.cs</Link>
+    </Compile>
+    <Compile Include="..\NET35.Sparkle.LinkedInNET\OAuth2\AuthorizationAccessToken.cs">
+      <Link>OAuth2\AuthorizationAccessToken.cs</Link>
+    </Compile>
+    <Compile Include="..\NET35.Sparkle.LinkedInNET\OAuth2\AuthorizationScope.cs">
+      <Link>OAuth2\AuthorizationScope.cs</Link>
+    </Compile>
+    <Compile Include="..\NET35.Sparkle.LinkedInNET\OAuth2\OAuth2Api.cs">
+      <Link>OAuth2\OAuth2Api.cs</Link>
+    </Compile>
+    <Compile Include="..\NET35.Sparkle.LinkedInNET\OAuth2\OAuth2Error.cs">
+      <Link>OAuth2\OAuth2Error.cs</Link>
+    </Compile>
+    <Compile Include="..\NET35.Sparkle.LinkedInNET\Services.tt.cs">
+      <Link>Services.tt.cs</Link>
+    </Compile>
+    <Compile Include="..\NET35.Sparkle.LinkedInNET\UserAuthorization.cs">
+      <Link>UserAuthorization.cs</Link>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+    <None Include="SparklePublicCode.pfx" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="..\NET35.Sparkle.LinkedInNET\Internals\Strings.resx">
+      <Link>Internals\Strings.resx</Link>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

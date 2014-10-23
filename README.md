@@ -58,9 +58,10 @@ https://developer.linkedin.com/documents/authentication
 .NET version
 ------------
 
-The initial library targets 3.5. 
+* .NET 4.0
+* .NET 3.5 (dependency to Newtonsoft.Json 6.0)
 
-We are using a lot of code generation so it won't be difficult to target 4.5 or any other framework.
+We are using a lot of code generation so it won't be difficult to target 4.5 or any other framework. Implementing the async pattern won't be hard too.
 
 
 Status

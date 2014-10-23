@@ -111,19 +111,33 @@ namespace Sparkle.LinkedInNET.OAuth2
 
             AuthorizationAccessToken result = null;
             OAuth2Error errorResult = null;
-            var reader = new StreamReader(context.ResponseStream, Encoding.UTF8);
-            var json = reader.ReadToEnd();
 
             // read response content
             try
             {
                 if (context.HttpStatusCode == 200 || context.HttpStatusCode == 201)
                 {
+#if NET35
+                    var reader = new StreamReader(context.ResponseStream, Encoding.UTF8);
+                    var json = reader.ReadToEnd();
                     result = JsonConvert.DeserializeObject<AuthorizationAccessToken>(json);
+#else
+                    var serializer = new System.Runtime.Serialization.Json.DataContractJsonSerializer(typeof(AuthorizationAccessToken));
+                    result = (AuthorizationAccessToken)serializer.ReadObject(context.ResponseStream);
+#endif
+
+                    result.AuthorizationDateUtc = DateTime.UtcNow;
                 }
                 else
                 {
+#if NET35
+                    var reader = new StreamReader(context.ResponseStream, Encoding.UTF8);
+                    var json = reader.ReadToEnd();
                     errorResult = JsonConvert.DeserializeObject<OAuth2Error>(json);
+#else
+                    var serializer = new System.Runtime.Serialization.Json.DataContractJsonSerializer(typeof(AuthorizationAccessToken));
+                    errorResult = (OAuth2Error)serializer.ReadObject(context.ResponseStream);
+#endif
                     throw FX.ApiException("OAuth2ErrorResult", errorResult.Error, errorResult.ErrorMessage);
                 }
             }

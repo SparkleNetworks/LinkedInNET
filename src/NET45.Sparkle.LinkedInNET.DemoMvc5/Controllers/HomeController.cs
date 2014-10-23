@@ -60,8 +60,9 @@ namespace Sparkle.LinkedInNET.DemoMvc5.Controllers
                     ////var full = this.api.Profiles.GetMyProfile();
 
 
-                    var fields = FieldSelector.For<Person>().WithSummary().WithPictureUrl().WithPhoneticLastName().Add("").WithPersonalInfos();
-                    this.api.Profiles.GetMyProfile(user, fields);
+                    ////var fields = FieldSelector.For<Person>().WithSummary().WithPictureUrl().WithPhoneticLastName().Add("").WithPersonalInfos();
+                    ////this.api.Profiles.GetMyProfile(user, fields);
+                    this.api.Profiles.GetMyProfile(user);
 
 
                     this.ViewBag.Profile = profile;
