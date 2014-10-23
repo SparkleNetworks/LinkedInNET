@@ -92,7 +92,9 @@ namespace Sparkle.LinkedInNET.ServiceDefinition
             this.WriteNamespace(indent, "System.Xml.Serialization");
             this.text.WriteLine();
 
-            this.text.WriteLine(indent, "");
+            this.text.WriteLine(indent, "/// <summary>");
+            this.text.WriteLine(indent, "/// Field selectors for the '" + string.Join("', '", returnTypes.Select(r => r.Name).ToArray()) + "' return types.");
+            this.text.WriteLine(indent, "/// </summary>");
             this.text.WriteLine(indent++, "public static class " + apiGroup.Name + "Fields {");
 
             foreach (var returnType in returnTypes)
@@ -102,11 +104,14 @@ namespace Sparkle.LinkedInNET.ServiceDefinition
                 ////this.text.WriteLine(indent, "return me.Add(\"" + field.Name + "\");");
                 ////this.text.WriteLine(--indent, "}");
                 ////this.text.WriteLine(indent, "");
+                var returnTypeName = this.GetPropertyName(returnType.ClassName, returnType.Name);
 
+                var allFields = new List<string>();
                 foreach (var fieldGroup in returnType.Fields.GroupBy(f => this.GetPropertyName(f.PropertyName, f.GetMainName())).ToArray())
                 {
                     var field = fieldGroup.First();
                     var fieldName = this.GetPropertyName(field.PropertyName, field.Name);
+                    allFields.Add(field.Name);
 
                     if (fieldName.Contains(":") || fieldName.Contains("/"))
                     {
@@ -115,12 +120,28 @@ namespace Sparkle.LinkedInNET.ServiceDefinition
                         continue;
                     }
 
-                    var returnTypeName = this.GetPropertyName(returnType.ClassName, returnType.Name);
-                    this.text.WriteLine(indent++, "public static FieldSelector<" + returnTypeName + "> With" + fieldName + "(this FieldSelector<" + returnTypeName + "> me) {");
-                    this.text.WriteLine(indent, "return me.Add(\"" + field.Name + "\");");
-                    this.text.WriteLine(--indent, "}");
+                    this.text.WriteLine(indent, "/// <summary>");
+                    this.text.WriteLine(indent, "/// Includes the field '" + field.Name + "'.");
+                    this.text.WriteLine(indent, "/// </summary>");
+                    this.text.WriteLine(indent, "/// <param name=\"me\">The field selector.</param>");
+                    this.text.WriteLine(indent, "/// <returns>The field selector.</returns>");
+                    this.text.Write(indent++, "public static FieldSelector<" + returnTypeName + "> With" + fieldName + "(this FieldSelector<" + returnTypeName + "> me) { ");
+                    this.text.Write("return me.Add(\"" + field.Name + "\"); ");
+                    this.text.WriteLine("}");
+                    indent--;
                     this.text.WriteLine(indent, "");
                 }
+
+                this.text.WriteLine(indent, "/// <summary>");
+                this.text.WriteLine(indent, "/// Includes all the fields.");
+                this.text.WriteLine(indent, "/// </summary>");
+                this.text.WriteLine(indent, "/// <param name=\"me\">The field selector.</param>");
+                this.text.WriteLine(indent, "/// <returns>The field selector.</returns>");
+                this.text.Write(indent++, "public static FieldSelector<" + returnTypeName + "> WithAllFields(this FieldSelector<" + returnTypeName + "> me) { ");
+                this.text.Write("return me.AddRange(\"" + string.Join("\", \"", allFields.ToArray()) + "\"); ");
+                this.text.WriteLine("}");
+                indent--;
+                this.text.WriteLine(indent, "");
             }
 
             this.text.WriteLine(--indent, "}");

@@ -23,6 +23,7 @@ Code generation
 `[x]` Generate basic return types  
 `[x]` Generate basic methods  
 `[ ]` Collections of ResultType  
+`[ ]` Fix generation of sub-fields (ex: location:(name))  
 
 API notes
 ---------------------------------

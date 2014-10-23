@@ -42,6 +42,22 @@
       <Field Name="api-standard-profile-request:(url)" Title="A URL representing the resource you would request for programmatic access to the member's profile" Remark="" />
       <Field Name="api-standard-profile-request:(headers)" Title="A collection of fields that can be re-used as HTTP headers to request an out of network profile programmatically" Remark="Use the name returned as the name of an HTTP header with the value returned as it's value" />
       <Field Name="public-profile-url" Title="A URL to the member's public profile, if enabled" Remark="This field is only available when requested using a field selector in a profile or connections call." />
+
+      <FieldGroup Name="PersonalInfos">
+        <Name Name="first-name" />
+        <Name Name="last-name" />
+        <Name Name="maiden-name" />
+        <Name Name="formatted-name" />
+        <Name Name="phonetic-first-name" />
+        <Name Name="phonetic-last-name" />
+        <Name Name="location:(name)" />
+        <Name Name="location:(country:(code))" />
+        <Name Name="picture-url" />
+      </FieldGroup>
+      <FieldGroup Name="LinkedInUrls">
+        <Name Name="site-standard-profile-request" />
+        <Name Name="public-profile-url" />
+      </FieldGroup>
     </ReturnType>
 
     <ReturnType Name="connections">

@@ -277,121 +277,239 @@ namespace Sparkle.LinkedInNET.Profiles
     using System.Collections.Generic;
     using System.Xml.Serialization;
 
-    
+    /// <summary>
+    /// Field selectors for the 'person', 'connections', 'location', 'relation-to-viewer', 'api-standard-profile-request' return types.
+    /// </summary>
     public static class ProfilesFields {
-        public static FieldSelector<Person> WithFirstname(this FieldSelector<Person> me) {
-            return me.Add("first-name");
-        }
+        /// <summary>
+        /// Includes the field 'first-name'.
+        /// </summary>
+        /// <param name="me">The field selector.</param>
+        /// <returns>The field selector.</returns>
+        public static FieldSelector<Person> WithFirstname(this FieldSelector<Person> me) { return me.Add("first-name"); }
         
-        public static FieldSelector<Person> WithLastname(this FieldSelector<Person> me) {
-            return me.Add("last-name");
-        }
+        /// <summary>
+        /// Includes the field 'last-name'.
+        /// </summary>
+        /// <param name="me">The field selector.</param>
+        /// <returns>The field selector.</returns>
+        public static FieldSelector<Person> WithLastname(this FieldSelector<Person> me) { return me.Add("last-name"); }
         
-        public static FieldSelector<Person> WithHeadline(this FieldSelector<Person> me) {
-            return me.Add("headline");
-        }
+        /// <summary>
+        /// Includes the field 'headline'.
+        /// </summary>
+        /// <param name="me">The field selector.</param>
+        /// <returns>The field selector.</returns>
+        public static FieldSelector<Person> WithHeadline(this FieldSelector<Person> me) { return me.Add("headline"); }
         
-        public static FieldSelector<Person> WithSiteStandardProfileRequestUrl(this FieldSelector<Person> me) {
-            return me.Add("site-standard-profile-request/url");
-        }
+        /// <summary>
+        /// Includes the field 'site-standard-profile-request/url'.
+        /// </summary>
+        /// <param name="me">The field selector.</param>
+        /// <returns>The field selector.</returns>
+        public static FieldSelector<Person> WithSiteStandardProfileRequestUrl(this FieldSelector<Person> me) { return me.Add("site-standard-profile-request/url"); }
         
-        public static FieldSelector<Person> WithId(this FieldSelector<Person> me) {
-            return me.Add("id");
-        }
+        /// <summary>
+        /// Includes the field 'id'.
+        /// </summary>
+        /// <param name="me">The field selector.</param>
+        /// <returns>The field selector.</returns>
+        public static FieldSelector<Person> WithId(this FieldSelector<Person> me) { return me.Add("id"); }
         
-        public static FieldSelector<Person> WithMaidenName(this FieldSelector<Person> me) {
-            return me.Add("maiden-name");
-        }
+        /// <summary>
+        /// Includes the field 'maiden-name'.
+        /// </summary>
+        /// <param name="me">The field selector.</param>
+        /// <returns>The field selector.</returns>
+        public static FieldSelector<Person> WithMaidenName(this FieldSelector<Person> me) { return me.Add("maiden-name"); }
         
-        public static FieldSelector<Person> WithFormattedName(this FieldSelector<Person> me) {
-            return me.Add("formatted-name");
-        }
+        /// <summary>
+        /// Includes the field 'formatted-name'.
+        /// </summary>
+        /// <param name="me">The field selector.</param>
+        /// <returns>The field selector.</returns>
+        public static FieldSelector<Person> WithFormattedName(this FieldSelector<Person> me) { return me.Add("formatted-name"); }
         
-        public static FieldSelector<Person> WithPhoneticFirstName(this FieldSelector<Person> me) {
-            return me.Add("phonetic-first-name");
-        }
+        /// <summary>
+        /// Includes the field 'phonetic-first-name'.
+        /// </summary>
+        /// <param name="me">The field selector.</param>
+        /// <returns>The field selector.</returns>
+        public static FieldSelector<Person> WithPhoneticFirstName(this FieldSelector<Person> me) { return me.Add("phonetic-first-name"); }
         
-        public static FieldSelector<Person> WithPhoneticLastName(this FieldSelector<Person> me) {
-            return me.Add("phonetic-last-name");
-        }
+        /// <summary>
+        /// Includes the field 'phonetic-last-name'.
+        /// </summary>
+        /// <param name="me">The field selector.</param>
+        /// <returns>The field selector.</returns>
+        public static FieldSelector<Person> WithPhoneticLastName(this FieldSelector<Person> me) { return me.Add("phonetic-last-name"); }
         
-        public static FieldSelector<Person> WithFormattedPhoneticName(this FieldSelector<Person> me) {
-            return me.Add("formatted-phonetic-name");
-        }
+        /// <summary>
+        /// Includes the field 'formatted-phonetic-name'.
+        /// </summary>
+        /// <param name="me">The field selector.</param>
+        /// <returns>The field selector.</returns>
+        public static FieldSelector<Person> WithFormattedPhoneticName(this FieldSelector<Person> me) { return me.Add("formatted-phonetic-name"); }
         
         #warning ReturnType 'person', Field 'location:(name)': unsupported syntax
 
-        public static FieldSelector<Person> WithIndustry(this FieldSelector<Person> me) {
-            return me.Add("industry");
-        }
+        /// <summary>
+        /// Includes the field 'industry'.
+        /// </summary>
+        /// <param name="me">The field selector.</param>
+        /// <returns>The field selector.</returns>
+        public static FieldSelector<Person> WithIndustry(this FieldSelector<Person> me) { return me.Add("industry"); }
         
-        public static FieldSelector<Person> WithDistance(this FieldSelector<Person> me) {
-            return me.Add("distance");
-        }
+        /// <summary>
+        /// Includes the field 'distance'.
+        /// </summary>
+        /// <param name="me">The field selector.</param>
+        /// <returns>The field selector.</returns>
+        public static FieldSelector<Person> WithDistance(this FieldSelector<Person> me) { return me.Add("distance"); }
         
         #warning ReturnType 'person', Field 'relation-to-viewer:(distance)': unsupported syntax
 
-        public static FieldSelector<Person> WithCurrentStatus(this FieldSelector<Person> me) {
-            return me.Add("current-status");
-        }
+        /// <summary>
+        /// Includes the field 'current-status'.
+        /// </summary>
+        /// <param name="me">The field selector.</param>
+        /// <returns>The field selector.</returns>
+        public static FieldSelector<Person> WithCurrentStatus(this FieldSelector<Person> me) { return me.Add("current-status"); }
         
-        public static FieldSelector<Person> WithCurrentStatusTimestamp(this FieldSelector<Person> me) {
-            return me.Add("current-status-timestamp");
-        }
+        /// <summary>
+        /// Includes the field 'current-status-timestamp'.
+        /// </summary>
+        /// <param name="me">The field selector.</param>
+        /// <returns>The field selector.</returns>
+        public static FieldSelector<Person> WithCurrentStatusTimestamp(this FieldSelector<Person> me) { return me.Add("current-status-timestamp"); }
         
-        public static FieldSelector<Person> WithCurrentShare(this FieldSelector<Person> me) {
-            return me.Add("current-share");
-        }
+        /// <summary>
+        /// Includes the field 'current-share'.
+        /// </summary>
+        /// <param name="me">The field selector.</param>
+        /// <returns>The field selector.</returns>
+        public static FieldSelector<Person> WithCurrentShare(this FieldSelector<Person> me) { return me.Add("current-share"); }
         
-        public static FieldSelector<Person> WithNumConnections(this FieldSelector<Person> me) {
-            return me.Add("num-connections");
-        }
+        /// <summary>
+        /// Includes the field 'num-connections'.
+        /// </summary>
+        /// <param name="me">The field selector.</param>
+        /// <returns>The field selector.</returns>
+        public static FieldSelector<Person> WithNumConnections(this FieldSelector<Person> me) { return me.Add("num-connections"); }
         
-        public static FieldSelector<Person> WithNumConnectionsCapped(this FieldSelector<Person> me) {
-            return me.Add("num-connections-capped");
-        }
+        /// <summary>
+        /// Includes the field 'num-connections-capped'.
+        /// </summary>
+        /// <param name="me">The field selector.</param>
+        /// <returns>The field selector.</returns>
+        public static FieldSelector<Person> WithNumConnectionsCapped(this FieldSelector<Person> me) { return me.Add("num-connections-capped"); }
         
-        public static FieldSelector<Person> WithSummary(this FieldSelector<Person> me) {
-            return me.Add("summary");
-        }
+        /// <summary>
+        /// Includes the field 'summary'.
+        /// </summary>
+        /// <param name="me">The field selector.</param>
+        /// <returns>The field selector.</returns>
+        public static FieldSelector<Person> WithSummary(this FieldSelector<Person> me) { return me.Add("summary"); }
         
-        public static FieldSelector<Person> WithSpecialties(this FieldSelector<Person> me) {
-            return me.Add("specialties");
-        }
+        /// <summary>
+        /// Includes the field 'specialties'.
+        /// </summary>
+        /// <param name="me">The field selector.</param>
+        /// <returns>The field selector.</returns>
+        public static FieldSelector<Person> WithSpecialties(this FieldSelector<Person> me) { return me.Add("specialties"); }
         
-        public static FieldSelector<Person> WithPositions(this FieldSelector<Person> me) {
-            return me.Add("positions");
-        }
+        /// <summary>
+        /// Includes the field 'positions'.
+        /// </summary>
+        /// <param name="me">The field selector.</param>
+        /// <returns>The field selector.</returns>
+        public static FieldSelector<Person> WithPositions(this FieldSelector<Person> me) { return me.Add("positions"); }
         
-        public static FieldSelector<Person> WithPictureUrl(this FieldSelector<Person> me) {
-            return me.Add("picture-url");
-        }
+        /// <summary>
+        /// Includes the field 'picture-url'.
+        /// </summary>
+        /// <param name="me">The field selector.</param>
+        /// <returns>The field selector.</returns>
+        public static FieldSelector<Person> WithPictureUrl(this FieldSelector<Person> me) { return me.Add("picture-url"); }
         
-        public static FieldSelector<Person> WithSiteStandardProfileRequest(this FieldSelector<Person> me) {
-            return me.Add("site-standard-profile-request");
-        }
+        /// <summary>
+        /// Includes the field 'site-standard-profile-request'.
+        /// </summary>
+        /// <param name="me">The field selector.</param>
+        /// <returns>The field selector.</returns>
+        public static FieldSelector<Person> WithSiteStandardProfileRequest(this FieldSelector<Person> me) { return me.Add("site-standard-profile-request"); }
         
         #warning ReturnType 'person', Field 'api-standard-profile-request:(url)': unsupported syntax
 
-        public static FieldSelector<Person> WithPublicProfileUrl(this FieldSelector<Person> me) {
-            return me.Add("public-profile-url");
-        }
+        /// <summary>
+        /// Includes the field 'public-profile-url'.
+        /// </summary>
+        /// <param name="me">The field selector.</param>
+        /// <returns>The field selector.</returns>
+        public static FieldSelector<Person> WithPublicProfileUrl(this FieldSelector<Person> me) { return me.Add("public-profile-url"); }
         
-        public static FieldSelector<Connections> WithPerson(this FieldSelector<Connections> me) {
-            return me.Add("person");
-        }
+        /// <summary>
+        /// Includes all the fields.
+        /// </summary>
+        /// <param name="me">The field selector.</param>
+        /// <returns>The field selector.</returns>
+        public static FieldSelector<Person> WithAllFields(this FieldSelector<Person> me) { return me.AddRange("first-name", "last-name", "headline", "site-standard-profile-request/url", "id", "maiden-name", "formatted-name", "phonetic-first-name", "phonetic-last-name", "formatted-phonetic-name", "location:(name)", "industry", "distance", "relation-to-viewer:(distance)", "current-status", "current-status-timestamp", "current-share", "num-connections", "num-connections-capped", "summary", "specialties", "positions", "picture-url", "site-standard-profile-request", "api-standard-profile-request:(url)", "public-profile-url"); }
         
-        public static FieldSelector<Location> WithName(this FieldSelector<Location> me) {
-            return me.Add("name");
-        }
+        /// <summary>
+        /// Includes the field 'person'.
+        /// </summary>
+        /// <param name="me">The field selector.</param>
+        /// <returns>The field selector.</returns>
+        public static FieldSelector<Connections> WithPerson(this FieldSelector<Connections> me) { return me.Add("person"); }
         
-        public static FieldSelector<RelationToViewer> WithDistance(this FieldSelector<RelationToViewer> me) {
-            return me.Add("distance");
-        }
+        /// <summary>
+        /// Includes all the fields.
+        /// </summary>
+        /// <param name="me">The field selector.</param>
+        /// <returns>The field selector.</returns>
+        public static FieldSelector<Connections> WithAllFields(this FieldSelector<Connections> me) { return me.AddRange("person"); }
         
-        public static FieldSelector<ApiStandardProfileRequest> WithUrl(this FieldSelector<ApiStandardProfileRequest> me) {
-            return me.Add("url");
-        }
+        /// <summary>
+        /// Includes the field 'name'.
+        /// </summary>
+        /// <param name="me">The field selector.</param>
+        /// <returns>The field selector.</returns>
+        public static FieldSelector<Location> WithName(this FieldSelector<Location> me) { return me.Add("name"); }
+        
+        /// <summary>
+        /// Includes all the fields.
+        /// </summary>
+        /// <param name="me">The field selector.</param>
+        /// <returns>The field selector.</returns>
+        public static FieldSelector<Location> WithAllFields(this FieldSelector<Location> me) { return me.AddRange("name"); }
+        
+        /// <summary>
+        /// Includes the field 'distance'.
+        /// </summary>
+        /// <param name="me">The field selector.</param>
+        /// <returns>The field selector.</returns>
+        public static FieldSelector<RelationToViewer> WithDistance(this FieldSelector<RelationToViewer> me) { return me.Add("distance"); }
+        
+        /// <summary>
+        /// Includes all the fields.
+        /// </summary>
+        /// <param name="me">The field selector.</param>
+        /// <returns>The field selector.</returns>
+        public static FieldSelector<RelationToViewer> WithAllFields(this FieldSelector<RelationToViewer> me) { return me.AddRange("distance"); }
+        
+        /// <summary>
+        /// Includes the field 'url'.
+        /// </summary>
+        /// <param name="me">The field selector.</param>
+        /// <returns>The field selector.</returns>
+        public static FieldSelector<ApiStandardProfileRequest> WithUrl(this FieldSelector<ApiStandardProfileRequest> me) { return me.Add("url"); }
+        
+        /// <summary>
+        /// Includes all the fields.
+        /// </summary>
+        /// <param name="me">The field selector.</param>
+        /// <returns>The field selector.</returns>
+        public static FieldSelector<ApiStandardProfileRequest> WithAllFields(this FieldSelector<ApiStandardProfileRequest> me) { return me.AddRange("url"); }
         
     }
 }
@@ -429,15 +547,30 @@ namespace Sparkle.LinkedInNET.Companies
     using System.Collections.Generic;
     using System.Xml.Serialization;
 
-    
+    /// <summary>
+    /// Field selectors for the 'company' return types.
+    /// </summary>
     public static class CompaniesFields {
-        public static FieldSelector<Company> WithId(this FieldSelector<Company> me) {
-            return me.Add("id");
-        }
+        /// <summary>
+        /// Includes the field 'id'.
+        /// </summary>
+        /// <param name="me">The field selector.</param>
+        /// <returns>The field selector.</returns>
+        public static FieldSelector<Company> WithId(this FieldSelector<Company> me) { return me.Add("id"); }
         
-        public static FieldSelector<Company> WithName(this FieldSelector<Company> me) {
-            return me.Add("name");
-        }
+        /// <summary>
+        /// Includes the field 'name'.
+        /// </summary>
+        /// <param name="me">The field selector.</param>
+        /// <returns>The field selector.</returns>
+        public static FieldSelector<Company> WithName(this FieldSelector<Company> me) { return me.Add("name"); }
+        
+        /// <summary>
+        /// Includes all the fields.
+        /// </summary>
+        /// <param name="me">The field selector.</param>
+        /// <returns>The field selector.</returns>
+        public static FieldSelector<Company> WithAllFields(this FieldSelector<Company> me) { return me.AddRange("id", "name"); }
         
     }
 }
@@ -448,7 +581,9 @@ namespace Sparkle.LinkedInNET.Groups
     using System.Collections.Generic;
     using System.Xml.Serialization;
 
-    
+    /// <summary>
+    /// Field selectors for the '' return types.
+    /// </summary>
     public static class GroupsFields {
     }
 }
@@ -459,7 +594,9 @@ namespace Sparkle.LinkedInNET.Jobs
     using System.Collections.Generic;
     using System.Xml.Serialization;
 
-    
+    /// <summary>
+    /// Field selectors for the '' return types.
+    /// </summary>
     public static class JobsFields {
     }
 }
