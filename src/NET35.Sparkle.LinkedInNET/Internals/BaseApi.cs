@@ -66,6 +66,10 @@ namespace Sparkle.LinkedInNET.Internals
             {
                 result = result.Replace("{FieldSelector}", fieldSelector.ToString());
             }
+            else
+            {
+                result = result.Replace("{FieldSelector}", string.Empty);
+            }
 
             foreach (var key in dic.Keys)
             {
@@ -91,7 +95,7 @@ namespace Sparkle.LinkedInNET.Internals
                 throw new InvalidOperationException("Missing API Secret Key in configuration");
         }
 
-        internal void ExecuteQuery(RequestContext context)
+        internal bool ExecuteQuery(RequestContext context)
         {
             // https://developer.linkedin.com/documents/request-and-response-headers
 
@@ -132,6 +136,8 @@ namespace Sparkle.LinkedInNET.Internals
                 {
                     throw new InvalidOperationException("Error from API (HTTP " + (int)(response.StatusCode) + ")");
                 }
+
+                return true;
             }
             catch (WebException ex)
             {
@@ -149,19 +155,20 @@ namespace Sparkle.LinkedInNET.Internals
                         var responseString = new StreamReader(context.ResponseStream, Encoding.UTF8).ReadToEnd();
 
                         context.ResponseStream.Seek(0L, SeekOrigin.Begin);
-                        var error = this.HandleXmlResponse<ApiError>(context);
-                        Exception ex1;
-                        if (error != null)
-                        {
-                            ex1 = FX.ApiException("ApiErrorResult", error.Status, error.Message);
-                        }
-                        else
-                        {
-                            ex1 = FX.ApiException("ApiEmptyErrorResult", (int)(response.StatusCode));
-                        }
+                        ////var error = this.HandleXmlResponse<ApiError>(context);
+                        ////Exception ex1;
+                        ////if (error != null)
+                        ////{
+                        ////    ex1 = FX.ApiException("ApiErrorResult", error.Status, error.Message);
+                        ////}
+                        ////else
+                        ////{
+                        ////    ex1 = FX.ApiException("ApiEmptyErrorResult", (int)(response.StatusCode));
+                        ////}
 
-                        ex1.Data["ApiRawResponse"] = responseString;
-                        throw ex1;
+                        ////ex1.Data["ApiRawResponse"] = responseString;
+                        ////throw ex1;
+                        return false;
                     }
 
                     throw new InvalidOperationException("Error from API (HTTP " + (int)(response.StatusCode) + "): " + ex.Message, ex);
@@ -171,6 +178,23 @@ namespace Sparkle.LinkedInNET.Internals
                     throw new InvalidOperationException("Error from API: " + ex.Message, ex);
                 }
             }
+        }
+
+        internal void HandleXmlErrorResponse(RequestContext context)
+        {
+            var error = this.HandleXmlResponse<ApiError>(context);
+
+            Exception ex1;
+            if (error != null)
+            {
+                ex1 = FX.ApiException("ApiErrorResult", error.Status, error.Message);
+            }
+            else
+            {
+                ex1 = FX.ApiException("ApiEmptyErrorResult", (int)(context.HttpStatusCode));
+            }
+
+            throw ex1;
         }
 
         private static int[] validHttpCodes = new int[] { 200, 201, 202, };

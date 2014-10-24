@@ -45,8 +45,8 @@ namespace Sparkle.LinkedInNET.Profiles
         /// <summary>
         /// Field: 'site-standard-profile-request/url' (default)
         /// </summary>
-        [XmlElement(ElementName = "site-standard-profile-request/url")]
-        public string SiteStandardProfileRequestUrl { get; set; }
+        ////[XmlElement(ElementName = "site-standard-profile-request/url")]
+        ////public string SiteStandardProfileRequestUrl { get; set; }
 
         /// <summary>
         /// Field: 'id' (on-demand)
@@ -88,8 +88,8 @@ namespace Sparkle.LinkedInNET.Profiles
         /// Field: 'location:(name)' (on-demand)
         /// Field: 'location:(country:(code))' (on-demand)
         /// </summary>
-        [XmlElement(ElementName = "location")]
-        public Location Location { get; set; }
+        ////[XmlElement(ElementName = "location")]
+        ////public Location Location { get; set; }
 
         /// <summary>
         /// Field: 'industry' (on-demand)
@@ -108,8 +108,8 @@ namespace Sparkle.LinkedInNET.Profiles
         /// Field: 'relation-to-viewer:(related-connections)' (on-demand)
         /// Field: 'relation-to-viewer:(connections)' (on-demand)
         /// </summary>
-        [XmlElement(ElementName = "relation-to-viewer")]
-        public RelationToViewer RelationToViewer { get; set; }
+        ////[XmlElement(ElementName = "relation-to-viewer")]
+        ////public RelationToViewer RelationToViewer { get; set; }
 
         /// <summary>
         /// Field: 'current-status' (on-demand)
@@ -168,15 +168,15 @@ namespace Sparkle.LinkedInNET.Profiles
         /// <summary>
         /// Field: 'site-standard-profile-request' (on-demand)
         /// </summary>
-        [XmlElement(ElementName = "site-standard-profile-request")]
-        public string SiteStandardProfileRequest { get; set; }
+        ////[XmlElement(ElementName = "site-standard-profile-request")]
+        ////public string SiteStandardProfileRequest { get; set; }
 
         /// <summary>
         /// Field: 'api-standard-profile-request:(url)' (on-demand)
         /// Field: 'api-standard-profile-request:(headers)' (on-demand)
         /// </summary>
-        [XmlElement(ElementName = "api-standard-profile-request")]
-        public ApiStandardProfileRequest ApiStandardProfileRequest { get; set; }
+        ////[XmlElement(ElementName = "api-standard-profile-request")]
+        ////public ApiStandardProfileRequest ApiStandardProfileRequest { get; set; }
 
         /// <summary>
         /// Field: 'public-profile-url' (on-demand)
@@ -633,9 +633,9 @@ namespace Sparkle.LinkedInNET.Profiles
             context.Method =  "GET";
             context.UrlPath = this.LinkedInApi.Configuration.BaseApiUrl + url;
 
-            this.ExecuteQuery(context);
-            var result = this.HandleXmlResponse<Person>(context);
-            return result;
+            if (!this.ExecuteQuery(context))
+                this.HandleXmlErrorResponse(context);
+            return this.HandleXmlResponse<Person>(context);
         }
         
         /// <summary>
@@ -655,9 +655,9 @@ namespace Sparkle.LinkedInNET.Profiles
             context.Method =  "GET";
             context.UrlPath = this.LinkedInApi.Configuration.BaseApiUrl + url;
 
-            this.ExecuteQuery(context);
-            var result = this.HandleXmlResponse<Person>(context);
-            return result;
+            if (!this.ExecuteQuery(context))
+                this.HandleXmlErrorResponse(context);
+            return this.HandleXmlResponse<Person>(context);
         }
         
         /// <summary>
@@ -677,9 +677,9 @@ namespace Sparkle.LinkedInNET.Profiles
             context.Method =  "GET";
             context.UrlPath = this.LinkedInApi.Configuration.BaseApiUrl + url;
 
-            this.ExecuteQuery(context);
-            var result = this.HandleXmlResponse<Person>(context);
-            return result;
+            if (!this.ExecuteQuery(context))
+                this.HandleXmlErrorResponse(context);
+            return this.HandleXmlResponse<Person>(context);
         }
         
         /// <summary>
@@ -697,9 +697,9 @@ namespace Sparkle.LinkedInNET.Profiles
             context.Method =  "GET";
             context.UrlPath = this.LinkedInApi.Configuration.BaseApiUrl + url;
 
-            this.ExecuteQuery(context);
-            var result = this.HandleXmlResponse<Person>(context);
-            return result;
+            if (!this.ExecuteQuery(context))
+                this.HandleXmlErrorResponse(context);
+            return this.HandleXmlResponse<Person>(context);
         }
         
         /// <summary>
@@ -719,9 +719,9 @@ namespace Sparkle.LinkedInNET.Profiles
             context.Method =  "GET";
             context.UrlPath = this.LinkedInApi.Configuration.BaseApiUrl + url;
 
-            this.ExecuteQuery(context);
-            var result = this.HandleXmlResponse<Person>(context);
-            return result;
+            if (!this.ExecuteQuery(context))
+                this.HandleXmlErrorResponse(context);
+            return this.HandleXmlResponse<Person>(context);
         }
         
     }
@@ -758,9 +758,9 @@ namespace Sparkle.LinkedInNET.Companies
             context.Method =  "GET";
             context.UrlPath = this.LinkedInApi.Configuration.BaseApiUrl + url;
 
-            this.ExecuteQuery(context);
-            var result = this.HandleXmlResponse<Company>(context);
-            return result;
+            if (!this.ExecuteQuery(context))
+                this.HandleXmlErrorResponse(context);
+            return this.HandleXmlResponse<Company>(context);
         }
         
         /// <summary>
@@ -780,9 +780,9 @@ namespace Sparkle.LinkedInNET.Companies
             context.Method =  "GET";
             context.UrlPath = this.LinkedInApi.Configuration.BaseApiUrl + url;
 
-            this.ExecuteQuery(context);
-            var result = this.HandleXmlResponse<Company>(context);
-            return result;
+            if (!this.ExecuteQuery(context))
+                this.HandleXmlErrorResponse(context);
+            return this.HandleXmlResponse<Company>(context);
         }
         
         /// <summary>
@@ -802,9 +802,9 @@ namespace Sparkle.LinkedInNET.Companies
             context.Method =  "GET";
             context.UrlPath = this.LinkedInApi.Configuration.BaseApiUrl + url;
 
-            this.ExecuteQuery(context);
-            var result = this.HandleXmlResponse<Company>(context);
-            return result;
+            if (!this.ExecuteQuery(context))
+                this.HandleXmlErrorResponse(context);
+            return this.HandleXmlResponse<Company>(context);
         }
         
         /// <summary>
@@ -824,9 +824,9 @@ namespace Sparkle.LinkedInNET.Companies
             context.Method =  "GET";
             context.UrlPath = this.LinkedInApi.Configuration.BaseApiUrl + url;
 
-            this.ExecuteQuery(context);
-            var result = this.HandleXmlResponse<Company>(context);
-            return result;
+            if (!this.ExecuteQuery(context))
+                this.HandleXmlErrorResponse(context);
+            return this.HandleXmlResponse<Company>(context);
         }
         
     }
