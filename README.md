@@ -39,6 +39,13 @@ Usage
     var user = new UserAuthorization(userToken.AccessToken);
     var profile = api.Profiles.GetMyProfile(user);
 
+### Field selectors
+
+The API uses field lists to fetch the desired data. Simple extension methods will allow you to make strongly-typed field selection.
+
+    var profile = api.Profiles.GetMyProfile(user, FieldSelector.For<Person>().WithAllFields());
+	var profile = api.Profiles.GetMyProfile(user, FieldSelector.For<Person>().WithFirstname().WithLastname());
+
 
 Contribute
 ------------
