@@ -43,6 +43,11 @@ namespace Sparkle.LinkedInNET.Internals
         /// <returns></returns>
         protected string FormatUrl(string format, params string[] values)
         {
+            return this.FormatUrl(format, null, values);
+        }
+
+        protected string FormatUrl(string format, FieldSelector fieldSelector, params string[] values)
+        {
             var result = format;
 
             var dic = new Dictionary<string, string>(values.Length / 2);
@@ -50,12 +55,16 @@ namespace Sparkle.LinkedInNET.Internals
             {
                 if (i % 2 == 0)
                 {
-
                 }
                 else
                 {
                     dic.Add(values[i - 1], values[i]);
                 }
+            }
+
+            if (fieldSelector != null)
+            {
+                result = result.Replace("{FieldSelector}", fieldSelector.ToString());
             }
 
             foreach (var key in dic.Keys)
@@ -136,6 +145,23 @@ namespace Sparkle.LinkedInNET.Internals
                     if (stream != null)
                     {
                         BufferizeResponse(context, stream);
+
+                        var responseString = new StreamReader(context.ResponseStream, Encoding.UTF8).ReadToEnd();
+
+                        context.ResponseStream.Seek(0L, SeekOrigin.Begin);
+                        var error = this.HandleXmlResponse<ApiError>(context);
+                        Exception ex1;
+                        if (error != null)
+                        {
+                            ex1 = FX.ApiException("ApiErrorResult", error.Status, error.Message);
+                        }
+                        else
+                        {
+                            ex1 = FX.ApiException("ApiEmptyErrorResult", (int)(response.StatusCode));
+                        }
+
+                        ex1.Data["ApiRawResponse"] = responseString;
+                        throw ex1;
                     }
 
                     throw new InvalidOperationException("Error from API (HTTP " + (int)(response.StatusCode) + "): " + ex.Message, ex);
@@ -169,6 +195,7 @@ namespace Sparkle.LinkedInNET.Internals
                     errorResult = (ApiError)serializer.Deserialize(context.ResponseStream);
                     var ex = FX.ApiException("ApiErrorResult", errorResult.Status, errorResult.Message);
                     ex.Data.Add("ErrorResult", errorResult);
+                    throw ex;
                 }
                 else
                 {

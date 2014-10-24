@@ -62,6 +62,7 @@
     <dt>Headline</dt>
     <dd>@profile.Headline</dd>
 </dl>
+    <pre>@Newtonsoft.Json.JsonConvert.SerializeObject(profile, Newtonsoft.Json.Formatting.Indented)</pre>
 }
 @if (this.ViewBag.ProfileError != null)
 {

@@ -625,7 +625,8 @@ namespace Sparkle.LinkedInNET.Profiles
             , FieldSelector<Person> fields = null
         )
         {
-            var url = "/v1/people/~";
+            const string urlFormat = "/v1/people/~{FieldSelector}";
+            var url = FormatUrl(urlFormat, fields);
 
             var context = new RequestContext();
             context.UserAuthorization = user;
@@ -646,8 +647,8 @@ namespace Sparkle.LinkedInNET.Profiles
             , FieldSelector<Person> fields = null
         )
         {
-            const string urlFormat = "/v1/people/id={MemberToken}";
-            var url = FormatUrl(urlFormat, "MemberToken", memberToken);
+            const string urlFormat = "/v1/people/id={MemberToken}{FieldSelector}";
+            var url = FormatUrl(urlFormat, fields, "MemberToken", memberToken);
 
             var context = new RequestContext();
             context.UserAuthorization = user;
@@ -668,8 +669,8 @@ namespace Sparkle.LinkedInNET.Profiles
             , FieldSelector<Person> fields = null
         )
         {
-            const string urlFormat = "/v1/people/url={PublicProfileUrl}";
-            var url = FormatUrl(urlFormat, "PublicProfileUrl", publicProfileUrl);
+            const string urlFormat = "/v1/people/url={PublicProfileUrl}{FieldSelector}";
+            var url = FormatUrl(urlFormat, fields, "PublicProfileUrl", publicProfileUrl);
 
             var context = new RequestContext();
             context.UserAuthorization = user;
@@ -711,7 +712,7 @@ namespace Sparkle.LinkedInNET.Profiles
         )
         {
             const string urlFormat = "/v1/people/id={MemberToken}/connections";
-            var url = FormatUrl(urlFormat, "MemberToken", memberToken);
+            var url = FormatUrl(urlFormat, fields, "MemberToken", memberToken);
 
             var context = new RequestContext();
             context.UserAuthorization = user;
@@ -772,7 +773,7 @@ namespace Sparkle.LinkedInNET.Companies
         )
         {
             const string urlFormat = "/v1/companies/{CompanyId}";
-            var url = FormatUrl(urlFormat, "CompanyId", companyId);
+            var url = FormatUrl(urlFormat, fields, "CompanyId", companyId);
 
             var context = new RequestContext();
             context.UserAuthorization = user;
@@ -794,7 +795,7 @@ namespace Sparkle.LinkedInNET.Companies
         )
         {
             const string urlFormat = "/v1/companies/universal-name={UniversalName}";
-            var url = FormatUrl(urlFormat, "UniversalName", universalName);
+            var url = FormatUrl(urlFormat, fields, "UniversalName", universalName);
 
             var context = new RequestContext();
             context.UserAuthorization = user;
@@ -816,7 +817,7 @@ namespace Sparkle.LinkedInNET.Companies
         )
         {
             const string urlFormat = "/v1/companies/universal-name={UniversalName}";
-            var url = FormatUrl(urlFormat, "UniversalName", universalName);
+            var url = FormatUrl(urlFormat, fields, "UniversalName", universalName);
 
             var context = new RequestContext();
             context.UserAuthorization = user;

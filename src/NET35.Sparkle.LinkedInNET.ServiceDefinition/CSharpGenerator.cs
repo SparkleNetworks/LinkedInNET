@@ -242,7 +242,6 @@ namespace Sparkle.LinkedInNET.ServiceDefinition
                     }
                 }
 
-
                 var parameters = new List<TupleStruct<string, string>>();
 
                 if (method.RequiresUserAuthentication)
@@ -280,7 +279,12 @@ namespace Sparkle.LinkedInNET.ServiceDefinition
                 if (urlParams.Count > 0)
                 {
                     this.text.WriteLine(indent, "const string urlFormat = \"" + method.Path + "\";");
-                    this.text.WriteLine(indent, "var url = FormatUrl(urlFormat, " + string.Join(", ", urlParams.Values.Select(p => "\"" + p.OriginalName + "\", " + p.Name).ToArray()) + ");");
+                    this.text.WriteLine(indent, "var url = FormatUrl(urlFormat, fields, " + string.Join(", ", urlParams.Values.Select(p => "\"" + p.OriginalName + "\", " + p.Name).ToArray()) + ");");
+                }
+                else if (method.Path.Contains("FieldSelector"))
+                {
+                    this.text.WriteLine(indent, "const string urlFormat = \"" + method.Path + "\";");
+                    this.text.WriteLine(indent, "var url = FormatUrl(urlFormat, fields);");
                 }
                 else
                 {
@@ -344,6 +348,9 @@ namespace Sparkle.LinkedInNET.ServiceDefinition
             {
                 var key = match.Groups[2].Captures[0].Value;
                 var type = match.Groups[1].Success ? match.Groups[1].Captures[0].Value : null;
+                if (key == "FieldSelector")
+                    continue;
+
                 var item = new Parameter
                 {
                     OriginalName = key,

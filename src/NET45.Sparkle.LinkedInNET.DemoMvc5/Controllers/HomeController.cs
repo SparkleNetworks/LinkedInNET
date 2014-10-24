@@ -31,7 +31,7 @@ namespace Sparkle.LinkedInNET.DemoMvc5.Controllers
             this.ViewBag.Configuration = this.apiConfig;
             
             // step 2: authorize url
-            var scope = AuthorizationScope.ReadBasicProfile | AuthorizationScope.ReadEmailAddress;
+            var scope = AuthorizationScope.ReadFullProfile | AuthorizationScope.ReadEmailAddress;
             var state = Guid.NewGuid().ToString();
             var redirectUrl = this.Request.Compose() + this.Url.Action("OAuth2");
             this.ViewBag.LocalRedirectUrl = redirectUrl;
@@ -56,14 +56,14 @@ namespace Sparkle.LinkedInNET.DemoMvc5.Controllers
                 watch.Start();
                 try
                 {
-                    var profile = this.api.Profiles.GetMyProfile(user);
+                    ////var profile = this.api.Profiles.GetMyProfile(user);
                     ////var full = this.api.Profiles.GetMyProfile();
 
 
                     ////var fields = FieldSelector.For<Person>().WithSummary().WithPictureUrl().WithPhoneticLastName().Add("").WithPersonalInfos();
                     ////this.api.Profiles.GetMyProfile(user, fields);
-                    this.api.Profiles.GetMyProfile(user);
-
+                    ////this.api.Profiles.GetMyProfile(user);
+                    var profile = this.api.Profiles.GetMyProfile(user, FieldSelector.For<Person>().WithAllFields());
 
                     this.ViewBag.Profile = profile;
                 }

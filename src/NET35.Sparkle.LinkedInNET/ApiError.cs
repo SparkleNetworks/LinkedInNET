@@ -10,7 +10,7 @@ namespace Sparkle.LinkedInNET
     /// <summary>
     /// An API error.
     /// </summary>
-    [XmlRoot(ElementName = "error")]
+    [Serializable, XmlRoot(ElementName = "error")]
     public class ApiError
     {
         /// <summary>
@@ -23,7 +23,7 @@ namespace Sparkle.LinkedInNET
         /// Gets or sets the timestamp.
         /// </summary>
         [XmlElement(ElementName = "timestamp")]
-        public int Timestamp { get; set; }
+        public long Timestamp { get; set; }
 
         /// <summary>
         /// Gets or sets the request unique identifier.

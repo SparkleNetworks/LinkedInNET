@@ -55,5 +55,37 @@ namespace Sparkle.LinkedInNET.Tests
             Assert.AreEqual(0, target.Items.Length);
             Assert.AreSame(target, result);
         }
+
+        [TestMethod]
+        public void ToStringEmpty()
+        {
+            var target = new FieldSelector<FieldSelectorTests>();
+            var result = target.ToString();
+            Assert.AreEqual(string.Empty, result);
+        }
+
+        [TestMethod]
+        public void ToString1()
+        {
+            var target = new FieldSelector<FieldSelectorTests>().Add("hello");
+            var result = target.ToString();
+            Assert.AreEqual(":(hello)", result);
+        }
+
+        [TestMethod]
+        public void ToString2()
+        {
+            var target = new FieldSelector<FieldSelectorTests>().Add("hello").Add("world");
+            var result = target.ToString();
+            Assert.AreEqual(":(hello,world)", result);
+        }
+
+        [TestMethod]
+        public void ToString3()
+        {
+            var target = new FieldSelector<FieldSelectorTests>().Add("hello").Add("location:(name,country)").Add("world");
+            var result = target.ToString();
+            Assert.AreEqual(":(hello,location:(name,country),world)", result);
+        }
     }
 }

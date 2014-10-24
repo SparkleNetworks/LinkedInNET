@@ -61,6 +61,15 @@ namespace Sparkle.LinkedInNET.Internals {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to API returned empty/invalid error mesage (HTTP {0}).
+        /// </summary>
+        internal static string ApiException_ApiEmptyErrorResult {
+            get {
+                return ResourceManager.GetString("ApiException_ApiEmptyErrorResult", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The API returned an empty result.
         /// </summary>
         internal static string ApiException_ApiEmptyResult {
