@@ -31,6 +31,9 @@ namespace Sparkle.LinkedInNET.ServiceDefinition
         [XmlAttribute]
         public string Type { get; set; }
 
+        [XmlAttribute]
+        public bool Ignore { get; set; }
+
         public string GetMainName()
         {
             var parts = this.Name.Split(new char[] { ':', }, 2);
@@ -41,6 +44,11 @@ namespace Sparkle.LinkedInNET.ServiceDefinition
         {
             var parts = this.Name.Split(new char[] { ':', }, 2);
             return parts.Length == 2 ? parts[1] : null;
+        }
+
+        public override string ToString()
+        {
+            return string.Format("N='{0}' PN='{1}' T='{2}' Tl='{3}'", Name, PropertyName, Type, Title);
         }
     }
 }

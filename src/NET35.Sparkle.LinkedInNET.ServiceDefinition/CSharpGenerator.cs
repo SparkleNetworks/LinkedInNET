@@ -45,7 +45,7 @@ namespace Sparkle.LinkedInNET.ServiceDefinition
                     {
                         foreach (var item in returnType.Fields)
                         {
-                            var parts = item.Name.Split(new char[] { ':', }, 2);
+                            var parts = item.Name.Split(new char[] { ':', '/', }, 2);
                             var mainPart = parts.Length == 1 ? parts[0] : parts[0];
                             var subPart = parts.Length == 2 ? parts[1] : null;
 
@@ -363,7 +363,7 @@ namespace Sparkle.LinkedInNET.ServiceDefinition
                 this.text.WriteLine(indent, "/// </remarks>");
             }
 
-            this.text.WriteLine(indent, "[Serializable, XmlRoot(\""+returnType.Name+"\")]");
+            this.text.WriteLine(indent, "[Serializable, XmlRoot(\"" + returnType.Name + "\")]");
             this.text.WriteLine(indent, "public class " + this.GetPropertyName(returnType.ClassName, returnType.Name));
             this.text.WriteLine(indent++, "{");
 
@@ -375,7 +375,7 @@ namespace Sparkle.LinkedInNET.ServiceDefinition
                 var subPart = parts.Length == 2 ? parts[1] : null;
                 var isCollection = item.IsCollection;
 
-                var type = "string";
+                var type = item.Type ?? "string";
                 if (parts.Length > 1)
                 {
                     var subReturnType = context.FindReturnType(mainPart, apiGroupName: apiGroup.Name, subPart: subPart);
@@ -402,6 +402,8 @@ namespace Sparkle.LinkedInNET.ServiceDefinition
 
                 this.text.WriteLine(indent, "/// </summary>");
                 this.text.WriteLine(indent, "[XmlElement(ElementName = \"" + mainPart + "\")]");
+                if (item.Ignore)
+                    this.text.WriteLine(indent, "#warning Field is to be ignored or has issues");
                 this.text.WriteLine(indent, "public " + type + " " + this.GetPropertyName(item.PropertyName, mainPart) + " { get; set; }");
                 this.text.WriteLine();
             }
@@ -472,12 +474,11 @@ namespace Sparkle.LinkedInNET.ServiceDefinition
                         if (item.Name == name)
                         {
                             returnItem = item;
-                            return item;
                         }
                     }
                 }
 
-                if (apiGroupName != null)
+                if (apiGroupName != null && returnItem == null)
                 {
                     var item = new ReturnType
                     {
@@ -494,7 +495,37 @@ namespace Sparkle.LinkedInNET.ServiceDefinition
                 {
                     if (subPart != null && subPart.First() == '(' && subPart.Last() == ')')
                     {
-                        var parts = subPart.Substring(1, subPart.Length - 2).Split(new char[] { ':', }, 2);
+                        // subPart = "main:(sub)"
+                        // subPart = "main:(sub:(woot))"
+                        Field newField = null;
+                        {
+                            var parts = subPart.Substring(1, subPart.Length - 2).Split(new char[] { ':', }, 2);
+                            newField = new Field
+                            {
+                                Name = parts[0],
+                                ReturnType = name,
+                                Type = parts.Length > 1 && parts[1].Length > 2 ? parts[0] : null,
+                            };
+                            returnItem.Fields.Add(newField);
+                        }
+
+                        {
+                            // split "main:(sub:(woot))"
+                            var parts = subPart.Substring(1, subPart.Length - 2).Split(new char[] { ':', '/', }, 2);
+                            var mainPart = parts.Length == 1 ? parts[0] : parts[0];
+                            var subPart1 = parts.Length == 2 ? parts[1] : null;
+
+                            if (parts.Length > 1)
+                            {
+                                // "(sub:(woot))"
+                                var subReturnType = this.FindReturnType(mainPart, apiGroupName, subPart: subPart1);
+                            }
+                        }
+                    }
+                    else if (subPart != null)
+                    {
+                        // "main/sub"
+                        var parts = subPart.Split(new char[] { ':', '/', }, 2);
                         returnItem.Fields.Add(new Field
                         {
                             Name = parts[0],

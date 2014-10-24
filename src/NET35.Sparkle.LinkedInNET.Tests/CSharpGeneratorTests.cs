@@ -4,6 +4,7 @@ namespace Sparkle.LinkedInNET.Tests
     using System;
     using System.Collections.Generic;
     using System.IO;
+    using System.Xml.Serialization;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Sparkle.LinkedInNET.ServiceDefinition;
 
@@ -12,6 +13,54 @@ namespace Sparkle.LinkedInNET.Tests
     {
         [TestMethod]
         public void ImplicitReturnTypes()
+        {
+            var stream = new System.IO.MemoryStream();
+            var writer = new System.IO.StreamWriter(stream);
+            var generator = new CSharpGenerator(writer);
+            var root = new ApisRoot
+            {
+                ApiGroups = new List<ApiGroup>()
+                {
+                    new ApiGroup
+                    {
+                        Name = "g",
+                        Methods = new List<ApiMethod>(),
+                        ReturnTypes = new List<ReturnType>()
+                        {
+                            new ReturnType
+                            {
+                                Name = "r1",
+                                Fields = new List<Field>()
+                                {
+                                    new Field
+                                    {
+                                        Name = "f1",
+                                    },
+                                    new Field
+                                    {
+                                        Name = "f2:(name)",
+                                    },
+                                },
+                            },
+                        },
+                    },
+                },
+            };
+            generator.Run(root);
+
+            writer.Flush();
+            stream.Seek(0L, System.IO.SeekOrigin.Begin);
+            var result = new StreamReader(stream).ReadToEnd();
+
+            Assert.IsFalse(string.IsNullOrEmpty(result));
+            Assert.IsTrue(result.Contains("public class R1"));
+            Assert.IsTrue(result.Contains("public class F2"));
+            Assert.IsTrue(result.Contains("public string F1"));
+            Assert.IsTrue(result.Contains("public string Name"));
+        }
+
+        [TestMethod]
+        public void ImplicitSubReturnTypes()
         {
             var stream = new System.IO.MemoryStream();
             var writer = new System.IO.StreamWriter(stream);
@@ -53,9 +102,37 @@ namespace Sparkle.LinkedInNET.Tests
 
             Assert.IsFalse(string.IsNullOrEmpty(result));
             Assert.IsTrue(result.Contains("public class R1"));
-            Assert.IsTrue(result.Contains("public class R2"));
+            Assert.IsTrue(result.Contains("public class F2"));
             Assert.IsTrue(result.Contains("public string F1"));
-            Assert.IsTrue(result.Contains("public R2 F2"));
+            Assert.IsTrue(result.Contains("public F2 F2"));
+            Assert.IsTrue(result.Contains("public string Name"));
+        }
+
+        [TestMethod]
+        public void ImplicitSubReturnTypes2()
+        {
+            var xml = @"<?xml version=""1.0"" encoding=""utf-8""?>
+<Root>
+  <ApiGroup Name=""group"">
+    <ReturnType Name=""person"" ClassName=""Person"">
+      <Field Name=""location:(name)"" />
+      <Field Name=""location:(country:(code))"" />
+    </ReturnType>
+  </ApiGroup>
+</Root>";
+            var serializer = new XmlSerializer(typeof(ApisRoot));
+            var reader = new StringReader(xml);
+            var root = (ApisRoot)serializer.Deserialize(reader);
+            var stream = new System.IO.MemoryStream();
+            var writer = new System.IO.StreamWriter(stream);
+            var generator = new CSharpGenerator(writer);
+            generator.Run(root);
+
+            writer.Flush();
+            stream.Seek(0L, System.IO.SeekOrigin.Begin);
+            var result = new StreamReader(stream).ReadToEnd();
+
+            Assert.IsFalse(string.IsNullOrEmpty(result));
         }
 
         [TestMethod]
@@ -95,8 +172,9 @@ namespace Sparkle.LinkedInNET.Tests
             var result = new StreamReader(stream).ReadToEnd();
 
             Assert.IsFalse(string.IsNullOrEmpty(result));
-            Assert.IsTrue(result.Contains("public void mtd1()"));
-            Assert.IsTrue(result.Contains("public void mtd2(string UserId)"));
+            Assert.IsTrue(result.Contains("public void mtd1("));
+            Assert.IsTrue(result.Contains("public void mtd2("));
+            Assert.IsTrue(result.Contains("string userId"));
         }
 
         [TestClass]

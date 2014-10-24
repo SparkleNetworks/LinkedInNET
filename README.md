@@ -54,6 +54,10 @@ We are generating code based on a XML file we fill manually.
 We are still working hard on bringing something reliable here.
 The API coverage should be implemented by expanding the XML file and enhancing code generation.
 
+To generate the API code, simply "Run custom tool" on the `Service.tt` file.  
+To alter code generation, search for `CSharpGenerator.cs`.  
+To alter API methods and return types, search for `LinkedInApi.xml`.
+
 
 References
 ------------

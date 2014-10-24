@@ -27,5 +27,10 @@ namespace Sparkle.LinkedInNET.ServiceDefinition
 
         [XmlElement(ElementName = "Field")]
         public List<Field> Fields { get; set; }
+
+        public override string ToString()
+        {
+            return string.Format("N='{0}' CN='{1}' F={2}", Name, ClassName, Fields != null ? Fields.Count : 0);
+        }
     }
 }

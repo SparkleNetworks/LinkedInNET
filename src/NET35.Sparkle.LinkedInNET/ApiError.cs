@@ -42,5 +42,10 @@ namespace Sparkle.LinkedInNET
         /// </summary>
         [XmlElement(ElementName = "message")]
         public string Message { get; set; }
+
+        public override string ToString()
+        {
+            return string.Format("{0} {1} {2}", ErrorCode, Status, Message);
+        }
     }
 }

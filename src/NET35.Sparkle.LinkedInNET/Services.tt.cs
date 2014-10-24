@@ -45,8 +45,8 @@ namespace Sparkle.LinkedInNET.Profiles
         /// <summary>
         /// Field: 'site-standard-profile-request/url' (default)
         /// </summary>
-        ////[XmlElement(ElementName = "site-standard-profile-request/url")]
-        ////public string SiteStandardProfileRequestUrl { get; set; }
+        [XmlElement(ElementName = "site-standard-profile-request/url")]
+        public string SiteStandardProfileRequestUrl { get; set; }
 
         /// <summary>
         /// Field: 'id' (on-demand)
@@ -88,8 +88,9 @@ namespace Sparkle.LinkedInNET.Profiles
         /// Field: 'location:(name)' (on-demand)
         /// Field: 'location:(country:(code))' (on-demand)
         /// </summary>
-        ////[XmlElement(ElementName = "location")]
-        ////public Location Location { get; set; }
+        [XmlElement(ElementName = "location")]
+        #warning Field is to be ignored or has issues
+        public Location Location { get; set; }
 
         /// <summary>
         /// Field: 'industry' (on-demand)
@@ -108,8 +109,9 @@ namespace Sparkle.LinkedInNET.Profiles
         /// Field: 'relation-to-viewer:(related-connections)' (on-demand)
         /// Field: 'relation-to-viewer:(connections)' (on-demand)
         /// </summary>
-        ////[XmlElement(ElementName = "relation-to-viewer")]
-        ////public RelationToViewer RelationToViewer { get; set; }
+        [XmlElement(ElementName = "relation-to-viewer")]
+        #warning Field is to be ignored or has issues
+        public RelationToViewer RelationToViewer { get; set; }
 
         /// <summary>
         /// Field: 'current-status' (on-demand)
@@ -139,7 +141,7 @@ namespace Sparkle.LinkedInNET.Profiles
         /// Field: 'num-connections-capped' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "num-connections-capped")]
-        public bool NumConnectionsCapped { get; set; }
+        public string NumConnectionsCapped { get; set; }
 
         /// <summary>
         /// Field: 'summary' (on-demand)
@@ -168,15 +170,17 @@ namespace Sparkle.LinkedInNET.Profiles
         /// <summary>
         /// Field: 'site-standard-profile-request' (on-demand)
         /// </summary>
-        ////[XmlElement(ElementName = "site-standard-profile-request")]
-        ////public string SiteStandardProfileRequest { get; set; }
+        [XmlElement(ElementName = "site-standard-profile-request")]
+        #warning Field is to be ignored or has issues
+        public string SiteStandardProfileRequest { get; set; }
 
         /// <summary>
         /// Field: 'api-standard-profile-request:(url)' (on-demand)
         /// Field: 'api-standard-profile-request:(headers)' (on-demand)
         /// </summary>
-        ////[XmlElement(ElementName = "api-standard-profile-request")]
-        ////public ApiStandardProfileRequest ApiStandardProfileRequest { get; set; }
+        [XmlElement(ElementName = "api-standard-profile-request")]
+        #warning Field is to be ignored or has issues
+        public ApiStandardProfileRequest ApiStandardProfileRequest { get; set; }
 
         /// <summary>
         /// Field: 'public-profile-url' (on-demand)
@@ -215,6 +219,27 @@ namespace Sparkle.LinkedInNET.Profiles
     using System.Xml.Serialization;
 
     /// <summary>
+    /// Name: 'site-standard-profile-request'
+    /// </summary>
+    [Serializable, XmlRoot("site-standard-profile-request")]
+    public class SiteStandardProfileRequest
+    {
+        /// <summary>
+        /// Field: 'url' (on-demand)
+        /// </summary>
+        [XmlElement(ElementName = "url")]
+        public string Url { get; set; }
+
+    }
+}
+
+namespace Sparkle.LinkedInNET.Profiles
+{
+    using System;
+    using System.Collections.Generic;
+    using System.Xml.Serialization;
+
+    /// <summary>
     /// Name: 'location'
     /// </summary>
     [Serializable, XmlRoot("location")]
@@ -222,9 +247,37 @@ namespace Sparkle.LinkedInNET.Profiles
     {
         /// <summary>
         /// Field: 'name' (on-demand)
+        /// Field: 'name' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "name")]
         public string Name { get; set; }
+
+        /// <summary>
+        /// Field: 'country' (on-demand)
+        /// </summary>
+        [XmlElement(ElementName = "country")]
+        public string Country { get; set; }
+
+    }
+}
+
+namespace Sparkle.LinkedInNET.Profiles
+{
+    using System;
+    using System.Collections.Generic;
+    using System.Xml.Serialization;
+
+    /// <summary>
+    /// Name: 'country'
+    /// </summary>
+    [Serializable, XmlRoot("country")]
+    public class Country
+    {
+        /// <summary>
+        /// Field: 'code' (on-demand)
+        /// </summary>
+        [XmlElement(ElementName = "code")]
+        public string Code { get; set; }
 
     }
 }
@@ -243,9 +296,22 @@ namespace Sparkle.LinkedInNET.Profiles
     {
         /// <summary>
         /// Field: 'distance' (on-demand)
+        /// Field: 'distance' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "distance")]
         public string Distance { get; set; }
+
+        /// <summary>
+        /// Field: 'related-connections' (on-demand)
+        /// </summary>
+        [XmlElement(ElementName = "related-connections")]
+        public string RelatedConnections { get; set; }
+
+        /// <summary>
+        /// Field: 'connections' (on-demand)
+        /// </summary>
+        [XmlElement(ElementName = "connections")]
+        public string Connections { get; set; }
 
     }
 }
@@ -264,9 +330,16 @@ namespace Sparkle.LinkedInNET.Profiles
     {
         /// <summary>
         /// Field: 'url' (on-demand)
+        /// Field: 'url' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "url")]
         public string Url { get; set; }
+
+        /// <summary>
+        /// Field: 'headers' (on-demand)
+        /// </summary>
+        [XmlElement(ElementName = "headers")]
+        public string Headers { get; set; }
 
     }
 }
@@ -278,7 +351,7 @@ namespace Sparkle.LinkedInNET.Profiles
     using System.Xml.Serialization;
 
     /// <summary>
-    /// Field selectors for the 'person', 'connections', 'location', 'relation-to-viewer', 'api-standard-profile-request' return types.
+    /// Field selectors for the 'person', 'connections', 'site-standard-profile-request', 'location', 'country', 'relation-to-viewer', 'api-standard-profile-request' return types.
     /// </summary>
     public static class ProfilesFields {
         /// <summary>
@@ -470,6 +543,20 @@ namespace Sparkle.LinkedInNET.Profiles
         public static FieldSelector<Connections> WithAllFields(this FieldSelector<Connections> me) { return me.AddRange("person"); }
         
         /// <summary>
+        /// Includes the field 'url'.
+        /// </summary>
+        /// <param name="me">The field selector.</param>
+        /// <returns>The field selector.</returns>
+        public static FieldSelector<SiteStandardProfileRequest> WithUrl(this FieldSelector<SiteStandardProfileRequest> me) { return me.Add("url"); }
+        
+        /// <summary>
+        /// Includes all the fields.
+        /// </summary>
+        /// <param name="me">The field selector.</param>
+        /// <returns>The field selector.</returns>
+        public static FieldSelector<SiteStandardProfileRequest> WithAllFields(this FieldSelector<SiteStandardProfileRequest> me) { return me.AddRange("url"); }
+        
+        /// <summary>
         /// Includes the field 'name'.
         /// </summary>
         /// <param name="me">The field selector.</param>
@@ -477,11 +564,32 @@ namespace Sparkle.LinkedInNET.Profiles
         public static FieldSelector<Location> WithName(this FieldSelector<Location> me) { return me.Add("name"); }
         
         /// <summary>
+        /// Includes the field 'country'.
+        /// </summary>
+        /// <param name="me">The field selector.</param>
+        /// <returns>The field selector.</returns>
+        public static FieldSelector<Location> WithCountry(this FieldSelector<Location> me) { return me.Add("country"); }
+        
+        /// <summary>
         /// Includes all the fields.
         /// </summary>
         /// <param name="me">The field selector.</param>
         /// <returns>The field selector.</returns>
-        public static FieldSelector<Location> WithAllFields(this FieldSelector<Location> me) { return me.AddRange("name"); }
+        public static FieldSelector<Location> WithAllFields(this FieldSelector<Location> me) { return me.AddRange("name", "country"); }
+        
+        /// <summary>
+        /// Includes the field 'code'.
+        /// </summary>
+        /// <param name="me">The field selector.</param>
+        /// <returns>The field selector.</returns>
+        public static FieldSelector<Country> WithCode(this FieldSelector<Country> me) { return me.Add("code"); }
+        
+        /// <summary>
+        /// Includes all the fields.
+        /// </summary>
+        /// <param name="me">The field selector.</param>
+        /// <returns>The field selector.</returns>
+        public static FieldSelector<Country> WithAllFields(this FieldSelector<Country> me) { return me.AddRange("code"); }
         
         /// <summary>
         /// Includes the field 'distance'.
@@ -491,11 +599,25 @@ namespace Sparkle.LinkedInNET.Profiles
         public static FieldSelector<RelationToViewer> WithDistance(this FieldSelector<RelationToViewer> me) { return me.Add("distance"); }
         
         /// <summary>
+        /// Includes the field 'related-connections'.
+        /// </summary>
+        /// <param name="me">The field selector.</param>
+        /// <returns>The field selector.</returns>
+        public static FieldSelector<RelationToViewer> WithRelatedConnections(this FieldSelector<RelationToViewer> me) { return me.Add("related-connections"); }
+        
+        /// <summary>
+        /// Includes the field 'connections'.
+        /// </summary>
+        /// <param name="me">The field selector.</param>
+        /// <returns>The field selector.</returns>
+        public static FieldSelector<RelationToViewer> WithConnections(this FieldSelector<RelationToViewer> me) { return me.Add("connections"); }
+        
+        /// <summary>
         /// Includes all the fields.
         /// </summary>
         /// <param name="me">The field selector.</param>
         /// <returns>The field selector.</returns>
-        public static FieldSelector<RelationToViewer> WithAllFields(this FieldSelector<RelationToViewer> me) { return me.AddRange("distance"); }
+        public static FieldSelector<RelationToViewer> WithAllFields(this FieldSelector<RelationToViewer> me) { return me.AddRange("distance", "related-connections", "connections"); }
         
         /// <summary>
         /// Includes the field 'url'.
@@ -505,11 +627,18 @@ namespace Sparkle.LinkedInNET.Profiles
         public static FieldSelector<ApiStandardProfileRequest> WithUrl(this FieldSelector<ApiStandardProfileRequest> me) { return me.Add("url"); }
         
         /// <summary>
+        /// Includes the field 'headers'.
+        /// </summary>
+        /// <param name="me">The field selector.</param>
+        /// <returns>The field selector.</returns>
+        public static FieldSelector<ApiStandardProfileRequest> WithHeaders(this FieldSelector<ApiStandardProfileRequest> me) { return me.Add("headers"); }
+        
+        /// <summary>
         /// Includes all the fields.
         /// </summary>
         /// <param name="me">The field selector.</param>
         /// <returns>The field selector.</returns>
-        public static FieldSelector<ApiStandardProfileRequest> WithAllFields(this FieldSelector<ApiStandardProfileRequest> me) { return me.AddRange("url"); }
+        public static FieldSelector<ApiStandardProfileRequest> WithAllFields(this FieldSelector<ApiStandardProfileRequest> me) { return me.AddRange("url", "headers"); }
         
     }
 }

@@ -22,7 +22,7 @@ namespace Sparkle.LinkedInNET.Tests
                 item = (Person)serializer.Deserialize(stream); 
             }
 
-            Assert.IsFalse(string.IsNullOrEmpty(item.CurrentShare));
+            ////Assert.IsFalse(string.IsNullOrEmpty(item.CurrentShare));
             ////Assert.IsNotNull(item.CurrentStatus);
             Assert.IsFalse(string.IsNullOrEmpty(item.CurrentStatusTimestamp));
             Assert.IsFalse(string.IsNullOrEmpty(item.Distance));
