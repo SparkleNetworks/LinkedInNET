@@ -139,7 +139,7 @@ namespace Sparkle.LinkedInNET.Profiles
         /// Field: 'num-connections-capped' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "num-connections-capped")]
-        public string NumConnectionsCapped { get; set; }
+        public bool NumConnectionsCapped { get; set; }
 
         /// <summary>
         /// Field: 'summary' (on-demand)

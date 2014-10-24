@@ -28,6 +28,9 @@ namespace Sparkle.LinkedInNET.ServiceDefinition
         [XmlAttribute]
         public string ReturnType { get; set; }
 
+        [XmlAttribute]
+        public string Type { get; set; }
+
         public string GetMainName()
         {
             var parts = this.Name.Split(new char[] { ':', }, 2);

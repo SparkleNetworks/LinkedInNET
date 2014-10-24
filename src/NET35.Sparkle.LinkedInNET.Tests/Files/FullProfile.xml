@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<person>
+  <first-name>Antoine</first-name>
+  <last-name>Sottiau</last-name>
+  <headline>Développeur .NET et Entrepreneur</headline>
+  <site-standard-profile-request>
+    <url>https://www.linkedin.com/profile/view?id=00000000000&amp;authType=name&amp;authToken=Xeq1&amp;trk=api*00000000*00000000*</url>
+  </site-standard-profile-request>
+  <id>0000000000</id>
+  <formatted-name>Antoine Sottiau</formatted-name>
+  <location>
+    <name>Lille Area, France</name>
+  </location>
+  <industry>Information Technology and Services</industry>
+  <distance>0</distance>
+  <relation-to-viewer>
+    <distance>0</distance>
+  </relation-to-viewer>
+  <current-status-timestamp>1414145160000</current-status-timestamp>
+  <current-share>
+    <id>0000000000</id>
+    <timestamp>1295953965000</timestamp>
+    <visibility>
+      <code>anyone</code>
+    </visibility>
+    <comment>Student at SUPINFO London</comment>
+    <source>
+      <service-provider>
+        <name>LINKEDIN</name>
+      </service-provider>
+    </source>
+    <author>
+      <id>0000000000</id>
+      <first-name>Antoine</first-name>
+      <last-name>Sottiau</last-name>
+    </author>
+  </current-share>
+  <num-connections>142</num-connections>
+  <num-connections-capped>false</num-connections-capped>
+  <summary>Certifications :
+
+Microsoft Certified Professional:
+70-536: .NET Framework - Application Development Foundation
+
+Microsoft Certified Technology Specialist:
+70-502: Windows Presentation Foundation Applications 3.5
+
+-----
+
+Microsoft .NET Framework:
+WPF, Silverlight, Windows Phone, ASP.NET, ASP MVC, WCF, Entity Framework.
+
+Related to .NET:
+Prism (Composite WPF), Unity, MEF, NHaml, WSSF.
+
+Testing:
+VS Unit Testing, VS Load Testing, Moq.
+
+Team:
+CruiseControl.NET admin, TFS user, SVN admin/user.
+
+-----
+
+Dev skills:
+Microsoft .NET Framework : WPF (Prism, MVVM, MVP, Sketchflow), Silverlight, C#, ASP.NET MVC, WCF).
+PHP5 (Zend Framework).
+xHTML, CSS, Javascript (Mootools, jQuery).
+
+DB skills : Oracle 10g, MySQL, Microsoft SQL Server.
+
+Systems:
+Microsoft Windows 2000, XP, 2003 Server, Vista, 7, 2008 Server, Windows 8 ;
+GNU/Linux Debian, Mandriva, Suse, Fedora
+
+Networks:
+Certified Cisco CCNA 4.</summary>
+  <positions total="6">
+    <position>
+      <id>1</id>
+      <start-date>
+        <year>2013</year>
+        <month>6</month>
+      </start-date>
+      <is-current>true</is-current>
+      <company>
+        <id>5161579</id>
+      </company>
+    </position>
+    <position>
+      <id>2</id>
+      <title>Développeur .NET</title>
+      <start-date>
+        <year>2011</year>
+        <month>4</month>
+      </start-date>
+      <end-date>
+        <year>2013</year>
+        <month>5</month>
+      </end-date>
+      <is-current>false</is-current>
+      <company>
+        <name>Wygwam</name>
+      </company>
+    </position>
+    <position>
+      <id>3</id>
+      <start-date>
+        <year>2010</year>
+        <month>7</month>
+      </start-date>
+      <end-date>
+        <year>2010</year>
+        <month>10</month>
+      </end-date>
+      <is-current>false</is-current>
+      <company>
+        <id>132885</id>
+      </company>
+    </position>
+    <position>
+      <id>4</id>
+      <start-date>
+        <year>2010</year>
+        <month>1</month>
+      </start-date>
+      <end-date>
+        <year>2010</year>
+        <month>6</month>
+      </end-date>
+      <is-current>false</is-current>
+      <company>
+      </company>
+    </position>
+    <position>
+      <id>5</id>
+      <start-date>
+        <year>2009</year>
+        <month>11</month>
+      </start-date>
+      <end-date>
+        <year>2010</year>
+        <month>4</month>
+      </end-date>
+      <is-current>false</is-current>
+      <company>
+        <id>24648</id>
+      </company>
+    </position>
+  </positions>
+  <picture-url>https://media.licdn.com/mpr/mprx/00000000000000000000000000000000000000000000000000000000000000000000000000000a</picture-url>
+  <api-standard-profile-request>
+    <url>https://api.linkedin.com/v1/people/0000000000</url>
+  </api-standard-profile-request>
+  <public-profile-url>https://www.linkedin.com/in/antoinesottiau</public-profile-url>
+</person>
