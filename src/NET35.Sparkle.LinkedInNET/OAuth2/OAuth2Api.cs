@@ -7,7 +7,6 @@ namespace Sparkle.LinkedInNET.OAuth2
     using System.Linq;
     using System.Net;
     using System.Text;
-    using Newtonsoft.Json;
     using Sparkle.LinkedInNET.Internals;
 
     /// <summary>
@@ -120,7 +119,7 @@ namespace Sparkle.LinkedInNET.OAuth2
 #if NET35
                     var reader = new StreamReader(context.ResponseStream, Encoding.UTF8);
                     var json = reader.ReadToEnd();
-                    result = JsonConvert.DeserializeObject<AuthorizationAccessToken>(json);
+                    result = Newtonsoft.Json.JsonConvert.DeserializeObject<AuthorizationAccessToken>(json);
 #else
                     var serializer = new System.Runtime.Serialization.Json.DataContractJsonSerializer(typeof(AuthorizationAccessToken));
                     result = (AuthorizationAccessToken)serializer.ReadObject(context.ResponseStream);
@@ -133,7 +132,7 @@ namespace Sparkle.LinkedInNET.OAuth2
 #if NET35
                     var reader = new StreamReader(context.ResponseStream, Encoding.UTF8);
                     var json = reader.ReadToEnd();
-                    errorResult = JsonConvert.DeserializeObject<OAuth2Error>(json);
+                    errorResult = Newtonsoft.Json.JsonConvert.DeserializeObject<OAuth2Error>(json);
 #else
                     var serializer = new System.Runtime.Serialization.Json.DataContractJsonSerializer(typeof(AuthorizationAccessToken));
                     errorResult = (OAuth2Error)serializer.ReadObject(context.ResponseStream);
