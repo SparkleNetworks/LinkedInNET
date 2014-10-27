@@ -57,7 +57,8 @@ namespace Sparkle.LinkedInNET.DemoMvc5.Controllers
                 try
                 {
                     ////var profile = this.api.Profiles.GetMyProfile(user);
-                    var profile = this.api.Profiles.GetMyProfile(user, FieldSelector.For<Person>().WithAllFields());
+                    var acceptLanguages = new string[] { "en-US", "fr-FR", };
+                    var profile = this.api.Profiles.GetMyProfile(user, acceptLanguages, FieldSelector.For<Person>().WithAllFields());
 
                     this.ViewBag.Profile = profile;
                 }

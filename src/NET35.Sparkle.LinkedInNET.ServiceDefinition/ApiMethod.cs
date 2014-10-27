@@ -28,6 +28,9 @@ namespace Sparkle.LinkedInNET.ServiceDefinition
         [XmlAttribute]
         public bool RequiresUserAuthentication { get; set; }
 
+        [XmlAttribute]
+        public bool UsesAcceptLanguage { get; set; }
+
         public override string ToString()
         {
             return string.Format("{0}{1}{2}{3}", HttpMethod, Path, MethodName, Title);

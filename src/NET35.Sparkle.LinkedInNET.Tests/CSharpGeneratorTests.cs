@@ -226,6 +226,40 @@ namespace Sparkle.LinkedInNET.Tests
             Assert.IsTrue(result.Contains("public int Distance"));
         }
 
+        [TestMethod]
+        public void UsesAcceptLanguageFalse()
+        {
+            var xml = @"<?xml version=""1.0"" encoding=""utf-8""?>
+<Root>
+  <ApiGroup Name=""group"">
+    <ApiMethod MethodName=""NoAL"" Path=""hello"" ReturnType=""test"" />
+  </ApiGroup>
+</Root>";
+            var result = GetGeneratedCodeFromXmlDefinition(xml);
+            result = result.Replace(Environment.NewLine, string.Empty);
+
+            Assert.IsFalse(string.IsNullOrEmpty(result));
+            Assert.IsFalse(result.Contains("string[] acceptLanguages"));
+            Assert.IsFalse(result.Contains("context.AcceptLanguages = acceptLanguages"));
+        }
+
+        [TestMethod]
+        public void UsesAcceptLanguageTrue()
+        {
+            var xml = @"<?xml version=""1.0"" encoding=""utf-8""?>
+<Root>
+  <ApiGroup Name=""group"">
+    <ApiMethod MethodName=""WithAL"" Path=""hello"" ReturnType=""test"" UsesAcceptLanguage=""1"" />
+  </ApiGroup>
+</Root>";
+            var result = GetGeneratedCodeFromXmlDefinition(xml);
+            result = result.Replace(Environment.NewLine, string.Empty);
+
+            Assert.IsFalse(string.IsNullOrEmpty(result));
+            Assert.IsTrue(result.Contains("string[] acceptLanguages"));
+            Assert.IsTrue(result.Contains("context.AcceptLanguages = acceptLanguages"));
+        }
+
         private static string GetGeneratedCodeFromXmlDefinition(string xml)
         {
             ////var serializer = new XmlSerializer(typeof(ApisRoot));

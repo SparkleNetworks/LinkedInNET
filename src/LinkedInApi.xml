@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Root>
   <ApiGroup Name="Profiles">
-    <ApiMethod MethodName="GetMyProfile"     HttpMethod="GET" Title="the profile of the current user" Path="/v1/people/~{FieldSelector}" ReturnType="Person" RequiresUserAuthentication="1" />
-    <ApiMethod MethodName="GetProfileById"   HttpMethod="GET" Title="the profile of a user in the network" Path="/v1/people/id={MemberToken}{FieldSelector}" ReturnType="Person" RequiresUserAuthentication="1" />
-    <ApiMethod MethodName="GetPublicProfile" HttpMethod="GET" Title="the public profile of a user" Path="/v1/people/url={PublicProfileUrl}{FieldSelector}" ReturnType="Person" RequiresUserAuthentication="1" />
+    <ApiMethod MethodName="GetMyProfile"     HttpMethod="GET" Title="the profile of the current user" Path="/v1/people/~{FieldSelector}" ReturnType="Person" RequiresUserAuthentication="1" UsesAcceptLanguage="1" />
+    <ApiMethod MethodName="GetProfileById"   HttpMethod="GET" Title="the profile of a user in the network" Path="/v1/people/id={MemberToken}{FieldSelector}" ReturnType="Person" RequiresUserAuthentication="1" UsesAcceptLanguage="1" />
+    <ApiMethod MethodName="GetPublicProfile" HttpMethod="GET" Title="the public profile of a user" Path="/v1/people/url={PublicProfileUrl}{FieldSelector}" ReturnType="Person" RequiresUserAuthentication="1" UsesAcceptLanguage="1" />
     <!--<ApiMethod MethodName="QueryProfiles" HttpMethod="GET" Title="queries for some profiles" Path="/v1/people/{PublicProfileUrl}" ReturnType="Person" RequiresUserAuthentication="1" />-->
     <ApiMethod MethodName="GetMyConnections"     HttpMethod="GET" Title="returns a list of 1st degree connections for a user " Path="/v1/people/~/connections" ReturnType="Person" RequiresUserAuthentication="1" />
     <ApiMethod MethodName="GetConnectionsByProfileId"     HttpMethod="GET" Title="returns a list of 1st degree connections for a user " Path="/v1/people/id={MemberToken}/connections" ReturnType="Person" RequiresUserAuthentication="1" />

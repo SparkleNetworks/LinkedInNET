@@ -232,6 +232,11 @@ namespace Sparkle.LinkedInNET.ServiceDefinition
                     parameters.Add(new TupleStruct<string, string>(urlParam.Value.Type ?? "string", urlParam.Value.Name));
                 }
 
+                if (method.UsesAcceptLanguage)
+                {
+                    parameters.Add(new TupleStruct<string, string>("string[]", "acceptLanguages = null"));
+                }
+
                 // doc
                 this.text.WriteLine(indent, "/// <summary>");
                 this.text.WriteLine(indent, "/// " + method.Title);
@@ -275,6 +280,11 @@ namespace Sparkle.LinkedInNET.ServiceDefinition
                 if (method.RequiresUserAuthentication)
                 {
                     text.WriteLine(indent, "context.UserAuthorization = user;");
+                }
+
+                if (method.UsesAcceptLanguage)
+                {
+                    text.WriteLine(indent, "context.AcceptLanguages = acceptLanguages;");
                 }
 
                 text.WriteLine(indent, "context.Method =  \"" + method.HttpMethod + "\";");

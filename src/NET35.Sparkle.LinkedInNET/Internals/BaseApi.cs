@@ -110,6 +110,11 @@ namespace Sparkle.LinkedInNET.Internals
             request.Method = context.Method;
             request.UserAgent = LibraryInfo.UserAgent;
 
+            if (context.AcceptLanguages != null)
+            {
+                request.Headers.Add(HttpRequestHeader.AcceptLanguage, string.Join(",", context.AcceptLanguages));
+            }
+
             // post stuff?
 
             // user authorization

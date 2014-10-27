@@ -1314,6 +1314,7 @@ namespace Sparkle.LinkedInNET.Profiles
         /// </summary>
         public Person GetMyProfile(
               UserAuthorization user
+            , string[] acceptLanguages = null
             , FieldSelector<Person> fields = null
         )
         {
@@ -1322,6 +1323,7 @@ namespace Sparkle.LinkedInNET.Profiles
 
             var context = new RequestContext();
             context.UserAuthorization = user;
+            context.AcceptLanguages = acceptLanguages;
             context.Method =  "GET";
             context.UrlPath = this.LinkedInApi.Configuration.BaseApiUrl + url;
 
@@ -1336,6 +1338,7 @@ namespace Sparkle.LinkedInNET.Profiles
         public Person GetProfileById(
               UserAuthorization user
             , string memberToken
+            , string[] acceptLanguages = null
             , FieldSelector<Person> fields = null
         )
         {
@@ -1344,6 +1347,7 @@ namespace Sparkle.LinkedInNET.Profiles
 
             var context = new RequestContext();
             context.UserAuthorization = user;
+            context.AcceptLanguages = acceptLanguages;
             context.Method =  "GET";
             context.UrlPath = this.LinkedInApi.Configuration.BaseApiUrl + url;
 
@@ -1358,6 +1362,7 @@ namespace Sparkle.LinkedInNET.Profiles
         public Person GetPublicProfile(
               UserAuthorization user
             , string publicProfileUrl
+            , string[] acceptLanguages = null
             , FieldSelector<Person> fields = null
         )
         {
@@ -1366,6 +1371,7 @@ namespace Sparkle.LinkedInNET.Profiles
 
             var context = new RequestContext();
             context.UserAuthorization = user;
+            context.AcceptLanguages = acceptLanguages;
             context.Method =  "GET";
             context.UrlPath = this.LinkedInApi.Configuration.BaseApiUrl + url;
 
