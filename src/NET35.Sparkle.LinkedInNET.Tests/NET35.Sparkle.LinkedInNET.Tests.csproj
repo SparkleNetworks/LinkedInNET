@@ -58,6 +58,7 @@
     <Compile Include="BaseApiTests.cs" />
     <Compile Include="CSharpGeneratorTests.cs" />
     <Compile Include="FieldSelectorTests.cs" />
+    <Compile Include="FieldTests.cs" />
     <Compile Include="OAuth2ApiTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="XmlTests.cs" />

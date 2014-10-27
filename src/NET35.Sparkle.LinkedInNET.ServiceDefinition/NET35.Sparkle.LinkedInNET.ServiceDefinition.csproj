@@ -43,11 +43,15 @@
     <Compile Include="ApisRoot.cs" />
     <Compile Include="CSharpGenerator.cs" />
     <Compile Include="CSharpProperty.cs" />
+    <Compile Include="FieldName.cs" />
+    <Compile Include="ServiceDefinitionBuilder.cs" />
     <Compile Include="Field.cs" />
+    <Compile Include="NameTransformation.cs" />
     <Compile Include="Parameter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QueryString.cs" />
     <Compile Include="ReturnType.cs" />
+    <Compile Include="ServiceDefinition.cs" />
     <Compile Include="TextWriterExtensions.cs" />
     <Compile Include="Tuple.cs" />
   </ItemGroup>

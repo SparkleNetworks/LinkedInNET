@@ -8,9 +8,6 @@
 //------------------------------------------------------------------------------
 
 // XML document found at '\src\NET35.Sparkle.LinkedInNET\..\LinkedInApi.xml'
-// return types: '0'
-// API groups: '4'
-
 namespace Sparkle.LinkedInNET.Profiles
 {
     using System;
@@ -45,8 +42,8 @@ namespace Sparkle.LinkedInNET.Profiles
         /// <summary>
         /// Field: 'site-standard-profile-request/url' (default)
         /// </summary>
-        [XmlElement(ElementName = "site-standard-profile-request/url")]
-        public string SiteStandardProfileRequestUrl { get; set; }
+        [XmlElement(ElementName = "site-standard-profile-request")]
+        public SiteStandardProfileRequest SiteStandardProfileRequest { get; set; }
 
         /// <summary>
         /// Field: 'id' (on-demand)
@@ -89,7 +86,6 @@ namespace Sparkle.LinkedInNET.Profiles
         /// Field: 'location:(country:(code))' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "location")]
-        #warning Field is to be ignored or has issues
         public Location Location { get; set; }
 
         /// <summary>
@@ -102,46 +98,37 @@ namespace Sparkle.LinkedInNET.Profiles
         /// Field: 'distance' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "distance")]
-        public string Distance { get; set; }
+        public int? Distance { get; set; }
 
         /// <summary>
-        /// Field: 'relation-to-viewer:(distance)' (on-demand)
-        /// Field: 'relation-to-viewer:(related-connections)' (on-demand)
-        /// Field: 'relation-to-viewer:(connections)' (on-demand)
+        /// Field: 'relation-to-viewer' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "relation-to-viewer")]
-        #warning Field is to be ignored or has issues
         public RelationToViewer RelationToViewer { get; set; }
-
-        /// <summary>
-        /// Field: 'current-status' (on-demand)
-        /// </summary>
-        [XmlElement(ElementName = "current-status")]
-        public string CurrentStatus { get; set; }
 
         /// <summary>
         /// Field: 'current-status-timestamp' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "current-status-timestamp")]
-        public string CurrentStatusTimestamp { get; set; }
+        public long? CurrentStatusTimestamp { get; set; }
 
         /// <summary>
         /// Field: 'current-share' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "current-share")]
-        public string CurrentShare { get; set; }
+        public Share CurrentShare { get; set; }
 
         /// <summary>
         /// Field: 'num-connections' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "num-connections")]
-        public string NumConnections { get; set; }
+        public int NumConnections { get; set; }
 
         /// <summary>
         /// Field: 'num-connections-capped' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "num-connections-capped")]
-        public string NumConnectionsCapped { get; set; }
+        public bool NumConnectionsCapped { get; set; }
 
         /// <summary>
         /// Field: 'summary' (on-demand)
@@ -159,7 +146,7 @@ namespace Sparkle.LinkedInNET.Profiles
         /// Field: 'positions' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "positions")]
-        public string Positions { get; set; }
+        public PersonPositions Positions { get; set; }
 
         /// <summary>
         /// Field: 'picture-url' (on-demand)
@@ -168,18 +155,10 @@ namespace Sparkle.LinkedInNET.Profiles
         public string PictureUrl { get; set; }
 
         /// <summary>
-        /// Field: 'site-standard-profile-request' (on-demand)
-        /// </summary>
-        [XmlElement(ElementName = "site-standard-profile-request")]
-        #warning Field is to be ignored or has issues
-        public string SiteStandardProfileRequest { get; set; }
-
-        /// <summary>
         /// Field: 'api-standard-profile-request:(url)' (on-demand)
         /// Field: 'api-standard-profile-request:(headers)' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "api-standard-profile-request")]
-        #warning Field is to be ignored or has issues
         public ApiStandardProfileRequest ApiStandardProfileRequest { get; set; }
 
         /// <summary>
@@ -219,6 +198,305 @@ namespace Sparkle.LinkedInNET.Profiles
     using System.Xml.Serialization;
 
     /// <summary>
+    /// Name: 'share'
+    /// </summary>
+    [Serializable, XmlRoot("share")]
+    public class Share
+    {
+        /// <summary>
+        /// Field: 'id' (on-demand)
+        /// </summary>
+        [XmlElement(ElementName = "id")]
+        public string Id { get; set; }
+
+        /// <summary>
+        /// Field: 'timestamp' (on-demand)
+        /// </summary>
+        [XmlElement(ElementName = "timestamp")]
+        public long Timestamp { get; set; }
+
+        /// <summary>
+        /// Field: 'comment' (on-demand)
+        /// </summary>
+        [XmlElement(ElementName = "comment")]
+        public string Comment { get; set; }
+
+        /// <summary>
+        /// Field: 'content' (on-demand)
+        /// </summary>
+        [XmlElement(ElementName = "content")]
+        public ShareContent Content { get; set; }
+
+        /// <summary>
+        /// Field: 'visibility/code' (on-demand)
+        /// </summary>
+        [XmlElement(ElementName = "visibility")]
+        public Visibility Visibility { get; set; }
+
+        /// <summary>
+        /// Field: 'source' (on-demand)
+        /// </summary>
+        [XmlElement(ElementName = "source")]
+        public ShareSource Source { get; set; }
+
+        /// <summary>
+        /// Field: 'author/id' (on-demand)
+        /// Field: 'author/first-name' (on-demand)
+        /// Field: 'author/last-name' (on-demand)
+        /// </summary>
+        [XmlElement(ElementName = "author")]
+        public Author Author { get; set; }
+
+    }
+}
+
+namespace Sparkle.LinkedInNET.Profiles
+{
+    using System;
+    using System.Collections.Generic;
+    using System.Xml.Serialization;
+
+    /// <summary>
+    /// Name: 'ShareSource'
+    /// </summary>
+    [Serializable, XmlRoot("ShareSource")]
+    public class ShareSource
+    {
+        /// <summary>
+        /// Field: 'service-provider' (on-demand)
+        /// </summary>
+        [XmlElement(ElementName = "service-provider")]
+        public ShareSourceProvider ServiceProvider { get; set; }
+
+    }
+}
+
+namespace Sparkle.LinkedInNET.Profiles
+{
+    using System;
+    using System.Collections.Generic;
+    using System.Xml.Serialization;
+
+    /// <summary>
+    /// Name: 'ShareSourceProvider'
+    /// </summary>
+    [Serializable, XmlRoot("ShareSourceProvider")]
+    public class ShareSourceProvider
+    {
+        /// <summary>
+        /// Field: 'name' (on-demand)
+        /// </summary>
+        [XmlElement(ElementName = "name")]
+        public string Name { get; set; }
+
+    }
+}
+
+namespace Sparkle.LinkedInNET.Profiles
+{
+    using System;
+    using System.Collections.Generic;
+    using System.Xml.Serialization;
+
+    /// <summary>
+    /// Name: 'ShareContent'
+    /// </summary>
+    [Serializable, XmlRoot("ShareContent")]
+    public class ShareContent
+    {
+        /// <summary>
+        /// Field: 'title' (on-demand)
+        /// </summary>
+        [XmlElement(ElementName = "title")]
+        public string Title { get; set; }
+
+        /// <summary>
+        /// Field: 'submitted-url' (on-demand)
+        /// </summary>
+        [XmlElement(ElementName = "submitted-url")]
+        public string SubmittedUrl { get; set; }
+
+        /// <summary>
+        /// Field: 'submitted-image-url' (on-demand)
+        /// </summary>
+        [XmlElement(ElementName = "submitted-image-url")]
+        public string SubmittedImageUrl { get; set; }
+
+        /// <summary>
+        /// Field: 'description' (on-demand)
+        /// </summary>
+        [XmlElement(ElementName = "description")]
+        public string Description { get; set; }
+
+    }
+}
+
+namespace Sparkle.LinkedInNET.Profiles
+{
+    using System;
+    using System.Collections.Generic;
+    using System.Xml.Serialization;
+
+    /// <summary>
+    /// Name: 'position'
+    /// </summary>
+    [Serializable, XmlRoot("position")]
+    public class PersonPosition
+    {
+        /// <summary>
+        /// Field: 'id' (on-demand)
+        /// </summary>
+        [XmlElement(ElementName = "id")]
+        public int Id { get; set; }
+
+        /// <summary>
+        /// Field: 'title' (on-demand)
+        /// </summary>
+        [XmlElement(ElementName = "title")]
+        public string Title { get; set; }
+
+        /// <summary>
+        /// Field: 'start-date' (on-demand)
+        /// </summary>
+        [XmlElement(ElementName = "start-date")]
+        public DateParts StartDate { get; set; }
+
+        /// <summary>
+        /// Field: 'end-date' (on-demand)
+        /// </summary>
+        [XmlElement(ElementName = "end-date")]
+        public DateParts EndDate { get; set; }
+
+        /// <summary>
+        /// Field: 'company' (on-demand)
+        /// </summary>
+        [XmlElement(ElementName = "company")]
+        public CompanyIdentifier Company { get; set; }
+
+        /// <summary>
+        /// Field: 'is-current' (on-demand)
+        /// </summary>
+        [XmlElement(ElementName = "is-current")]
+        public bool IsCurrent { get; set; }
+
+    }
+}
+
+namespace Sparkle.LinkedInNET.Profiles
+{
+    using System;
+    using System.Collections.Generic;
+    using System.Xml.Serialization;
+
+    /// <summary>
+    /// Name: 'positions'
+    /// </summary>
+    [Serializable, XmlRoot("positions")]
+    public class PersonPositions
+    {
+        /// <summary>
+        /// Field: 'position' (on-demand)
+        /// </summary>
+        [XmlElement(ElementName = "position")]
+        public List<PersonPosition> Position { get; set; }
+
+    }
+}
+
+namespace Sparkle.LinkedInNET.Profiles
+{
+    using System;
+    using System.Collections.Generic;
+    using System.Xml.Serialization;
+
+    /// <summary>
+    /// Name: 'DateParts'
+    /// </summary>
+    [Serializable, XmlRoot("DateParts")]
+    public class DateParts
+    {
+        /// <summary>
+        /// Field: 'year' (on-demand)
+        /// </summary>
+        [XmlElement(ElementName = "year")]
+        public short Year { get; set; }
+
+        /// <summary>
+        /// Field: 'month' (on-demand)
+        /// </summary>
+        [XmlElement(ElementName = "month")]
+        public short Month { get; set; }
+
+    }
+}
+
+namespace Sparkle.LinkedInNET.Profiles
+{
+    using System;
+    using System.Collections.Generic;
+    using System.Xml.Serialization;
+
+    /// <summary>
+    /// Name: 'CompanyIdentifier'
+    /// </summary>
+    [Serializable, XmlRoot("CompanyIdentifier")]
+    public class CompanyIdentifier
+    {
+        /// <summary>
+        /// Field: 'id' (on-demand)
+        /// </summary>
+        [XmlElement(ElementName = "id")]
+        public int Id { get; set; }
+
+        /// <summary>
+        /// Field: 'name' (on-demand)
+        /// </summary>
+        [XmlElement(ElementName = "name")]
+        public string Name { get; set; }
+
+    }
+}
+
+namespace Sparkle.LinkedInNET.Profiles
+{
+    using System;
+    using System.Collections.Generic;
+    using System.Xml.Serialization;
+
+    /// <summary>
+    /// Name: 'relation-to-viewer'
+    /// </summary>
+    [Serializable, XmlRoot("relation-to-viewer")]
+    public class RelationToViewer
+    {
+        /// <summary>
+        /// Field: 'distance' (on-demand)
+        /// </summary>
+        [XmlElement(ElementName = "distance")]
+        public int? Distance { get; set; }
+
+        /// <summary>
+        /// Field: 'related-connections' (on-demand)
+        /// </summary>
+        [XmlElement(ElementName = "related-connections")]
+        public string RelatedConnections { get; set; }
+
+        /// <summary>
+        /// Field: 'connections' (on-demand)
+        /// </summary>
+        [XmlElement(ElementName = "connections")]
+        public int? Connections { get; set; }
+
+    }
+}
+
+namespace Sparkle.LinkedInNET.Profiles
+{
+    using System;
+    using System.Collections.Generic;
+    using System.Xml.Serialization;
+
+    /// <summary>
     /// Name: 'site-standard-profile-request'
     /// </summary>
     [Serializable, XmlRoot("site-standard-profile-request")]
@@ -247,7 +525,6 @@ namespace Sparkle.LinkedInNET.Profiles
     {
         /// <summary>
         /// Field: 'name' (on-demand)
-        /// Field: 'name' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "name")]
         public string Name { get; set; }
@@ -256,7 +533,7 @@ namespace Sparkle.LinkedInNET.Profiles
         /// Field: 'country' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "country")]
-        public string Country { get; set; }
+        public Country Country { get; set; }
 
     }
 }
@@ -289,47 +566,12 @@ namespace Sparkle.LinkedInNET.Profiles
     using System.Xml.Serialization;
 
     /// <summary>
-    /// Name: 'relation-to-viewer'
-    /// </summary>
-    [Serializable, XmlRoot("relation-to-viewer")]
-    public class RelationToViewer
-    {
-        /// <summary>
-        /// Field: 'distance' (on-demand)
-        /// Field: 'distance' (on-demand)
-        /// </summary>
-        [XmlElement(ElementName = "distance")]
-        public string Distance { get; set; }
-
-        /// <summary>
-        /// Field: 'related-connections' (on-demand)
-        /// </summary>
-        [XmlElement(ElementName = "related-connections")]
-        public string RelatedConnections { get; set; }
-
-        /// <summary>
-        /// Field: 'connections' (on-demand)
-        /// </summary>
-        [XmlElement(ElementName = "connections")]
-        public string Connections { get; set; }
-
-    }
-}
-
-namespace Sparkle.LinkedInNET.Profiles
-{
-    using System;
-    using System.Collections.Generic;
-    using System.Xml.Serialization;
-
-    /// <summary>
     /// Name: 'api-standard-profile-request'
     /// </summary>
     [Serializable, XmlRoot("api-standard-profile-request")]
     public class ApiStandardProfileRequest
     {
         /// <summary>
-        /// Field: 'url' (on-demand)
         /// Field: 'url' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "url")]
@@ -351,7 +593,61 @@ namespace Sparkle.LinkedInNET.Profiles
     using System.Xml.Serialization;
 
     /// <summary>
-    /// Field selectors for the 'person', 'connections', 'site-standard-profile-request', 'location', 'country', 'relation-to-viewer', 'api-standard-profile-request' return types.
+    /// Name: 'visibility'
+    /// </summary>
+    [Serializable, XmlRoot("visibility")]
+    public class Visibility
+    {
+        /// <summary>
+        /// Field: 'code' (on-demand)
+        /// </summary>
+        [XmlElement(ElementName = "code")]
+        public string Code { get; set; }
+
+    }
+}
+
+namespace Sparkle.LinkedInNET.Profiles
+{
+    using System;
+    using System.Collections.Generic;
+    using System.Xml.Serialization;
+
+    /// <summary>
+    /// Name: 'author'
+    /// </summary>
+    [Serializable, XmlRoot("author")]
+    public class Author
+    {
+        /// <summary>
+        /// Field: 'id' (on-demand)
+        /// </summary>
+        [XmlElement(ElementName = "id")]
+        public string Id { get; set; }
+
+        /// <summary>
+        /// Field: 'first-name' (on-demand)
+        /// </summary>
+        [XmlElement(ElementName = "first-name")]
+        public string FirstName { get; set; }
+
+        /// <summary>
+        /// Field: 'last-name' (on-demand)
+        /// </summary>
+        [XmlElement(ElementName = "last-name")]
+        public string LastName { get; set; }
+
+    }
+}
+
+namespace Sparkle.LinkedInNET.Profiles
+{
+    using System;
+    using System.Collections.Generic;
+    using System.Xml.Serialization;
+
+    /// <summary>
+    /// Field selectors for the 'person', 'connections', 'share', 'ShareSource', 'ShareSourceProvider', 'ShareContent', 'position', 'positions', 'DateParts', 'CompanyIdentifier', 'relation-to-viewer', 'site-standard-profile-request', 'location', 'country', 'api-standard-profile-request', 'visibility', 'author' return types.
     /// </summary>
     public static class ProfilesFields {
         /// <summary>
@@ -380,7 +676,7 @@ namespace Sparkle.LinkedInNET.Profiles
         /// </summary>
         /// <param name="me">The field selector.</param>
         /// <returns>The field selector.</returns>
-        public static FieldSelector<Person> WithSiteStandardProfileRequestUrl(this FieldSelector<Person> me) { return me.Add("site-standard-profile-request/url"); }
+        public static FieldSelector<Person> WithSiteStandardProfileRequest(this FieldSelector<Person> me) { return me.Add("site-standard-profile-request/url"); }
         
         /// <summary>
         /// Includes the field 'id'.
@@ -424,8 +720,13 @@ namespace Sparkle.LinkedInNET.Profiles
         /// <returns>The field selector.</returns>
         public static FieldSelector<Person> WithFormattedPhoneticName(this FieldSelector<Person> me) { return me.Add("formatted-phonetic-name"); }
         
-        #warning ReturnType 'person', Field 'location:(name)': unsupported syntax
-
+        /// <summary>
+        /// Includes the field 'location:(name)'.
+        /// </summary>
+        /// <param name="me">The field selector.</param>
+        /// <returns>The field selector.</returns>
+        public static FieldSelector<Person> WithLocation(this FieldSelector<Person> me) { return me.Add("location:(name)"); }
+        
         /// <summary>
         /// Includes the field 'industry'.
         /// </summary>
@@ -440,14 +741,12 @@ namespace Sparkle.LinkedInNET.Profiles
         /// <returns>The field selector.</returns>
         public static FieldSelector<Person> WithDistance(this FieldSelector<Person> me) { return me.Add("distance"); }
         
-        #warning ReturnType 'person', Field 'relation-to-viewer:(distance)': unsupported syntax
-
         /// <summary>
-        /// Includes the field 'current-status'.
+        /// Includes the field 'relation-to-viewer'.
         /// </summary>
         /// <param name="me">The field selector.</param>
         /// <returns>The field selector.</returns>
-        public static FieldSelector<Person> WithCurrentStatus(this FieldSelector<Person> me) { return me.Add("current-status"); }
+        public static FieldSelector<Person> WithRelationToViewer(this FieldSelector<Person> me) { return me.Add("relation-to-viewer"); }
         
         /// <summary>
         /// Includes the field 'current-status-timestamp'.
@@ -506,14 +805,12 @@ namespace Sparkle.LinkedInNET.Profiles
         public static FieldSelector<Person> WithPictureUrl(this FieldSelector<Person> me) { return me.Add("picture-url"); }
         
         /// <summary>
-        /// Includes the field 'site-standard-profile-request'.
+        /// Includes the field 'api-standard-profile-request:(url)'.
         /// </summary>
         /// <param name="me">The field selector.</param>
         /// <returns>The field selector.</returns>
-        public static FieldSelector<Person> WithSiteStandardProfileRequest(this FieldSelector<Person> me) { return me.Add("site-standard-profile-request"); }
+        public static FieldSelector<Person> WithApiStandardProfileRequest(this FieldSelector<Person> me) { return me.Add("api-standard-profile-request:(url)"); }
         
-        #warning ReturnType 'person', Field 'api-standard-profile-request:(url)': unsupported syntax
-
         /// <summary>
         /// Includes the field 'public-profile-url'.
         /// </summary>
@@ -526,7 +823,7 @@ namespace Sparkle.LinkedInNET.Profiles
         /// </summary>
         /// <param name="me">The field selector.</param>
         /// <returns>The field selector.</returns>
-        public static FieldSelector<Person> WithAllFields(this FieldSelector<Person> me) { return me.AddRange("first-name", "last-name", "headline", "site-standard-profile-request/url", "id", "maiden-name", "formatted-name", "phonetic-first-name", "phonetic-last-name", "formatted-phonetic-name", "location:(name)", "industry", "distance", "relation-to-viewer:(distance)", "current-status", "current-status-timestamp", "current-share", "num-connections", "num-connections-capped", "summary", "specialties", "positions", "picture-url", "site-standard-profile-request", "api-standard-profile-request:(url)", "public-profile-url"); }
+        public static FieldSelector<Person> WithAllFields(this FieldSelector<Person> me) { return me.AddRange("first-name", "last-name", "headline", "site-standard-profile-request/url", "id", "maiden-name", "formatted-name", "phonetic-first-name", "phonetic-last-name", "formatted-phonetic-name", "location:(name)", "industry", "distance", "relation-to-viewer", "current-status-timestamp", "current-share", "num-connections", "num-connections-capped", "summary", "specialties", "positions", "picture-url", "api-standard-profile-request:(url)", "public-profile-url"); }
         
         /// <summary>
         /// Includes the field 'person'.
@@ -541,6 +838,258 @@ namespace Sparkle.LinkedInNET.Profiles
         /// <param name="me">The field selector.</param>
         /// <returns>The field selector.</returns>
         public static FieldSelector<Connections> WithAllFields(this FieldSelector<Connections> me) { return me.AddRange("person"); }
+        
+        /// <summary>
+        /// Includes the field 'id'.
+        /// </summary>
+        /// <param name="me">The field selector.</param>
+        /// <returns>The field selector.</returns>
+        public static FieldSelector<Share> WithId(this FieldSelector<Share> me) { return me.Add("id"); }
+        
+        /// <summary>
+        /// Includes the field 'timestamp'.
+        /// </summary>
+        /// <param name="me">The field selector.</param>
+        /// <returns>The field selector.</returns>
+        public static FieldSelector<Share> WithTimestamp(this FieldSelector<Share> me) { return me.Add("timestamp"); }
+        
+        /// <summary>
+        /// Includes the field 'comment'.
+        /// </summary>
+        /// <param name="me">The field selector.</param>
+        /// <returns>The field selector.</returns>
+        public static FieldSelector<Share> WithComment(this FieldSelector<Share> me) { return me.Add("comment"); }
+        
+        /// <summary>
+        /// Includes the field 'content'.
+        /// </summary>
+        /// <param name="me">The field selector.</param>
+        /// <returns>The field selector.</returns>
+        public static FieldSelector<Share> WithContent(this FieldSelector<Share> me) { return me.Add("content"); }
+        
+        /// <summary>
+        /// Includes the field 'visibility/code'.
+        /// </summary>
+        /// <param name="me">The field selector.</param>
+        /// <returns>The field selector.</returns>
+        public static FieldSelector<Share> WithVisibility(this FieldSelector<Share> me) { return me.Add("visibility/code"); }
+        
+        /// <summary>
+        /// Includes the field 'source'.
+        /// </summary>
+        /// <param name="me">The field selector.</param>
+        /// <returns>The field selector.</returns>
+        public static FieldSelector<Share> WithSource(this FieldSelector<Share> me) { return me.Add("source"); }
+        
+        /// <summary>
+        /// Includes the field 'author/id'.
+        /// </summary>
+        /// <param name="me">The field selector.</param>
+        /// <returns>The field selector.</returns>
+        public static FieldSelector<Share> WithAuthor(this FieldSelector<Share> me) { return me.Add("author/id"); }
+        
+        /// <summary>
+        /// Includes all the fields.
+        /// </summary>
+        /// <param name="me">The field selector.</param>
+        /// <returns>The field selector.</returns>
+        public static FieldSelector<Share> WithAllFields(this FieldSelector<Share> me) { return me.AddRange("id", "timestamp", "comment", "content", "visibility/code", "source", "author/id"); }
+        
+        /// <summary>
+        /// Includes the field 'service-provider'.
+        /// </summary>
+        /// <param name="me">The field selector.</param>
+        /// <returns>The field selector.</returns>
+        public static FieldSelector<ShareSource> WithServiceProvider(this FieldSelector<ShareSource> me) { return me.Add("service-provider"); }
+        
+        /// <summary>
+        /// Includes all the fields.
+        /// </summary>
+        /// <param name="me">The field selector.</param>
+        /// <returns>The field selector.</returns>
+        public static FieldSelector<ShareSource> WithAllFields(this FieldSelector<ShareSource> me) { return me.AddRange("service-provider"); }
+        
+        /// <summary>
+        /// Includes the field 'name'.
+        /// </summary>
+        /// <param name="me">The field selector.</param>
+        /// <returns>The field selector.</returns>
+        public static FieldSelector<ShareSourceProvider> WithName(this FieldSelector<ShareSourceProvider> me) { return me.Add("name"); }
+        
+        /// <summary>
+        /// Includes all the fields.
+        /// </summary>
+        /// <param name="me">The field selector.</param>
+        /// <returns>The field selector.</returns>
+        public static FieldSelector<ShareSourceProvider> WithAllFields(this FieldSelector<ShareSourceProvider> me) { return me.AddRange("name"); }
+        
+        /// <summary>
+        /// Includes the field 'title'.
+        /// </summary>
+        /// <param name="me">The field selector.</param>
+        /// <returns>The field selector.</returns>
+        public static FieldSelector<ShareContent> WithTitle(this FieldSelector<ShareContent> me) { return me.Add("title"); }
+        
+        /// <summary>
+        /// Includes the field 'submitted-url'.
+        /// </summary>
+        /// <param name="me">The field selector.</param>
+        /// <returns>The field selector.</returns>
+        public static FieldSelector<ShareContent> WithSubmittedUrl(this FieldSelector<ShareContent> me) { return me.Add("submitted-url"); }
+        
+        /// <summary>
+        /// Includes the field 'submitted-image-url'.
+        /// </summary>
+        /// <param name="me">The field selector.</param>
+        /// <returns>The field selector.</returns>
+        public static FieldSelector<ShareContent> WithSubmittedImageUrl(this FieldSelector<ShareContent> me) { return me.Add("submitted-image-url"); }
+        
+        /// <summary>
+        /// Includes the field 'description'.
+        /// </summary>
+        /// <param name="me">The field selector.</param>
+        /// <returns>The field selector.</returns>
+        public static FieldSelector<ShareContent> WithDescription(this FieldSelector<ShareContent> me) { return me.Add("description"); }
+        
+        /// <summary>
+        /// Includes all the fields.
+        /// </summary>
+        /// <param name="me">The field selector.</param>
+        /// <returns>The field selector.</returns>
+        public static FieldSelector<ShareContent> WithAllFields(this FieldSelector<ShareContent> me) { return me.AddRange("title", "submitted-url", "submitted-image-url", "description"); }
+        
+        /// <summary>
+        /// Includes the field 'id'.
+        /// </summary>
+        /// <param name="me">The field selector.</param>
+        /// <returns>The field selector.</returns>
+        public static FieldSelector<PersonPosition> WithId(this FieldSelector<PersonPosition> me) { return me.Add("id"); }
+        
+        /// <summary>
+        /// Includes the field 'title'.
+        /// </summary>
+        /// <param name="me">The field selector.</param>
+        /// <returns>The field selector.</returns>
+        public static FieldSelector<PersonPosition> WithTitle(this FieldSelector<PersonPosition> me) { return me.Add("title"); }
+        
+        /// <summary>
+        /// Includes the field 'start-date'.
+        /// </summary>
+        /// <param name="me">The field selector.</param>
+        /// <returns>The field selector.</returns>
+        public static FieldSelector<PersonPosition> WithStartDate(this FieldSelector<PersonPosition> me) { return me.Add("start-date"); }
+        
+        /// <summary>
+        /// Includes the field 'end-date'.
+        /// </summary>
+        /// <param name="me">The field selector.</param>
+        /// <returns>The field selector.</returns>
+        public static FieldSelector<PersonPosition> WithEndDate(this FieldSelector<PersonPosition> me) { return me.Add("end-date"); }
+        
+        /// <summary>
+        /// Includes the field 'company'.
+        /// </summary>
+        /// <param name="me">The field selector.</param>
+        /// <returns>The field selector.</returns>
+        public static FieldSelector<PersonPosition> WithCompany(this FieldSelector<PersonPosition> me) { return me.Add("company"); }
+        
+        /// <summary>
+        /// Includes the field 'is-current'.
+        /// </summary>
+        /// <param name="me">The field selector.</param>
+        /// <returns>The field selector.</returns>
+        public static FieldSelector<PersonPosition> WithIsCurrent(this FieldSelector<PersonPosition> me) { return me.Add("is-current"); }
+        
+        /// <summary>
+        /// Includes all the fields.
+        /// </summary>
+        /// <param name="me">The field selector.</param>
+        /// <returns>The field selector.</returns>
+        public static FieldSelector<PersonPosition> WithAllFields(this FieldSelector<PersonPosition> me) { return me.AddRange("id", "title", "start-date", "end-date", "company", "is-current"); }
+        
+        /// <summary>
+        /// Includes the field 'position'.
+        /// </summary>
+        /// <param name="me">The field selector.</param>
+        /// <returns>The field selector.</returns>
+        public static FieldSelector<PersonPositions> WithPosition(this FieldSelector<PersonPositions> me) { return me.Add("position"); }
+        
+        /// <summary>
+        /// Includes all the fields.
+        /// </summary>
+        /// <param name="me">The field selector.</param>
+        /// <returns>The field selector.</returns>
+        public static FieldSelector<PersonPositions> WithAllFields(this FieldSelector<PersonPositions> me) { return me.AddRange("position"); }
+        
+        /// <summary>
+        /// Includes the field 'year'.
+        /// </summary>
+        /// <param name="me">The field selector.</param>
+        /// <returns>The field selector.</returns>
+        public static FieldSelector<DateParts> WithYear(this FieldSelector<DateParts> me) { return me.Add("year"); }
+        
+        /// <summary>
+        /// Includes the field 'month'.
+        /// </summary>
+        /// <param name="me">The field selector.</param>
+        /// <returns>The field selector.</returns>
+        public static FieldSelector<DateParts> WithMonth(this FieldSelector<DateParts> me) { return me.Add("month"); }
+        
+        /// <summary>
+        /// Includes all the fields.
+        /// </summary>
+        /// <param name="me">The field selector.</param>
+        /// <returns>The field selector.</returns>
+        public static FieldSelector<DateParts> WithAllFields(this FieldSelector<DateParts> me) { return me.AddRange("year", "month"); }
+        
+        /// <summary>
+        /// Includes the field 'id'.
+        /// </summary>
+        /// <param name="me">The field selector.</param>
+        /// <returns>The field selector.</returns>
+        public static FieldSelector<CompanyIdentifier> WithId(this FieldSelector<CompanyIdentifier> me) { return me.Add("id"); }
+        
+        /// <summary>
+        /// Includes the field 'name'.
+        /// </summary>
+        /// <param name="me">The field selector.</param>
+        /// <returns>The field selector.</returns>
+        public static FieldSelector<CompanyIdentifier> WithName(this FieldSelector<CompanyIdentifier> me) { return me.Add("name"); }
+        
+        /// <summary>
+        /// Includes all the fields.
+        /// </summary>
+        /// <param name="me">The field selector.</param>
+        /// <returns>The field selector.</returns>
+        public static FieldSelector<CompanyIdentifier> WithAllFields(this FieldSelector<CompanyIdentifier> me) { return me.AddRange("id", "name"); }
+        
+        /// <summary>
+        /// Includes the field 'distance'.
+        /// </summary>
+        /// <param name="me">The field selector.</param>
+        /// <returns>The field selector.</returns>
+        public static FieldSelector<RelationToViewer> WithDistance(this FieldSelector<RelationToViewer> me) { return me.Add("distance"); }
+        
+        /// <summary>
+        /// Includes the field 'related-connections'.
+        /// </summary>
+        /// <param name="me">The field selector.</param>
+        /// <returns>The field selector.</returns>
+        public static FieldSelector<RelationToViewer> WithRelatedConnections(this FieldSelector<RelationToViewer> me) { return me.Add("related-connections"); }
+        
+        /// <summary>
+        /// Includes the field 'connections'.
+        /// </summary>
+        /// <param name="me">The field selector.</param>
+        /// <returns>The field selector.</returns>
+        public static FieldSelector<RelationToViewer> WithConnections(this FieldSelector<RelationToViewer> me) { return me.Add("connections"); }
+        
+        /// <summary>
+        /// Includes all the fields.
+        /// </summary>
+        /// <param name="me">The field selector.</param>
+        /// <returns>The field selector.</returns>
+        public static FieldSelector<RelationToViewer> WithAllFields(this FieldSelector<RelationToViewer> me) { return me.AddRange("distance", "related-connections", "connections"); }
         
         /// <summary>
         /// Includes the field 'url'.
@@ -592,34 +1141,6 @@ namespace Sparkle.LinkedInNET.Profiles
         public static FieldSelector<Country> WithAllFields(this FieldSelector<Country> me) { return me.AddRange("code"); }
         
         /// <summary>
-        /// Includes the field 'distance'.
-        /// </summary>
-        /// <param name="me">The field selector.</param>
-        /// <returns>The field selector.</returns>
-        public static FieldSelector<RelationToViewer> WithDistance(this FieldSelector<RelationToViewer> me) { return me.Add("distance"); }
-        
-        /// <summary>
-        /// Includes the field 'related-connections'.
-        /// </summary>
-        /// <param name="me">The field selector.</param>
-        /// <returns>The field selector.</returns>
-        public static FieldSelector<RelationToViewer> WithRelatedConnections(this FieldSelector<RelationToViewer> me) { return me.Add("related-connections"); }
-        
-        /// <summary>
-        /// Includes the field 'connections'.
-        /// </summary>
-        /// <param name="me">The field selector.</param>
-        /// <returns>The field selector.</returns>
-        public static FieldSelector<RelationToViewer> WithConnections(this FieldSelector<RelationToViewer> me) { return me.Add("connections"); }
-        
-        /// <summary>
-        /// Includes all the fields.
-        /// </summary>
-        /// <param name="me">The field selector.</param>
-        /// <returns>The field selector.</returns>
-        public static FieldSelector<RelationToViewer> WithAllFields(this FieldSelector<RelationToViewer> me) { return me.AddRange("distance", "related-connections", "connections"); }
-        
-        /// <summary>
         /// Includes the field 'url'.
         /// </summary>
         /// <param name="me">The field selector.</param>
@@ -639,6 +1160,48 @@ namespace Sparkle.LinkedInNET.Profiles
         /// <param name="me">The field selector.</param>
         /// <returns>The field selector.</returns>
         public static FieldSelector<ApiStandardProfileRequest> WithAllFields(this FieldSelector<ApiStandardProfileRequest> me) { return me.AddRange("url", "headers"); }
+        
+        /// <summary>
+        /// Includes the field 'code'.
+        /// </summary>
+        /// <param name="me">The field selector.</param>
+        /// <returns>The field selector.</returns>
+        public static FieldSelector<Visibility> WithCode(this FieldSelector<Visibility> me) { return me.Add("code"); }
+        
+        /// <summary>
+        /// Includes all the fields.
+        /// </summary>
+        /// <param name="me">The field selector.</param>
+        /// <returns>The field selector.</returns>
+        public static FieldSelector<Visibility> WithAllFields(this FieldSelector<Visibility> me) { return me.AddRange("code"); }
+        
+        /// <summary>
+        /// Includes the field 'id'.
+        /// </summary>
+        /// <param name="me">The field selector.</param>
+        /// <returns>The field selector.</returns>
+        public static FieldSelector<Author> WithId(this FieldSelector<Author> me) { return me.Add("id"); }
+        
+        /// <summary>
+        /// Includes the field 'first-name'.
+        /// </summary>
+        /// <param name="me">The field selector.</param>
+        /// <returns>The field selector.</returns>
+        public static FieldSelector<Author> WithFirstName(this FieldSelector<Author> me) { return me.Add("first-name"); }
+        
+        /// <summary>
+        /// Includes the field 'last-name'.
+        /// </summary>
+        /// <param name="me">The field selector.</param>
+        /// <returns>The field selector.</returns>
+        public static FieldSelector<Author> WithLastName(this FieldSelector<Author> me) { return me.Add("last-name"); }
+        
+        /// <summary>
+        /// Includes all the fields.
+        /// </summary>
+        /// <param name="me">The field selector.</param>
+        /// <returns>The field selector.</returns>
+        public static FieldSelector<Author> WithAllFields(this FieldSelector<Author> me) { return me.AddRange("id", "first-name", "last-name"); }
         
     }
 }

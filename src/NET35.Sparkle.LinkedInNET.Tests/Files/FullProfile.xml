@@ -12,9 +12,9 @@
     <name>Lille Area, France</name>
   </location>
   <industry>Information Technology and Services</industry>
-  <distance>0</distance>
+  <distance>4</distance>
   <relation-to-viewer>
-    <distance>0</distance>
+    <distance>2</distance>
   </relation-to-viewer>
   <current-status-timestamp>1414145160000</current-status-timestamp>
   <current-share>
@@ -30,13 +30,13 @@
       </service-provider>
     </source>
     <author>
-      <id>0000000000</id>
+      <id>0000000420</id>
       <first-name>Antoine</first-name>
       <last-name>Sottiau</last-name>
     </author>
   </current-share>
   <num-connections>142</num-connections>
-  <num-connections-capped>false</num-connections-capped>
+  <num-connections-capped>true</num-connections-capped>
   <summary>Certifications :
 
 Microsoft Certified Professional:
@@ -74,7 +74,7 @@ GNU/Linux Debian, Mandriva, Suse, Fedora
 
 Networks:
 Certified Cisco CCNA 4.</summary>
-  <positions total="6">
+  <positions total="5">
     <position>
       <id>1</id>
       <start-date>

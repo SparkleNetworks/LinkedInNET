@@ -13,6 +13,7 @@ namespace Sparkle.LinkedInNET.ServiceDefinition
         private readonly TextWriter text;
         private string rootNamespace = "Sparkle.LinkedInNET";
         private static Regex urlParametersRegex = new Regex("\\{(?:([^{} ]+) +)?([^{}]+)\\}", RegexOptions.Compiled);
+        private static readonly string[] csharpTypes = new string[] { "string", "int", "short", "long", "Guid", "DateTime", "double", "float", "byte", };
 
         public CSharpGenerator(TextWriter text)
         {
@@ -25,10 +26,11 @@ namespace Sparkle.LinkedInNET.ServiceDefinition
             set { this.rootNamespace = value; }
         }
 
-        public void Run(ApisRoot root)
+        public void Run(ServiceDefinition definition)
         {
             var context = new GeneratorContext();
-            context.Root = root;
+            context.Definition = definition;
+            context.Root = definition.Root;
 
             this.WriteEverything(context);
 
@@ -37,49 +39,24 @@ namespace Sparkle.LinkedInNET.ServiceDefinition
 
         private void WriteEverything(GeneratorContext context)
         {
+            foreach (var apiGroup in context.Root.ApiGroups)
             {
-                foreach (var apiGroup in context.Root.ApiGroups)
+                // write all return types
+                foreach (var returnType in apiGroup.ReturnTypes.ToArray())
                 {
-                    // generate extra return types
-                    foreach (var returnType in apiGroup.ReturnTypes.ToArray())
-                    {
-                        foreach (var item in returnType.Fields)
-                        {
-                            var parts = item.Name.Split(new char[] { ':', '/', }, 2);
-                            var mainPart = parts.Length == 1 ? parts[0] : parts[0];
-                            var subPart = parts.Length == 2 ? parts[1] : null;
-
-                            if (parts.Length > 1)
-                            {
-                                var subReturnType = context.FindReturnType(mainPart, apiGroup.Name, subPart: subPart);
-                            }
-                        }
-                    }
+                    this.WriteReturnTypes(context, returnType, apiGroup);
                 }
+
+                this.WriteReturnTypeFields(context, apiGroup, apiGroup.ReturnTypes.ToArray());
             }
 
+            foreach (var apiGroup in context.Root.ApiGroups)
             {
-                foreach (var apiGroup in context.Root.ApiGroups)
-                {
-                    // write all return types
-                    foreach (var returnType in apiGroup.ReturnTypes.ToArray())
-                    {
-                        this.WriteReturnTypes(context, returnType, apiGroup);
-                    }
-
-                    this.WriteReturnTypeFields(context, apiGroup, apiGroup.ReturnTypes.ToArray());
-                }
-
-                foreach (var apiGroup in context.Root.ApiGroups)
-                {
-                    // write client class
-                    this.WriteApiGroup(context, apiGroup);
-                }
-
-                this.WriteRootServices(context);
+                // write client class
+                this.WriteApiGroup(context, apiGroup);
             }
 
-
+            this.WriteRootServices(context);
         }
 
         private void WriteReturnTypeFields(GeneratorContext context, ApiGroup apiGroup, ReturnType[] returnTypes)
@@ -113,12 +90,12 @@ namespace Sparkle.LinkedInNET.ServiceDefinition
                     var fieldName = this.GetPropertyName(field.PropertyName, field.Name);
                     allFields.Add(field.Name);
 
-                    if (fieldName.Contains(":") || fieldName.Contains("/"))
-                    {
-                        this.text.WriteLine(indent, "#warning ReturnType '"+returnType.Name+"', Field '" + field.Name + "': unsupported syntax");
-                        this.text.WriteLine();
-                        continue;
-                    }
+                    ////if (fieldName.Contains(":") || fieldName.Contains("/"))
+                    ////{
+                    ////    this.text.WriteLine(indent, "#warning ReturnType '" + returnType.Name + "', Field '" + field.Name + "': unsupported syntax");
+                    ////    this.text.WriteLine();
+                    ////    continue;
+                    ////}
 
                     this.text.WriteLine(indent, "/// <summary>");
                     this.text.WriteLine(indent, "/// Includes the field '" + field.Name + "'.");
@@ -182,7 +159,7 @@ namespace Sparkle.LinkedInNET.ServiceDefinition
                 this.text.WriteLine(indent, "/// The " + name + " API.");
                 this.text.WriteLine(indent, "/// </summary>");
                 this.text.WriteLine(indent++, "public " + name + "Api " + name + "{");
-                this.text.WriteLine(indent, "get { return new "+name+"Api(this); }");
+                this.text.WriteLine(indent, "get { return new " + name + "Api(this); }");
                 this.text.WriteLine(--indent, "}");
                 this.text.WriteLine();
             }
@@ -235,7 +212,7 @@ namespace Sparkle.LinkedInNET.ServiceDefinition
                 ReturnType returnTypeType = null;
                 if (method.ReturnType != null)
                 {
-                    returnTypeType = context.FindReturnType(method.ReturnType, apiGroup.Name);
+                    returnTypeType = context.Definition.FindReturnType(method.ReturnType, apiGroup.Name);
                     if (returnTypeType != null)
                     {
                         returnType = this.GetPropertyName(returnTypeType.ClassName, returnTypeType.Name);
@@ -367,27 +344,36 @@ namespace Sparkle.LinkedInNET.ServiceDefinition
             this.text.WriteLine(indent, "public class " + this.GetPropertyName(returnType.ClassName, returnType.Name));
             this.text.WriteLine(indent++, "{");
 
-            foreach (var itemGroup in returnType.Fields.GroupBy(f => this.GetPropertyName(f.PropertyName, f.GetMainName())).ToArray())
+            foreach (var itemGroup in returnType.Fields.GroupBy(f => f.FieldName.PropertyName).ToArray())
             {
                 var item = itemGroup.First();
-                var parts = item.Name.Split(new char[] { ':', }, 2);
-                var mainPart = parts.Length == 1 ? parts[0] : parts[0];
-                var subPart = parts.Length == 2 ? parts[1] : null;
+                ////var parts = item.Name.Split(new char[] { ':', }, 2);
+                ////var mainPart = parts.Length == 1 ? parts[0] : parts[0];
+                ////var subPart = parts.Length == 2 ? parts[1] : null;
                 var isCollection = item.IsCollection;
 
-                var type = item.Type ?? "string";
-                if (parts.Length > 1)
+                var type = item.Type ?? item.FieldName.ClassName ?? "string";
+                ReturnType fieldReturnType = null;
+                if (!csharpTypes.Contains(type))
                 {
-                    var subReturnType = context.FindReturnType(mainPart, apiGroupName: apiGroup.Name, subPart: subPart);
-                    if (subReturnType != null)
+                    fieldReturnType = context.Definition.FindReturnType(type);
+                    if (fieldReturnType != null)
                     {
-                        type = this.GetPropertyName(subReturnType.ClassName, subReturnType.Name);
-                    }
-                    else
-                    {
-                        type = this.GetPropertyName(null, mainPart);
+                        type = fieldReturnType.ClassName ?? Namify(fieldReturnType.Name);
                     }
                 }
+                ////if (parts.Length > 1)
+                ////{
+                ////    var subReturnType = context.Definition.FindReturnType(mainPart, apiGroupName: apiGroup.Name, subPart: subPart);
+                ////    if (subReturnType != null)
+                ////    {
+                ////        type = this.GetPropertyName(subReturnType.ClassName, subReturnType.Name);
+                ////    }
+                ////    else
+                ////    {
+                ////        type = this.GetPropertyName(null, mainPart);
+                ////    }
+                ////}
 
                 if (isCollection)
                 {
@@ -401,10 +387,11 @@ namespace Sparkle.LinkedInNET.ServiceDefinition
                 }
 
                 this.text.WriteLine(indent, "/// </summary>");
-                this.text.WriteLine(indent, "[XmlElement(ElementName = \"" + mainPart + "\")]");
                 if (item.Ignore)
-                    this.text.WriteLine(indent, "#warning Field is to be ignored or has issues");
-                this.text.WriteLine(indent, "public " + type + " " + this.GetPropertyName(item.PropertyName, mainPart) + " { get; set; }");
+                    this.text.WriteLine(indent, "////[XmlElement(ElementName = \"" + item.FieldName.ApiName + "\")] // Ignore=\"true\"");
+                else
+                    this.text.WriteLine(indent, "[XmlElement(ElementName = \"" + item.FieldName.ApiName + "\")]");
+                this.text.WriteLine(indent, "public " + type + " " + item.FieldName.PropertyName + " { get; set; }");
                 this.text.WriteLine();
             }
 
@@ -418,12 +405,12 @@ namespace Sparkle.LinkedInNET.ServiceDefinition
             if (propertyName != null)
                 return propertyName;
 
-            var words = name.Split(new char[] { '-', '/', });
+            var words = name.Split(new char[] { '-', '/', '(', ')', ':', });
 
             return string.Join("", words.Select(w => Namify(w, NameTransformation.CamelCase)).ToArray());
         }
 
-        private static string Namify(string value, NameTransformation transform = NameTransformation.CamelCase, string unifier = "")
+        internal static string Namify(string value, NameTransformation transform = NameTransformation.CamelCase, string unifier = "")
         {
             var result = string.Empty;
             var words = value.Split(new char[] { '-', '/', });
@@ -454,96 +441,13 @@ namespace Sparkle.LinkedInNET.ServiceDefinition
             this.text.WriteLine(indent, "using " + value + ";");
         }
 
+        
+
         public class GeneratorContext
         {
             public ApisRoot Root { get; set; }
 
-            internal ReturnType FindReturnType(string name, string apiGroupName = null, string subPart = null)
-            {
-                ReturnType returnItem = null;
-                foreach (var group in this.Root.ApiGroups.Where(g => apiGroupName == null || g.Name == apiGroupName))
-                {
-                    if (returnItem != null)
-                        break;
-
-                    foreach (var item in group.ReturnTypes)
-                    {
-                        if (returnItem != null)
-                            break;
-
-                        if (item.Name == name)
-                        {
-                            returnItem = item;
-                        }
-                    }
-                }
-
-                if (apiGroupName != null && returnItem == null)
-                {
-                    var item = new ReturnType
-                    {
-                        Name = name,
-                        Fields = new List<Field>(),
-                    };
-                    var group = this.Root.ApiGroups.Single(g => g.Name == apiGroupName);
-                    group.ReturnTypes.Add(item);
-
-                    returnItem = item;
-                }
-
-                if (returnItem != null)
-                {
-                    if (subPart != null && subPart.First() == '(' && subPart.Last() == ')')
-                    {
-                        // subPart = "main:(sub)"
-                        // subPart = "main:(sub:(woot))"
-                        Field newField = null;
-                        {
-                            var parts = subPart.Substring(1, subPart.Length - 2).Split(new char[] { ':', }, 2);
-                            newField = new Field
-                            {
-                                Name = parts[0],
-                                ReturnType = name,
-                                Type = parts.Length > 1 && parts[1].Length > 2 ? parts[0] : null,
-                            };
-                            returnItem.Fields.Add(newField);
-                        }
-
-                        {
-                            // split "main:(sub:(woot))"
-                            var parts = subPart.Substring(1, subPart.Length - 2).Split(new char[] { ':', '/', }, 2);
-                            var mainPart = parts.Length == 1 ? parts[0] : parts[0];
-                            var subPart1 = parts.Length == 2 ? parts[1] : null;
-
-                            if (parts.Length > 1)
-                            {
-                                // "(sub:(woot))"
-                                var subReturnType = this.FindReturnType(mainPart, apiGroupName, subPart: subPart1);
-                            }
-                        }
-                    }
-                    else if (subPart != null)
-                    {
-                        // "main/sub"
-                        var parts = subPart.Split(new char[] { ':', '/', }, 2);
-                        returnItem.Fields.Add(new Field
-                        {
-                            Name = parts[0],
-                            ReturnType = name,
-                        });
-                    }
-                }
-
-                return returnItem;
-            }
-        }
-
-        [Flags]
-        public enum NameTransformation
-        {
-            None = 0,
-            CamelCase  = 0x0001,
-            PascalCase = 0x0002,
+            public ServiceDefinition Definition { get; set; }
         }
     }
 }

@@ -28,25 +28,21 @@ if (!File.Exists(xmlPath)){
 	this.WriteLine("// XML document found at '"+xmlPath.Replace(solutionDirectory, "")+"'");
 }
 
-ApisRoot root = null;
-var serializer = new XmlSerializer(typeof(ApisRoot));
+// create definition builder and append data
+var builder = new ServiceDefinitionBuilder();
 using (var fileStream = new FileStream(xmlPath, FileMode.Open, FileAccess.Read, FileShare.Read))
-using (var reader = new StreamReader(fileStream))
 {
-	root = (ApisRoot)serializer.Deserialize(reader);
+	builder.AppendServiceDefinition(fileStream);
 }
 
-	this.WriteLine("// return types: '"+root.ReturnTypes.Count+"'");
-	this.WriteLine("// API groups: '"+root.ApiGroups.Count+"'");
-	this.WriteLine("");
-
+// generate code
 {
 	var stream = new System.IO.MemoryStream();
 	var writer = new System.IO.StreamWriter(stream);
 	try
 	{
 		var generator = new CSharpGenerator(writer);
-		generator.Run(root);
+		generator.Run(builder.Definition);
 		stream.Seek(0L, System.IO.SeekOrigin.Begin);
 		this.WriteLine(new System.IO.StreamReader(stream).ReadToEnd());
 	}

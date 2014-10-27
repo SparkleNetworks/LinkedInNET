@@ -46,7 +46,9 @@ namespace Sparkle.LinkedInNET.Tests
                     },
                 },
             };
-            generator.Run(root);
+            var builder = new ServiceDefinitionBuilder();
+            builder.AppendServiceDefinition(new ServiceDefinition(root));
+            generator.Run(builder.Definition);
 
             writer.Flush();
             stream.Seek(0L, System.IO.SeekOrigin.Begin);
@@ -94,7 +96,9 @@ namespace Sparkle.LinkedInNET.Tests
                     },
                 },
             };
-            generator.Run(root);
+            var builder = new ServiceDefinitionBuilder();
+            builder.AppendServiceDefinition(new ServiceDefinition(root));
+            generator.Run(builder.Definition);
 
             writer.Flush();
             stream.Seek(0L, System.IO.SeekOrigin.Begin);
@@ -126,13 +130,124 @@ namespace Sparkle.LinkedInNET.Tests
             var stream = new System.IO.MemoryStream();
             var writer = new System.IO.StreamWriter(stream);
             var generator = new CSharpGenerator(writer);
-            generator.Run(root);
+            var builder = new ServiceDefinitionBuilder();
+            builder.AppendServiceDefinition(new ServiceDefinition(root));
+            generator.Run(builder.Definition);
 
             writer.Flush();
             stream.Seek(0L, System.IO.SeekOrigin.Begin);
             var result = new StreamReader(stream).ReadToEnd();
 
             Assert.IsFalse(string.IsNullOrEmpty(result));
+        }
+
+        [TestMethod]
+        public void ExplicitReturnTypes_int()
+        {
+            var xml = @"<?xml version=""1.0"" encoding=""utf-8""?>
+<Root>
+  <ApiGroup Name=""group"">
+    <ReturnType Name=""person"" ClassName=""Person"">
+      <Field Name=""location"" Type=""PersonLocation"" />
+      <Field Name=""location:(name)"" />
+    </ReturnType>
+  </ApiGroup>
+</Root>";
+            var result = GetGeneratedCodeFromXmlDefinition(xml);
+
+            Assert.IsFalse(string.IsNullOrEmpty(result));
+            Assert.IsFalse(string.IsNullOrEmpty(result));
+            Assert.IsTrue(result.Contains("public class Person"));
+            Assert.IsTrue(result.Contains("public class PersonLocation"));
+            Assert.IsTrue(result.Contains("public PersonLocation Location"));
+            Assert.IsFalse(result.Contains("public class Location"));
+            Assert.IsTrue(result.Contains("public string Name"));
+        }
+
+        [TestMethod]
+        public void ImplicitAndExplicitReturnTypes()
+        {
+            var xml = @"<?xml version=""1.0"" encoding=""utf-8""?>
+<Root>
+  <ApiGroup Name=""group"">
+    <ApiMethod MethodName=""ftw"" ReturnType=""Person"" Path=""/ftw"" />
+    <ReturnType Name=""person"" ClassName=""Person"">
+      <Field Name=""location"" Type=""PersonLocation"" />
+    </ReturnType>
+    <ReturnType Name=""location"" ClassName=""PersonLocation"">
+      <Field Name=""name"" />
+    </ReturnType>
+  </ApiGroup>
+</Root>";
+            var serializer = new XmlSerializer(typeof(ApisRoot));
+            var reader = new StringReader(xml);
+            var root = (ApisRoot)serializer.Deserialize(reader);
+            var stream = new System.IO.MemoryStream();
+            var writer = new System.IO.StreamWriter(stream);
+            var generator = new CSharpGenerator(writer);
+            var builder = new ServiceDefinitionBuilder();
+            builder.AppendServiceDefinition(new ServiceDefinition(root));
+            generator.Run(builder.Definition);
+
+            writer.Flush();
+            stream.Seek(0L, System.IO.SeekOrigin.Begin);
+            var result = new StreamReader(stream).ReadToEnd();
+
+            Assert.IsFalse(string.IsNullOrEmpty(result));
+            Assert.IsFalse(string.IsNullOrEmpty(result));
+            Assert.IsTrue(result.Contains("public class Person"));
+            Assert.IsTrue(result.Contains("public class PersonLocation"));
+            Assert.IsTrue(result.Contains("public PersonLocation Location"));
+            Assert.IsFalse(result.Contains("public class Location"));
+            Assert.IsTrue(result.Contains("public string Name"));
+        }
+
+        [TestMethod, Ignore] // wont implement
+        public void SubtypeFieldType()
+        {
+            // the interesting thing here is:
+            // we declare a 2-part field of type int
+            // this is to hard to implement
+            // in this case, separately declare a relation-to-viewer return type with a int field
+            var xml = @"<?xml version=""1.0"" encoding=""utf-8""?>
+<Root>
+  <ApiGroup Name=""group"">
+    <ReturnType Name=""person"" ClassName=""Person"">
+      <Field Name=""relation-to-viewer:(distance)"" Type=""int"" />
+    </ReturnType>
+  </ApiGroup>
+</Root>";
+            var result = GetGeneratedCodeFromXmlDefinition(xml);
+
+
+            Assert.IsFalse(string.IsNullOrEmpty(result));
+            Assert.IsTrue(result.Contains("public class Person"));
+            Assert.IsTrue(result.Contains("public class RelationToViewer"));
+            Assert.IsTrue(result.Contains("public int Distance"));
+        }
+
+        private static string GetGeneratedCodeFromXmlDefinition(string xml)
+        {
+            ////var serializer = new XmlSerializer(typeof(ApisRoot));
+            ////var reader = new StringReader(xml);
+            ////var root = (ApisRoot)serializer.Deserialize(reader);
+
+            MemoryStream stream = new MemoryStream();
+            StreamWriter writer = new System.IO.StreamWriter(stream);
+            var generator = new CSharpGenerator(writer);
+            var xmlStream = new MemoryStream();
+            var xmlWriter = new StreamWriter(xmlStream);
+            xmlWriter.Write(xml);
+            xmlWriter.Flush();
+            xmlStream.Seek(0L, SeekOrigin.Begin);
+
+            var builder = new ServiceDefinitionBuilder();
+            ////builder.AppendServiceDefinition(new ServiceDefinition(root));
+            builder.AppendServiceDefinition(xmlStream);
+            generator.Run(builder.Definition);
+            stream.Seek(0L, SeekOrigin.Begin);
+            var result = new StreamReader(stream).ReadToEnd();
+            return result;
         }
 
         [TestMethod]
@@ -165,7 +280,9 @@ namespace Sparkle.LinkedInNET.Tests
                     },
                 },
             };
-            generator.Run(root);
+            var builder = new ServiceDefinitionBuilder();
+            builder.AppendServiceDefinition(new ServiceDefinition(root));
+            generator.Run(builder.Definition);
 
             writer.Flush();
             stream.Seek(0L, System.IO.SeekOrigin.Begin);
