@@ -143,6 +143,8 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\OAuth2.cshtml" />
     <Content Include="Views\Home\Play.cshtml" />
+    <Content Include="Views\Home\FullProfile.cshtml" />
+    <Content Include="Views\Home\Connections.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

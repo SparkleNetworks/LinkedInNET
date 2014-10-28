@@ -186,7 +186,7 @@ namespace Sparkle.LinkedInNET.Profiles
         /// Field: 'person' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "person")]
-        public List<string> Person { get; set; }
+        public List<Person> Person { get; set; }
 
     }
 }
@@ -484,7 +484,7 @@ namespace Sparkle.LinkedInNET.Profiles
         /// <summary>
         /// Field: 'connections' (on-demand)
         /// </summary>
-        [XmlElement(ElementName = "connections")]
+        ////[XmlElement(ElementName = "connections")] // Ignore="true"
         public int? Connections { get; set; }
 
     }
@@ -1383,9 +1383,9 @@ namespace Sparkle.LinkedInNET.Profiles
         /// <summary>
         /// returns a list of 1st degree connections for a user 
         /// </summary>
-        public Person GetMyConnections(
+        public Connections GetMyConnections(
               UserAuthorization user
-            , FieldSelector<Person> fields = null
+            , FieldSelector<Connections> fields = null
         )
         {
             var url = "/v1/people/~/connections";
@@ -1397,7 +1397,7 @@ namespace Sparkle.LinkedInNET.Profiles
 
             if (!this.ExecuteQuery(context))
                 this.HandleXmlErrorResponse(context);
-            return this.HandleXmlResponse<Person>(context);
+            return this.HandleXmlResponse<Connections>(context);
         }
         
         /// <summary>

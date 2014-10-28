@@ -5,7 +5,7 @@
     <ApiMethod MethodName="GetProfileById"   HttpMethod="GET" Title="the profile of a user in the network" Path="/v1/people/id={MemberToken}{FieldSelector}" ReturnType="Person" RequiresUserAuthentication="1" UsesAcceptLanguage="1" />
     <ApiMethod MethodName="GetPublicProfile" HttpMethod="GET" Title="the public profile of a user" Path="/v1/people/url={PublicProfileUrl}{FieldSelector}" ReturnType="Person" RequiresUserAuthentication="1" UsesAcceptLanguage="1" />
     <!--<ApiMethod MethodName="QueryProfiles" HttpMethod="GET" Title="queries for some profiles" Path="/v1/people/{PublicProfileUrl}" ReturnType="Person" RequiresUserAuthentication="1" />-->
-    <ApiMethod MethodName="GetMyConnections"     HttpMethod="GET" Title="returns a list of 1st degree connections for a user " Path="/v1/people/~/connections" ReturnType="Person" RequiresUserAuthentication="1" />
+    <ApiMethod MethodName="GetMyConnections"     HttpMethod="GET" Title="returns a list of 1st degree connections for a user " Path="/v1/people/~/connections" ReturnType="connections" RequiresUserAuthentication="1" />
     <ApiMethod MethodName="GetConnectionsByProfileId"     HttpMethod="GET" Title="returns a list of 1st degree connections for a user " Path="/v1/people/id={MemberToken}/connections" ReturnType="Person" RequiresUserAuthentication="1" />
     
     
@@ -61,8 +61,8 @@
       </FieldGroup>
     </ReturnType>
 
-    <ReturnType Name="connections">
-      <Field Name="person" IsCollection="1" ReturnType="Person" />
+    <ReturnType Name="connections" ClassName="Connections">
+      <Field Name="person" IsCollection="1" Type="Person" />
     </ReturnType>
 
     <ReturnType Name="share">
@@ -113,7 +113,7 @@
     <ReturnType Name="relation-to-viewer">
       <Field Name="distance" Type="int?" Title="the degree distance of the fetched profile from the member who fetched the profile" Remark="Not available in /people/{id}/connections." />
       <Field Name="related-connections" Title="Contains brief connection/person objects indicating the connecting first degree members" Remark="Not available in /people/{id}/connections. For each connection, id, first-name, and last-name is returned by default. You can fetch distance using field selectors, for e.g. relation-to-viewer:(related-connections:(id,first-name,last-name,distance))" />
-      <Field Name="connections" Type="int?" Title="Deprecated: a total attribute will denote the number of connections that link  the fetching member to the fetched. Contains brief connection/person objects indicating the connecting first degree members" Remark="Deprecated. Use the related-connections field instead. It gives the same information but splits out the count into the num-related-connections field so you can get each separately instead of having to get them together." />
+      <Field Name="connections" Type="int?" Title="Deprecated: a total attribute will denote the number of connections that link  the fetching member to the fetched. Contains brief connection/person objects indicating the connecting first degree members" Remark="Deprecated. Use the related-connections field instead. It gives the same information but splits out the count into the num-related-connections field so you can get each separately instead of having to get them together." Ignore="1" />
     </ReturnType>
   </ApiGroup>
   

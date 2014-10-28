@@ -27,13 +27,13 @@ namespace Sparkle.LinkedInNET.DemoMvc5.Controllers
             this.apiConfig = apiConfig;
         }
 
-        public ActionResult Index()
+        public ActionResult Index(string culture = "en-US")
         {
             // step 1: configuration
             this.ViewBag.Configuration = this.apiConfig;
             
             // step 2: authorize url
-            var scope = AuthorizationScope.ReadFullProfile | AuthorizationScope.ReadEmailAddress;
+            var scope = AuthorizationScope.ReadFullProfile | AuthorizationScope.ReadEmailAddress | AuthorizationScope.ReadNetwork;
             var state = Guid.NewGuid().ToString();
             var redirectUrl = this.Request.Compose() + this.Url.Action("OAuth2");
             this.ViewBag.LocalRedirectUrl = redirectUrl;
@@ -59,7 +59,7 @@ namespace Sparkle.LinkedInNET.DemoMvc5.Controllers
                 try
                 {
                     ////var profile = this.api.Profiles.GetMyProfile(user);
-                    var acceptLanguages = new string[] { "en-US", "fr-FR", };
+                    var acceptLanguages = new string[] { culture ?? "en-US", "fr-FR", };
                     var profile = this.api.Profiles.GetMyProfile(user, acceptLanguages, FieldSelector.For<Person>().WithAllFields());
 
                     this.ViewBag.Profile = profile;
@@ -90,6 +90,42 @@ namespace Sparkle.LinkedInNET.DemoMvc5.Controllers
             ////var profile = this.api.Profiles.GetMyProfile(user);
             ////this.data.SaveAccessToken();
             return this.View();
+        }
+
+        public ActionResult Connections()
+        {
+            var token = this.data.GetAccessToken();
+            var user = new UserAuthorization(token);
+            var connection = this.api.Profiles.GetMyConnections(user);
+            return this.View(connection);
+        }
+
+        public ActionResult FullProfile(string id, string culture = "en-US")
+        {
+            var token = this.data.GetAccessToken();
+            this.ViewBag.Token = token;
+            var user = new UserAuthorization(token);
+
+            Person profile = null;
+            var watch = new Stopwatch();
+            watch.Start();
+            try
+            {
+                ////var profile = this.api.Profiles.GetMyProfile(user);
+                var acceptLanguages = new string[] { culture ?? "en-US", "fr-FR", };
+                profile = this.api.Profiles.GetProfileById(user, id, acceptLanguages, FieldSelector.For<Person>().WithFirstname().WithFormattedName().WithHeadline().WithId().WithLastname().WithLocation().WithPictureUrl().WithPublicProfileUrl().WithSummary().w);
+
+                this.ViewBag.Profile = profile;
+            }
+            catch (Exception ex)
+            {
+                this.ViewBag.ProfileError = ex.ToString();
+            }
+
+            watch.Stop();
+            this.ViewBag.ProfileDuration = watch.Elapsed;
+
+            return this.View(profile);
         }
 
         public ActionResult Play()

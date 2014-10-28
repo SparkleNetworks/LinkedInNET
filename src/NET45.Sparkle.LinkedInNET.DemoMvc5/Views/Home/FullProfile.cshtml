@@ -1,0 +1,8 @@
+﻿@model Sparkle.LinkedInNET.Profiles.Person
+@{
+    ViewBag.Title = "FullProfile";
+}
+
+<h2>FullProfile</h2>
+
+<pre>@Newtonsoft.Json.JsonConvert.SerializeObject(this.Model, Newtonsoft.Json.Formatting.Indented)</pre>

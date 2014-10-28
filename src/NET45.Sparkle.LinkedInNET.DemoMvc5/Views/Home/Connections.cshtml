@@ -1,0 +1,14 @@
+﻿@model Sparkle.LinkedInNET.Profiles.Connections
+@{
+    ViewBag.Title = "Connections";
+}
+
+<h1>Connections</h1>
+
+@foreach (var item in Model.Person)
+{
+<h2>@item.Firstname @item.Lastname</h2>
+<p>@Html.ActionLink("profile", "FullProfile", new { id = item.Id, })</p>
+<pre>@Newtonsoft.Json.JsonConvert.SerializeObject(item, Newtonsoft.Json.Formatting.Indented)</pre>
+}
+
