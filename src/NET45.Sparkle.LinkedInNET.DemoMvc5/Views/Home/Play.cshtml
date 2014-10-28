@@ -1,0 +1,83 @@
+﻿
+@{
+    ViewBag.Title = "Play";
+}
+
+<h2>Play</h2>
+
+<div id="play">
+    <div data-bind="foreach: Methods">
+        <h3 data-bind="text: DisplayName"></h3>
+        <p><cite data-bind="text: Title"></cite></p>
+        <p><a href="javascript:void(0);" class="button" data-bind="click: $parent.ToggleEditor($index)">Use</a></p>
+        <div data-bind="template: { name: 'ApiEditor' }"></div>
+    </div>
+</div>
+
+
+<script src="http://cdnjs.cloudflare.com/ajax/libs/knockout/3.1.0/knockout-min.js" type="text/javascript"></script>
+<script src="http://code.jquery.com/jquery-1.11.1.min.js" type="text/javascript"></script>
+<script type="text/html" id="ApiEditor">
+    <form data-bind="submit: Submit">
+        <dl>
+            <dt><label>Method &amp; path : </label></dt>
+            <dd><input type="text" data-bind="value: HttpMethod" /> <input type="text" data-bind="value: Path" /></dd>
+        </dl>
+        <dl>
+            <dt></dt>
+            <dd><input type="submit" value="Go" /></dd>
+        </dl>
+    </form>
+</script>
+<script type="text/javascript">
+(function (ko, rootId) {
+
+    var viewModel = {
+        Methods: ko.observableArray(),
+        Token: "@this.ViewBag.Token",
+    };
+    viewModel.ToggleEditor = function (index) {
+        var method = viewModel.Methods[index];
+        if (method) {
+            method.Editor(ko.observable(new ApiEditor(method)));
+        }
+    };
+
+    function ApiEditor(method) {
+    }
+
+    //function MethodModel() {
+    //    var self = this;
+    //    self.DisplayName = ko.computed(function () {
+    //        return self.ApiGroup + " " + self.HttpMethod + " " + self.Path;
+    //    });
+    //}
+
+    ko.applyBindings(viewModel, document.getElementById(rootId));
+
+    $.ajax({
+        url: '/Home/Definition',
+        dataType: 'json',
+        success: function (data) {
+            data = data.Data;
+            for (var i = 0; i < data.ApiGroups.length; i++) {
+                for (var j = 0; j < data.ApiGroups[i].Methods.length; j++) {
+                    var item = data.ApiGroups[i].Methods[j];
+                    item.ApiGroup = data.ApiGroups[i].Name;
+                    item.DisplayName = item.ApiGroup + " - " + item.HttpMethod + " " + item.Path;
+                    item.Editor = null;
+
+                    var obs = ko.observable(item);
+                    viewModel.Methods.push(obs);
+                }
+            }
+        },
+        error: function (a, b, c) {
+            alert("Whoops, something went wrong.");
+        }
+    });
+
+})(ko, 'play');
+</script>
+
+

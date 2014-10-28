@@ -4,6 +4,7 @@ namespace Sparkle.LinkedInNET.DemoMvc5.Controllers
     using System;
     using System.Collections.Generic;
     using System.Diagnostics;
+    using System.IO;
     using System.Linq;
     using System.Web;
     using System.Web.Mvc;
@@ -11,6 +12,7 @@ namespace Sparkle.LinkedInNET.DemoMvc5.Controllers
     using Sparkle.LinkedInNET.DemoMvc5.Domain;
     using Sparkle.LinkedInNET.OAuth2;
     using Sparkle.LinkedInNET.Profiles;
+    using Sparkle.LinkedInNET.ServiceDefinition;
 
     public class HomeController : Controller
     {
@@ -88,6 +90,42 @@ namespace Sparkle.LinkedInNET.DemoMvc5.Controllers
             ////var profile = this.api.Profiles.GetMyProfile(user);
             ////this.data.SaveAccessToken();
             return this.View();
+        }
+
+        public ActionResult Play()
+        {
+            var token = this.data.GetAccessToken();
+            this.ViewBag.Token = token;
+            return this.View();
+        }
+
+        public ActionResult Definition()
+        {
+            var filePath = Path.Combine(this.Server.MapPath("~"), "..", "LinkedInApi.xml");
+            var builder = new ServiceDefinitionBuilder();
+            using (var fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read))
+            {
+                builder.AppendServiceDefinition(fileStream);
+            }
+
+            var result = new ApiResponse<ApisRoot>(builder.Root);
+
+            return this.Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        public class ApiResponse<T>
+        {
+            public ApiResponse()
+            {
+            }
+
+            public ApiResponse(T data)
+            {
+                this.Data = data;
+            }
+
+            public string Error { get; set; }
+            public T Data { get; set; }
         }
     }
 }

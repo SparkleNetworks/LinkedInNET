@@ -142,6 +142,7 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\OAuth2.cshtml" />
+    <Content Include="Views\Home\Play.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -154,6 +155,10 @@
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\NET35.Sparkle.LinkedInNET.ServiceDefinition\NET35.Sparkle.LinkedInNET.ServiceDefinition.csproj">
+      <Project>{589b7bae-e19e-43a0-b063-2e017b5e0c1d}</Project>
+      <Name>NET35.Sparkle.LinkedInNET.ServiceDefinition</Name>
+    </ProjectReference>
     <ProjectReference Include="..\NET35.Sparkle.LinkedInNET\NET35.Sparkle.LinkedInNET.csproj">
       <Project>{452cae7a-152b-40ef-8dd7-965854b1931c}</Project>
       <Name>NET35.Sparkle.LinkedInNET</Name>
