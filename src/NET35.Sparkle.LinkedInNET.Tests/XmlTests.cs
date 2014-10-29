@@ -44,7 +44,7 @@ namespace Sparkle.LinkedInNET.Tests
             Assert.AreEqual(1414145160000, item.CurrentStatusTimestamp);
 
             // bools
-            Assert.IsTrue(item.NumConnectionsCapped);
+            Assert.IsTrue(item.NumConnectionsCapped.Value);
         }
 
         [TestMethod]
@@ -92,8 +92,8 @@ namespace Sparkle.LinkedInNET.Tests
             var position = item.Positions.Position[0];
             Assert.AreEqual(1, position.Id);
             Assert.IsNotNull(position.StartDate);
-            Assert.AreEqual(2013, position.StartDate.Year);
-            Assert.AreEqual(6, position.StartDate.Month);
+            Assert.AreEqual((short)2013, position.StartDate.Year.Value);
+            Assert.AreEqual((short)6, position.StartDate.Month.Value);
             Assert.IsTrue(position.IsCurrent);
             Assert.IsNotNull(position.Company);
             Assert.AreEqual(5161579, position.Company.Id);
@@ -102,10 +102,10 @@ namespace Sparkle.LinkedInNET.Tests
             Assert.AreEqual(2, position.Id);
             Assert.IsFalse(string.IsNullOrEmpty(position.Title));
             Assert.IsNotNull(position.StartDate);
-            Assert.AreEqual(2011, position.StartDate.Year);
-            Assert.AreEqual(4, position.StartDate.Month);
-            Assert.AreEqual(2013, position.EndDate.Year);
-            Assert.AreEqual(5, position.EndDate.Month);
+            Assert.AreEqual((short)2011, position.StartDate.Year.Value);
+            Assert.AreEqual((short)4, position.StartDate.Month.Value);
+            Assert.AreEqual((short)2013, position.EndDate.Year.Value);
+            Assert.AreEqual((short)5, position.EndDate.Month.Value);
             Assert.IsFalse(position.IsCurrent);
             Assert.IsNotNull(position.Company);
             Assert.AreEqual("Wygwam", position.Company.Name);

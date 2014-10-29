@@ -33,7 +33,7 @@ namespace Sparkle.LinkedInNET.DemoMvc5.Controllers
             this.ViewBag.Configuration = this.apiConfig;
             
             // step 2: authorize url
-            var scope = AuthorizationScope.ReadFullProfile | AuthorizationScope.ReadEmailAddress | AuthorizationScope.ReadNetwork;
+            var scope = AuthorizationScope.ReadFullProfile | AuthorizationScope.ReadEmailAddress | AuthorizationScope.ReadNetwork | AuthorizationScope.ReadContactInfo;
             var state = Guid.NewGuid().ToString();
             var redirectUrl = this.Request.Compose() + this.Url.Action("OAuth2");
             this.ViewBag.LocalRedirectUrl = redirectUrl;
@@ -60,7 +60,40 @@ namespace Sparkle.LinkedInNET.DemoMvc5.Controllers
                 {
                     ////var profile = this.api.Profiles.GetMyProfile(user);
                     var acceptLanguages = new string[] { culture ?? "en-US", "fr-FR", };
-                    var profile = this.api.Profiles.GetMyProfile(user, acceptLanguages, FieldSelector.For<Person>().WithAllFields());
+                    var fields = FieldSelector.For<Person>()
+                        .WithFirstname().WithFormattedName().WithLastname()
+                        .WithHeadline()
+                        .WithId()
+                        .WithEmailAddress()
+
+                        //.WithLocation()
+                        //.WithLocationName()        // subfields issue
+                        //.WithLocationCountryCode() // subfields issue
+
+                        //.WithPictureUrl()
+                        //.WithPublicProfileUrl()
+                        //.WithSummary()
+                        //.WithIndustry()
+
+                        //.WithPositions()
+                        //.WithThreeCurrentPositions()
+                        //.WithThreePastPositions()
+
+                        //.WithProposalComments()
+                        //.WithAssociations()
+                        //.WithInterests()
+                        //.WithLanguages()
+                        //.WithCertifications()
+                        //.WithEducations()
+                        //.WithVolunteer()
+                        ////.WithRecommendationsReceived() // may not use that
+                        .WithDateOfBirth()
+                        .WithPhoneNumbers()
+                        //.WithImAccounts()
+                        .WithPrimaryTwitterAccount()
+                        //.WithTwitterAccounts();
+                        ;
+                    var profile = this.api.Profiles.GetMyProfile(user, acceptLanguages, fields);
 
                     this.ViewBag.Profile = profile;
                 }
@@ -113,7 +146,39 @@ namespace Sparkle.LinkedInNET.DemoMvc5.Controllers
             {
                 ////var profile = this.api.Profiles.GetMyProfile(user);
                 var acceptLanguages = new string[] { culture ?? "en-US", "fr-FR", };
-                profile = this.api.Profiles.GetProfileById(user, id, acceptLanguages, FieldSelector.For<Person>().WithFirstname().WithFormattedName().WithHeadline().WithId().WithLastname().WithLocation().WithPictureUrl().WithPublicProfileUrl().WithSummary().w);
+                var fields = FieldSelector.For<Person>()
+                    .WithFirstname().WithFormattedName().WithLastname()
+                    .WithHeadline()
+                    .WithId()
+                    .WithEmailAddress()
+
+                    .WithLocation()
+                    //.WithLocationName()        // subfields issue
+                    //.WithLocationCountryCode() // subfields issue
+
+                    .WithPictureUrl()
+                    .WithPublicProfileUrl()
+                    .WithSummary()
+                    .WithIndustry()
+
+                    .WithPositions()
+                    .WithThreeCurrentPositions()
+                    .WithThreePastPositions()
+
+                    .WithProposalComments()
+                    .WithAssociations()
+                    .WithInterests()
+                    .WithLanguages()
+                    .WithCertifications()
+                    .WithEducations()
+                    .WithVolunteer()
+                    //.WithRecommendationsReceived() // may not use that
+                    .WithDateOfBirth()
+                    .WithPhoneNumbers()
+                    .WithImAccounts()
+                    .WithPrimaryTwitterAccount()
+                    .WithTwitterAccounts();
+                profile = this.api.Profiles.GetProfileById(user, id, acceptLanguages, fields);
 
                 this.ViewBag.Profile = profile;
             }

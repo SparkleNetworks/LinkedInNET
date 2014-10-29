@@ -10,6 +10,8 @@
     
     
     <ReturnType Name="person" ClassName="Person">
+      
+      <!-- Basic profile fields -->
       <Field Name="first-name" PropertyName="Firstname" Title="the member's first name" IsDefault="1" />
       <Field Name="last-name" PropertyName="Lastname" Title="the member's last name" IsDefault="1" />
       <Field Name="headline" Title="the member's headline (often &quot;Job Title at Company&quot;)" IsDefault="1" />
@@ -34,7 +36,7 @@
       <Field Name="current-status-timestamp" Title="the timestamp, in milliseconds, when the member's status was last set" Remark="Returns as empty if not in network" Type="long?" />
       <Field Name="current-share" Title="the member's current share, if set" Remark="Overloaded to also return &quot;current-status&quot; (if there is no URL shared). (Status and share are the same.)" Type="Share" />
       <Field Name="num-connections" Title="the # of connections the member has" Remark="Available in some places, such as /people/~/connections, when connections is not. More efficient than checking the total attribute of connections even when connections is available." Type="int" />
-      <Field Name="num-connections-capped" Title="true if the value of num-connections has been capped at 500. false otherwise." Remark="Allows you to distinguish whether num-connections = 500 because the member has exactly 500 connections or actually 500+ because we're hiding the true value." Type="bool" />
+      <Field Name="num-connections-capped" Title="true if the value of num-connections has been capped at 500. false otherwise." Remark="Allows you to distinguish whether num-connections = 500 because the member has exactly 500 connections or actually 500+ because we're hiding the true value." Type="bool?" />
       <Field Name="summary" Title="A long-form text area where the member describes their professional profile" Remark="Not available via connections API." />
       <Field Name="specialties" Title="A short-form text area where the member enumerates their specialties" Remark="Not available via connections API." />
       <Field Name="positions" Title="A collection of positions a member has had, the total indicated by a total attribute" Remark="See Positions Fields below. Only current positions are available for people other than the authenticated member." Type="positions" />
@@ -43,6 +45,63 @@
       <Field Name="api-standard-profile-request:(url)" Title="A URL representing the resource you would request for programmatic access to the member's profile" Remark=""  />
       <Field Name="api-standard-profile-request:(headers)" Title="A collection of fields that can be re-used as HTTP headers to request an out of network profile programmatically" Remark="Use the name returned as the name of an HTTP header with the value returned as it's value" Ignore="1" />
       <Field Name="public-profile-url" Title="A URL to the member's public profile, if enabled" Remark="This field is only available when requested using a field selector in a profile or connections call." />
+
+      <!-- Email fields -->
+      <Field Name="email-address" Title="primary email address of user" />
+
+      <!-- Full profile fields -->
+      <Field Name="last-modified-timestamp"                 Title="the timestamp, in milliseconds, when the member's profile was last edited" Remark="" />
+      <Field Name="proposal-comments"                       Title="A short-form text area describing how the member approaches proposals" Remark="" />
+      <Field Name="associations"                            Title="A short-form text area enumerating the Associations a member has" Remark="" />
+      <Field Name="interests"                               Title="A short-form text area describing the member's interests" Remark="" />
+      <Field Name="publications" Ignore="1"                 Title="A collection of publications authored by this member" Remark="https://developer.linkedin.com/documents/profile-fields#publications" />
+      <Field Name="patents"                                 Title="A collection of patents or patent applications held by this member" Remark="https://developer.linkedin.com/documents/profile-fields#patents" />
+      <Field Name="languages"  Type="Languages"             Title="A collection of languages and the level of the member's proficiency for each" Remark="https://developer.linkedin.com/documents/profile-fields#languages" />
+      <Field Name="skills"        Type="Skills"             Title="A collection of skills held by this member" Remark="https://developer.linkedin.com/documents/profile-fields#skills" />
+      <Field Name="certifications" Type="Certifications"    Title="A collection of certifications earned by this member" Remark="https://developer.linkedin.com/documents/profile-fields#certifications" />
+      <Field Name="educations" Type="Educations"            Title="A collection of education institutions a member has attended, the total indicated by a total attribute" Remark="https://developer.linkedin.com/documents/profile-fields#educations" />
+      <Field Name="courses"    Type="Courses"               Title="A collection of courses a member has taken, the total indicated by a total attribute" Remark="https://developer.linkedin.com/documents/profile-fields#courses" />
+      <Field Name="volunteer"  Type="VolunteerExperiences"  Title="A collection of volunteering experiences a member has participated in, including organizations and causes, the totals indicated by a total attribute" Remark="https://developer.linkedin.com/documents/profile-fields#volunteer" />
+      <Field Name="three-current-positions"                 Title="A collection of positions a member currently holds, limited to three and indicated by a total attribute. You can use the &lt;positions&gt; collection to get the full set or use this collection to limit the return to just the first three positions." Remark="https://developer.linkedin.com/documents/profile-fields#positions" />
+      <Field Name="three-past-positions"                    Title="A collection of positions a member formerly held, limited to the three most recent and indicated by a total attribute. You can use the &lt;positions&gt; collection to get the full set or use  this collection to limit the return to just the first three positions." Remark="https://developer.linkedin.com/documents/profile-fields#positions" />
+      <Field Name="num-recommenders"                        Title="The number of recommendations the member has" Remark="" />
+      <Field Name="recommendations-received"                Title="A collection of recommendations a member has received." Remark="https://developer.linkedin.com/documents/profile-fields#recommendations" />
+      <Field Name="following"                               Title="a collection of people, company, and industries that the member is following" Remark="" />
+      <Field Name="job-bookmarks"                           Title="a collection of jobs that the member is following" Remark="" />
+      <Field Name="suggestions"                             Title="a collection of people, company, and industries suggested for the member to follow" Remark="" />
+      <Field Name="date-of-birth"                           Title="member's birth date" Remark="May return only month and day, but not year, or all three, depending on information provided." />
+      <Field Name="member-url-resources"                    Title="A collection of URLs the member has chosen to share on their LinkedIn profile" Remark="" />
+      <Field Name="member-url-resources:(url)"              Title="The fully-qualified URL being shared" Remark="" />
+      <Field Name="member-url-resources:(name)"             Title="The label given to the URL by the member" Remark="" />
+      <Field Name="related-profile-views"                   Title="A collection of related profiles that were viewed before or after the member's profile" Remark="" />
+      <Field Name="honors-awards"                           Title="A collection of honors and awards the member specified in their LinkedIn profile" Remark="" />
+
+      <!-- Contact info fields -->
+      <Field Name="phone-numbers" Type="PhoneNumbers" Title="a collection of phone numbers" Remark="For each phone-number returned, you get a phone-type and phone-number child element. Possible values for phone-type are: home, work, and mobile." />
+      <Field Name="bound-account-types" Title="a collection of accounts bound by the member Remark=For each bound account returned, you get the following child elements: account-type, binding-status, is-primary, provider-account-id, provider-account-name child element" />
+      <Field Name="im-accounts" Title="a collection of instant messenger accounts" Remark="For each im-account returned, you get a im-account-type and im-account-name child element. Possible values for im-account-type are: aim, gtalk, icq, msn, skype, and yahoo." />
+      <Field Name="main-address" Title="address" Remark="Could be home, work, etc. We do not identify which one." />
+      <Field Name="twitter-accounts" Title="a collection of twitter accounts" Remark="For each twitter-account returned, you get a provider-account-id and provider-account-name child element." />
+      <Field Name="primary-twitter-account" Title="the primary twitter account for the member" Remark="You get a provider-account-id and provider-account-name child element." />
+
+      <!-- Connection fields -->
+      <Field Name="connections" Title="an empty collection, indicating the # of connections the member has with a total attribute" Remark="LinkedIn will not report whether a user has more than 500 connections" />
+      
+      <!-- Group membership fields -->
+      <Field Name="group-memberships" Title="a collection of groups that the member is following" />
+      
+      <!-- Network update fields -->
+      <Field Name="network" Title="the member's network statistics and updates" />
+      
+      <!-- Company 
+      <Field Name="id" Title="the ID for the company (useful with facets or the Company API)" Remark="" />
+      <Field Name="name" Title="the name of the company" Remark="" />
+      <Field Name="type" Title="indicates if the company is public or private" Remark="" />
+      <Field Name="size [deprecated]" Title="the number of employees at the company" Remark="Expressed as a range" />
+      <Field Name="industry" Title="the industry in which the company operates(Industry Codes)" Remark="For example, Computer Software or Defense & Space" />
+      <Field Name="ticker" Title="the stock market name for the company, if the company type is public" Remark="" />
+      -->
+
 
       <FieldGroup Name="PersonalInfos">
         <Name Name="first-name" />
@@ -59,6 +118,71 @@
         <Name Name="site-standard-profile-request" />
         <Name Name="public-profile-url" />
       </FieldGroup>
+      <FieldGroup Name="BasicFields">
+        <Name Name="id" />
+        <Name Name="first-name" />
+        <Name Name="last-name" />
+        <Name Name="maiden-name" />
+        <Name Name="formatted-name" />
+        <Name Name="phonetic-first-name" />
+        <Name Name="phonetic-last-name" />
+        <Name Name="formatted-phonetic-name" />
+        <Name Name="headline" />
+        <Name Name="location:(name)" />
+        <Name Name="location:(country:(code))" />
+        <Name Name="industry" />
+        <Name Name="distance" />
+        <Name Name="relation-to-viewer:(distance)" />
+        <Name Name="relation-to-viewer:(related-connections)" />
+        <Name Name="relation-to-viewer:(connections)"           />
+        <Name Name="current-share"                              />
+        <Name Name="num-connections"                            />
+        <Name Name="num-connections-capped"                     />
+        <Name Name="summary"                                    />
+        <Name Name="specialties"                                />
+        <Name Name="positions"                                  />
+        <Name Name="picture-url"                                />
+        <Name Name="site-standard-profile-request"              />
+        <Name Name="api-standard-profile-request:(url)"         />
+        <Name Name="api-standard-profile-request:(headers)"     />
+        <Name Name="public-profile-url"                         />
+      </FieldGroup>
+      <FieldGroup Name="FullFields">
+        <Field Name="last-modified-timestamp" />
+        <Field Name="proposal-comments" />
+        <Field Name="associations" />
+        <Field Name="interests" />
+        <Field Name="publications" />
+        <Field Name="patents" />
+        <Field Name="languages" />
+        <Field Name="skills" />
+        <Field Name="certifications" />
+        <Field Name="educations" />
+        <Field Name="courses" />
+        <Field Name="volunteer" />
+        <Field Name="three-current-positions" />
+        <Field Name="three-past-positions" />
+        <Field Name="num-recommenders" />
+        <Field Name="recommendations-received" />
+        <Field Name="following" />
+        <Field Name="job-bookmarks" />
+        <Field Name="suggestions" />
+        <Field Name="date-of-birth" />
+        <Field Name="member-url-resources" />
+        <Field Name="member-url-resources:(url)" />
+        <Field Name="member-url-resources:(name)" />
+        <Field Name="related-profile-views" />
+        <Field Name="honors-awards" />
+      </FieldGroup>
+      <FieldGroup Name="ContactFields">
+        <Field Name="phone-numbers" />
+        <Field Name="bound-account-types" />
+        <Field Name="im-accounts" />
+        <Field Name="main-address" />
+        <Field Name="twitter-accounts" />
+        <Field Name="primary-twitter-account" />
+      </FieldGroup>
+      
     </ReturnType>
 
     <ReturnType Name="connections" ClassName="Connections">
@@ -73,9 +197,7 @@
       <!--<Field Name="visibility" Title="Parent node for visibility information" Remark="" />-->
       <Field Name="visibility/code" Title="One of anyone: all members or connections-only: connections only." Remark="" />
       <Field Name="source" Type="ShareSource" />
-      <Field Name="author/id" />
-      <Field Name="author/first-name" />
-      <Field Name="author/last-name" />
+      <Field Name="author" Type="ShareAuthor" />
     </ReturnType>
     <ReturnType Name="ShareSource" ClassName="ShareSource">
       <Field Name="service-provider" Type="ShareSourceProvider" />
@@ -89,31 +211,129 @@
       <Field Name="submitted-image-url" Title="URL for image of shared content" Remark="Invalid without (content/title and content/submitted-url)." />
       <Field Name="description" Title="Description of shared content" Remark="Max length of 256 characters (bytes)." ClassName="ShareContent" />
     </ReturnType>
+    <ReturnType Name="ShareAuthor">
+      <Field Name="id" />
+      <Field Name="first-name" />
+      <Field Name="last-name" />
+    </ReturnType>
 
     <ReturnType Name="position" ClassName="PersonPosition">
-      <Field Name="id" Type="int" />
-      <Field Name="title" />
-      <Field Name="start-date" Type="DateParts" />
-      <Field Name="end-date"   Type="DateParts" />
-      <Field Name="company" Type="CompanyIdentifier" />
-      <Field Name="is-current" Type="bool" />
+      <Field Name="id" Type="int" Title="a unique identifier for this member's position" Remark="" />
+      <Field Name="title" Title="the job title held at the position, as indicated by the member" Remark="" />
+      <Field Name="summary" Title="a summary of the member's position" Remark="Not available via connections." />
+      <Field Name="start-date" Type="DateParts" Title="a structured object with month and year fields indicating when the position began" Remark="" />
+      <Field Name="end-date"   Type="DateParts" Title="a structured object with month and year fields indicating when the position ended" Remark="Blank when the position is current" />
+      <Field Name="is-current" Type="bool" Title="a &quot;true&quot; or &quot;false&quot; value, depending on whether it is marked current" Remark="" />
+      <Field Name="company" Type="CompanyIdentifier" Title="the company the member works for" Remark="https://developer.linkedin.com/documents/profile-fields#company" />
     </ReturnType>
     <ReturnType Name="positions" ClassName="PersonPositions">
       <Field Name="position" IsCollection="1" Type="PersonPosition" />
     </ReturnType>
     <ReturnType Name="DateParts" ClassName="DateParts">
-      <Field Name="year" Type="short" />
-      <Field Name="month" Type="short" />
+      <Field Name="year" Type="short?" />
+      <Field Name="month" Type="short?" />
+      <Field Name="day" Type="short?" />
     </ReturnType>
     <ReturnType Name="CompanyIdentifier" ClassName="CompanyIdentifier">
-      <Field Name="id" Type="int" />
-      <Field Name="name" />
+      <Field Name="id" Type="int" Title="the ID for the company (useful with facets or the Company API)" Remark="" />
+      <Field Name="name" Title="the name of the company" Remark="" />
+      <Field Name="type" Title="indicates if the company is public or private" Remark="" />
+      <!--<Field Name="size [deprecated]" Title="the number of employees at the company" Remark="Expressed as a range" />-->
+      <Field Name="industry" Title="the industry in which the company operates(Industry Codes)" Remark="For example, Computer Software or Defense &amp; Space" />
+      <Field Name="ticker" Title="the stock market name for the company, if the company type is public" Remark="" />
     </ReturnType>
 
     <ReturnType Name="relation-to-viewer">
       <Field Name="distance" Type="int?" Title="the degree distance of the fetched profile from the member who fetched the profile" Remark="Not available in /people/{id}/connections." />
       <Field Name="related-connections" Title="Contains brief connection/person objects indicating the connecting first degree members" Remark="Not available in /people/{id}/connections. For each connection, id, first-name, and last-name is returned by default. You can fetch distance using field selectors, for e.g. relation-to-viewer:(related-connections:(id,first-name,last-name,distance))" />
       <Field Name="connections" Type="int?" Title="Deprecated: a total attribute will denote the number of connections that link  the fetching member to the fetched. Contains brief connection/person objects indicating the connecting first degree members" Remark="Deprecated. Use the related-connections field instead. It gives the same information but splits out the count into the num-related-connections field so you can get each separately instead of having to get them together." Ignore="1" />
+    </ReturnType>
+
+    <ReturnType Name="languages" ClassName="Languages">
+      <Field Name="language" IsCollection="1" Type="Language" />
+    </ReturnType>
+    <ReturnType Name="language" ClassName="Language">
+      <Field Name="id" Title="A unique identifier for a single language in the list of languages" Remark="" />
+      <Field Name="language" PropertyName="LanguageInfo" Type="LanguageInfo" Title="A structured object specifying the language name" Remark="May be localized in the future" />
+      <Field Name="proficiency" Type="LanguageProficiency" Title="A structured object indicating the user's fluency. Returns one of the following five values: elementary, limited-working, professional-working, full-professional, native-or-bilingual" Remark="This field is for computer programs." />
+    </ReturnType>
+    <ReturnType Name="LanguageInfo" ClassName="LanguageInfo">
+      <Field Name="name" Title="the language name" Remark="May be localized in the future" />
+    </ReturnType>
+    <ReturnType Name="LanguageProficiency" ClassName="LanguageProficiency">
+      <Field Name="level" Title="the user's fluency. Returns one of the following five values: elementary, limited-working, professional-working, full-professional, native-or-bilingual" Remark="This field is for computer programs." />
+      <Field Name="name"  Title="the user's fluency by name. Elementary proficiency, Limited working proficiency, Professional working proficiency, Full professional proficiency, Native or bilingual proficiency" Remark="This field is for humans to read. It may be localized in the future." />
+    </ReturnType>
+
+    <ReturnType Name="skills" ClassName="Skills">
+      <Field Name="skill" IsCollection="1" Type="Skill" />
+    </ReturnType>
+    <ReturnType Name="skill" ClassName="Skill">
+      <Field Name="id" Title="A unique identifier for a single skill in the list of skills" />
+      <Field Name="name" Title="A structured object that indicates the internationalized name of the canonical language" />
+    </ReturnType>
+
+    <ReturnType Name="certifications" ClassName="Certifications">
+      <Field Name="certification" IsCollection="1" Type="Certification" />
+    </ReturnType>
+    <ReturnType Name="certification" ClassName="Certification">
+      <Field Name="id" Title="A unique identifier for this certification" Remark="" />
+      <Field Name="name" Title="A string indicating the name of this certification" Remark="" />
+      <Field Name="authority:(name)" Title="A structured object containing the name of the certification's issuing body" Remark="" />
+      <Field Name="number" Title="A string describing the license number for this certification" Remark="" />
+      <Field Name="start-date" Title="A structured object with day, month, and year fields indicating the start date for the certification." Remark="Each individual field is optional, but if month is populated, year must be populated, if day is populated, month must be populated." />
+      <Field Name="end-date" Title="A structured object with day, month, and year fields indicating the end date for the certification." Remark="Each individual field is optional, but if month is populated, year must be populated, if day is populated, month must be populated." />
+    </ReturnType>
+
+    <ReturnType Name="educations" ClassName="Educations">
+      <Field Name="education" IsCollection="1" Type="Education" />
+    </ReturnType>
+    <ReturnType Name="education" ClassName="Education">
+      <Field Name="id" Title="a unique identifier for this member's education entry" Remark="" />
+      <Field Name="school-name" Title="the name of the school, as indicated by the member" Remark="" />
+      <Field Name="field-of-study" Title="the field of study at the school, as indicated by the member" Remark="" />
+      <Field Name="start-date" Title="a structured object a year field indicating when the education began" Remark="" />
+      <Field Name="end-date" Title="a structured object with a year field indicating when the education ended" Remark="Blank when the education is current" />
+      <Field Name="degree" Title="a string describing the degree, if any, received at this institution" Remark="" />
+      <Field Name="activities" Title="a string describing activities the member was involved in while a student at this institution" Remark="" />
+      <Field Name="notes" Title="a string describing other details on the member's studies." Remark="" />
+    </ReturnType>
+
+    <ReturnType Name="courses" ClassName="Courses">
+      <Field Name="course" IsCollection="1" Type="Course" />
+    </ReturnType>
+    <ReturnType Name="course" ClassName="Course">
+      <Field Name="id" Title="a unique identifier for this member's course entries" Remark="" />
+      <Field Name="name" Title="a string identifying the name of the course, as entered by the member" Remark="" />
+      <Field Name="number" Title="the course number assigned, as entered by the member" Remark="" />
+    </ReturnType>
+
+    <ReturnType Name="volunteer-experiences" ClassName="VolunteerExperiences">
+      <Field Name="volunteer-experience" IsCollection="1" Type="VolunteerExperience" />
+    </ReturnType>
+    <ReturnType Name="volunteer-experience" ClassName="VolunteerExperience">
+      <Field Name="id" Title="a unique identifier for this member's volunteer entries" Remark="" />
+      <Field Name="role" Title="the role the member has performed as a volunteer" Remark="" />
+      <Field Name="organization:(name)" Title="the name of an organization the member has volunteered with" Remark="" />
+      <Field Name="cause:(name)" Title="a string describing causes the member has listed" Remark="" />
+    </ReturnType>
+
+    <ReturnType Name="recommendations" ClassName="Recommendations">
+      <Field Name="recommendation" IsCollection="1" Type="Recommendation" />
+    </ReturnType>
+    <ReturnType Name="recommendation" ClassName="Recommendation">
+      <Field Name="id" Title="a unique identifier for this recommendation" Remark="" />
+      <Field Name="recommendation-type" Title="indicates type of recommendation that was selected by the person making the recommendation" Remark="" />
+      <Field Name="recommendation-text" Title="the text of the recommendation received" Remark="" />
+      <Field Name="recommender" Title="a collection defining the person who made the recommendation" Remark="" />
+    </ReturnType>
+
+    <ReturnType Name="phone-numbers" ClassName="PhoneNumbers">
+      <Field Name="phone-number" IsCollection="1" Type="PhoneNumber" />
+    </ReturnType>
+    <ReturnType Name="phone-number" ClassName="PhoneNumber">
+      <Field Name="phone-type" PropertyName="Type" />
+      <Field Name="phone-number" PropertyName="Number" />
     </ReturnType>
   </ApiGroup>
   

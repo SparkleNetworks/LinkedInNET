@@ -103,7 +103,7 @@ namespace Sparkle.LinkedInNET.ServiceDefinition
                     // generate extra return types
                     foreach (var returnType in apiGroup.ReturnTypes.ToArray())
                     {
-                        foreach (var item in returnType.Fields)
+                        foreach (var item in returnType.Fields.ToArray())
                         {
                             var parts = item.Name.Split(new char[] { ':', '/', }, 2);
                             var mainPart = parts.Length == 1 ? parts[0] : parts[0];
