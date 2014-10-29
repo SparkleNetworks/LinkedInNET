@@ -24,8 +24,10 @@
       <Field Name="phonetic-last-name" Title="the member's last name spelled phonetically" Remark="This field might be omitted from some results depending on the member's privacy settings" />
       <Field Name="formatted-phonetic-name" Title="the member's name spelled phonetically and formatted based on language" Remark="This field might be omitted from some results or return a value of private, depending on the member's privacy settings" />
       <Field Name="headline" Title="the member's headline (often &quot;Job Title at Company&quot;)" Remark="" />
+      
       <Field Name="location:(name)" Title="Generic name of the location of the LinkedIn member, (ex: &quot;San Francisco Bay Area&quot;)" Remark="" />
       <Field Name="location:(country:(code))" Title="country code for the LinkedIn member" Remark="Lower case values as defined by ISO 3166-1 alpha-2 standard." Ignore="1" />
+      
       <Field Name="industry" Title="the industry the LinkedIn member has indicated their profile belongs to (Industry Codes)" Remark="" />
       <Field Name="distance" Title="" Type="int?" />
       <Field Name="relation-to-viewer" Type="relation-to-viewer" />
@@ -50,39 +52,37 @@
       <Field Name="email-address" Title="primary email address of user" />
 
       <!-- Full profile fields -->
-      <Field Name="last-modified-timestamp"                 Title="the timestamp, in milliseconds, when the member's profile was last edited" Remark="" />
-      <Field Name="proposal-comments"                       Title="A short-form text area describing how the member approaches proposals" Remark="" />
-      <Field Name="associations"                            Title="A short-form text area enumerating the Associations a member has" Remark="" />
-      <Field Name="interests"                               Title="A short-form text area describing the member's interests" Remark="" />
-      <Field Name="publications" Ignore="1"                 Title="A collection of publications authored by this member" Remark="https://developer.linkedin.com/documents/profile-fields#publications" />
-      <Field Name="patents"                                 Title="A collection of patents or patent applications held by this member" Remark="https://developer.linkedin.com/documents/profile-fields#patents" />
-      <Field Name="languages"  Type="Languages"             Title="A collection of languages and the level of the member's proficiency for each" Remark="https://developer.linkedin.com/documents/profile-fields#languages" />
-      <Field Name="skills"        Type="Skills"             Title="A collection of skills held by this member" Remark="https://developer.linkedin.com/documents/profile-fields#skills" />
-      <Field Name="certifications" Type="Certifications"    Title="A collection of certifications earned by this member" Remark="https://developer.linkedin.com/documents/profile-fields#certifications" />
-      <Field Name="educations" Type="Educations"            Title="A collection of education institutions a member has attended, the total indicated by a total attribute" Remark="https://developer.linkedin.com/documents/profile-fields#educations" />
-      <Field Name="courses"    Type="Courses"               Title="A collection of courses a member has taken, the total indicated by a total attribute" Remark="https://developer.linkedin.com/documents/profile-fields#courses" />
-      <Field Name="volunteer"  Type="VolunteerExperiences"  Title="A collection of volunteering experiences a member has participated in, including organizations and causes, the totals indicated by a total attribute" Remark="https://developer.linkedin.com/documents/profile-fields#volunteer" />
-      <Field Name="three-current-positions"                 Title="A collection of positions a member currently holds, limited to three and indicated by a total attribute. You can use the &lt;positions&gt; collection to get the full set or use this collection to limit the return to just the first three positions." Remark="https://developer.linkedin.com/documents/profile-fields#positions" />
-      <Field Name="three-past-positions"                    Title="A collection of positions a member formerly held, limited to the three most recent and indicated by a total attribute. You can use the &lt;positions&gt; collection to get the full set or use  this collection to limit the return to just the first three positions." Remark="https://developer.linkedin.com/documents/profile-fields#positions" />
-      <Field Name="num-recommenders"                        Title="The number of recommendations the member has" Remark="" />
-      <Field Name="recommendations-received"                Title="A collection of recommendations a member has received." Remark="https://developer.linkedin.com/documents/profile-fields#recommendations" />
-      <Field Name="following"                               Title="a collection of people, company, and industries that the member is following" Remark="" />
-      <Field Name="job-bookmarks"                           Title="a collection of jobs that the member is following" Remark="" />
-      <Field Name="suggestions"                             Title="a collection of people, company, and industries suggested for the member to follow" Remark="" />
-      <Field Name="date-of-birth"                           Title="member's birth date" Remark="May return only month and day, but not year, or all three, depending on information provided." />
-      <Field Name="member-url-resources"                    Title="A collection of URLs the member has chosen to share on their LinkedIn profile" Remark="" />
-      <Field Name="member-url-resources:(url)"              Title="The fully-qualified URL being shared" Remark="" />
-      <Field Name="member-url-resources:(name)"             Title="The label given to the URL by the member" Remark="" />
-      <Field Name="related-profile-views"                   Title="A collection of related profiles that were viewed before or after the member's profile" Remark="" />
-      <Field Name="honors-awards"                           Title="A collection of honors and awards the member specified in their LinkedIn profile" Remark="" />
+      <Field Name="last-modified-timestamp"                           Title="the timestamp, in milliseconds, when the member's profile was last edited" Remark="" />
+      <Field Name="proposal-comments"                                 Title="A short-form text area describing how the member approaches proposals" Remark="" />
+      <Field Name="associations"                                      Title="A short-form text area enumerating the Associations a member has" Remark="" />
+      <Field Name="interests"                                         Title="A short-form text area describing the member's interests" Remark="" />
+      <Field Name="publications"   Type="Publications"                Title="A collection of publications authored by this member" Remark="https://developer.linkedin.com/documents/profile-fields#publications" />
+      <Field Name="patents"        Type="Patents"                     Title="A collection of patents or patent applications held by this member" Remark="https://developer.linkedin.com/documents/profile-fields#patents" />
+      <Field Name="languages"      Type="Languages"                   Title="A collection of languages and the level of the member's proficiency for each" Remark="https://developer.linkedin.com/documents/profile-fields#languages" />
+      <Field Name="skills"         Type="Skills"                      Title="A collection of skills held by this member" Remark="https://developer.linkedin.com/documents/profile-fields#skills" />
+      <Field Name="certifications" Type="Certifications"              Title="A collection of certifications earned by this member" Remark="https://developer.linkedin.com/documents/profile-fields#certifications" />
+      <Field Name="educations"     Type="Educations"                  Title="A collection of education institutions a member has attended, the total indicated by a total attribute" Remark="https://developer.linkedin.com/documents/profile-fields#educations" />
+      <Field Name="courses"        Type="Courses"                     Title="A collection of courses a member has taken, the total indicated by a total attribute" Remark="https://developer.linkedin.com/documents/profile-fields#courses" />
+      <Field Name="volunteer"      Type="VolunteerExperiences"        Title="A collection of volunteering experiences a member has participated in, including organizations and causes, the totals indicated by a total attribute" Remark="https://developer.linkedin.com/documents/profile-fields#volunteer" />
+      <Field Name="three-current-positions"  Type="PersonPositions"   Title="A collection of positions a member currently holds, limited to three and indicated by a total attribute. You can use the &lt;positions&gt; collection to get the full set or use this collection to limit the return to just the first three positions." Remark="https://developer.linkedin.com/documents/profile-fields#positions" />
+      <Field Name="three-past-positions"     Type="PersonPositions"   Title="A collection of positions a member formerly held, limited to the three most recent and indicated by a total attribute. You can use the &lt;positions&gt; collection to get the full set or use  this collection to limit the return to just the first three positions." Remark="https://developer.linkedin.com/documents/profile-fields#positions" />
+      <Field Name="num-recommenders"                                  Title="The number of recommendations the member has" Remark="" />
+      <Field Name="recommendations-received" Type="Recommendations"   Title="A collection of recommendations a member has received." Remark="https://developer.linkedin.com/documents/profile-fields#recommendations" />
+      <Field Name="following"                Ignore="1"               Title="a collection of people, company, and industries that the member is following" Remark="" />
+      <Field Name="job-bookmarks"            Ignore="1"               Title="a collection of jobs that the member is following" Remark="" />
+      <Field Name="suggestions"              Ignore="1"               Title="a collection of people, company, and industries suggested for the member to follow" Remark="" />
+      <Field Name="date-of-birth"            Type="DateParts"         Title="member's birth date" Remark="May return only month and day, but not year, or all three, depending on information provided." />
+      <Field Name="member-url-resources"     Type="UrlResources"      Title="A collection of URLs the member has chosen to share on their LinkedIn profile" Remark="" />
+      <Field Name="related-profile-views"    Ignore="1"               Title="A collection of related profiles that were viewed before or after the member's profile" Remark="" />
+      <Field Name="honors-awards"            Ignore="1"               Title="A collection of honors and awards the member specified in their LinkedIn profile" Remark="" />
 
       <!-- Contact info fields -->
-      <Field Name="phone-numbers" Type="PhoneNumbers" Title="a collection of phone numbers" Remark="For each phone-number returned, you get a phone-type and phone-number child element. Possible values for phone-type are: home, work, and mobile." />
-      <Field Name="bound-account-types" Title="a collection of accounts bound by the member Remark=For each bound account returned, you get the following child elements: account-type, binding-status, is-primary, provider-account-id, provider-account-name child element" />
-      <Field Name="im-accounts" Title="a collection of instant messenger accounts" Remark="For each im-account returned, you get a im-account-type and im-account-name child element. Possible values for im-account-type are: aim, gtalk, icq, msn, skype, and yahoo." />
-      <Field Name="main-address" Title="address" Remark="Could be home, work, etc. We do not identify which one." />
-      <Field Name="twitter-accounts" Title="a collection of twitter accounts" Remark="For each twitter-account returned, you get a provider-account-id and provider-account-name child element." />
-      <Field Name="primary-twitter-account" Title="the primary twitter account for the member" Remark="You get a provider-account-id and provider-account-name child element." />
+      <Field Name="phone-numbers"            Type="PhoneNumbers"         Title="a collection of phone numbers" Remark="For each phone-number returned, you get a phone-type and phone-number child element. Possible values for phone-type are: home, work, and mobile." />
+      <Field Name="bound-account-types"                                  Title="a collection of accounts bound by the member Remark=For each bound account returned, you get the following child elements: account-type, binding-status, is-primary, provider-account-id, provider-account-name child element" />
+      <Field Name="im-accounts"                                          Title="a collection of instant messenger accounts" Remark="For each im-account returned, you get a im-account-type and im-account-name child element. Possible values for im-account-type are: aim, gtalk, icq, msn, skype, and yahoo." />
+      <Field Name="main-address"                                         Title="address" Remark="Could be home, work, etc. We do not identify which one." />
+      <Field Name="twitter-accounts"                                     Title="a collection of twitter accounts" Remark="For each twitter-account returned, you get a provider-account-id and provider-account-name child element." />
+      <Field Name="primary-twitter-account"                              Title="the primary twitter account for the member" Remark="You get a provider-account-id and provider-account-name child element." />
 
       <!-- Connection fields -->
       <Field Name="connections" Title="an empty collection, indicating the # of connections the member has with a total attribute" Remark="LinkedIn will not report whether a user has more than 500 connections" />
@@ -229,11 +229,6 @@
     <ReturnType Name="positions" ClassName="PersonPositions">
       <Field Name="position" IsCollection="1" Type="PersonPosition" />
     </ReturnType>
-    <ReturnType Name="DateParts" ClassName="DateParts">
-      <Field Name="year" Type="short?" />
-      <Field Name="month" Type="short?" />
-      <Field Name="day" Type="short?" />
-    </ReturnType>
     <ReturnType Name="CompanyIdentifier" ClassName="CompanyIdentifier">
       <Field Name="id" Type="int" Title="the ID for the company (useful with facets or the Company API)" Remark="" />
       <Field Name="name" Title="the name of the company" Remark="" />
@@ -242,6 +237,13 @@
       <Field Name="industry" Title="the industry in which the company operates(Industry Codes)" Remark="For example, Computer Software or Defense &amp; Space" />
       <Field Name="ticker" Title="the stock market name for the company, if the company type is public" Remark="" />
     </ReturnType>
+    
+    <ReturnType Name="DateParts" ClassName="DateParts">
+      <Field Name="year" Type="short?" />
+      <Field Name="month" Type="short?" />
+      <Field Name="day" Type="short?" />
+    </ReturnType>
+    
 
     <ReturnType Name="relation-to-viewer">
       <Field Name="distance" Type="int?" Title="the degree distance of the fetched profile from the member who fetched the profile" Remark="Not available in /people/{id}/connections." />
@@ -335,6 +337,48 @@
       <Field Name="phone-type" PropertyName="Type" />
       <Field Name="phone-number" PropertyName="Number" />
     </ReturnType>
+    
+    <ReturnType Name="publications" ClassName="Publications">
+      <Field Name="publication" IsCollection="1" Type="Publication" />
+    </ReturnType>
+    <ReturnType Name="publication" ClassName="Publication">
+      <Field Name="id" Title="A unique identifier for this member's publication entry" Remark="" />
+      <Field Name="title" Title="A string describing the title of this publication" Remark="" />
+      <Field Name="publisher:(name)" Title="A string that indicates the name of the publisher of this publication" Remark="" />
+      <Field Name="authors:(id)" Title="A unique identifier for this author in the list of authors" Remark="" />
+      <Field Name="authors:(name)" Title="A string that indicates the name of this author as it should be displayed" Remark="" />
+      <Field Name="authors:(person)" Title="An optional field that displays the default LinkedIn member name (person field) for this particular member" Remark="" />
+      <Field Name="date" Title="A structured object with day, month, and year fields indicating when the publication was published." Remark="Each individual field is optional, but if month is populated, year must be populated, if day is populated, month must be populated." />
+      <Field Name="url" Title="A URL for the publication" Remark="Can either be the publication itself or a page with more information on the publication." />
+      <Field Name="summary" Title="A string summary of the publication" Remark="" />
+    </ReturnType>
+    
+    <ReturnType Name="patents" ClassName="Patents">
+      <Field Name="patent" IsCollection="1" Type="Patent" />
+    </ReturnType>
+    <ReturnType Name="patent" ClassName="Patent">
+      <Field Name="id" Title="A unique identifier for this member's patent entry" Remark="" />
+      <Field Name="title" Title="The patent title" Remark="" />
+      <Field Name="summary" Title="A short summary of the patent" Remark="" />
+      <Field Name="number" Title="A string with the patent or application number" Remark="Example: 7,720,722" />
+      <Field Name="status:(id)" Title="An ID indicating whether this is a granted patent or patent application" Remark="Values are 0 for patent application; 1 for granted patent" />
+      <Field Name="status:(name)" Title="A string indicating whether this is a granted patent or patent application" Remark="Values are Application and Patent" />
+      <Field Name="office:(name)" Title="A structured object describing the patent issuing body." Remark="Example: for the USPTO, the value is us" />
+      <Field Name="inventors:(id)" Title="A unique identifier for this inventor in the list of inventors" Remark="" />
+      <Field Name="inventors:(name)" Title="A string that indicates the name of this inventor as it should be displayed" Remark="This is the name as it appears on the patent (which can differ from a person's name on LinkedIn)." />
+      <Field Name="inventors:(person)" Title="An optional field that shows the LinkedIn member object for this particular member" Remark="Default values are id, first-name, and last-name" />
+      <Field Name="date" Title="A structured object with day, month, and year fields indicating when the application was filed or when the patent was granted." Remark="Each individual field is optional, but if month is populated, year must be populated, if day is populated, month must be populated." />
+      <Field Name="url" Title="The URL to the patent" Remark="" />
+    </ReturnType>
+
+    <ReturnType Name="member-url-resources" ClassName="UrlResources">
+      <Field Name="member-url-resource" IsCollection="1" Type="UrlResource" />
+    </ReturnType>
+    <ReturnType Name="member-url-resource" ClassName="UrlResource">
+      <Field Name="url"    Title="The fully-qualified URL being shared" Remark="" />
+      <Field Name="name"   Title="The label given to the URL by the member" Remark="" />
+    </ReturnType>
+    
   </ApiGroup>
   
   <ApiGroup Name="Companies">
