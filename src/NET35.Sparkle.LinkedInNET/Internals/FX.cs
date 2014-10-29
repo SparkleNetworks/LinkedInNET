@@ -30,5 +30,28 @@ namespace Sparkle.LinkedInNET.Internals
 
             return ex;
         }
+
+        internal static LinkedInNetException InternalException(string name, params object[] args)
+        {
+            return InternalException(name, null, args);
+        }
+
+        internal static LinkedInNetException InternalException(string name, Exception innerException, params object[] args)
+        {
+            const string prefix = "InternalException_";
+            LinkedInNetException ex;
+            if (args == null || args.Length == 0)
+            {
+                var message = Strings.ResourceManager.GetString(prefix + name);
+                ex = new LinkedInNetException(message, innerException);
+            }
+            else
+            {
+                var message = string.Format(Strings.ResourceManager.GetString(prefix + name), args);
+                ex = new LinkedInNetException(message, innerException);
+            }
+
+            return ex;
+        }
     }
 }

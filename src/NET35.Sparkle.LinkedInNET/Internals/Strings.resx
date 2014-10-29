@@ -132,4 +132,10 @@
   <data name="ApiException_OAuth2ErrorResult" xml:space="preserve">
     <value>OAuth2 error ({0}): {1}</value>
   </data>
+  <data name="InternalException_SerializerCtor" xml:space="preserve">
+    <value>Could not create serializer for this API call: {0}</value>
+  </data>
+  <data name="InternalException_SerializerDeserialize" xml:space="preserve">
+    <value>Could not deserialize API response: {0}</value>
+  </data>
 </root>

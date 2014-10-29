@@ -18,5 +18,10 @@ namespace Sparkle.LinkedInNET.ServiceDefinition
 
         [XmlElement(ElementName = "ReturnType")]
         public List<ReturnType> ReturnTypes { get; set; }
+
+        public override string ToString()
+        {
+            return "ApiGroup(N='" + Name + "', M=" + (Methods != null ? Methods.Count : 0) + ", RT=" + (ReturnTypes != null ? ReturnTypes.Count : 0) + ")";
+        }
     }
 }

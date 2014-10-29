@@ -97,11 +97,47 @@ namespace Sparkle.LinkedInNET.Internals {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The API replied with a unknown HTTP code: {0}..
+        /// </summary>
+        internal static string ApiException_ApiUnknownHttpCode {
+            get {
+                return ResourceManager.GetString("ApiException_ApiUnknownHttpCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to OAuth2 error ({0}): {1}.
         /// </summary>
         internal static string ApiException_OAuth2ErrorResult {
             get {
                 return ResourceManager.GetString("ApiException_OAuth2ErrorResult", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Could not create serializer for this API call: {0}.
+        /// </summary>
+        internal static string InternalException_SerializerCtor {
+            get {
+                return ResourceManager.GetString("InternalException_SerializerCtor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Could not deserialize API response: {0}.
+        /// </summary>
+        internal static string InternalException_SerializerDeserialize {
+            get {
+                return ResourceManager.GetString("InternalException_SerializerDeserialize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Could not deserialize API error response: {0}.
+        /// </summary>
+        internal static string InternalException_SerializerDeserializeError {
+            get {
+                return ResourceManager.GetString("InternalException_SerializerDeserializeError", resourceCulture);
             }
         }
     }

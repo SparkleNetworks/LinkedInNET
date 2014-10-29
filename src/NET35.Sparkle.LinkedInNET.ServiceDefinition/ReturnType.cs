@@ -33,7 +33,7 @@ namespace Sparkle.LinkedInNET.ServiceDefinition
 
         public override string ToString()
         {
-            return string.Format("N='{0}' CN='{1}' F={2}", Name, ClassName, Fields != null ? Fields.Count : 0);
+            return string.Format("ReturnType(N='{0}' CN='{1}' F={2})", Name, ClassName, Fields != null ? Fields.Count : 0);
         }
     }
 }

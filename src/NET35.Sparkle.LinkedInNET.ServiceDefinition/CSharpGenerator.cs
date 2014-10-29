@@ -62,6 +62,7 @@ namespace Sparkle.LinkedInNET.ServiceDefinition
         private void WriteReturnTypeFields(GeneratorContext context, ApiGroup apiGroup, ReturnType[] returnTypes)
         {
             int indent = 0;
+            this.text.WriteLine(indent, "// WriteReturnTypeFields(" + apiGroup + ")");
             this.text.WriteLine(indent, "namespace " + this.RootNamespace + "." + apiGroup.Name);
             this.text.WriteLine(indent++, "{");
             this.WriteNamespace(indent, "System");
@@ -129,6 +130,7 @@ namespace Sparkle.LinkedInNET.ServiceDefinition
         private void WriteRootServices(GeneratorContext context)
         {
             int indent = 0;
+            this.text.WriteLine(indent, "// WriteRootServices()");
             this.text.WriteLine(indent, "namespace " + this.RootNamespace);
             this.text.WriteLine(indent++, "{");
             this.WriteNamespace(indent, "System");
@@ -175,6 +177,7 @@ namespace Sparkle.LinkedInNET.ServiceDefinition
             var className = this.GetPropertyName(null, apiGroup.Name) + "Api";
 
             int indent = 0;
+            this.text.WriteLine(indent, "// WriteApiGroup(" + apiGroup + ")");
             this.text.WriteLine(indent, "namespace " + this.RootNamespace + "." + apiGroup.Name);
             this.text.WriteLine(indent++, "{");
             this.WriteNamespace(indent, "System");
@@ -334,6 +337,7 @@ namespace Sparkle.LinkedInNET.ServiceDefinition
         private void WriteReturnTypes(GeneratorContext context, ReturnType returnType, ApiGroup apiGroup)
         {
             int indent = 0;
+            this.text.WriteLine(indent, "// WriteReturnTypes(" + apiGroup + ", " + returnType + ")");
             this.text.WriteLine(indent, "namespace " + this.RootNamespace + "." + apiGroup.Name);
             this.text.WriteLine(indent++, "{");
             this.WriteNamespace(indent, "System");

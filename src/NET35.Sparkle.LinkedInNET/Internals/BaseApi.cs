@@ -210,42 +210,95 @@ namespace Sparkle.LinkedInNET.Internals
         {
             T result = null;
             ApiError errorResult = null;
-            ////try
-            {
-                var serializer = new XmlSerializer(typeof(T));
-                var errorSerializer = new XmlSerializer(typeof(ApiError));
 
-                if (validHttpCodes.Contains(context.HttpStatusCode))
+            // create serializers
+            // it may fail if attributes are wrong
+            XmlSerializer serializer, errorSerializer;
+            try
+            {
+                serializer = new XmlSerializer(typeof(T));
+                errorSerializer = new XmlSerializer(typeof(ApiError));
+            }
+            catch (Exception ex)
+            {
+                throw FX.InternalException("SerializerCtor", ex, ex.Message);
+            }
+
+            if (validHttpCodes.Contains(context.HttpStatusCode))
+            {
+                // the HTTP code matches a success response
+                try
                 {
                     result = (T)serializer.Deserialize(context.ResponseStream);
                 }
-                else if (errorHttpCodes.Contains(context.HttpStatusCode))
+                catch (Exception ex)
+                {
+                    var ex1 = FX.InternalException("SerializerDeserialize", ex, ex.Message);
+                    TryAttachContextDetails(context, ex1);
+                    throw ex1;
+                }
+            }
+            else if (errorHttpCodes.Contains(context.HttpStatusCode))
+            {
+                // the HTTP code matches a error response
+                try
                 {
                     errorResult = (ApiError)serializer.Deserialize(context.ResponseStream);
                     var ex = FX.ApiException("ApiErrorResult", errorResult.Status, errorResult.Message);
+                    TryAttachContextDetails(context, null);
                     ex.Data.Add("ErrorResult", errorResult);
                     throw ex;
                 }
-                else
+                catch (Exception ex)
                 {
-                    throw FX.ApiException("ApiUnknownError", context.HttpStatusCode);
+                    var ex1 = FX.InternalException("SerializerDeserializeError", ex, ex.Message);
+                    TryAttachContextDetails(context, ex1);
+                    throw ex1;
                 }
             }
-            ////catch (LinkedInApiException)
-            ////{
-            ////    throw;
-            ////}
-            ////catch (Exception ex)
-            ////{
-            ////    throw new InvalidOperationException("Failed to read API response", ex);
-            ////}
+            else
+            {
+                // unknown HTTP code
+                var ex1 = FX.ApiException("ApiUnknownHttpCode", context.HttpStatusCode);
+                TryAttachContextDetails(context, null);
+                throw ex1;
+            }
 
             if (result == null)
             {
-                throw FX.ApiException("ApiEmptyResult");
+                var ex1 = FX.ApiException("ApiEmptyResult");
+                TryAttachContextDetails(context, null);
+                throw ex1;
             }
 
             return result;
+        }
+
+        private static void TryAttachContextDetails(RequestContext context, LinkedInNetException ex1)
+        {
+            if (context == null || ex1 == null)
+                return;
+
+            try
+            {
+                ex1.Data["ResponseStream"] = context.ResponseStream;
+                ex1.Data["AcceptLanguages"] = context.AcceptLanguages;
+                ex1.Data["BufferizeResponseStream"] = context.BufferizeResponseStream;
+                ex1.Data["HttpStatusCode"] = context.HttpStatusCode;
+                ex1.Data["Method"] = context.Method;
+                ex1.Data["UrlPath"] = context.UrlPath;
+
+                if (context.BufferizeResponseStream)
+                {
+                    context.ResponseStream.Seek(0L, SeekOrigin.Begin);
+                    ex1.Data["ResponseText"] = new StreamReader(context.ResponseStream).ReadToEnd();
+                    context.ResponseStream.Seek(0L, SeekOrigin.Begin);
+                }
+            }
+            catch
+            {
+                // it does not matter much if it fails
+            }
         }
 
         private static void BufferizeResponse(RequestContext context, Stream readStream)

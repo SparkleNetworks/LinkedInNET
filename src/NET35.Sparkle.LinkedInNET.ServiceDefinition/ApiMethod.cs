@@ -33,7 +33,7 @@ namespace Sparkle.LinkedInNET.ServiceDefinition
 
         public override string ToString()
         {
-            return string.Format("{0}{1}{2}{3}", HttpMethod, Path, MethodName, Title);
+            return string.Format("ApiMethod({0}{1}{2}{3})", HttpMethod, Path, MethodName, Title);
         }
     }
 }
