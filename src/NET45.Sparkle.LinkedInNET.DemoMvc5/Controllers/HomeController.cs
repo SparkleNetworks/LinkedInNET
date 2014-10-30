@@ -96,10 +96,15 @@ namespace Sparkle.LinkedInNET.DemoMvc5.Controllers
 
                     this.ViewBag.Profile = profile;
                 }
+                catch (LinkedInApiException ex)
+                {
+                    this.ViewBag.ProfileError = ex.ToString();
+                }
                 catch (Exception ex)
                 {
                     this.ViewBag.ProfileError = ex.ToString();
                 }
+
                 watch.Stop();
                 this.ViewBag.ProfileDuration = watch.Elapsed;
             }
