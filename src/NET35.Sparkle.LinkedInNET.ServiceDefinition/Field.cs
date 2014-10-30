@@ -34,6 +34,9 @@ namespace Sparkle.LinkedInNET.ServiceDefinition
         [XmlAttribute]
         public bool Ignore { get; set; }
 
+        [XmlElement(ElementName = "FieldSelector")]
+        public List<FieldSelector> Selectors { get; set; }
+
         internal FieldName FieldName { get; set; }
 
         public string GetMainName()

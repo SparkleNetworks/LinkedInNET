@@ -1878,14 +1878,14 @@ namespace Sparkle.LinkedInNET.Profiles
         /// </summary>
         /// <param name="me">The field selector.</param>
         /// <returns>The field selector.</returns>
-        public static FieldSelector<Person> WithFirstname(this FieldSelector<Person> me) { return me.Add("first-name"); }
+        public static FieldSelector<Person> WithFirstName(this FieldSelector<Person> me) { return me.Add("first-name"); }
         
         /// <summary>
         /// Includes the field 'last-name'.
         /// </summary>
         /// <param name="me">The field selector.</param>
         /// <returns>The field selector.</returns>
-        public static FieldSelector<Person> WithLastname(this FieldSelector<Person> me) { return me.Add("last-name"); }
+        public static FieldSelector<Person> WithLastName(this FieldSelector<Person> me) { return me.Add("last-name"); }
         
         /// <summary>
         /// Includes the field 'headline'.
@@ -1899,7 +1899,7 @@ namespace Sparkle.LinkedInNET.Profiles
         /// </summary>
         /// <param name="me">The field selector.</param>
         /// <returns>The field selector.</returns>
-        public static FieldSelector<Person> WithSiteStandardProfileRequest(this FieldSelector<Person> me) { return me.Add("site-standard-profile-request/url"); }
+        public static FieldSelector<Person> WithSiteStandardProfileRequestUrl(this FieldSelector<Person> me) { return me.Add("site-standard-profile-request/url"); }
         
         /// <summary>
         /// Includes the field 'id'.
@@ -1948,7 +1948,14 @@ namespace Sparkle.LinkedInNET.Profiles
         /// </summary>
         /// <param name="me">The field selector.</param>
         /// <returns>The field selector.</returns>
-        public static FieldSelector<Person> WithLocation(this FieldSelector<Person> me) { return me.Add("location:(name)"); }
+        public static FieldSelector<Person> WithLocationName(this FieldSelector<Person> me) { return me.Add("location:(name)"); }
+        
+        /// <summary>
+        /// Includes the field 'location:(country:(code))'.
+        /// </summary>
+        /// <param name="me">The field selector.</param>
+        /// <returns>The field selector.</returns>
+        public static FieldSelector<Person> WithLocationCountryCode(this FieldSelector<Person> me) { return me.Add("location:(country:(code))"); }
         
         /// <summary>
         /// Includes the field 'industry'.
@@ -2032,7 +2039,14 @@ namespace Sparkle.LinkedInNET.Profiles
         /// </summary>
         /// <param name="me">The field selector.</param>
         /// <returns>The field selector.</returns>
-        public static FieldSelector<Person> WithApiStandardProfileRequest(this FieldSelector<Person> me) { return me.Add("api-standard-profile-request:(url)"); }
+        public static FieldSelector<Person> WithApiStandardProfileRequestUrl(this FieldSelector<Person> me) { return me.Add("api-standard-profile-request:(url)"); }
+        
+        /// <summary>
+        /// Includes the field 'api-standard-profile-request:(headers)'.
+        /// </summary>
+        /// <param name="me">The field selector.</param>
+        /// <returns>The field selector.</returns>
+        public static FieldSelector<Person> WithApiStandardProfileRequestHeaders(this FieldSelector<Person> me) { return me.Add("api-standard-profile-request:(headers)"); }
         
         /// <summary>
         /// Includes the field 'public-profile-url'.
@@ -2277,7 +2291,7 @@ namespace Sparkle.LinkedInNET.Profiles
         /// </summary>
         /// <param name="me">The field selector.</param>
         /// <returns>The field selector.</returns>
-        public static FieldSelector<Person> WithAllFields(this FieldSelector<Person> me) { return me.AddRange("first-name", "last-name", "headline", "site-standard-profile-request/url", "id", "maiden-name", "formatted-name", "phonetic-first-name", "phonetic-last-name", "formatted-phonetic-name", "location:(name)", "industry", "distance", "relation-to-viewer", "current-status-timestamp", "current-share", "num-connections", "num-connections-capped", "summary", "specialties", "positions", "picture-url", "api-standard-profile-request:(url)", "public-profile-url", "email-address", "last-modified-timestamp", "proposal-comments", "associations", "interests", "publications", "patents", "languages", "skills", "certifications", "educations", "courses", "volunteer", "three-current-positions", "three-past-positions", "num-recommenders", "recommendations-received", "following", "job-bookmarks", "suggestions", "date-of-birth", "member-url-resources", "related-profile-views", "honors-awards", "phone-numbers", "bound-account-types", "im-accounts", "main-address", "twitter-accounts", "primary-twitter-account", "connections", "group-memberships", "network"); }
+        public static FieldSelector<Person> WithAllFields(this FieldSelector<Person> me) { return me.AddRange("first-name", "last-name", "headline", "site-standard-profile-request/url", "id", "maiden-name", "formatted-name", "phonetic-first-name", "phonetic-last-name", "formatted-phonetic-name", "location:(name)", "location:(country:(code))", "industry", "distance", "relation-to-viewer", "current-status-timestamp", "current-share", "num-connections", "num-connections-capped", "summary", "specialties", "positions", "picture-url", "api-standard-profile-request:(url)", "api-standard-profile-request:(headers)", "public-profile-url", "email-address", "last-modified-timestamp", "proposal-comments", "associations", "interests", "publications", "patents", "languages", "skills", "certifications", "educations", "courses", "volunteer", "three-current-positions", "three-past-positions", "num-recommenders", "recommendations-received", "following", "job-bookmarks", "suggestions", "date-of-birth", "member-url-resources", "related-profile-views", "honors-awards", "phone-numbers", "bound-account-types", "im-accounts", "main-address", "twitter-accounts", "primary-twitter-account", "connections", "group-memberships", "network"); }
         
         /// <summary>
         /// Includes the field 'person'.
@@ -2326,7 +2340,7 @@ namespace Sparkle.LinkedInNET.Profiles
         /// </summary>
         /// <param name="me">The field selector.</param>
         /// <returns>The field selector.</returns>
-        public static FieldSelector<Share> WithVisibility(this FieldSelector<Share> me) { return me.Add("visibility/code"); }
+        public static FieldSelector<Share> WithVisibilityCode(this FieldSelector<Share> me) { return me.Add("visibility/code"); }
         
         /// <summary>
         /// Includes the field 'source'.
@@ -2634,7 +2648,7 @@ namespace Sparkle.LinkedInNET.Profiles
         /// </summary>
         /// <param name="me">The field selector.</param>
         /// <returns>The field selector.</returns>
-        public static FieldSelector<Language> WithLanguageInfo(this FieldSelector<Language> me) { return me.Add("language"); }
+        public static FieldSelector<Language> WithLanguage(this FieldSelector<Language> me) { return me.Add("language"); }
         
         /// <summary>
         /// Includes the field 'proficiency'.
@@ -2753,7 +2767,7 @@ namespace Sparkle.LinkedInNET.Profiles
         /// </summary>
         /// <param name="me">The field selector.</param>
         /// <returns>The field selector.</returns>
-        public static FieldSelector<Certification> WithAuthority(this FieldSelector<Certification> me) { return me.Add("authority:(name)"); }
+        public static FieldSelector<Certification> WithAuthorityName(this FieldSelector<Certification> me) { return me.Add("authority:(name)"); }
         
         /// <summary>
         /// Includes the field 'number'.
@@ -2935,14 +2949,14 @@ namespace Sparkle.LinkedInNET.Profiles
         /// </summary>
         /// <param name="me">The field selector.</param>
         /// <returns>The field selector.</returns>
-        public static FieldSelector<VolunteerExperience> WithOrganization(this FieldSelector<VolunteerExperience> me) { return me.Add("organization:(name)"); }
+        public static FieldSelector<VolunteerExperience> WithOrganizationName(this FieldSelector<VolunteerExperience> me) { return me.Add("organization:(name)"); }
         
         /// <summary>
         /// Includes the field 'cause:(name)'.
         /// </summary>
         /// <param name="me">The field selector.</param>
         /// <returns>The field selector.</returns>
-        public static FieldSelector<VolunteerExperience> WithCause(this FieldSelector<VolunteerExperience> me) { return me.Add("cause:(name)"); }
+        public static FieldSelector<VolunteerExperience> WithCauseName(this FieldSelector<VolunteerExperience> me) { return me.Add("cause:(name)"); }
         
         /// <summary>
         /// Includes all the fields.
@@ -3019,14 +3033,14 @@ namespace Sparkle.LinkedInNET.Profiles
         /// </summary>
         /// <param name="me">The field selector.</param>
         /// <returns>The field selector.</returns>
-        public static FieldSelector<PhoneNumber> WithType(this FieldSelector<PhoneNumber> me) { return me.Add("phone-type"); }
+        public static FieldSelector<PhoneNumber> WithPhoneType(this FieldSelector<PhoneNumber> me) { return me.Add("phone-type"); }
         
         /// <summary>
         /// Includes the field 'phone-number'.
         /// </summary>
         /// <param name="me">The field selector.</param>
         /// <returns>The field selector.</returns>
-        public static FieldSelector<PhoneNumber> WithNumber(this FieldSelector<PhoneNumber> me) { return me.Add("phone-number"); }
+        public static FieldSelector<PhoneNumber> WithPhoneNumber(this FieldSelector<PhoneNumber> me) { return me.Add("phone-number"); }
         
         /// <summary>
         /// Includes all the fields.
@@ -3068,14 +3082,28 @@ namespace Sparkle.LinkedInNET.Profiles
         /// </summary>
         /// <param name="me">The field selector.</param>
         /// <returns>The field selector.</returns>
-        public static FieldSelector<Publication> WithPublisher(this FieldSelector<Publication> me) { return me.Add("publisher:(name)"); }
+        public static FieldSelector<Publication> WithPublisherName(this FieldSelector<Publication> me) { return me.Add("publisher:(name)"); }
         
         /// <summary>
         /// Includes the field 'authors:(id)'.
         /// </summary>
         /// <param name="me">The field selector.</param>
         /// <returns>The field selector.</returns>
-        public static FieldSelector<Publication> WithAuthors(this FieldSelector<Publication> me) { return me.Add("authors:(id)"); }
+        public static FieldSelector<Publication> WithAuthorsId(this FieldSelector<Publication> me) { return me.Add("authors:(id)"); }
+        
+        /// <summary>
+        /// Includes the field 'authors:(name)'.
+        /// </summary>
+        /// <param name="me">The field selector.</param>
+        /// <returns>The field selector.</returns>
+        public static FieldSelector<Publication> WithAuthorsName(this FieldSelector<Publication> me) { return me.Add("authors:(name)"); }
+        
+        /// <summary>
+        /// Includes the field 'authors:(person)'.
+        /// </summary>
+        /// <param name="me">The field selector.</param>
+        /// <returns>The field selector.</returns>
+        public static FieldSelector<Publication> WithAuthorsPerson(this FieldSelector<Publication> me) { return me.Add("authors:(person)"); }
         
         /// <summary>
         /// Includes the field 'date'.
@@ -3103,7 +3131,7 @@ namespace Sparkle.LinkedInNET.Profiles
         /// </summary>
         /// <param name="me">The field selector.</param>
         /// <returns>The field selector.</returns>
-        public static FieldSelector<Publication> WithAllFields(this FieldSelector<Publication> me) { return me.AddRange("id", "title", "publisher:(name)", "authors:(id)", "date", "url", "summary"); }
+        public static FieldSelector<Publication> WithAllFields(this FieldSelector<Publication> me) { return me.AddRange("id", "title", "publisher:(name)", "authors:(id)", "authors:(name)", "authors:(person)", "date", "url", "summary"); }
         
         /// <summary>
         /// Includes the field 'patent'.
@@ -3152,21 +3180,42 @@ namespace Sparkle.LinkedInNET.Profiles
         /// </summary>
         /// <param name="me">The field selector.</param>
         /// <returns>The field selector.</returns>
-        public static FieldSelector<Patent> WithStatus(this FieldSelector<Patent> me) { return me.Add("status:(id)"); }
+        public static FieldSelector<Patent> WithStatusId(this FieldSelector<Patent> me) { return me.Add("status:(id)"); }
+        
+        /// <summary>
+        /// Includes the field 'status:(name)'.
+        /// </summary>
+        /// <param name="me">The field selector.</param>
+        /// <returns>The field selector.</returns>
+        public static FieldSelector<Patent> WithStatusName(this FieldSelector<Patent> me) { return me.Add("status:(name)"); }
         
         /// <summary>
         /// Includes the field 'office:(name)'.
         /// </summary>
         /// <param name="me">The field selector.</param>
         /// <returns>The field selector.</returns>
-        public static FieldSelector<Patent> WithOffice(this FieldSelector<Patent> me) { return me.Add("office:(name)"); }
+        public static FieldSelector<Patent> WithOfficeName(this FieldSelector<Patent> me) { return me.Add("office:(name)"); }
         
         /// <summary>
         /// Includes the field 'inventors:(id)'.
         /// </summary>
         /// <param name="me">The field selector.</param>
         /// <returns>The field selector.</returns>
-        public static FieldSelector<Patent> WithInventors(this FieldSelector<Patent> me) { return me.Add("inventors:(id)"); }
+        public static FieldSelector<Patent> WithInventorsId(this FieldSelector<Patent> me) { return me.Add("inventors:(id)"); }
+        
+        /// <summary>
+        /// Includes the field 'inventors:(name)'.
+        /// </summary>
+        /// <param name="me">The field selector.</param>
+        /// <returns>The field selector.</returns>
+        public static FieldSelector<Patent> WithInventorsName(this FieldSelector<Patent> me) { return me.Add("inventors:(name)"); }
+        
+        /// <summary>
+        /// Includes the field 'inventors:(person)'.
+        /// </summary>
+        /// <param name="me">The field selector.</param>
+        /// <returns>The field selector.</returns>
+        public static FieldSelector<Patent> WithInventorsPerson(this FieldSelector<Patent> me) { return me.Add("inventors:(person)"); }
         
         /// <summary>
         /// Includes the field 'date'.
@@ -3187,7 +3236,7 @@ namespace Sparkle.LinkedInNET.Profiles
         /// </summary>
         /// <param name="me">The field selector.</param>
         /// <returns>The field selector.</returns>
-        public static FieldSelector<Patent> WithAllFields(this FieldSelector<Patent> me) { return me.AddRange("id", "title", "summary", "number", "status:(id)", "office:(name)", "inventors:(id)", "date", "url"); }
+        public static FieldSelector<Patent> WithAllFields(this FieldSelector<Patent> me) { return me.AddRange("id", "title", "summary", "number", "status:(id)", "status:(name)", "office:(name)", "inventors:(id)", "inventors:(name)", "inventors:(person)", "date", "url"); }
         
         /// <summary>
         /// Includes the field 'member-url-resource'.

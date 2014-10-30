@@ -83,6 +83,9 @@
     <Compile Include="..\NET35.Sparkle.LinkedInNET\LinkedInApiException.cs">
       <Link>LinkedInApiException.cs</Link>
     </Compile>
+    <Compile Include="..\NET35.Sparkle.LinkedInNET\LinkedInNetException.cs">
+      <Link>LinkedInNetException.cs</Link>
+    </Compile>
     <Compile Include="..\NET35.Sparkle.LinkedInNET\OAuth2\AuthorizationAccessToken.cs">
       <Link>OAuth2\AuthorizationAccessToken.cs</Link>
     </Compile>

@@ -141,7 +141,7 @@ namespace Sparkle.LinkedInNET.Tests
             Assert.IsFalse(string.IsNullOrEmpty(result));
         }
 
-        [TestMethod]
+        [TestMethod, Ignore] // wont implement
         public void ExplicitReturnTypes_int()
         {
             var xml = @"<?xml version=""1.0"" encoding=""utf-8""?>
@@ -258,6 +258,92 @@ namespace Sparkle.LinkedInNET.Tests
             Assert.IsFalse(string.IsNullOrEmpty(result));
             Assert.IsTrue(result.Contains("string[] acceptLanguages"));
             Assert.IsTrue(result.Contains("context.AcceptLanguages = acceptLanguages"));
+        }
+
+        [TestMethod]
+        public void GeneratesFieldSelectorForProperty1()
+        {
+            var xml = @"<?xml version=""1.0"" encoding=""utf-8""?>
+<Root>
+  <ApiGroup Name=""group"">
+    <ReturnType Name=""return"">
+      <Field Name=""location"" />
+    </ReturnType>
+  </ApiGroup>
+</Root>";
+            var result = GetGeneratedCodeFromXmlDefinition(xml);
+            result = result.Replace(Environment.NewLine, string.Empty);
+
+            Assert.IsFalse(string.IsNullOrEmpty(result));
+            Assert.IsTrue(result.Contains(@"public static FieldSelector<Return> WithLocation(this FieldSelector<Return> me) { return me.Add(""location""); }"));
+        }
+
+        [TestMethod]
+        public void GeneratesFieldSelectorForProperty2Sub()
+        {
+            var xml = @"<?xml version=""1.0"" encoding=""utf-8""?>
+<Root>
+  <ApiGroup Name=""group"">
+    <ReturnType Name=""return"">
+      <Field Name=""location:(name)"" />
+    </ReturnType>
+  </ApiGroup>
+</Root>";
+            var result = GetGeneratedCodeFromXmlDefinition(xml);
+            result = result.Replace(Environment.NewLine, string.Empty);
+
+            Assert.IsFalse(string.IsNullOrEmpty(result));
+            Assert.IsTrue (result.Contains(@"public static FieldSelector<Return> WithLocationName(this FieldSelector<Return> me) { return me.Add(""location:(name)""); }"));
+            Assert.IsFalse(result.Contains(@"public static FieldSelector<Return> WithLocation(this FieldSelector<Return> me)"));
+            Assert.IsFalse(result.Contains(@"(this FieldSelector<Return> me) { return me.Add(""location""); }"));
+        }
+
+        [TestMethod]
+        public void GeneratesFieldSelectorForProperty2Ext()
+        {
+            var xml = @"<?xml version=""1.0"" encoding=""utf-8""?>
+<Root>
+  <ApiGroup Name=""group"">
+    <ReturnType Name=""return"">
+      <Field Name=""location"" Type=""location"" />
+    </ReturnType>
+    <ReturnType Name=""location"">
+      <Field Name=""name"" />
+    </ReturnType>
+  </ApiGroup>
+</Root>";
+            var result = GetGeneratedCodeFromXmlDefinition(xml);
+            result = result.Replace(Environment.NewLine, string.Empty);
+
+            Assert.IsFalse(string.IsNullOrEmpty(result));
+            Assert.IsFalse(result.Contains(@"public static FieldSelector<Return> WithLocationName(this FieldSelector<Return> me)"));
+            Assert.IsFalse(result.Contains(@"{ return me.Add(""location:(name)""); }"));
+            Assert.IsTrue( result.Contains(@"public static FieldSelector<Return> WithLocation(this FieldSelector<Return> me) { return me.Add(""location""); }"));
+        }
+
+        [TestMethod]
+        public void GeneratesFieldSelectorForProperty2ExtAndFieldSelector()
+        {
+            var xml = @"<?xml version=""1.0"" encoding=""utf-8""?>
+<Root>
+  <ApiGroup Name=""group"">
+    <ReturnType Name=""return"">
+      <Field Name=""location"" Type=""location"">
+        <FieldSelector Name=""location:(name)"" Title=""the name of the location"" />
+      </Field>
+    </ReturnType>
+    <ReturnType Name=""location"">
+      <Field Name=""name"" />
+    </ReturnType>
+  </ApiGroup>
+</Root>";
+            var result = GetGeneratedCodeFromXmlDefinition(xml);
+            result = result.Replace(Environment.NewLine, string.Empty);
+
+            Assert.IsFalse(string.IsNullOrEmpty(result));
+            Assert.IsFalse(result.Contains(@"public static FieldSelector<Return> WithLocation(this FieldSelector<Return> me)"));
+            Assert.IsFalse(result.Contains(@"(this FieldSelector<Return> me) { return me.Add(""location""); }"));
+            Assert.IsTrue(result.Contains(@"public static FieldSelector<Return> WithLocationName(this FieldSelector<Return> me) { return me.Add(""location:(name)""); }"));
         }
 
         private static string GetGeneratedCodeFromXmlDefinition(string xml)

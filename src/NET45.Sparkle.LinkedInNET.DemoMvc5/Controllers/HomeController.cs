@@ -12,7 +12,7 @@ namespace Sparkle.LinkedInNET.DemoMvc5.Controllers
     using Sparkle.LinkedInNET.DemoMvc5.Domain;
     using Sparkle.LinkedInNET.OAuth2;
     using Sparkle.LinkedInNET.Profiles;
-    using Sparkle.LinkedInNET.ServiceDefinition;
+    ////using Sparkle.LinkedInNET.ServiceDefinition;
 
     public class HomeController : Controller
     {
@@ -61,37 +61,36 @@ namespace Sparkle.LinkedInNET.DemoMvc5.Controllers
                     ////var profile = this.api.Profiles.GetMyProfile(user);
                     var acceptLanguages = new string[] { culture ?? "en-US", "fr-FR", };
                     var fields = FieldSelector.For<Person>()
-                        .WithFirstname().WithFormattedName().WithLastname()
+                        .WithFirstName().WithFormattedName().WithLastName()
                         .WithHeadline()
                         .WithId()
                         .WithEmailAddress()
 
-                        //.WithLocation()
-                        //.WithLocationName()        // subfields issue
+                        .WithLocationName()        // subfields issue
                         //.WithLocationCountryCode() // subfields issue
 
-                        //.WithPictureUrl()
-                        //.WithPublicProfileUrl()
-                        //.WithSummary()
-                        //.WithIndustry()
+                        .WithPictureUrl()
+                        .WithPublicProfileUrl()
+                        .WithSummary()
+                        .WithIndustry()
 
-                        //.WithPositions()
-                        //.WithThreeCurrentPositions()
-                        //.WithThreePastPositions()
+                        .WithPositions()
+                        .WithThreeCurrentPositions()
+                        .WithThreePastPositions()
 
-                        //.WithProposalComments()
-                        //.WithAssociations()
-                        //.WithInterests()
-                        //.WithLanguages()
-                        //.WithCertifications()
-                        //.WithEducations()
-                        //.WithVolunteer()
+                        .WithProposalComments()
+                        .WithAssociations()
+                        .WithInterests()
+                        .WithLanguages()
+                        .WithCertifications()
+                        .WithEducations()
+                        .WithVolunteer()
                         ////.WithRecommendationsReceived() // may not use that
                         .WithDateOfBirth()
                         .WithPhoneNumbers()
-                        //.WithImAccounts()
+                        .WithImAccounts()
                         .WithPrimaryTwitterAccount()
-                        //.WithTwitterAccounts();
+                        .WithTwitterAccounts();
                         ;
                     var profile = this.api.Profiles.GetMyProfile(user, acceptLanguages, fields);
 
@@ -147,13 +146,13 @@ namespace Sparkle.LinkedInNET.DemoMvc5.Controllers
                 ////var profile = this.api.Profiles.GetMyProfile(user);
                 var acceptLanguages = new string[] { culture ?? "en-US", "fr-FR", };
                 var fields = FieldSelector.For<Person>()
-                    .WithFirstname().WithFormattedName().WithLastname()
+                    .WithFirstName().WithFormattedName().WithLastName()
                     .WithHeadline()
                     .WithId()
                     .WithEmailAddress()
 
-                    .WithLocation()
-                    //.WithLocationName()        // subfields issue
+                    //.WithLocation()
+                    .WithLocationName()        // subfields issue
                     //.WithLocationCountryCode() // subfields issue
 
                     .WithPictureUrl()
@@ -203,13 +202,13 @@ namespace Sparkle.LinkedInNET.DemoMvc5.Controllers
         public ActionResult Definition()
         {
             var filePath = Path.Combine(this.Server.MapPath("~"), "..", "LinkedInApi.xml");
-            var builder = new ServiceDefinitionBuilder();
+            var builder = new Sparkle.LinkedInNET.ServiceDefinition.ServiceDefinitionBuilder();
             using (var fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read))
             {
                 builder.AppendServiceDefinition(fileStream);
             }
 
-            var result = new ApiResponse<ApisRoot>(builder.Root);
+            var result = new ApiResponse<Sparkle.LinkedInNET.ServiceDefinition.ApisRoot>(builder.Root);
 
             return this.Json(result, JsonRequestBehavior.AllowGet);
         }

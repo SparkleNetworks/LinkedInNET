@@ -55,6 +55,7 @@
       <Link>Properties\CommonAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="ApiError.cs" />
+    <Compile Include="LinkedInNetException.cs" />
     <Compile Include="FieldSelector.cs" />
     <Compile Include="Internals\BaseApi.cs" />
     <Compile Include="Internals\Extensions.cs" />

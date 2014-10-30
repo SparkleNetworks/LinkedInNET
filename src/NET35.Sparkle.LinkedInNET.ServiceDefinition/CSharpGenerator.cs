@@ -85,29 +85,30 @@ namespace Sparkle.LinkedInNET.ServiceDefinition
                 var returnTypeName = this.GetPropertyName(returnType.ClassName, returnType.Name);
 
                 var allFields = new List<string>();
-                foreach (var fieldGroup in returnType.Fields.GroupBy(f => this.GetPropertyName(f.PropertyName, f.GetMainName())).ToArray())
+                foreach (var fieldGroup in returnType.Fields.GroupBy(f => f.Name).ToArray())
                 {
                     var field = fieldGroup.First();
-                    var fieldName = this.GetPropertyName(field.PropertyName, field.Name);
-                    allFields.Add(field.Name);
+                    var selectors = fieldGroup.Where(f => f.Selectors != null).SelectMany(f => f.Selectors).ToArray();
 
-                    ////if (fieldName.Contains(":") || fieldName.Contains("/"))
-                    ////{
-                    ////    this.text.WriteLine(indent, "#warning ReturnType '" + returnType.Name + "', Field '" + field.Name + "': unsupported syntax");
-                    ////    this.text.WriteLine();
-                    ////    continue;
-                    ////}
+                    if (selectors.Length == 0)
+                    {
+                        var name = field.Name;
+                        var fieldName = this.GetPropertyName(null, field.Name);
+                        allFields.Add(name);
 
-                    this.text.WriteLine(indent, "/// <summary>");
-                    this.text.WriteLine(indent, "/// Includes the field '" + field.Name + "'.");
-                    this.text.WriteLine(indent, "/// </summary>");
-                    this.text.WriteLine(indent, "/// <param name=\"me\">The field selector.</param>");
-                    this.text.WriteLine(indent, "/// <returns>The field selector.</returns>");
-                    this.text.Write(indent++, "public static FieldSelector<" + returnTypeName + "> With" + fieldName + "(this FieldSelector<" + returnTypeName + "> me) { ");
-                    this.text.Write("return me.Add(\"" + field.Name + "\"); ");
-                    this.text.WriteLine("}");
-                    indent--;
-                    this.text.WriteLine(indent, "");
+                        WriteReturnTypeField(indent, returnTypeName, fieldName, name);
+                    }
+                    else
+                    {
+                        foreach (var selector in selectors)
+                        {
+                            var name = selector.Name;
+                            var fieldName = this.GetPropertyName(selector.PropertyName, name);
+                            allFields.Add(name);
+
+                            WriteReturnTypeField(indent, returnTypeName, fieldName, name);
+                        }
+                    }
                 }
 
                 this.text.WriteLine(indent, "/// <summary>");
@@ -125,6 +126,20 @@ namespace Sparkle.LinkedInNET.ServiceDefinition
             this.text.WriteLine(--indent, "}");
             this.text.WriteLine(--indent, "}");
             this.text.WriteLine();
+        }
+
+        private void WriteReturnTypeField(int indent, string returnTypeName, string fieldName, string name)
+        {
+            this.text.WriteLine(indent, "/// <summary>");
+            this.text.WriteLine(indent, "/// Includes the field '" + name + "'.");
+            this.text.WriteLine(indent, "/// </summary>");
+            this.text.WriteLine(indent, "/// <param name=\"me\">The field selector.</param>");
+            this.text.WriteLine(indent, "/// <returns>The field selector.</returns>");
+            this.text.Write(indent++, "public static FieldSelector<" + returnTypeName + "> With" + fieldName + "(this FieldSelector<" + returnTypeName + "> me) { ");
+            this.text.Write("return me.Add(\"" + name + "\"); ");
+            this.text.WriteLine("}");
+            indent--;
+            this.text.WriteLine(indent, "");
         }
 
         private void WriteRootServices(GeneratorContext context)
@@ -416,10 +431,13 @@ namespace Sparkle.LinkedInNET.ServiceDefinition
 
         private string GetPropertyName(string propertyName, string name)
         {
+            if (name == null)
+                throw new ArgumentNullException("name");
+
             if (propertyName != null)
                 return propertyName;
 
-            var words = name.Split(new char[] { '-', '/', '(', ')', ':', });
+            var words = name.Split(new char[] { '-', '/', '(', ')', ':', }, StringSplitOptions.RemoveEmptyEntries);
 
             return string.Join("", words.Select(w => Namify(w, NameTransformation.CamelCase)).ToArray());
         }

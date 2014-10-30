@@ -87,5 +87,29 @@ namespace Sparkle.LinkedInNET.Tests
             var result = target.ToString();
             Assert.AreEqual(":(hello,location:(name,country),world)", result);
         }
+
+        [TestMethod]
+        public void DeDuplicate()
+        {
+            var selector = new FieldSelector<object>().Add("location").Add("location");
+            Assert.AreEqual(2, selector.Items.Length);
+            Assert.AreEqual(":(location)", selector.ToString());
+        }
+
+        [TestMethod]
+        public void MergeSimple()
+        {
+            var selector = new FieldSelector<object>().Add("location:(name)").Add("location:(code)");
+            Assert.AreEqual(2, selector.Items.Length);
+            Assert.AreEqual(":(location:(name,code))", selector.ToString());
+        }
+
+        [TestMethod]
+        public void Merge2Levels()
+        {
+            var selector = new FieldSelector<object>().Add("location:(name)").Add("location:(country:(code))");
+            Assert.AreEqual(2, selector.Items.Length);
+            Assert.AreEqual(":(location:(name,country:(code)))", selector.ToString());
+        }
     }
 }

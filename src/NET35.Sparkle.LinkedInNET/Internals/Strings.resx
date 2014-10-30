@@ -129,6 +129,9 @@
   <data name="ApiException_ApiUnknownError" xml:space="preserve">
     <value>Unknown API error (HTTP code: {0})</value>
   </data>
+  <data name="ApiException_ApiUnknownHttpCode" xml:space="preserve">
+    <value>The API replied with a unknown HTTP code: {0}.</value>
+  </data>
   <data name="ApiException_OAuth2ErrorResult" xml:space="preserve">
     <value>OAuth2 error ({0}): {1}</value>
   </data>
@@ -137,5 +140,8 @@
   </data>
   <data name="InternalException_SerializerDeserialize" xml:space="preserve">
     <value>Could not deserialize API response: {0}</value>
+  </data>
+  <data name="InternalException_SerializerDeserializeError" xml:space="preserve">
+    <value>Could not deserialize API error response: {0}</value>
   </data>
 </root>
