@@ -73,11 +73,35 @@ namespace Sparkle.LinkedInNET.Tests
         }
 
         [TestMethod]
+        public void ToString1Colon()
+        {
+            var target = new FieldSelector<FieldSelectorTests>().Add("hello:(name)");
+            var result = target.ToString();
+            Assert.AreEqual(":(hello:(name))", result);
+        }
+
+        [TestMethod]
+        public void ToString1Slash()
+        {
+            var target = new FieldSelector<FieldSelectorTests>().Add("hello/name");
+            var result = target.ToString();
+            Assert.AreEqual(":(hello/name)", result);
+        }
+
+        [TestMethod]
         public void ToString2()
         {
             var target = new FieldSelector<FieldSelectorTests>().Add("hello").Add("world");
             var result = target.ToString();
             Assert.AreEqual(":(hello,world)", result);
+        }
+
+        [TestMethod]
+        public void ToString2SlashColon()
+        {
+            var target = new FieldSelector<FieldSelectorTests>().Add("hello:(name)").Add("world/wtf");
+            var result = target.ToString();
+            Assert.AreEqual(":(hello:(name),world/wtf)", result);
         }
 
         [TestMethod]
@@ -91,7 +115,7 @@ namespace Sparkle.LinkedInNET.Tests
         [TestMethod]
         public void DeDuplicate()
         {
-            var selector = new FieldSelector<object>().Add("location").Add("location");
+            var selector = new FieldSelector<object>().Add("location").Add("location:()");
             Assert.AreEqual(2, selector.Items.Length);
             Assert.AreEqual(":(location)", selector.ToString());
         }
@@ -110,6 +134,14 @@ namespace Sparkle.LinkedInNET.Tests
             var selector = new FieldSelector<object>().Add("location:(name)").Add("location:(country:(code))");
             Assert.AreEqual(2, selector.Items.Length);
             Assert.AreEqual(":(location:(name,country:(code)))", selector.ToString());
+        }
+
+        [TestMethod]
+        public void Merge2Levels1()
+        {
+            var selector = new FieldSelector<object>().Add("a:(m)").Add("a:(n:(z))");
+            Assert.AreEqual(2, selector.Items.Length);
+            Assert.AreEqual(":(a:(m,n:(z)))", selector.ToString());
         }
     }
 }

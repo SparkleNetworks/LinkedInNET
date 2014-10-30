@@ -140,7 +140,7 @@ namespace Sparkle.LinkedInNET.Tests
 
             Assert.IsFalse(string.IsNullOrEmpty(result));
         }
-
+        /*
         [TestMethod, Ignore] // wont implement
         public void ExplicitReturnTypes_int()
         {
@@ -163,7 +163,7 @@ namespace Sparkle.LinkedInNET.Tests
             Assert.IsFalse(result.Contains("public class Location"));
             Assert.IsTrue(result.Contains("public string Name"));
         }
-
+        */
         [TestMethod]
         public void ImplicitAndExplicitReturnTypes()
         {
@@ -201,7 +201,7 @@ namespace Sparkle.LinkedInNET.Tests
             Assert.IsFalse(result.Contains("public class Location"));
             Assert.IsTrue(result.Contains("public string Name"));
         }
-
+        /*
         [TestMethod, Ignore] // wont implement
         public void SubtypeFieldType()
         {
@@ -225,7 +225,7 @@ namespace Sparkle.LinkedInNET.Tests
             Assert.IsTrue(result.Contains("public class RelationToViewer"));
             Assert.IsTrue(result.Contains("public int Distance"));
         }
-
+        */
         [TestMethod]
         public void UsesAcceptLanguageFalse()
         {

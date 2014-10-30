@@ -66,8 +66,8 @@ namespace Sparkle.LinkedInNET.DemoMvc5.Controllers
                         .WithId()
                         .WithEmailAddress()
 
-                        .WithLocationName()        // subfields issue
-                        //.WithLocationCountryCode() // subfields issue
+                        .WithLocationName()
+                        .WithLocationCountryCode()
 
                         .WithPictureUrl()
                         .WithPublicProfileUrl()

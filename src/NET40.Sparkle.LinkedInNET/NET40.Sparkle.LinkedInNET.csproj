@@ -56,6 +56,9 @@
     <Compile Include="..\NET35.Sparkle.LinkedInNET\FieldSelector.cs">
       <Link>FieldSelector.cs</Link>
     </Compile>
+    <Compile Include="..\NET35.Sparkle.LinkedInNET\FieldSelectorValue.cs">
+      <Link>FieldSelectorValue.cs</Link>
+    </Compile>
     <Compile Include="..\NET35.Sparkle.LinkedInNET\Internals\BaseApi.cs">
       <Link>Internals\BaseApi.cs</Link>
     </Compile>

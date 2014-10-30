@@ -189,13 +189,34 @@ namespace Sparkle.LinkedInNET
             }
             else
             {
-                var items = this.Items
-                    .Select(f => f.IndexOf('/') > 0 ? f.Substring(0, f.IndexOf('/')) : f)
-                    .GroupBy(f => f)
-                    .Select(g => g.Key)
-                    .ToArray();
+                var tree = this.Decompose();
+                tree = this.Recompose(tree);
+                var items = tree.Select(f => f.ToString()).ToArray();
                 return ":(" + string.Join(",", items) + ")";
             }
+        }
+
+        private FieldSelectorValue[] Decompose()
+        {
+            var list = new List<FieldSelectorValue>(this.fields.Count);
+            for (int i = 0; i < this.fields.Count; i++)
+            {
+                var field = this.fields[i];
+                var value = new FieldSelectorValue(field);
+                list.Add(value);
+            }
+
+            return list.ToArray();
+        }
+
+        private FieldSelectorValue[] Recompose(FieldSelectorValue[] tree)
+        {
+            var collection = tree
+                .GroupBy(f => f.Name)
+                .Select(g => new FieldSelectorValue(g.Key, g.Where(f => f.Values != null).SelectMany(f => f.Values).ToArray()))
+                .ToArray();
+
+            return collection;
         }
     }
 }
