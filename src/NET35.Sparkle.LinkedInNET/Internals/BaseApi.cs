@@ -244,15 +244,18 @@ namespace Sparkle.LinkedInNET.Internals
                 try
                 {
                     errorResult = (ApiError)serializer.Deserialize(context.ResponseStream);
-                    var ex = FX.ApiException("ApiErrorResult", errorResult.Status, errorResult.Message);
-                    TryAttachContextDetails(context, null);
-                    ex.Data.Add("ErrorResult", errorResult);
-                    throw ex;
                 }
                 catch (Exception ex)
                 {
                     var ex1 = FX.InternalException("SerializerDeserializeError", ex, ex.Message);
                     TryAttachContextDetails(context, ex1);
+                    throw ex1;
+                }
+
+                {
+                    var ex1 = FX.ApiException("ApiErrorResult", errorResult.Status, errorResult.Message);
+                    TryAttachContextDetails(context, null);
+                    ex1.Data.Add("ErrorResult", errorResult);
                     throw ex1;
                 }
             }
