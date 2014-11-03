@@ -134,7 +134,7 @@ namespace Sparkle.LinkedInNET.OAuth2
                     var json = reader.ReadToEnd();
                     errorResult = Newtonsoft.Json.JsonConvert.DeserializeObject<OAuth2Error>(json);
 #else
-                    var serializer = new System.Runtime.Serialization.Json.DataContractJsonSerializer(typeof(AuthorizationAccessToken));
+                    var serializer = new System.Runtime.Serialization.Json.DataContractJsonSerializer(typeof(OAuth2Error));
                     errorResult = (OAuth2Error)serializer.ReadObject(context.ResponseStream);
 #endif
                     throw FX.ApiException("OAuth2ErrorResult", errorResult.Error, errorResult.ErrorMessage);

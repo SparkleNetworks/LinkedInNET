@@ -256,6 +256,12 @@ namespace Sparkle.LinkedInNET.Internals
                     var ex1 = FX.ApiException("ApiErrorResult", errorResult.Status, errorResult.Message);
                     TryAttachContextDetails(context, null);
                     ex1.Data.Add("ErrorResult", errorResult);
+                    if (errorResult != null)
+                    {
+                        if (errorResult.Status == 401)
+                            ex1.Data["ShouldRenewToken"] = true;
+                    }
+
                     throw ex1;
                 }
             }

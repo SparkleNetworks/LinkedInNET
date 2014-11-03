@@ -28,6 +28,8 @@ namespace Sparkle.LinkedInNET.Internals
                 ex = new LinkedInApiException(message, innerException);
             }
 
+            ex.Data["Key"] = name;
+
             return ex;
         }
 
@@ -50,6 +52,8 @@ namespace Sparkle.LinkedInNET.Internals
                 var message = string.Format(Strings.ResourceManager.GetString(prefix + name), args);
                 ex = new LinkedInNetException(message, innerException);
             }
+
+            ex.Data["Key"] = name;
 
             return ex;
         }
