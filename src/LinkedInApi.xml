@@ -272,7 +272,10 @@
     </ReturnType>
     <ReturnType Name="skill" ClassName="Skill">
       <Field Name="id" Title="A unique identifier for a single skill in the list of skills" />
-      <Field Name="name" Title="A structured object that indicates the internationalized name of the canonical language" />
+      <Field Name="skill" Type="SkillName" PropertyName="SkillName" Title="A structured object that indicates the internationalized name of the canonical language" />
+    </ReturnType>
+    <ReturnType Name="skill" ClassName="SkillName">
+      <Field Name="name" Title="The internationalized name of the canonical language"/>
     </ReturnType>
 
     <ReturnType Name="certifications" ClassName="Certifications">
@@ -294,8 +297,8 @@
       <Field Name="id" Title="a unique identifier for this member's education entry" Remark="" />
       <Field Name="school-name" Title="the name of the school, as indicated by the member" Remark="" />
       <Field Name="field-of-study" Title="the field of study at the school, as indicated by the member" Remark="" />
-      <Field Name="start-date" Title="a structured object a year field indicating when the education began" Remark="" />
-      <Field Name="end-date" Title="a structured object with a year field indicating when the education ended" Remark="Blank when the education is current" />
+      <Field Name="start-date" Type="DateParts" Title="a structured object a year field indicating when the education began" Remark="" />
+      <Field Name="end-date" Type="DateParts" Title="a structured object with a year field indicating when the education ended" Remark="Blank when the education is current" />
       <Field Name="degree" Title="a string describing the degree, if any, received at this institution" Remark="" />
       <Field Name="activities" Title="a string describing activities the member was involved in while a student at this institution" Remark="" />
       <Field Name="notes" Title="a string describing other details on the member's studies." Remark="" />

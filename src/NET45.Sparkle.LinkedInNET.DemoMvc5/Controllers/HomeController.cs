@@ -90,8 +90,8 @@ namespace Sparkle.LinkedInNET.DemoMvc5.Controllers
                         .WithPhoneNumbers()
                         .WithImAccounts()
                         .WithPrimaryTwitterAccount()
-                        .WithTwitterAccounts();
-                        ;
+                        .WithTwitterAccounts()
+                        .WithSkills();
                     var profile = this.api.Profiles.GetMyProfile(user, acceptLanguages, fields);
 
                     this.ViewBag.Profile = profile;
