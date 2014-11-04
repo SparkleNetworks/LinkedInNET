@@ -9,7 +9,7 @@
     <ApiMethod MethodName="GetConnectionsByProfileId"     HttpMethod="GET" Title="returns a list of 1st degree connections for a user " Path="/v1/people/id={MemberToken}/connections" ReturnType="Person" RequiresUserAuthentication="1" />
     
     
-    <ReturnType Name="person" ClassName="Person">
+    <ReturnType Name="person" ClassName="Person" AutoGenerateFieldSelectors="1">
       
       <!-- Basic profile fields -->
       <Field Name="first-name" PropertyName="Firstname" Title="the member's first name" IsDefault="1" />
@@ -45,7 +45,7 @@
       <Field Name="picture-url" Title="A URL to the profile picture, if the member has associated one with their profile and it is visible to the requestor" Remark="" />
       <!--<Field Name="site-standard-profile-request" Title="The URL to the member's authenticated profile on LinkedIn (requires a login to be viewed, unlike public profiles)" Remark="" Ignore="1" />-->
       <Field Name="api-standard-profile-request:(url)" Title="A URL representing the resource you would request for programmatic access to the member's profile" Remark=""  />
-      <Field Name="api-standard-profile-request:(headers)" Title="A collection of fields that can be re-used as HTTP headers to request an out of network profile programmatically" Remark="Use the name returned as the name of an HTTP header with the value returned as it's value" Ignore="1" />
+      <Field Name="api-standard-profile-request:(headers)" Type="RequestHeaders" Title="A collection of fields that can be re-used as HTTP headers to request an out of network profile programmatically" Remark="Use the name returned as the name of an HTTP header with the value returned as it's value" Ignore="1" />
       <Field Name="public-profile-url" Title="A URL to the member's public profile, if enabled" Remark="This field is only available when requested using a field selector in a profile or connections call." />
 
       <!-- Email fields -->
@@ -248,7 +248,6 @@
       <Field Name="day" Type="short?" />
     </ReturnType>
     
-
     <ReturnType Name="relation-to-viewer">
       <Field Name="distance" Type="int?" Title="the degree distance of the fetched profile from the member who fetched the profile" Remark="Not available in /people/{id}/connections." />
       <Field Name="related-connections" Title="Contains brief connection/person objects indicating the connecting first degree members" Remark="Not available in /people/{id}/connections. For each connection, id, first-name, and last-name is returned by default. You can fetch distance using field selectors, for e.g. relation-to-viewer:(related-connections:(id,first-name,last-name,distance))" />
@@ -386,6 +385,14 @@
       <Field Name="name"   Title="The label given to the URL by the member" Remark="" />
     </ReturnType>
     
+    <ReturnType Name="headers" ClassName="RequestHeaders">
+      <Field Name="http-header" IsCollection="1" Type="RequestHeader" />
+    </ReturnType>
+    <ReturnType Name="http-header" ClassName="RequestHeader">
+      <Field Name="name"  />
+      <Field Name="value" />
+    </ReturnType>
+
   </ApiGroup>
   
   <ApiGroup Name="Companies">

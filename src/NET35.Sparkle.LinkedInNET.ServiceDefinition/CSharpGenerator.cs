@@ -90,7 +90,7 @@ namespace Sparkle.LinkedInNET.ServiceDefinition
                     var field = fieldGroup.First();
                     var selectors = fieldGroup.Where(f => f.Selectors != null).SelectMany(f => f.Selectors).ToArray();
 
-                    if (selectors.Length == 0)
+                    if (selectors.Length == 0 && returnType.AutoGenerateFieldSelectors)
                     {
                         var name = field.Name;
                         var fieldName = this.GetPropertyName(null, field.Name);
@@ -111,16 +111,33 @@ namespace Sparkle.LinkedInNET.ServiceDefinition
                     }
                 }
 
-                this.text.WriteLine(indent, "/// <summary>");
-                this.text.WriteLine(indent, "/// Includes all the fields.");
-                this.text.WriteLine(indent, "/// </summary>");
-                this.text.WriteLine(indent, "/// <param name=\"me\">The field selector.</param>");
-                this.text.WriteLine(indent, "/// <returns>The field selector.</returns>");
-                this.text.Write(indent++, "public static FieldSelector<" + returnTypeName + "> WithAllFields(this FieldSelector<" + returnTypeName + "> me) { ");
-                this.text.Write("return me.AddRange(\"" + string.Join("\", \"", allFields.ToArray()) + "\"); ");
-                this.text.WriteLine("}");
-                indent--;
-                this.text.WriteLine(indent, "");
+                if (allFields.Count > 0)
+                {
+                    this.text.WriteLine(indent, "/// <summary>");
+                    this.text.WriteLine(indent, "/// Includes all the fields.");
+                    this.text.WriteLine(indent, "/// </summary>");
+                    this.text.WriteLine(indent, "/// <param name=\"me\">The field selector.</param>");
+                    this.text.WriteLine(indent, "/// <returns>The field selector.</returns>");
+                    this.text.Write(indent++, "public static FieldSelector<" + returnTypeName + "> WithAllFields(this FieldSelector<" + returnTypeName + "> me) { ");
+                    this.text.Write(@"return me.AddRange(""");
+                    var sep = "";
+                    for (int i = 0; i < allFields.Count; i++)
+                    {
+                        var name = allFields[i];
+                        var slash = name.IndexOf('/');
+                        if (slash > 0)
+                            name = name.Substring(0, slash);
+
+                        this.text.Write(sep);
+                        this.text.Write(name);
+                        sep = "\", \"";
+                    }
+
+                    this.text.Write("\"); ");
+                    this.text.WriteLine("}");
+                    indent--;
+                    this.text.WriteLine(indent, "");
+                }
             }
 
             this.text.WriteLine(--indent, "}");
@@ -130,6 +147,10 @@ namespace Sparkle.LinkedInNET.ServiceDefinition
 
         private void WriteReturnTypeField(int indent, string returnTypeName, string fieldName, string name)
         {
+            var slash = name.IndexOf('/');
+            if (slash > 0)
+                name = name.Substring(0, slash);
+
             this.text.WriteLine(indent, "/// <summary>");
             this.text.WriteLine(indent, "/// Includes the field '" + name + "'.");
             this.text.WriteLine(indent, "/// </summary>");
@@ -472,8 +493,6 @@ namespace Sparkle.LinkedInNET.ServiceDefinition
         {
             this.text.WriteLine(indent, "using " + value + ";");
         }
-
-        
 
         public class GeneratorContext
         {
