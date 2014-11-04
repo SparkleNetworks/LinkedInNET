@@ -412,18 +412,6 @@ namespace Sparkle.LinkedInNET.ServiceDefinition
                         type = fieldReturnType.ClassName ?? Namify(fieldReturnType.Name);
                     }
                 }
-                ////if (parts.Length > 1)
-                ////{
-                ////    var subReturnType = context.Definition.FindReturnType(mainPart, apiGroupName: apiGroup.Name, subPart: subPart);
-                ////    if (subReturnType != null)
-                ////    {
-                ////        type = this.GetPropertyName(subReturnType.ClassName, subReturnType.Name);
-                ////    }
-                ////    else
-                ////    {
-                ////        type = this.GetPropertyName(null, mainPart);
-                ////    }
-                ////}
 
                 if (isCollection)
                 {
@@ -436,11 +424,16 @@ namespace Sparkle.LinkedInNET.ServiceDefinition
                     this.text.WriteLine(indent, "/// Field: '" + subItem.Name + "' (" + (subItem.IsDefault ? "default" : "on-demand") + ")");
                 }
 
+                foreach (var subItem in itemGroup.Where(f => f.Selectors != null).SelectMany(f => f.Selectors))
+                {
+                    this.text.WriteLine(indent, "/// Field: '" + subItem.Name + "'");
+                }
+
+                var xmlAttribute = item.IsAttribute ? "XmlAttribute" : "XmlElement";
+                var xmlAttributeNameProp = item.IsAttribute ? "AttributeName" : "ElementName";
+
                 this.text.WriteLine(indent, "/// </summary>");
-                if (item.Ignore)
-                    this.text.WriteLine(indent, "////[XmlElement(ElementName = \"" + item.FieldName.ApiName + "\")] // Ignore=\"true\"");
-                else
-                    this.text.WriteLine(indent, "[XmlElement(ElementName = \"" + item.FieldName.ApiName + "\")]");
+                this.text.WriteLine(indent, (item.Ignore ? "////" : "") + "[" + xmlAttribute + "(" + xmlAttributeNameProp + " = \"" + item.FieldName.ApiName + "\")]");
                 this.text.WriteLine(indent, "public " + type + " " + item.FieldName.PropertyName + " { get; set; }");
                 this.text.WriteLine();
             }
