@@ -58,7 +58,11 @@
       <Field Name="interests"                                         Title="A short-form text area describing the member's interests" Remark="" />
       <Field Name="publications"   Type="Publications"                Title="A collection of publications authored by this member" Remark="https://developer.linkedin.com/documents/profile-fields#publications" />
       <Field Name="patents"        Type="Patents"                     Title="A collection of patents or patent applications held by this member" Remark="https://developer.linkedin.com/documents/profile-fields#patents" />
-      <Field Name="languages"      Type="Languages"                   Title="A collection of languages and the level of the member's proficiency for each" Remark="https://developer.linkedin.com/documents/profile-fields#languages" />
+      <Field Name="languages"      Type="Languages"                   Title="A collection of languages and the level of the member's proficiency for each" Remark="https://developer.linkedin.com/documents/profile-fields#languages">
+        <FieldSelector Name="languages:(id)" PropertyName="LanguageId"/>
+        <FieldSelector Name="languages:(language)" PropertyName="LanguageName"/>
+        <FieldSelector Name="languages:(proficiency)" PropertyName="LanguageProficiency"/>
+      </Field>
       <Field Name="skills"         Type="Skills"                      Title="A collection of skills held by this member" Remark="https://developer.linkedin.com/documents/profile-fields#skills" />
       <Field Name="certifications" Type="Certifications"              Title="A collection of certifications earned by this member" Remark="https://developer.linkedin.com/documents/profile-fields#certifications" />
       <Field Name="educations"     Type="Educations"                  Title="A collection of education institutions a member has attended, the total indicated by a total attribute" Remark="https://developer.linkedin.com/documents/profile-fields#educations" />

@@ -2127,11 +2127,25 @@ namespace Sparkle.LinkedInNET.Profiles
         public static FieldSelector<Person> WithPatents(this FieldSelector<Person> me) { return me.Add("patents"); }
         
         /// <summary>
-        /// Includes the field 'languages'.
+        /// Includes the field 'languages:(id)'.
         /// </summary>
         /// <param name="me">The field selector.</param>
         /// <returns>The field selector.</returns>
-        public static FieldSelector<Person> WithLanguages(this FieldSelector<Person> me) { return me.Add("languages"); }
+        public static FieldSelector<Person> WithLanguageId(this FieldSelector<Person> me) { return me.Add("languages:(id)"); }
+        
+        /// <summary>
+        /// Includes the field 'languages:(language)'.
+        /// </summary>
+        /// <param name="me">The field selector.</param>
+        /// <returns>The field selector.</returns>
+        public static FieldSelector<Person> WithLanguageName(this FieldSelector<Person> me) { return me.Add("languages:(language)"); }
+        
+        /// <summary>
+        /// Includes the field 'languages:(proficiency)'.
+        /// </summary>
+        /// <param name="me">The field selector.</param>
+        /// <returns>The field selector.</returns>
+        public static FieldSelector<Person> WithLanguageProficiency(this FieldSelector<Person> me) { return me.Add("languages:(proficiency)"); }
         
         /// <summary>
         /// Includes the field 'skills'.
@@ -2313,7 +2327,7 @@ namespace Sparkle.LinkedInNET.Profiles
         /// </summary>
         /// <param name="me">The field selector.</param>
         /// <returns>The field selector.</returns>
-        public static FieldSelector<Person> WithAllFields(this FieldSelector<Person> me) { return me.AddRange("first-name", "last-name", "headline", "site-standard-profile-request/url", "id", "maiden-name", "formatted-name", "phonetic-first-name", "phonetic-last-name", "formatted-phonetic-name", "location:(name)", "location:(country:(code))", "industry", "distance", "relation-to-viewer", "current-status-timestamp", "current-share", "num-connections", "num-connections-capped", "summary", "specialties", "positions", "picture-url", "api-standard-profile-request:(url)", "api-standard-profile-request:(headers)", "public-profile-url", "email-address", "last-modified-timestamp", "proposal-comments", "associations", "interests", "publications", "patents", "languages", "skills", "certifications", "educations", "courses", "volunteer", "three-current-positions", "three-past-positions", "num-recommenders", "recommendations-received", "following", "job-bookmarks", "suggestions", "date-of-birth", "member-url-resources", "related-profile-views", "honors-awards", "phone-numbers", "bound-account-types", "im-accounts", "main-address", "twitter-accounts", "primary-twitter-account", "connections", "group-memberships", "network"); }
+        public static FieldSelector<Person> WithAllFields(this FieldSelector<Person> me) { return me.AddRange("first-name", "last-name", "headline", "site-standard-profile-request/url", "id", "maiden-name", "formatted-name", "phonetic-first-name", "phonetic-last-name", "formatted-phonetic-name", "location:(name)", "location:(country:(code))", "industry", "distance", "relation-to-viewer", "current-status-timestamp", "current-share", "num-connections", "num-connections-capped", "summary", "specialties", "positions", "picture-url", "api-standard-profile-request:(url)", "api-standard-profile-request:(headers)", "public-profile-url", "email-address", "last-modified-timestamp", "proposal-comments", "associations", "interests", "publications", "patents", "languages:(id)", "languages:(language)", "languages:(proficiency)", "skills", "certifications", "educations", "courses", "volunteer", "three-current-positions", "three-past-positions", "num-recommenders", "recommendations-received", "following", "job-bookmarks", "suggestions", "date-of-birth", "member-url-resources", "related-profile-views", "honors-awards", "phone-numbers", "bound-account-types", "im-accounts", "main-address", "twitter-accounts", "primary-twitter-account", "connections", "group-memberships", "network"); }
         
         /// <summary>
         /// Includes the field 'person'.
