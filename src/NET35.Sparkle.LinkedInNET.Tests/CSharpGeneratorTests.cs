@@ -413,6 +413,29 @@ namespace Sparkle.LinkedInNET.Tests
             Assert.IsTrue(result.Contains("public void mtd2("));
             Assert.IsTrue(result.Contains("string userId"));
         }
+        /* won't support that
+        [TestMethod]
+        public void SubtypeInMultipleFieldsAndType()
+        {
+            var xml = @"<?xml version=""1.0"" encoding=""utf-8""?>
+<Root>
+  <ApiGroup Name=""group"">
+    <ReturnType Name=""return1"">
+      <Field Name=""sub1:(name)"" />
+      <Field Name=""sub1:(return2)"" Type=""return2"" />
+    </ReturnType>
+    <ReturnType Name=""return2"">
+      <Field Name=""sub2"" />
+    </ReturnType>
+  </ApiGroup>
+</Root>";
+            var result = GetGeneratedCodeFromXmlDefinition(xml);
+            result = result.Replace(Environment.NewLine, string.Empty);
+
+            Assert.IsFalse(string.IsNullOrEmpty(result));
+
+        }
+        */
 
         [TestClass]
         public class GetUrlPathParametersMethod

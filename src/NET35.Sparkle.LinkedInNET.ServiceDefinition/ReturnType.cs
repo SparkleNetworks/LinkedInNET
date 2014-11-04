@@ -31,6 +31,9 @@ namespace Sparkle.LinkedInNET.ServiceDefinition
         [XmlElement(ElementName = "IsCollectionOf")]
         public string IsCollectionOf { get; set; }
 
+        [XmlAttribute]
+        public bool AutoGenerateFieldSelectors { get; set; }
+
         public override string ToString()
         {
             return string.Format("ReturnType(N='{0}' CN='{1}' F={2})", Name, ClassName, Fields != null ? Fields.Count : 0);

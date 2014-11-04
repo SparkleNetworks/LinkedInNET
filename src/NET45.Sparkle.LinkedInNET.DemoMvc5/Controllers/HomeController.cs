@@ -185,10 +185,22 @@ namespace Sparkle.LinkedInNET.DemoMvc5.Controllers
                     .WithPhoneNumbers()
                     .WithImAccounts()
                     .WithPrimaryTwitterAccount()
-                    .WithTwitterAccounts();
+                    .WithTwitterAccounts()
+                    .WithAllFields()
+                    ;
                 profile = this.api.Profiles.GetProfileById(user, id, acceptLanguages, fields);
 
                 this.ViewBag.Profile = profile;
+            }
+            catch (LinkedInApiException ex)
+            {
+                this.ViewBag.ProfileError = ex.ToString();
+                this.ViewBag.RawResponse = ex.Data["ResponseText"];
+            }
+            catch (LinkedInNetException ex)
+            {
+                this.ViewBag.ProfileError = ex.ToString();
+                this.ViewBag.RawResponse = ex.Data["ResponseText"];
             }
             catch (Exception ex)
             {
