@@ -61,10 +61,13 @@ namespace Sparkle.LinkedInNET.DemoMvc5.Controllers
                     ////var profile = this.api.Profiles.GetMyProfile(user);
                     var acceptLanguages = new string[] { culture ?? "en-US", "fr-FR", };
                     var fields = FieldSelector.For<Person>()
-                        .WithFirstName().WithFormattedName().WithLastName()
-                        .WithHeadline()
                         .WithId()
+                        .WithFirstName()
+                        .WithLastName()
+                        .WithFormattedName()
                         .WithEmailAddress()
+
+                        .WithHeadline()
 
                         .WithLocationName()
                         .WithLocationCountryCode()

@@ -86,10 +86,10 @@
       <!-- Contact info fields -->
       <Field Name="phone-numbers"            Type="PhoneNumbers"         Title="a collection of phone numbers" Remark="For each phone-number returned, you get a phone-type and phone-number child element. Possible values for phone-type are: home, work, and mobile." />
       <Field Name="bound-account-types"                                  Title="a collection of accounts bound by the member Remark=For each bound account returned, you get the following child elements: account-type, binding-status, is-primary, provider-account-id, provider-account-name child element" />
-      <Field Name="im-accounts"                                          Title="a collection of instant messenger accounts" Remark="For each im-account returned, you get a im-account-type and im-account-name child element. Possible values for im-account-type are: aim, gtalk, icq, msn, skype, and yahoo." />
+      <Field Name="im-accounts"                Type="ImAccounts"         Title="a collection of instant messenger accounts" Remark="For each im-account returned, you get a im-account-type and im-account-name child element. Possible values for im-account-type are: aim, gtalk, icq, msn, skype, and yahoo." />
       <Field Name="main-address"                                         Title="address" Remark="Could be home, work, etc. We do not identify which one." />
-      <Field Name="twitter-accounts"                                     Title="a collection of twitter accounts" Remark="For each twitter-account returned, you get a provider-account-id and provider-account-name child element." />
-      <Field Name="primary-twitter-account"                              Title="the primary twitter account for the member" Remark="You get a provider-account-id and provider-account-name child element." />
+      <Field Name="twitter-accounts"           Type="TwitterAccounts"    Title="a collection of twitter accounts" Remark="For each twitter-account returned, you get a provider-account-id and provider-account-name child element." />
+      <Field Name="primary-twitter-account"    Type="TwitterAccount"     Title="the primary twitter account for the member" Remark="You get a provider-account-id and provider-account-name child element." />
 
       <!-- Connection fields -->
       <Field Name="connections" Title="an empty collection, indicating the # of connections the member has with a total attribute" Remark="LinkedIn will not report whether a user has more than 500 connections" />
@@ -431,6 +431,23 @@
       <Field Name="id" />
       <Field Name="name" />
       <Field Name="issuer" />
+    </ReturnType>
+
+    <ReturnType Name="twitter-accounts" ClassName="TwitterAccounts">
+      <Field Name="twitter-account" IsCollection="1" Type="TwitterAccount" />
+    </ReturnType>
+    <ReturnType Name="twitter-account" ClassName="TwitterAccount">
+      <Field Name="provider-account-id" Type="long" />
+      <Field Name="provider-account-name"/>
+    </ReturnType>
+
+    <ReturnType Name="im-accounts" ClassName="ImAccounts">
+      <Field Name="im-account" IsCollection="1" Type="ImAccount" />
+    </ReturnType>
+    <ReturnType Name="im-account" ClassName="ImAccount">
+      <Field Name="im-account-type" />
+      <Field Name="im-account-name" />
+      <Field Name="id" Type="int" />
     </ReturnType>
   </ApiGroup>
   
