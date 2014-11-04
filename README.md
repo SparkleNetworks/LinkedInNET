@@ -6,6 +6,8 @@ Sparkle.LinkedInNET will help you query the LinkedIn API :)
 
 By using the LinkedIn APIs you agree to the [LinkedIn APIs Terms of Use](https://developer.linkedin.com/documents/linkedin-apis-terms-use). 
 
+This project is released under the LGPL v3 license. 
+
 Motivation
 ------------
 
@@ -13,6 +15,16 @@ Bring the .NET world a nice LinkedIn client library.
 
 Usage
 ------------
+
+### Installation
+
+[Via NuGet](https://www.nuget.org/packages/Sparkle.LinkedInNET/)
+
+````powershell
+PM> Install-Package Sparkle.LinkedInNET
+````
+
+Or build the sources... You have to create your own .snk file.
 
 ### Create API client with configuration
 
