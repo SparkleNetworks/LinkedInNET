@@ -1057,7 +1057,7 @@ namespace Sparkle.LinkedInNET.Profiles
         /// Field: 'id' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "id")]
-        public string Id { get; set; }
+        public long Id { get; set; }
 
         /// <summary>
         /// Field: 'school-name' (on-demand)

@@ -298,7 +298,7 @@
       <Field Name="education" IsCollection="1" Type="Education" />
     </ReturnType>
     <ReturnType Name="education" ClassName="Education">
-      <Field Name="id" Title="a unique identifier for this member's education entry" Remark="" />
+      <Field Name="id" Type="long" Title="a unique identifier for this member's education entry" Remark="" />
       <Field Name="school-name" Title="the name of the school, as indicated by the member" Remark="" />
       <Field Name="field-of-study" Title="the field of study at the school, as indicated by the member" Remark="" />
       <Field Name="start-date" Type="DateParts" Title="a structured object a year field indicating when the education began" Remark="" />
