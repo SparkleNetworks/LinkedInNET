@@ -259,7 +259,7 @@
       <Field Name="language" IsCollection="1" Type="Language" />
     </ReturnType>
     <ReturnType Name="language" ClassName="Language">
-      <Field Name="id" Title="A unique identifier for a single language in the list of languages" Remark="" />
+      <Field Name="id" Type="int" Title="A unique identifier for a single language in the list of languages" Remark="" />
       <Field Name="language" PropertyName="LanguageInfo" Type="LanguageInfo" Title="A structured object specifying the language name" Remark="May be localized in the future" />
       <Field Name="proficiency" Type="LanguageProficiency" Title="A structured object indicating the user's fluency. Returns one of the following five values: elementary, limited-working, professional-working, full-professional, native-or-bilingual" Remark="This field is for computer programs." />
     </ReturnType>

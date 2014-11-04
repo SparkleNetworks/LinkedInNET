@@ -800,7 +800,7 @@ namespace Sparkle.LinkedInNET.Profiles
         /// Field: 'id' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "id")]
-        public string Id { get; set; }
+        public int Id { get; set; }
 
         /// <summary>
         /// Field: 'language' (on-demand)
