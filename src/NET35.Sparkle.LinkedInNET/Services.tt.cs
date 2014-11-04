@@ -1066,10 +1066,28 @@ namespace Sparkle.LinkedInNET.Profiles
         public string SchoolName { get; set; }
 
         /// <summary>
+        /// Field: 'notes' (on-demand)
+        /// </summary>
+        [XmlElement(ElementName = "notes")]
+        public string Notes { get; set; }
+
+        /// <summary>
+        /// Field: 'activities' (on-demand)
+        /// </summary>
+        [XmlElement(ElementName = "activities")]
+        public string Activities { get; set; }
+
+        /// <summary>
         /// Field: 'field-of-study' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "field-of-study")]
         public string FieldOfStudy { get; set; }
+
+        /// <summary>
+        /// Field: 'degree' (on-demand)
+        /// </summary>
+        [XmlElement(ElementName = "degree")]
+        public string Degree { get; set; }
 
         /// <summary>
         /// Field: 'start-date' (on-demand)
@@ -1082,24 +1100,6 @@ namespace Sparkle.LinkedInNET.Profiles
         /// </summary>
         [XmlElement(ElementName = "end-date")]
         public DateParts EndDate { get; set; }
-
-        /// <summary>
-        /// Field: 'degree' (on-demand)
-        /// </summary>
-        [XmlElement(ElementName = "degree")]
-        public string Degree { get; set; }
-
-        /// <summary>
-        /// Field: 'activities' (on-demand)
-        /// </summary>
-        [XmlElement(ElementName = "activities")]
-        public string Activities { get; set; }
-
-        /// <summary>
-        /// Field: 'notes' (on-demand)
-        /// </summary>
-        [XmlElement(ElementName = "notes")]
-        public string Notes { get; set; }
 
     }
 }
