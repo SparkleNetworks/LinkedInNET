@@ -67,7 +67,9 @@
         <FieldSelector Name="languages:(proficiency)" PropertyName="LanguageProficiency"/>
       </Field>
       <Field Name="skills"         Type="Skills"                      Title="A collection of skills held by this member" Remark="https://developer.linkedin.com/documents/profile-fields#skills" />
-      <Field Name="certifications" Type="Certifications"              Title="A collection of certifications earned by this member" Remark="https://developer.linkedin.com/documents/profile-fields#certifications" />
+      <Field Name="certifications" Type="Certifications"              Title="A collection of certifications earned by this member" Remark="https://developer.linkedin.com/documents/profile-fields#certifications">
+        <FieldSelector Name="certifications:(id,name,authority:(name),number,start-date,end-date)" PropertyName="Certifications"/>
+      </Field>
       <Field Name="educations"     Type="Educations"                  Title="A collection of education institutions a member has attended, the total indicated by a total attribute" Remark="https://developer.linkedin.com/documents/profile-fields#educations" />
       <Field Name="courses"        Type="Courses"                     Title="A collection of courses a member has taken, the total indicated by a total attribute" Remark="https://developer.linkedin.com/documents/profile-fields#courses" />
       <Field Name="volunteer"      Type="Volunteer"                   Title="A collection of volunteering experiences a member has participated in, including organizations and causes, the totals indicated by a total attribute" Remark="https://developer.linkedin.com/documents/profile-fields#volunteer">
@@ -292,8 +294,8 @@
       <Field Name="name" Title="A string indicating the name of this certification" Remark="" />
       <Field Name="authority:(name)" Title="A structured object containing the name of the certification's issuing body" Remark="" />
       <Field Name="number" Title="A string describing the license number for this certification" Remark="" />
-      <Field Name="start-date" Title="A structured object with day, month, and year fields indicating the start date for the certification." Remark="Each individual field is optional, but if month is populated, year must be populated, if day is populated, month must be populated." />
-      <Field Name="end-date" Title="A structured object with day, month, and year fields indicating the end date for the certification." Remark="Each individual field is optional, but if month is populated, year must be populated, if day is populated, month must be populated." />
+      <Field Name="start-date" Type="DateParts" Title="A structured object with day, month, and year fields indicating the start date for the certification." Remark="Each individual field is optional, but if month is populated, year must be populated, if day is populated, month must be populated." />
+      <Field Name="end-date" Type="DateParts" Title="A structured object with day, month, and year fields indicating the end date for the certification." Remark="Each individual field is optional, but if month is populated, year must be populated, if day is populated, month must be populated." />
     </ReturnType>
 
     <ReturnType Name="educations" ClassName="Educations">
