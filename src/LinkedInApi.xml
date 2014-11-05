@@ -60,7 +60,9 @@
       <Field Name="associations"                                      Title="A short-form text area enumerating the Associations a member has" Remark="" />
       <Field Name="interests"                                         Title="A short-form text area describing the member's interests" Remark="" />
       <Field Name="publications"   Type="Publications"                Title="A collection of publications authored by this member" Remark="https://developer.linkedin.com/documents/profile-fields#publications" />
-      <Field Name="patents"        Type="Patents"                     Title="A collection of patents or patent applications held by this member" Remark="https://developer.linkedin.com/documents/profile-fields#patents" />
+      <Field Name="patents"        Type="Patents"                     Title="A collection of patents or patent applications held by this member" Remark="https://developer.linkedin.com/documents/profile-fields#patents">
+        <FieldSelector Name="patents:(id,title,summary,number,status:(id,name),office:(name),inventors:(id,name,person),date,url)" PropertyName="Patents"/>
+      </Field>
       <Field Name="languages"      Type="Languages"                   Title="A collection of languages and the level of the member's proficiency for each" Remark="https://developer.linkedin.com/documents/profile-fields#languages">
         <FieldSelector Name="languages:(id)" PropertyName="LanguageId"/>
         <FieldSelector Name="languages:(language)" PropertyName="LanguageName"/>
@@ -371,18 +373,37 @@
       <Field Name="patent" IsCollection="1" Type="Patent" />
     </ReturnType>
     <ReturnType Name="patent" ClassName="Patent">
-      <Field Name="id" Title="A unique identifier for this member's patent entry" Remark="" />
+      <Field Name="id" Type="int" Title="A unique identifier for this member's patent entry" Remark="" />
       <Field Name="title" Title="The patent title" Remark="" />
       <Field Name="date" Type="DateParts" Title="A structured object with day, month, and year fields indicating when the application was filed or when the patent was granted." Remark="Each individual field is optional, but if month is populated, year must be populated, if day is populated, month must be populated." />
       <Field Name="url" Title="The URL to the patent" Remark="" />
       <Field Name="summary" Title="A short summary of the patent" Remark="" />
       <Field Name="number" Title="A string with the patent or application number" Remark="Example: 7,720,722" />
-      <Field Name="status:(id)" Title="An ID indicating whether this is a granted patent or patent application" Remark="Values are 0 for patent application; 1 for granted patent" />
-      <Field Name="status:(name)" Title="A string indicating whether this is a granted patent or patent application" Remark="Values are Application and Patent" />
+      <Field Name="status" Type="Status" />
+      <!--<Field Name="status:(id)" Type="int" Title="An ID indicating whether this is a granted patent or patent application" Remark="Values are 0 for patent application; 1 for granted patent" />
+      <Field Name="status:(name)" Title="A string indicating whether this is a granted patent or patent application" Remark="Values are Application and Patent" />-->
       <Field Name="office:(name)" Title="A structured object describing the patent issuing body." Remark="Example: for the USPTO, the value is us" />
-      <Field Name="inventors:(id)" Title="A unique identifier for this inventor in the list of inventors" Remark="" />
+      <Field Name="inventors" Type="Inventors" />
+      <!--<Field Name="inventors:(id)" Title="A unique identifier for this inventor in the list of inventors" Remark="" />
       <Field Name="inventors:(name)" Title="A string that indicates the name of this inventor as it should be displayed" Remark="This is the name as it appears on the patent (which can differ from a person's name on LinkedIn)." />
-      <Field Name="inventors:(person)" Title="An optional field that shows the LinkedIn member object for this particular member" Remark="Default values are id, first-name, and last-name" />
+      <Field Name="inventors:(person)" Title="An optional field that shows the LinkedIn member object for this particular member" Remark="Default values are id, first-name, and last-name" />-->
+    </ReturnType>
+    <ReturnType Name="status" ClassName="Status">
+      <Field Name="id" Type="int" Title="An ID indicating whether this is a granted patent or patent application" Remark="Values are 0 for patent application; 1 for granted patent" />
+      <Field Name="name" Title="A string indicating whether this is a granted patent or patent application" Remark="Values are Application and Patent" />
+    </ReturnType>
+    <ReturnType Name="inventors" ClassName="Inventors">
+      <Field Name="inventor" IsCollection="1" Type="Inventor" />
+    </ReturnType>
+    <ReturnType Name="inventor" ClassName="Inventor">
+      <Field Name="id" Type="int" Title="A unique identifier for this inventor in the list of inventors" Remark="" />
+      <Field Name="name" Title="A string that indicates the name of this inventor as it should be displayed" Remark="This is the name as it appears on the patent (which can differ from a person's name on LinkedIn)." />
+      <Field Name="person" Type="InventorPerson" Title="An optional field that shows the LinkedIn member object for this particular member" Remark="Default values are id, first-name, and last-name" />
+    </ReturnType>
+    <ReturnType Name="person" ClassName="InventorPerson">
+      <Field Name="id" />
+      <Field Name="first-name" />
+      <Field Name="last-name" />
     </ReturnType>
 
     <ReturnType Name="member-url-resources" ClassName="UrlResources">

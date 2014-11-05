@@ -90,6 +90,7 @@ namespace Sparkle.LinkedInNET.DemoMvc5.Controllers
                         .WithCertifications()
                         .WithEducations()
                         .WithFullVolunteer()
+                        .WithPatents()
                         ////.WithRecommendationsReceived() // may not use that
                         .WithDateOfBirth()
                         .WithPhoneNumbers()
