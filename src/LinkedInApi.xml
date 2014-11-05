@@ -290,7 +290,7 @@
       <Field Name="certification" IsCollection="1" Type="Certification" />
     </ReturnType>
     <ReturnType Name="certification" ClassName="Certification">
-      <Field Name="id" Title="A unique identifier for this certification" Remark="" />
+      <Field Name="id" Type="int" Title="A unique identifier for this certification" Remark="" />
       <Field Name="name" Title="A string indicating the name of this certification" Remark="" />
       <Field Name="authority:(name)" Title="A structured object containing the name of the certification's issuing body" Remark="" />
       <Field Name="number" Title="A string describing the license number for this certification" Remark="" />
