@@ -324,7 +324,7 @@
       <Field Name="volunteer-experience" IsCollection="1" Type="VolunteerExperience" />
     </ReturnType>
     <ReturnType Name="volunteer-experience" ClassName="VolunteerExperience">
-      <Field Name="id" Title="a unique identifier for this member's volunteer entries" Remark="" />
+      <Field Name="id" Type="int" Title="a unique identifier for this member's volunteer entries" Remark="" />
       <Field Name="role" Title="the role the member has performed as a volunteer" Remark="" />
       <Field Name="organization:(name)" Title="the name of an organization the member has volunteered with" Remark="" />
       <Field Name="cause:(name)" Title="a string describing causes the member has listed" Remark="" />
