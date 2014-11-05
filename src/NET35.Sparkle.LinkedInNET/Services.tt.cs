@@ -247,6 +247,7 @@ namespace Sparkle.LinkedInNET.Profiles
 
         /// <summary>
         /// Field: 'volunteer' (on-demand)
+        /// Field: 'volunteer:(volunteer-experiences:(id,role,organization:(name),cause:(name)))'
         /// </summary>
         [XmlElement(ElementName = "volunteer")]
         public Volunteer Volunteer { get; set; }
@@ -2572,11 +2573,11 @@ namespace Sparkle.LinkedInNET.Profiles
         public static FieldSelector<Person> WithCourses(this FieldSelector<Person> me) { return me.Add("courses"); }
         
         /// <summary>
-        /// Includes the field 'volunteer'.
+        /// Includes the field 'volunteer:(volunteer-experiences:(id,role,organization:(name),cause:(name)))'.
         /// </summary>
         /// <param name="me">The field selector.</param>
         /// <returns>The field selector.</returns>
-        public static FieldSelector<Person> WithVolunteer(this FieldSelector<Person> me) { return me.Add("volunteer"); }
+        public static FieldSelector<Person> WithFullVolunteer(this FieldSelector<Person> me) { return me.Add("volunteer:(volunteer-experiences:(id,role,organization:(name),cause:(name)))"); }
         
         /// <summary>
         /// Includes the field 'three-current-positions'.
@@ -2723,7 +2724,7 @@ namespace Sparkle.LinkedInNET.Profiles
         /// </summary>
         /// <param name="me">The field selector.</param>
         /// <returns>The field selector.</returns>
-        public static FieldSelector<Person> WithAllFields(this FieldSelector<Person> me) { return me.AddRange("first-name", "last-name", "headline", "site-standard-profile-request", "id", "maiden-name", "formatted-name", "phonetic-first-name", "phonetic-last-name", "formatted-phonetic-name", "location:(name)", "location:(country:(code))", "industry", "distance", "relation-to-viewer", "current-status-timestamp", "current-share", "num-connections", "num-connections-capped", "summary", "specialties", "positions", "picture-url", "site-standard-profile-request", "api-standard-profile-request:(url)", "api-standard-profile-request:(headers)", "public-profile-url", "email-address", "last-modified-timestamp", "proposal-comments", "associations", "interests", "publications", "patents", "languages:(id)", "languages:(language)", "languages:(proficiency)", "skills", "certifications", "educations", "courses", "volunteer", "three-current-positions", "three-past-positions", "num-recommenders", "recommendations-received", "following", "job-bookmarks", "suggestions", "date-of-birth", "member-url-resources", "related-profile-views", "honors-awards", "phone-numbers", "bound-account-types", "im-accounts", "main-address", "twitter-accounts", "primary-twitter-account", "connections", "group-memberships", "network"); }
+        public static FieldSelector<Person> WithAllFields(this FieldSelector<Person> me) { return me.AddRange("first-name", "last-name", "headline", "site-standard-profile-request", "id", "maiden-name", "formatted-name", "phonetic-first-name", "phonetic-last-name", "formatted-phonetic-name", "location:(name)", "location:(country:(code))", "industry", "distance", "relation-to-viewer", "current-status-timestamp", "current-share", "num-connections", "num-connections-capped", "summary", "specialties", "positions", "picture-url", "site-standard-profile-request", "api-standard-profile-request:(url)", "api-standard-profile-request:(headers)", "public-profile-url", "email-address", "last-modified-timestamp", "proposal-comments", "associations", "interests", "publications", "patents", "languages:(id)", "languages:(language)", "languages:(proficiency)", "skills", "certifications", "educations", "courses", "volunteer:(volunteer-experiences:(id,role,organization:(name),cause:(name)))", "three-current-positions", "three-past-positions", "num-recommenders", "recommendations-received", "following", "job-bookmarks", "suggestions", "date-of-birth", "member-url-resources", "related-profile-views", "honors-awards", "phone-numbers", "bound-account-types", "im-accounts", "main-address", "twitter-accounts", "primary-twitter-account", "connections", "group-memberships", "network"); }
         
     }
 }
