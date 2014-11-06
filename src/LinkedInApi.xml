@@ -477,20 +477,85 @@
   </ApiGroup>
   
   <ApiGroup Name="Companies">
-    <ApiMethod MethodName="GetList" HttpMethod="GET" Title="Hacker Summary" Path="/v1/companies" ReturnType="Company" RequiresUserAuthentication="1" />
-    <ApiMethod MethodName="GetById"   HttpMethod="GET" Title="retrieve a company by using the company ID" Path="/v1/companies/{CompanyId}" ReturnType="Company" RequiresUserAuthentication="1" />
-    <ApiMethod MethodName="GetByName"   HttpMethod="GET" Title="Retrieve a company by universal-name." Path="/v1/companies/universal-name={UniversalName}" ReturnType="Company" RequiresUserAuthentication="1" />
-    <ApiMethod MethodName="GetListByEmailDomain"   HttpMethod="GET" Title="This returns an array of companies that match to the specified email domain." Path="/v1/companies/universal-name={UniversalName}" ReturnType="Company" RequiresUserAuthentication="1" />
+    <ApiMethod MethodName="GetList" HttpMethod="GET" Title="Hacker Summary" Path="/v1/companies{FieldSelector}" ReturnType="Company" RequiresUserAuthentication="1" />
+    <ApiMethod MethodName="GetById"   HttpMethod="GET" Title="retrieve a company by using the company ID" Path="/v1/companies/{CompanyId}{FieldSelector}" ReturnType="Company" RequiresUserAuthentication="1" />
+    <ApiMethod MethodName="GetByName"   HttpMethod="GET" Title="Retrieve a company by universal-name." Path="/v1/companies/universal-name={UniversalName}{FieldSelector}" ReturnType="Company" RequiresUserAuthentication="1" />
+    <ApiMethod MethodName="GetListByEmailDomain"   HttpMethod="GET" Title="This returns an array of companies that match to the specified email domain." Path="/v1/companies/universal-name={UniversalName}{FieldSelector}" ReturnType="Company" RequiresUserAuthentication="1" />
 
-    <ReturnType Name="company" ClassName="Company">
-      <Field Name="id" IsDefault="1" />
-      <Field Name="name" IsDefault="1" />
+    <ReturnType Name="company" ClassName="Company" AutoGenerateFieldSelectors="1">
+      <Field Name="id" Type="long" Title="Default. The unique internal numeric company identifier." IsDefault="1" />
+      <Field Name="name" Title="Default. The human readable name of the company." IsDefault="1" />
+      <Field Name="universal-name" Title="The unique string identifier for a company." />
+      <Field Name="email-domains" Type="CompanyEmailDomains" Title="Company email domains." />
+      <Field Name="company-type" Type="CompanyKeyValue" Title="Type of company. Valid values are:     C (&quot;Public Company&quot;)    D (&quot;Educational&quot;)    E (&quot;Self Employed&quot;)    G (&quot;Government Agency&quot;)    N (&quot;Non Profit&quot;)    O (&quot;Self Owned&quot;)    P (&quot;Privately Held&quot;)    S (&quot;Partnership&quot;) Use this field instead of the deprecated type field.">
+        <FieldSelector Name="company-type:(code,name)" PropertyName="Type" />
+      </Field>
+      <Field Name="ticker" Title="Company ticker identification for the stock exchange. Available only for public companies." />
+      <Field Name="website-url" Title="Company web site address." />
+      <Field Name="industries" Type="CompanyIndustries" Title="A collection containing a code and name pertaining to the company's industry. See Industry Codes for the list of industries available." />
+      <Field Name="status" Type="CompanyKeyValue" Title="Company status. Valid values are:    OPR (&quot;Operating&quot;)    OPS (&quot;Operating Subsidiary&quot;)    RRG (&quot;Reorganizing&quot;)    OOB (&quot;Out of Business&quot;)    ACQ (&quot;Acquired&quot;)" />
+      <Field Name="logo-url" Title="URL for the company logo in JPG format." />
+      <Field Name="square-logo-url" Title="URL for the company logo in a square format." />
+      <Field Name="blog-rss-url" Title="URL for the company blog." />
+      <Field Name="twitter-id" Title="Handle for the company Twitter feed." />
+      <Field Name="employee-count-range" Type="CompanyKeyValue" Title="Number range of employees at the company. Use this field instead of the deprecated size field. Valid values are:    A:1    B: 2-10    C: 11-50    D: 51-200    E: 201-500    F: 501-1000    G: 1001-5000    H: 5001-10,000    I: 10,000+" />
+      <Field Name="specialties" Title="Company specialties. Retrieves information from string input." />
+      <Field Name="locations" Type="CompanyLocations" Title="Company location.">
+        <FieldSelector Name="locations:(description,is-headquarters,is-active,address:(street1,street2,city,state,postal-code,country-code,region-code),contact-info:(phone1,phone2,fax))" PropertyName="Locations" />
+      </Field>
+      <Field Name="description" Title="Company description. Limit of 500 characters." />
+      <Field Name="stock-exchange" Title="Stock exchange the company is in. Available only for public companies. Valid values are:    ASE (1, &quot;American Stock Exchange&quot;)    NYS (2, &quot;New York Stock Exchange&quot;)    NMS (3, &quot;NASDAQ&quot;)    LSE (4, &quot;London Stock Exchange&quot;)    FRA (5, &quot;Frankfurt Stock Exchange&quot;)    GER (6, &quot;XETRA Trading Platform&quot;)    PAR (7, &quot;Euronext Paris&quot;)" />
+      <Field Name="founded-year" Title="Year listed for the company's founding." />
+      <Field Name="end-year" Title="Year listed for when the company closed or was acquired by another." />
+      <Field Name="num-followers" Type="int" Title="The number of followers for the company's profile." />
+    </ReturnType>
+
+    <ReturnType Name="locations" ClassName="CompanyLocations">
+      <Field Name="location" Type="CompanyLocation" IsCollection="1" />
+    </ReturnType>
+    <ReturnType Name="location" ClassName="CompanyLocation">
+      <Field Name="description" />
+      <Field Name="is-headquarters" Type="bool" />
+      <Field Name="is-active" Type="bool" />
+      <Field Name="address" Type="CompanyAddress" Title="Address of location." />
+      <Field Name="contact-info" Type="CompanyContact" Title="Company contact information for the location." />
+    </ReturnType>
+    <ReturnType Name="address" ClassName="CompanyAddress">
+      <Field Name="street1" Title="First line of street address of location." />
+      <Field Name="street2" Title="Second line of street address of location." />
+      <Field Name="city" Title="City for location." />
+      <Field Name="state" Title="State for location." />
+      <Field Name="postal-code" Title="Postal code for location. Matches companies within a specific postal code. Must be combined with the country-code parameter. Not supported for all countries." />
+      <Field Name="country-code" Title="Country code for location. Matches companies with a location in a specific country." />
+      <Field Name="region-code" Title="Region code for location." />
+    </ReturnType>
+    <ReturnType Name="contact-info" ClassName="CompanyContact">
+      <Field Name="phone1" Title="Company phone number for the location." />
+      <Field Name="phone2" Title="Second company phone number for the location." />
+      <Field Name="fax" Title="Company fax number for the location." />
+    </ReturnType>
+
+    <ReturnType Name="email-domains" ClassName="CompanyEmailDomains">
+      <Field Name="email-domain" IsCollection="1" />
+    </ReturnType>
+
+    <ReturnType Name="company-key-value" ClassName="CompanyKeyValue">
+      <Field Name="code" />
+      <Field Name="name" />
+    </ReturnType>
+
+    <ReturnType Name="industries" ClassName="CompanyIndustries">
+      <Field Name="industry" IsCollection="1" Type="CompanyIndustry" />
+    </ReturnType>
+    <ReturnType Name="industry" ClassName="CompanyIndustry">
+      <Field Name="code" Type="int" />
+      <Field Name="name" />
     </ReturnType>
   </ApiGroup>
-  
+
   <ApiGroup Name="Groups">
   </ApiGroup>
-  
+
   <ApiGroup Name="Jobs">
   </ApiGroup>
 </Root>

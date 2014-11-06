@@ -12,6 +12,7 @@ namespace Sparkle.LinkedInNET.DemoMvc5.Controllers
     using Sparkle.LinkedInNET.DemoMvc5.Domain;
     using Sparkle.LinkedInNET.OAuth2;
     using Sparkle.LinkedInNET.Profiles;
+    using Sparkle.LinkedInNET.Companies;
     ////using Sparkle.LinkedInNET.ServiceDefinition;
 
     public class HomeController : Controller
@@ -66,7 +67,6 @@ namespace Sparkle.LinkedInNET.DemoMvc5.Controllers
                         .WithLastName()
                         .WithFormattedName()
                         .WithEmailAddress()
-
                         .WithHeadline()
 
                         .WithLocationName()
@@ -99,6 +99,40 @@ namespace Sparkle.LinkedInNET.DemoMvc5.Controllers
                         .WithTwitterAccounts()
                         .WithSkills();
                     var profile = this.api.Profiles.GetMyProfile(user, acceptLanguages, fields);
+
+                    if (profile.Positions != null && profile.Positions.Position.Count > 0)
+                    {
+                        var companyFields = FieldSelector.For<Company>()
+                            .WithId()
+                            .WithName()
+                            .WithUniversalName()
+                            .WithEmailDomains()
+                            .WithType()
+                            .WithTicker()
+                            .WithWebsiteUrl()
+                            .WithIndustries()
+                            .WithStatus()
+                            .WithLogoUrl()
+                            .WithSquareLogoUrl()
+                            .WithBlogRssUrl()
+                            .WithTwitterId()
+                            .WithEmployeeCountRange()
+                            .WithSpecialties()
+                            .WithLocations()
+                            .WithDescription()
+                            .WithStockExchange()
+                            .WithFoundedYear()
+                            .WithEndYear()
+                            .WithNumFollowers();
+                        var companies = new List<Company>();
+                        foreach (var position in profile.Positions.Position)
+                        {
+                            if (position.Company != null)
+                                companies.Add(this.api.Companies.GetById(user, position.Company.Id.ToString(), companyFields));
+                        }
+        
+                        this.ViewBag.Companies = companies;
+                    }
 
                     this.ViewBag.Profile = profile;
                 }

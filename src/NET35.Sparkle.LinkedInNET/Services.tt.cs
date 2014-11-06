@@ -2784,7 +2784,7 @@ namespace Sparkle.LinkedInNET.Profiles
     }
 }
 
-// WriteReturnTypes(ApiGroup(N='Companies', M=4, RT=1), ReturnType(N='company' CN='Company' F=2))
+// WriteReturnTypes(ApiGroup(N='Companies', M=4, RT=9), ReturnType(N='company' CN='Company' F=21))
 namespace Sparkle.LinkedInNET.Companies
 {
     using System;
@@ -2801,7 +2801,7 @@ namespace Sparkle.LinkedInNET.Companies
         /// Field: 'id' (default)
         /// </summary>
         [XmlElement(ElementName = "id")]
-        public string Id { get; set; }
+        public long Id { get; set; }
 
         /// <summary>
         /// Field: 'name' (default)
@@ -2809,10 +2809,126 @@ namespace Sparkle.LinkedInNET.Companies
         [XmlElement(ElementName = "name")]
         public string Name { get; set; }
 
+        /// <summary>
+        /// Field: 'universal-name' (on-demand)
+        /// </summary>
+        [XmlElement(ElementName = "universal-name")]
+        public string UniversalName { get; set; }
+
+        /// <summary>
+        /// Field: 'email-domains' (on-demand)
+        /// </summary>
+        [XmlElement(ElementName = "email-domains")]
+        public CompanyEmailDomains EmailDomains { get; set; }
+
+        /// <summary>
+        /// Field: 'company-type' (on-demand)
+        /// Field: 'company-type:(code,name)'
+        /// </summary>
+        [XmlElement(ElementName = "company-type")]
+        public CompanyKeyValue CompanyType { get; set; }
+
+        /// <summary>
+        /// Field: 'ticker' (on-demand)
+        /// </summary>
+        [XmlElement(ElementName = "ticker")]
+        public string Ticker { get; set; }
+
+        /// <summary>
+        /// Field: 'website-url' (on-demand)
+        /// </summary>
+        [XmlElement(ElementName = "website-url")]
+        public string WebsiteUrl { get; set; }
+
+        /// <summary>
+        /// Field: 'industries' (on-demand)
+        /// </summary>
+        [XmlElement(ElementName = "industries")]
+        public CompanyIndustries Industries { get; set; }
+
+        /// <summary>
+        /// Field: 'status' (on-demand)
+        /// </summary>
+        [XmlElement(ElementName = "status")]
+        public CompanyKeyValue Status { get; set; }
+
+        /// <summary>
+        /// Field: 'logo-url' (on-demand)
+        /// </summary>
+        [XmlElement(ElementName = "logo-url")]
+        public string LogoUrl { get; set; }
+
+        /// <summary>
+        /// Field: 'square-logo-url' (on-demand)
+        /// </summary>
+        [XmlElement(ElementName = "square-logo-url")]
+        public string SquareLogoUrl { get; set; }
+
+        /// <summary>
+        /// Field: 'blog-rss-url' (on-demand)
+        /// </summary>
+        [XmlElement(ElementName = "blog-rss-url")]
+        public string BlogRssUrl { get; set; }
+
+        /// <summary>
+        /// Field: 'twitter-id' (on-demand)
+        /// </summary>
+        [XmlElement(ElementName = "twitter-id")]
+        public string TwitterId { get; set; }
+
+        /// <summary>
+        /// Field: 'employee-count-range' (on-demand)
+        /// </summary>
+        [XmlElement(ElementName = "employee-count-range")]
+        public CompanyKeyValue EmployeeCountRange { get; set; }
+
+        /// <summary>
+        /// Field: 'specialties' (on-demand)
+        /// </summary>
+        [XmlElement(ElementName = "specialties")]
+        public string Specialties { get; set; }
+
+        /// <summary>
+        /// Field: 'locations' (on-demand)
+        /// Field: 'locations:(description,is-headquarters,is-active,address:(street1,street2,city,state,postal-code,country-code,region-code),contact-info:(phone1,phone2,fax))'
+        /// </summary>
+        [XmlElement(ElementName = "locations")]
+        public CompanyLocations Locations { get; set; }
+
+        /// <summary>
+        /// Field: 'description' (on-demand)
+        /// </summary>
+        [XmlElement(ElementName = "description")]
+        public string Description { get; set; }
+
+        /// <summary>
+        /// Field: 'stock-exchange' (on-demand)
+        /// </summary>
+        [XmlElement(ElementName = "stock-exchange")]
+        public string StockExchange { get; set; }
+
+        /// <summary>
+        /// Field: 'founded-year' (on-demand)
+        /// </summary>
+        [XmlElement(ElementName = "founded-year")]
+        public string FoundedYear { get; set; }
+
+        /// <summary>
+        /// Field: 'end-year' (on-demand)
+        /// </summary>
+        [XmlElement(ElementName = "end-year")]
+        public string EndYear { get; set; }
+
+        /// <summary>
+        /// Field: 'num-followers' (on-demand)
+        /// </summary>
+        [XmlElement(ElementName = "num-followers")]
+        public int NumFollowers { get; set; }
+
     }
 }
 
-// WriteReturnTypeFields(ApiGroup(N='Companies', M=4, RT=1))
+// WriteReturnTypes(ApiGroup(N='Companies', M=4, RT=9), ReturnType(N='locations' CN='CompanyLocations' F=1))
 namespace Sparkle.LinkedInNET.Companies
 {
     using System;
@@ -2820,9 +2936,423 @@ namespace Sparkle.LinkedInNET.Companies
     using System.Xml.Serialization;
 
     /// <summary>
-    /// Field selectors for the 'company' return types.
+    /// Name: 'locations'
+    /// </summary>
+    [Serializable, XmlRoot("locations")]
+    public class CompanyLocations
+    {
+        /// <summary>
+        /// Field: 'location' (on-demand)
+        /// </summary>
+        [XmlElement(ElementName = "location")]
+        public List<CompanyLocation> Location { get; set; }
+
+    }
+}
+
+// WriteReturnTypes(ApiGroup(N='Companies', M=4, RT=9), ReturnType(N='location' CN='CompanyLocation' F=5))
+namespace Sparkle.LinkedInNET.Companies
+{
+    using System;
+    using System.Collections.Generic;
+    using System.Xml.Serialization;
+
+    /// <summary>
+    /// Name: 'location'
+    /// </summary>
+    [Serializable, XmlRoot("location")]
+    public class CompanyLocation
+    {
+        /// <summary>
+        /// Field: 'description' (on-demand)
+        /// </summary>
+        [XmlElement(ElementName = "description")]
+        public string Description { get; set; }
+
+        /// <summary>
+        /// Field: 'is-headquarters' (on-demand)
+        /// </summary>
+        [XmlElement(ElementName = "is-headquarters")]
+        public bool IsHeadquarters { get; set; }
+
+        /// <summary>
+        /// Field: 'is-active' (on-demand)
+        /// </summary>
+        [XmlElement(ElementName = "is-active")]
+        public bool IsActive { get; set; }
+
+        /// <summary>
+        /// Field: 'address' (on-demand)
+        /// </summary>
+        [XmlElement(ElementName = "address")]
+        public CompanyAddress Address { get; set; }
+
+        /// <summary>
+        /// Field: 'contact-info' (on-demand)
+        /// </summary>
+        [XmlElement(ElementName = "contact-info")]
+        public CompanyContact ContactInfo { get; set; }
+
+    }
+}
+
+// WriteReturnTypes(ApiGroup(N='Companies', M=4, RT=9), ReturnType(N='address' CN='CompanyAddress' F=7))
+namespace Sparkle.LinkedInNET.Companies
+{
+    using System;
+    using System.Collections.Generic;
+    using System.Xml.Serialization;
+
+    /// <summary>
+    /// Name: 'address'
+    /// </summary>
+    [Serializable, XmlRoot("address")]
+    public class CompanyAddress
+    {
+        /// <summary>
+        /// Field: 'street1' (on-demand)
+        /// </summary>
+        [XmlElement(ElementName = "street1")]
+        public string Street1 { get; set; }
+
+        /// <summary>
+        /// Field: 'street2' (on-demand)
+        /// </summary>
+        [XmlElement(ElementName = "street2")]
+        public string Street2 { get; set; }
+
+        /// <summary>
+        /// Field: 'city' (on-demand)
+        /// </summary>
+        [XmlElement(ElementName = "city")]
+        public string City { get; set; }
+
+        /// <summary>
+        /// Field: 'state' (on-demand)
+        /// </summary>
+        [XmlElement(ElementName = "state")]
+        public string State { get; set; }
+
+        /// <summary>
+        /// Field: 'postal-code' (on-demand)
+        /// </summary>
+        [XmlElement(ElementName = "postal-code")]
+        public string PostalCode { get; set; }
+
+        /// <summary>
+        /// Field: 'country-code' (on-demand)
+        /// </summary>
+        [XmlElement(ElementName = "country-code")]
+        public string CountryCode { get; set; }
+
+        /// <summary>
+        /// Field: 'region-code' (on-demand)
+        /// </summary>
+        [XmlElement(ElementName = "region-code")]
+        public string RegionCode { get; set; }
+
+    }
+}
+
+// WriteReturnTypes(ApiGroup(N='Companies', M=4, RT=9), ReturnType(N='contact-info' CN='CompanyContact' F=3))
+namespace Sparkle.LinkedInNET.Companies
+{
+    using System;
+    using System.Collections.Generic;
+    using System.Xml.Serialization;
+
+    /// <summary>
+    /// Name: 'contact-info'
+    /// </summary>
+    [Serializable, XmlRoot("contact-info")]
+    public class CompanyContact
+    {
+        /// <summary>
+        /// Field: 'phone1' (on-demand)
+        /// </summary>
+        [XmlElement(ElementName = "phone1")]
+        public string Phone1 { get; set; }
+
+        /// <summary>
+        /// Field: 'phone2' (on-demand)
+        /// </summary>
+        [XmlElement(ElementName = "phone2")]
+        public string Phone2 { get; set; }
+
+        /// <summary>
+        /// Field: 'fax' (on-demand)
+        /// </summary>
+        [XmlElement(ElementName = "fax")]
+        public string Fax { get; set; }
+
+    }
+}
+
+// WriteReturnTypes(ApiGroup(N='Companies', M=4, RT=9), ReturnType(N='email-domains' CN='CompanyEmailDomains' F=1))
+namespace Sparkle.LinkedInNET.Companies
+{
+    using System;
+    using System.Collections.Generic;
+    using System.Xml.Serialization;
+
+    /// <summary>
+    /// Name: 'email-domains'
+    /// </summary>
+    [Serializable, XmlRoot("email-domains")]
+    public class CompanyEmailDomains
+    {
+        /// <summary>
+        /// Field: 'email-domain' (on-demand)
+        /// </summary>
+        [XmlElement(ElementName = "email-domain")]
+        public List<string> EmailDomain { get; set; }
+
+    }
+}
+
+// WriteReturnTypes(ApiGroup(N='Companies', M=4, RT=9), ReturnType(N='company-key-value' CN='CompanyKeyValue' F=2))
+namespace Sparkle.LinkedInNET.Companies
+{
+    using System;
+    using System.Collections.Generic;
+    using System.Xml.Serialization;
+
+    /// <summary>
+    /// Name: 'company-key-value'
+    /// </summary>
+    [Serializable, XmlRoot("company-key-value")]
+    public class CompanyKeyValue
+    {
+        /// <summary>
+        /// Field: 'code' (on-demand)
+        /// </summary>
+        [XmlElement(ElementName = "code")]
+        public string Code { get; set; }
+
+        /// <summary>
+        /// Field: 'name' (on-demand)
+        /// </summary>
+        [XmlElement(ElementName = "name")]
+        public string Name { get; set; }
+
+    }
+}
+
+// WriteReturnTypes(ApiGroup(N='Companies', M=4, RT=9), ReturnType(N='industries' CN='CompanyIndustries' F=1))
+namespace Sparkle.LinkedInNET.Companies
+{
+    using System;
+    using System.Collections.Generic;
+    using System.Xml.Serialization;
+
+    /// <summary>
+    /// Name: 'industries'
+    /// </summary>
+    [Serializable, XmlRoot("industries")]
+    public class CompanyIndustries
+    {
+        /// <summary>
+        /// Field: 'industry' (on-demand)
+        /// </summary>
+        [XmlElement(ElementName = "industry")]
+        public List<CompanyIndustry> Industry { get; set; }
+
+    }
+}
+
+// WriteReturnTypes(ApiGroup(N='Companies', M=4, RT=9), ReturnType(N='industry' CN='CompanyIndustry' F=2))
+namespace Sparkle.LinkedInNET.Companies
+{
+    using System;
+    using System.Collections.Generic;
+    using System.Xml.Serialization;
+
+    /// <summary>
+    /// Name: 'industry'
+    /// </summary>
+    [Serializable, XmlRoot("industry")]
+    public class CompanyIndustry
+    {
+        /// <summary>
+        /// Field: 'code' (on-demand)
+        /// </summary>
+        [XmlElement(ElementName = "code")]
+        public int Code { get; set; }
+
+        /// <summary>
+        /// Field: 'name' (on-demand)
+        /// </summary>
+        [XmlElement(ElementName = "name")]
+        public string Name { get; set; }
+
+    }
+}
+
+// WriteReturnTypeFields(ApiGroup(N='Companies', M=4, RT=9))
+namespace Sparkle.LinkedInNET.Companies
+{
+    using System;
+    using System.Collections.Generic;
+    using System.Xml.Serialization;
+
+    /// <summary>
+    /// Field selectors for the 'company', 'locations', 'location', 'address', 'contact-info', 'email-domains', 'company-key-value', 'industries', 'industry' return types.
     /// </summary>
     public static class CompaniesFields {
+        /// <summary>
+        /// Includes the field 'id'.
+        /// </summary>
+        /// <param name="me">The field selector.</param>
+        /// <returns>The field selector.</returns>
+        public static FieldSelector<Company> WithId(this FieldSelector<Company> me) { return me.Add("id"); }
+        
+        /// <summary>
+        /// Includes the field 'name'.
+        /// </summary>
+        /// <param name="me">The field selector.</param>
+        /// <returns>The field selector.</returns>
+        public static FieldSelector<Company> WithName(this FieldSelector<Company> me) { return me.Add("name"); }
+        
+        /// <summary>
+        /// Includes the field 'universal-name'.
+        /// </summary>
+        /// <param name="me">The field selector.</param>
+        /// <returns>The field selector.</returns>
+        public static FieldSelector<Company> WithUniversalName(this FieldSelector<Company> me) { return me.Add("universal-name"); }
+        
+        /// <summary>
+        /// Includes the field 'email-domains'.
+        /// </summary>
+        /// <param name="me">The field selector.</param>
+        /// <returns>The field selector.</returns>
+        public static FieldSelector<Company> WithEmailDomains(this FieldSelector<Company> me) { return me.Add("email-domains"); }
+        
+        /// <summary>
+        /// Includes the field 'company-type:(code,name)'.
+        /// </summary>
+        /// <param name="me">The field selector.</param>
+        /// <returns>The field selector.</returns>
+        public static FieldSelector<Company> WithType(this FieldSelector<Company> me) { return me.Add("company-type:(code,name)"); }
+        
+        /// <summary>
+        /// Includes the field 'ticker'.
+        /// </summary>
+        /// <param name="me">The field selector.</param>
+        /// <returns>The field selector.</returns>
+        public static FieldSelector<Company> WithTicker(this FieldSelector<Company> me) { return me.Add("ticker"); }
+        
+        /// <summary>
+        /// Includes the field 'website-url'.
+        /// </summary>
+        /// <param name="me">The field selector.</param>
+        /// <returns>The field selector.</returns>
+        public static FieldSelector<Company> WithWebsiteUrl(this FieldSelector<Company> me) { return me.Add("website-url"); }
+        
+        /// <summary>
+        /// Includes the field 'industries'.
+        /// </summary>
+        /// <param name="me">The field selector.</param>
+        /// <returns>The field selector.</returns>
+        public static FieldSelector<Company> WithIndustries(this FieldSelector<Company> me) { return me.Add("industries"); }
+        
+        /// <summary>
+        /// Includes the field 'status'.
+        /// </summary>
+        /// <param name="me">The field selector.</param>
+        /// <returns>The field selector.</returns>
+        public static FieldSelector<Company> WithStatus(this FieldSelector<Company> me) { return me.Add("status"); }
+        
+        /// <summary>
+        /// Includes the field 'logo-url'.
+        /// </summary>
+        /// <param name="me">The field selector.</param>
+        /// <returns>The field selector.</returns>
+        public static FieldSelector<Company> WithLogoUrl(this FieldSelector<Company> me) { return me.Add("logo-url"); }
+        
+        /// <summary>
+        /// Includes the field 'square-logo-url'.
+        /// </summary>
+        /// <param name="me">The field selector.</param>
+        /// <returns>The field selector.</returns>
+        public static FieldSelector<Company> WithSquareLogoUrl(this FieldSelector<Company> me) { return me.Add("square-logo-url"); }
+        
+        /// <summary>
+        /// Includes the field 'blog-rss-url'.
+        /// </summary>
+        /// <param name="me">The field selector.</param>
+        /// <returns>The field selector.</returns>
+        public static FieldSelector<Company> WithBlogRssUrl(this FieldSelector<Company> me) { return me.Add("blog-rss-url"); }
+        
+        /// <summary>
+        /// Includes the field 'twitter-id'.
+        /// </summary>
+        /// <param name="me">The field selector.</param>
+        /// <returns>The field selector.</returns>
+        public static FieldSelector<Company> WithTwitterId(this FieldSelector<Company> me) { return me.Add("twitter-id"); }
+        
+        /// <summary>
+        /// Includes the field 'employee-count-range'.
+        /// </summary>
+        /// <param name="me">The field selector.</param>
+        /// <returns>The field selector.</returns>
+        public static FieldSelector<Company> WithEmployeeCountRange(this FieldSelector<Company> me) { return me.Add("employee-count-range"); }
+        
+        /// <summary>
+        /// Includes the field 'specialties'.
+        /// </summary>
+        /// <param name="me">The field selector.</param>
+        /// <returns>The field selector.</returns>
+        public static FieldSelector<Company> WithSpecialties(this FieldSelector<Company> me) { return me.Add("specialties"); }
+        
+        /// <summary>
+        /// Includes the field 'locations:(description,is-headquarters,is-active,address:(street1,street2,city,state,postal-code,country-code,region-code),contact-info:(phone1,phone2,fax))'.
+        /// </summary>
+        /// <param name="me">The field selector.</param>
+        /// <returns>The field selector.</returns>
+        public static FieldSelector<Company> WithLocations(this FieldSelector<Company> me) { return me.Add("locations:(description,is-headquarters,is-active,address:(street1,street2,city,state,postal-code,country-code,region-code),contact-info:(phone1,phone2,fax))"); }
+        
+        /// <summary>
+        /// Includes the field 'description'.
+        /// </summary>
+        /// <param name="me">The field selector.</param>
+        /// <returns>The field selector.</returns>
+        public static FieldSelector<Company> WithDescription(this FieldSelector<Company> me) { return me.Add("description"); }
+        
+        /// <summary>
+        /// Includes the field 'stock-exchange'.
+        /// </summary>
+        /// <param name="me">The field selector.</param>
+        /// <returns>The field selector.</returns>
+        public static FieldSelector<Company> WithStockExchange(this FieldSelector<Company> me) { return me.Add("stock-exchange"); }
+        
+        /// <summary>
+        /// Includes the field 'founded-year'.
+        /// </summary>
+        /// <param name="me">The field selector.</param>
+        /// <returns>The field selector.</returns>
+        public static FieldSelector<Company> WithFoundedYear(this FieldSelector<Company> me) { return me.Add("founded-year"); }
+        
+        /// <summary>
+        /// Includes the field 'end-year'.
+        /// </summary>
+        /// <param name="me">The field selector.</param>
+        /// <returns>The field selector.</returns>
+        public static FieldSelector<Company> WithEndYear(this FieldSelector<Company> me) { return me.Add("end-year"); }
+        
+        /// <summary>
+        /// Includes the field 'num-followers'.
+        /// </summary>
+        /// <param name="me">The field selector.</param>
+        /// <returns>The field selector.</returns>
+        public static FieldSelector<Company> WithNumFollowers(this FieldSelector<Company> me) { return me.Add("num-followers"); }
+        
+        /// <summary>
+        /// Includes all the fields.
+        /// </summary>
+        /// <param name="me">The field selector.</param>
+        /// <returns>The field selector.</returns>
+        public static FieldSelector<Company> WithAllFields(this FieldSelector<Company> me) { return me.AddRange("id", "name", "universal-name", "email-domains", "company-type:(code,name)", "ticker", "website-url", "industries", "status", "logo-url", "square-logo-url", "blog-rss-url", "twitter-id", "employee-count-range", "specialties", "locations:(description,is-headquarters,is-active,address:(street1,street2,city,state,postal-code,country-code,region-code),contact-info:(phone1,phone2,fax))", "description", "stock-exchange", "founded-year", "end-year", "num-followers"); }
+        
     }
 }
 
@@ -2987,7 +3517,7 @@ namespace Sparkle.LinkedInNET.Profiles
     }
 }
 
-// WriteApiGroup(ApiGroup(N='Companies', M=4, RT=1))
+// WriteApiGroup(ApiGroup(N='Companies', M=4, RT=9))
 namespace Sparkle.LinkedInNET.Companies
 {
     using System;
@@ -3012,7 +3542,8 @@ namespace Sparkle.LinkedInNET.Companies
             , FieldSelector<Company> fields = null
         )
         {
-            var url = "/v1/companies";
+            const string urlFormat = "/v1/companies{FieldSelector}";
+            var url = FormatUrl(urlFormat, fields);
 
             var context = new RequestContext();
             context.UserAuthorization = user;
@@ -3033,7 +3564,7 @@ namespace Sparkle.LinkedInNET.Companies
             , FieldSelector<Company> fields = null
         )
         {
-            const string urlFormat = "/v1/companies/{CompanyId}";
+            const string urlFormat = "/v1/companies/{CompanyId}{FieldSelector}";
             var url = FormatUrl(urlFormat, fields, "CompanyId", companyId);
 
             var context = new RequestContext();
@@ -3055,7 +3586,7 @@ namespace Sparkle.LinkedInNET.Companies
             , FieldSelector<Company> fields = null
         )
         {
-            const string urlFormat = "/v1/companies/universal-name={UniversalName}";
+            const string urlFormat = "/v1/companies/universal-name={UniversalName}{FieldSelector}";
             var url = FormatUrl(urlFormat, fields, "UniversalName", universalName);
 
             var context = new RequestContext();
@@ -3077,7 +3608,7 @@ namespace Sparkle.LinkedInNET.Companies
             , FieldSelector<Company> fields = null
         )
         {
-            const string urlFormat = "/v1/companies/universal-name={UniversalName}";
+            const string urlFormat = "/v1/companies/universal-name={UniversalName}{FieldSelector}";
             var url = FormatUrl(urlFormat, fields, "UniversalName", universalName);
 
             var context = new RequestContext();

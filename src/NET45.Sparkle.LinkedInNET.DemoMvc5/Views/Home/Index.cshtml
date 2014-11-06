@@ -68,3 +68,19 @@
 {
 <pre>@this.ViewBag.ProfileError</pre>
 }
+<p>Here are the companies profiles.</p>
+@{
+    var companies = (IList<Sparkle.LinkedInNET.Companies.Company>)this.ViewBag.Companies;
+}
+@if (companies != null)
+{
+    foreach (var company in companies)
+    {
+        <h5>@company.Name</h5>
+        <pre>@Newtonsoft.Json.JsonConvert.SerializeObject(company, Newtonsoft.Json.Formatting.Indented)</pre>
+    }
+}
+@if (this.ViewBag.CompaniesError != null)
+{
+<pre>@this.ViewBag.CompaniesError</pre>
+}
