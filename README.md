@@ -1,6 +1,8 @@
-﻿
-LinkedInNET
-===========
+
+![](https://raw.githubusercontent.com/SparkleNetworks/LinkedInNET/master/src/LiNET-200.png)
+
+LinkedIn.NET
+============
 
 Sparkle.LinkedInNET will help you query the LinkedIn API :)
 
