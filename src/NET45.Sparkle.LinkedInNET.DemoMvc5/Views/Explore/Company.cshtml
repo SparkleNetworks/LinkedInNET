@@ -1,0 +1,135 @@
+﻿@model Sparkle.LinkedInNET.Companies.Company
+
+<h1>@Html.ActionLink("Explore", "Index")</h1>
+
+<h2>@Model.Name</h2>
+<dl class="srkdl">
+    <dt>Id</dt>
+    <dd>@Model.Id</dd>
+
+    <dt>UniversalName</dt>
+    <dd>@Model.UniversalName</dd>
+
+    <dt>EmailDomains</dt>
+    <dd>
+@if (Model.EmailDomains != null && Model.EmailDomains.EmailDomain != null){
+    @:@string.Join(", ", Model.EmailDomains.EmailDomain)
+}
+    </dd>
+
+    <dt>Ticker</dt>
+    <dd>@Model.Ticker</dd>
+
+    <dt>Id</dt>
+    <dd>@Model.Id</dd>
+
+    <dt>WebsiteUrl</dt>
+    <dd><a href="@Model.WebsiteUrl">@Model.WebsiteUrl</a></dd>
+
+    <dt>Status</dt>
+    <dd>
+@if (Model.Status != null){
+    @:@Model.Status.Name
+} else {
+    @: ???
+}
+    </dd>
+
+    <dt>Logo</dt>
+    <dd>@if (Model.LogoUrl != null){ <img src="@Model.LogoUrl" alt="Logo of @Model.Name" /> }</dd>
+
+@if (Model.Locations != null && Model.Locations.Location != null){
+    foreach (var location in Model.Locations.Location){
+    <dt>Location</dt>
+    <dd><ul>
+        <li>@(location.Description != null ? location.Description : "no description")</li>
+        <li>@(location.IsHeadquarters ? "is headquarter" : "other location"), 
+            @(location.IsActive ? "active location" : "inactive location")</li>
+        @if (location.Address != null){
+        <li>
+            Location
+            <ul>
+                <li>@location.Address.Street1</li>
+                <li>@location.Address.Street2</li>
+                <li>@location.Address.PostalCode @location.Address.City</li>
+                <li>@location.Address.CountryCode</li>
+            </ul>
+        </li>
+        }
+        @if (location.ContactInfo != null){
+        <li>
+            Contact
+            <ul>
+                <li>Phone1: @location.ContactInfo.Phone1</li>
+                <li>Phone2: @location.ContactInfo.Phone2</li>
+                <li>Fax: @location.ContactInfo.Fax</li>
+            </ul>
+        </li>
+        }
+    </ul></dd>
+    }
+}
+
+    <dt>Description</dt>
+    <dd><pre>@Model.Description</pre></dd>
+
+    <dt>FoundedYear</dt>
+    <dd>@Model.FoundedYear</dd>
+
+    <dt>EndYear</dt>
+    <dd>@Model.EndYear</dd>
+
+    <dt>NumFollowers</dt>
+    <dd>@Model.NumFollowers</dd>
+
+    <dt>JSON</dt>
+    <dd>
+        <p><code>@Model.GetType().ToString()</code></p>
+        <pre>@Newtonsoft.Json.JsonConvert.SerializeObject(Model, Newtonsoft.Json.Formatting.Indented)</pre>
+    </dd>
+</dl>
+
+<h2 class="clear">Shares</h2>
+@{
+    var shares = (Sparkle.LinkedInNET.Companies.CompanyUpdates)this.ViewBag.Shares;
+}
+@if (shares != null && shares.Update != null && shares.Update.Count > 0){
+<dl>
+    @foreach (var share in shares.Update) {
+    <dt>@share.Timestamp</dt>
+    <dd>
+        @if (share.UpdateContent != null) {
+            var content = share.UpdateContent;
+            
+            if (content.CompanyJobUpdate != null) {
+                if (content.CompanyJobUpdate.Job != null) {
+                    var job = content.CompanyJobUpdate.Job;
+        <p>@job.Id @job.Description</p>
+        <p>@job.Location</p>
+                    if (job.Position != null) {
+        <p>@job.Position.Title</p>
+                    }
+                    if (job.Url != null) {
+        <p>@job.Url.Url</p>
+                    }
+                } else {
+        <p>Job update: no job.</p>
+                }
+            } else if (content.CompanyProductUpdate != null) {
+        <p>CompanyProductUpdate</p>
+            } else if (content.CompanyStatusUpdate != null) {
+        <p>CompanyStatusUpdate</p>
+            } else {
+        <p>No content: UpdateContent does not contain anything known.</p>
+            }
+        }else{
+        <p>No content: UpdateContent is null.</p>
+        }
+    </dd>
+    }
+</dl>
+} else {
+<p>No shares.</p>
+}
+
+

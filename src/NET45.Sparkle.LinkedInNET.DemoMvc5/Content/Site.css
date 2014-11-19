@@ -63,3 +63,23 @@ input[type="checkbox"].input-validation-error {
     background: lightblue;
 }
 
+pre{
+    max-height: 300px;
+    overflow-y: auto;
+    padding: 5px;
+}
+
+dl.srkdl dt{margin:0 .4em; padding:.4em 0; float:left; text-align:right; clear:left; width:20%; color:#aaa;}
+dl.srkdl dd{margin:0 .4em; padding:.4em 0; float:left; width:66%;}
+dl.srkdl dd.double{width:66%;}
+dl.srkdl dd.hint{margin:.4em .4em .4em 23.2em; padding:.4em; float:left; clear:left; border:1px solid #000; background:#CCDAFF;}
+dl.srkdl dd.stack{margin:.4em .4em .4em .4em; padding:.4em; float:left; clear:left;}
+dl.srkdl dt label{display:inline-block;}
+dl.srkdl dt label.required{color:#337799;}
+dl.srkdl dt label.optional{color:#4d6f80;}
+dl.srkdl dt label:after{content:': ';}
+dl.srkdl dt label.noafter:after{content:'';}
+
+.clear{
+    clear:both;
+}

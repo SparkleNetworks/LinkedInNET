@@ -37,7 +37,7 @@
       </Field>
       <!--<Field Name="current-status" Title="the member's current status, if set" Remark="Use current-share instead. Returns as empty if not in network. Capped at 140 characters." />-->
       <Field Name="current-status-timestamp" Title="the timestamp, in milliseconds, when the member's status was last set" Remark="Returns as empty if not in network" Type="long?" />
-      <Field Name="current-share" Title="the member's current share, if set" Remark="Overloaded to also return &quot;current-status&quot; (if there is no URL shared). (Status and share are the same.)" Type="Share" />
+      <Field Name="current-share" Title="the member's current share, if set" Remark="Overloaded to also return &quot;current-status&quot; (if there is no URL shared). (Status and share are the same.)" Type="Sparkle.LinkedInNET.Common.Share" />
       <Field Name="num-connections" Title="the # of connections the member has" Remark="Available in some places, such as /people/~/connections, when connections is not. More efficient than checking the total attribute of connections even when connections is available." Type="int" />
       <Field Name="num-connections-capped" Title="true if the value of num-connections has been capped at 500. false otherwise." Remark="Allows you to distinguish whether num-connections = 500 because the member has exactly 500 connections or actually 500+ because we're hiding the true value." Type="bool?" />
       <Field Name="summary" Title="A long-form text area where the member describes their professional profile" Remark="Not available via connections API." />
@@ -98,7 +98,7 @@
       <Field Name="primary-twitter-account"    Type="TwitterAccount"     Title="the primary twitter account for the member" Remark="You get a provider-account-id and provider-account-name child element." />
 
       <!-- Connection fields -->
-      <Field Name="connections" Title="an empty collection, indicating the # of connections the member has with a total attribute" Remark="LinkedIn will not report whether a user has more than 500 connections" />
+      <Field Name="connections" Type="Connections" Title="an empty collection, indicating the # of connections the member has with a total attribute" Remark="LinkedIn will not report whether a user has more than 500 connections" />
       
       <!-- Group membership fields -->
       <Field Name="group-memberships" Title="a collection of groups that the member is following" />
@@ -200,12 +200,12 @@
       <Field Name="person" IsCollection="1" Type="Person" />
     </ReturnType>
 
-    <ReturnType Name="share">
+    <!--<ReturnType Name="share">
       <Field Name="id" />
       <Field Name="timestamp" Type="long" />
       <Field Name="comment" Title="Text of member's comment. (Similar to deprecated current-status field.)" Remark="Post must contain comment and/or (content/title and content/submitted-url). Max length is 700 characters (bytes)." />
       <Field Name="content" Title="Parent node for information on shared document" Remark="" Type="ShareContent" />
-      <!--<Field Name="visibility" Title="Parent node for visibility information" Remark="" />-->
+      --><!--<Field Name="visibility" Title="Parent node for visibility information" Remark="" />--><!--
       <Field Name="visibility/code" Title="One of anyone: all members or connections-only: connections only." Remark="" />
       <Field Name="source" Type="ShareSource" />
       <Field Name="author" Type="ShareAuthor" />
@@ -226,7 +226,7 @@
       <Field Name="id" />
       <Field Name="first-name" />
       <Field Name="last-name" />
-    </ReturnType>
+    </ReturnType>-->
 
     <ReturnType Name="position" ClassName="PersonPosition">
       <Field Name="id" Type="int" Title="a unique identifier for this member's position" Remark="" />
@@ -482,6 +482,8 @@
     <ApiMethod MethodName="GetByName"   HttpMethod="GET" Title="Retrieve a company by universal-name." Path="/v1/companies/universal-name={UniversalName}{FieldSelector}" ReturnType="Company" RequiresUserAuthentication="1" />
     <ApiMethod MethodName="GetListByEmailDomain"   HttpMethod="GET" Title="This returns an array of companies that match to the specified email domain." Path="/v1/companies/universal-name={UniversalName}{FieldSelector}" ReturnType="Company" RequiresUserAuthentication="1" />
 
+    <ApiMethod MethodName="GetShares" HttpMethod="GET" Title="Retrieve the company's updates" Path="/v1/companies/{int id}/updates" ReturnType="CompanyUpdates" RequiresUserAuthentication="1" />
+
     <ReturnType Name="company" ClassName="Company" AutoGenerateFieldSelectors="1">
       <Field Name="id" Type="long" Title="Default. The unique internal numeric company identifier." IsDefault="1" />
       <Field Name="name" Title="Default. The human readable name of the company." IsDefault="1" />
@@ -551,11 +553,113 @@
       <Field Name="code" Type="int" />
       <Field Name="name" />
     </ReturnType>
+
+    <ReturnType Name="updates" ClassName="CompanyUpdates">
+      <Field Name="update" Type="CompanyUpdate" IsCollection="1" />
+    </ReturnType>
+    <ReturnType Name="CompanyUpdate">
+      <Field Name="timestamp" Type="long" />
+      <Field Name="update-key" />
+      <Field Name="update-type" />
+      <Field Name="update-content" Type="CompanyUpdateContent" />
+      <Field Name="is-commentable" Type="bool?" />
+      <!--<Field Name="update-comments.total" />-->
+      <Field Name="is-likable"     Type="bool?" />
+      <Field Name="is-liked"       Type="bool?" />
+      <Field Name="num-likes"      Type="int?" />
+    </ReturnType>
+
+    <ReturnType Name="CompanyUpdateContent">
+      <Field Name="company"                Type="CompanyIdentifier" />
+      <Field Name="company-job-update"     Type="CompanyJobUpdate" />
+      <Field Name="company-product-update" Type="CompanyProductUpdate" />
+      <Field Name="company‐status­‐update"  Type="CompanyStatusUpdate" PropertyName="CompanyStatusUpdate" />
+    </ReturnType>
+
+    <ReturnType Name="CompanyIdentifier">
+      <Field Name="id" Type="int" />
+      <Field Name="name" />
+    </ReturnType>
+
+    <ReturnType Name="CompanyJobUpdate">
+      <Field Name="job"    Type="CompanyJobUpdateJob" />
+      <Field Name="action/code"  />
+    </ReturnType>
+
+    <ReturnType Name="CompanyJobUpdateJob">
+      <Field Name="id"                     Type="int" />
+      <Field Name="company"                Type="CompanyIdentifier" />
+      <Field Name="position"               Type="PositionIdentifier" />
+      <Field Name="site­‐job­‐request"       Type="UrlIdentifier" PropertyName="Url" />
+      <Field Name="description" />
+      <Field Name="location-­description"   PropertyName="Location" />
+    </ReturnType>
+
+    <ReturnType Name="PositionIdentifier">
+      <Field Name="title" />
+    </ReturnType>
+
+    <ReturnType Name="UrlIdentifier">
+      <Field Name="url" />
+    </ReturnType>
+
+    <ReturnType Name="CompanyProductUpdate">
+      <Field Name="action/code"  />
+      <Field Name="event-type/code"  />
+      <Field Name="product"          Type="CompanyProduct" />
+    </ReturnType>
+
+    <ReturnType Name="CompanyProduct">
+      <Field Name="id" />
+      <Field Name="name" />
+    </ReturnType>
+
+    <ReturnType Name="CompanyStatusUpdate">
+      <Field Name="share"    Type="Sparkle.LinkedInNET.Common.Share" />
+    </ReturnType>
   </ApiGroup>
 
   <ApiGroup Name="Groups">
   </ApiGroup>
 
   <ApiGroup Name="Jobs">
+  </ApiGroup>
+
+
+  <ApiGroup Name="Common">
+    <ReturnType Name="share" AutoGenerateFieldSelectors="1">
+      <Field Name="id" />
+      <Field Name="timestamp" Type="long" />
+      <Field Name="comment" Title="Text of member's comment. (Similar to deprecated current-status field.)" Remark="Post must contain comment and/or (content/title and content/submitted-url). Max length is 700 characters (bytes)." />
+      <Field Name="content" Title="Parent node for information on shared document" Remark="" Type="ShareContent" />
+      <!--<Field Name="visibility" Title="Parent node for visibility information" Remark="" />-->
+      <Field Name="visibility/code" Title="One of anyone: all members or connections-only: connections only." Remark="" />
+      <Field Name="source" Type="ShareSource" />
+      <Field Name="author" Type="ShareAuthor" />
+    </ReturnType>
+    <ReturnType Name="ShareSource" ClassName="ShareSource">
+      <Field Name="service-provider" Type="ShareSourceProvider" />
+      <Field Name="service-provider-share-id" />
+    </ReturnType>
+    <ReturnType Name="ShareSourceProvider" ClassName="ShareSourceProvider">
+      <Field Name="name" />
+    </ReturnType>
+    <ReturnType Name="ShareContent" ClassName="ShareContent">
+      <Field Name="title" Title="Title of shared document" Remark="Post must contain comment and/or (content/title and content/submitted-url). Max length is 200 characters (bytes)." />
+      <Field Name="description" Title="Description of shared content" Remark="Max length of 256 characters (bytes)." ClassName="ShareContent" />
+      
+      <Field Name="submitted-url" Title="URL for shared content" Remark="Post must contain comment and/or (content/title and content/submitted-url)." />
+      <Field Name="shortened-url" />
+      
+      <Field Name="submitted-image-url" Title="URL for image of shared content" Remark="Invalid without (content/title and content/submitted-url)." />
+      <Field Name="thumbnail-url"  />
+      <Field Name="eyebrow-url"  />
+      
+    </ReturnType>
+    <ReturnType Name="ShareAuthor">
+      <Field Name="id" />
+      <Field Name="first-name" />
+      <Field Name="last-name" />
+    </ReturnType>
   </ApiGroup>
 </Root>

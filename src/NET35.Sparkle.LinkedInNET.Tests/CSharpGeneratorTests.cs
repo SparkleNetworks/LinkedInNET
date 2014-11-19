@@ -463,7 +463,7 @@ namespace Sparkle.LinkedInNET.Tests
 
                 Assert.AreEqual(1, items.Count);
                 Assert.IsTrue(items.ContainsKey("World"));
-                Assert.AreEqual("World", items["World"].OriginalName);
+                Assert.AreEqual("DateTime World", items["World"].OriginalName);
                 Assert.AreEqual("World", items["World"].Name);
                 Assert.AreEqual("DateTime", items["World"].Type);
             }
@@ -477,7 +477,7 @@ namespace Sparkle.LinkedInNET.Tests
 
                 Assert.AreEqual(2, items.Count);
                 Assert.IsTrue(items.ContainsKey("World"));
-                Assert.AreEqual("World", items["World"].OriginalName);
+                Assert.AreEqual("DateTime World", items["World"].OriginalName);
                 Assert.AreEqual("World", items["World"].Name);
                 Assert.AreEqual("DateTime", items["World"].Type);
                 Assert.IsTrue(items.ContainsKey("test"));

@@ -41,12 +41,12 @@ namespace Sparkle.LinkedInNET.Internals
         /// <param name="format">The format.</param>
         /// <param name="values">The values.</param>
         /// <returns></returns>
-        protected string FormatUrl(string format, params string[] values)
+        protected string FormatUrl(string format, params object[] values)
         {
             return this.FormatUrl(format, null, values);
         }
 
-        protected string FormatUrl(string format, FieldSelector fieldSelector, params string[] values)
+        protected string FormatUrl(string format, FieldSelector fieldSelector, params object[] values)
         {
             var result = format;
 
@@ -58,7 +58,7 @@ namespace Sparkle.LinkedInNET.Internals
                 }
                 else
                 {
-                    dic.Add(values[i - 1], values[i]);
+                    dic.Add(values[i - 1].ToString(), values[i].ToString());
                 }
             }
 

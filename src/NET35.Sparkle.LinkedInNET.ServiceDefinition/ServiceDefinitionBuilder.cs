@@ -98,6 +98,27 @@ namespace Sparkle.LinkedInNET.ServiceDefinition
             this.VerifyFieldNames();
 
             {
+                ////// generate extra return types
+                ////foreach (var returnType in this.root.ReturnTypes.ToArray())
+                ////{
+                ////    var apiGroup = new ApiGroup
+                ////    {
+                ////        Name = "Common",
+                ////    };
+
+                ////    foreach (var item in returnType.Fields.ToArray())
+                ////    {
+                ////        var parts = item.Name.Split(new char[] { ':', '/', }, 2);
+                ////        var mainPart = parts.Length == 1 ? parts[0] : parts[0];
+                ////        var subPart = parts.Length == 2 ? parts[1] : null;
+
+                ////        if (parts.Length > 1)
+                ////        {
+                ////            var subReturnType = definition.FindReturnType(mainPart, apiGroup.Name, subPart: subPart, typeName: item.Type);
+                ////        }
+                ////    }
+                ////}
+
                 foreach (var apiGroup in this.root.ApiGroups)
                 {
                     // generate extra return types
@@ -123,6 +144,35 @@ namespace Sparkle.LinkedInNET.ServiceDefinition
 
         private void VerifyFieldNames()
         {
+            ////// fill optional stuff
+            ////foreach (var returnType in this.root.ReturnTypes.ToArray())
+            ////{
+            ////    var apiGroup = new ApiGroup
+            ////    {
+            ////        Name = "Common",
+            ////    };
+
+            ////    foreach (var item in returnType.Fields)
+            ////    {
+            ////        // field name stuff
+            ////        if (string.IsNullOrEmpty(item.Name))
+            ////        {
+            ////            this.warnings.Add("Field " + apiGroup.Name + "/" + returnType.Name + "/" + returnType.Fields.IndexOf(item) + " has en empty name.");
+            ////        }
+
+            ////        var nameParts = item.GetNameParts();
+            ////        item.FieldName = nameParts[0];
+            ////        if (item.Type != null && item.FieldName.ClassName == null)
+            ////            item.FieldName.ClassName = item.Type;
+
+            ////        if (string.IsNullOrEmpty(item.PropertyName))
+            ////        {
+            ////            item.PropertyName = item.FieldName.PropertyName;
+            ////            this.infos.Add("Set property name of " + apiGroup.Name + "/" + returnType.Name + "/" + returnType.Fields.IndexOf(item) + "-" + item.Name + " to " + item.PropertyName + ".");
+            ////        }
+            ////    }
+            ////}
+
             foreach (var apiGroup in this.root.ApiGroups)
             {
                 // fill optional stuff

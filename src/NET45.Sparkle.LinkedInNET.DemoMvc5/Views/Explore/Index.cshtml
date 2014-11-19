@@ -1,0 +1,63 @@
+﻿
+<h1>@Html.ActionLink("Explore", "Index")</h1>
+
+<h2>You</h2>
+@{
+     
+    //var me = (Sparkle.LinkedInNET.Profiles.Person)this.ViewData["MyProfile"];
+    var profile = (Sparkle.LinkedInNET.Profiles.Person)this.ViewBag.Profile;
+    var me = profile;
+}
+<dl class="srkdl">
+    <dt>Name</dt>
+    <dd>@(me.Firstname) @(me.Lastname)</dd>
+
+    <dt>Headline</dt>
+    <dd>@(me.Headline)</dd>
+
+@foreach (var position in me.Positions.Position)
+{
+    <dt>Job</dt>
+    <dd><em>@position.Title</em> at 
+    @if (position.Company != null){
+        if (position.Company.Id > 0){
+            @Html.ActionLink(position.Company.Name, "Company", new { id = position.Company.Id, })
+        }else{
+            <strong>@position.Company.Name</strong>
+        }
+    }else{
+        @:?
+    }
+    </dd>
+}
+
+@if (me.Connections != null && me.Connections.Person != null) {
+    foreach (var c in me.Connections.Person) {
+<dt>Connection</dt>
+<dd>
+        <h3>
+            @Html.ActionLink(c.Firstname + " " + c.Lastname, "Person", new { id = c.Id, }), @c.Headline 
+        @if (c.SiteStandardProfileRequest != null) {
+            @:[<a href="@c.SiteStandardProfileRequest.Url">open</a>]
+        }</h3>
+        <p>
+        @if (c.Location != null) {
+            <br /><span>@c.Location.Name, @c.Location.Country.Code</span>
+        }
+        @if (c.Industry != null) {
+            <br /><span>@c.Industry</span>
+        }
+        @if (c.PictureUrl != null) {
+            <br /><img src="@c.PictureUrl" alt="" />
+        }
+        </p>
+</dd>
+    }
+}
+
+    <dt>JSON</dt>
+    <dd>
+        <p><code>@me.GetType().ToString()</code></p>
+        <pre>@Newtonsoft.Json.JsonConvert.SerializeObject(me, Newtonsoft.Json.Formatting.Indented)</pre>
+    </dd>
+</dl>

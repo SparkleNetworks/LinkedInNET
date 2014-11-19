@@ -39,6 +39,16 @@ namespace Sparkle.LinkedInNET.ServiceDefinition
 
         private void WriteEverything(GeneratorContext context)
         {
+            ////// write common return types
+            ////foreach (var returnType in context.Root.ReturnTypes.ToArray())
+            ////{
+            ////    var apiGroup = new ApiGroup
+            ////    {
+            ////        Name = "Common",
+            ////    };
+            ////    this.WriteReturnTypes(context, returnType, apiGroup);
+            ////}
+
             foreach (var apiGroup in context.Root.ApiGroups)
             {
                 // write all return types
@@ -83,6 +93,8 @@ namespace Sparkle.LinkedInNET.ServiceDefinition
                 ////this.text.WriteLine(--indent, "}");
                 ////this.text.WriteLine(indent, "");
                 var returnTypeName = this.GetPropertyName(returnType.ClassName, returnType.Name);
+
+                ////this.text.WriteLine(indent, "// return type: " + (returnType.ClassName ?? returnType.Name));
 
                 var allFields = new List<string>();
                 foreach (var fieldGroup in returnType.Fields.GroupBy(f => f.Name).ToArray())
@@ -138,6 +150,12 @@ namespace Sparkle.LinkedInNET.ServiceDefinition
                     indent--;
                     this.text.WriteLine(indent, "");
                 }
+                else
+                {
+                    ////this.text.WriteLine(indent, "// allFields.Count == 0");
+                }
+
+                ////this.text.WriteLine(indent, "");
             }
 
             this.text.WriteLine(--indent, "}");
@@ -352,6 +370,8 @@ namespace Sparkle.LinkedInNET.ServiceDefinition
             var matches = urlParametersRegex.Matches(path);
             foreach (Match match in matches)
             {
+                var full = match.Groups[0].Captures[0].Value;
+                full = full.Substring(1, full.Length - 2);
                 var key = match.Groups[2].Captures[0].Value;
                 var type = match.Groups[1].Success ? match.Groups[1].Captures[0].Value : null;
                 if (key == "FieldSelector")
@@ -359,7 +379,7 @@ namespace Sparkle.LinkedInNET.ServiceDefinition
 
                 var item = new Parameter
                 {
-                    OriginalName = key,
+                    OriginalName = full,
                     Name = Namify(key, transform),
                     Type = type,
                 };
