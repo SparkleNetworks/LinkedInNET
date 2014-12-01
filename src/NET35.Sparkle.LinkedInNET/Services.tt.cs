@@ -8,7 +8,7 @@
 //------------------------------------------------------------------------------
 
 // XML document found at '\src\NET35.Sparkle.LinkedInNET\..\LinkedInApi.xml'
-// WriteReturnTypes(ApiGroup(N='Profiles', M=5, RT=61), ReturnType(N='person' CN='Person' F=60))
+// WriteReturnTypes(ApiGroup(N='Profiles', M=6, RT=62), ReturnType(N='person' CN='Person' F=60))
 namespace Sparkle.LinkedInNET.Profiles
 {
     using System;
@@ -377,7 +377,7 @@ namespace Sparkle.LinkedInNET.Profiles
     }
 }
 
-// WriteReturnTypes(ApiGroup(N='Profiles', M=5, RT=61), ReturnType(N='connections' CN='Connections' F=1))
+// WriteReturnTypes(ApiGroup(N='Profiles', M=6, RT=62), ReturnType(N='connections' CN='Connections' F=1))
 namespace Sparkle.LinkedInNET.Profiles
 {
     using System;
@@ -399,7 +399,7 @@ namespace Sparkle.LinkedInNET.Profiles
     }
 }
 
-// WriteReturnTypes(ApiGroup(N='Profiles', M=5, RT=61), ReturnType(N='position' CN='PersonPosition' F=7))
+// WriteReturnTypes(ApiGroup(N='Profiles', M=6, RT=62), ReturnType(N='position' CN='PersonPosition' F=7))
 namespace Sparkle.LinkedInNET.Profiles
 {
     using System;
@@ -457,7 +457,7 @@ namespace Sparkle.LinkedInNET.Profiles
     }
 }
 
-// WriteReturnTypes(ApiGroup(N='Profiles', M=5, RT=61), ReturnType(N='positions' CN='PersonPositions' F=1))
+// WriteReturnTypes(ApiGroup(N='Profiles', M=6, RT=62), ReturnType(N='positions' CN='PersonPositions' F=1))
 namespace Sparkle.LinkedInNET.Profiles
 {
     using System;
@@ -479,7 +479,7 @@ namespace Sparkle.LinkedInNET.Profiles
     }
 }
 
-// WriteReturnTypes(ApiGroup(N='Profiles', M=5, RT=61), ReturnType(N='CompanyIdentifier' CN='CompanyIdentifier' F=5))
+// WriteReturnTypes(ApiGroup(N='Profiles', M=6, RT=62), ReturnType(N='CompanyIdentifier' CN='CompanyIdentifier' F=5))
 namespace Sparkle.LinkedInNET.Profiles
 {
     using System;
@@ -525,7 +525,7 @@ namespace Sparkle.LinkedInNET.Profiles
     }
 }
 
-// WriteReturnTypes(ApiGroup(N='Profiles', M=5, RT=61), ReturnType(N='DateParts' CN='DateParts' F=3))
+// WriteReturnTypes(ApiGroup(N='Profiles', M=6, RT=62), ReturnType(N='DateParts' CN='DateParts' F=3))
 namespace Sparkle.LinkedInNET.Profiles
 {
     using System;
@@ -559,7 +559,7 @@ namespace Sparkle.LinkedInNET.Profiles
     }
 }
 
-// WriteReturnTypes(ApiGroup(N='Profiles', M=5, RT=61), ReturnType(N='relation-to-viewer' CN='' F=3))
+// WriteReturnTypes(ApiGroup(N='Profiles', M=6, RT=62), ReturnType(N='relation-to-viewer' CN='' F=3))
 namespace Sparkle.LinkedInNET.Profiles
 {
     using System;
@@ -593,7 +593,7 @@ namespace Sparkle.LinkedInNET.Profiles
     }
 }
 
-// WriteReturnTypes(ApiGroup(N='Profiles', M=5, RT=61), ReturnType(N='languages' CN='Languages' F=1))
+// WriteReturnTypes(ApiGroup(N='Profiles', M=6, RT=62), ReturnType(N='languages' CN='Languages' F=1))
 namespace Sparkle.LinkedInNET.Profiles
 {
     using System;
@@ -615,7 +615,7 @@ namespace Sparkle.LinkedInNET.Profiles
     }
 }
 
-// WriteReturnTypes(ApiGroup(N='Profiles', M=5, RT=61), ReturnType(N='language' CN='Language' F=3))
+// WriteReturnTypes(ApiGroup(N='Profiles', M=6, RT=62), ReturnType(N='language' CN='Language' F=3))
 namespace Sparkle.LinkedInNET.Profiles
 {
     using System;
@@ -649,7 +649,7 @@ namespace Sparkle.LinkedInNET.Profiles
     }
 }
 
-// WriteReturnTypes(ApiGroup(N='Profiles', M=5, RT=61), ReturnType(N='LanguageInfo' CN='LanguageInfo' F=1))
+// WriteReturnTypes(ApiGroup(N='Profiles', M=6, RT=62), ReturnType(N='LanguageInfo' CN='LanguageInfo' F=1))
 namespace Sparkle.LinkedInNET.Profiles
 {
     using System;
@@ -671,7 +671,7 @@ namespace Sparkle.LinkedInNET.Profiles
     }
 }
 
-// WriteReturnTypes(ApiGroup(N='Profiles', M=5, RT=61), ReturnType(N='LanguageProficiency' CN='LanguageProficiency' F=2))
+// WriteReturnTypes(ApiGroup(N='Profiles', M=6, RT=62), ReturnType(N='LanguageProficiency' CN='LanguageProficiency' F=2))
 namespace Sparkle.LinkedInNET.Profiles
 {
     using System;
@@ -699,7 +699,7 @@ namespace Sparkle.LinkedInNET.Profiles
     }
 }
 
-// WriteReturnTypes(ApiGroup(N='Profiles', M=5, RT=61), ReturnType(N='skills' CN='Skills' F=1))
+// WriteReturnTypes(ApiGroup(N='Profiles', M=6, RT=62), ReturnType(N='skills' CN='Skills' F=1))
 namespace Sparkle.LinkedInNET.Profiles
 {
     using System;
@@ -721,7 +721,7 @@ namespace Sparkle.LinkedInNET.Profiles
     }
 }
 
-// WriteReturnTypes(ApiGroup(N='Profiles', M=5, RT=61), ReturnType(N='skill' CN='Skill' F=2))
+// WriteReturnTypes(ApiGroup(N='Profiles', M=6, RT=62), ReturnType(N='skill' CN='Skill' F=2))
 namespace Sparkle.LinkedInNET.Profiles
 {
     using System;
@@ -749,7 +749,7 @@ namespace Sparkle.LinkedInNET.Profiles
     }
 }
 
-// WriteReturnTypes(ApiGroup(N='Profiles', M=5, RT=61), ReturnType(N='skill' CN='SkillName' F=1))
+// WriteReturnTypes(ApiGroup(N='Profiles', M=6, RT=62), ReturnType(N='skill' CN='SkillName' F=1))
 namespace Sparkle.LinkedInNET.Profiles
 {
     using System;
@@ -771,7 +771,7 @@ namespace Sparkle.LinkedInNET.Profiles
     }
 }
 
-// WriteReturnTypes(ApiGroup(N='Profiles', M=5, RT=61), ReturnType(N='certifications' CN='Certifications' F=1))
+// WriteReturnTypes(ApiGroup(N='Profiles', M=6, RT=62), ReturnType(N='certifications' CN='Certifications' F=1))
 namespace Sparkle.LinkedInNET.Profiles
 {
     using System;
@@ -793,7 +793,7 @@ namespace Sparkle.LinkedInNET.Profiles
     }
 }
 
-// WriteReturnTypes(ApiGroup(N='Profiles', M=5, RT=61), ReturnType(N='certification' CN='Certification' F=6))
+// WriteReturnTypes(ApiGroup(N='Profiles', M=6, RT=62), ReturnType(N='certification' CN='Certification' F=6))
 namespace Sparkle.LinkedInNET.Profiles
 {
     using System;
@@ -845,7 +845,7 @@ namespace Sparkle.LinkedInNET.Profiles
     }
 }
 
-// WriteReturnTypes(ApiGroup(N='Profiles', M=5, RT=61), ReturnType(N='educations' CN='Educations' F=1))
+// WriteReturnTypes(ApiGroup(N='Profiles', M=6, RT=62), ReturnType(N='educations' CN='Educations' F=1))
 namespace Sparkle.LinkedInNET.Profiles
 {
     using System;
@@ -867,7 +867,7 @@ namespace Sparkle.LinkedInNET.Profiles
     }
 }
 
-// WriteReturnTypes(ApiGroup(N='Profiles', M=5, RT=61), ReturnType(N='education' CN='Education' F=8))
+// WriteReturnTypes(ApiGroup(N='Profiles', M=6, RT=62), ReturnType(N='education' CN='Education' F=8))
 namespace Sparkle.LinkedInNET.Profiles
 {
     using System;
@@ -931,7 +931,7 @@ namespace Sparkle.LinkedInNET.Profiles
     }
 }
 
-// WriteReturnTypes(ApiGroup(N='Profiles', M=5, RT=61), ReturnType(N='courses' CN='Courses' F=1))
+// WriteReturnTypes(ApiGroup(N='Profiles', M=6, RT=62), ReturnType(N='courses' CN='Courses' F=1))
 namespace Sparkle.LinkedInNET.Profiles
 {
     using System;
@@ -953,7 +953,7 @@ namespace Sparkle.LinkedInNET.Profiles
     }
 }
 
-// WriteReturnTypes(ApiGroup(N='Profiles', M=5, RT=61), ReturnType(N='course' CN='Course' F=3))
+// WriteReturnTypes(ApiGroup(N='Profiles', M=6, RT=62), ReturnType(N='course' CN='Course' F=3))
 namespace Sparkle.LinkedInNET.Profiles
 {
     using System;
@@ -987,7 +987,7 @@ namespace Sparkle.LinkedInNET.Profiles
     }
 }
 
-// WriteReturnTypes(ApiGroup(N='Profiles', M=5, RT=61), ReturnType(N='volunteer' CN='Volunteer' F=1))
+// WriteReturnTypes(ApiGroup(N='Profiles', M=6, RT=62), ReturnType(N='volunteer' CN='Volunteer' F=1))
 namespace Sparkle.LinkedInNET.Profiles
 {
     using System;
@@ -1009,7 +1009,7 @@ namespace Sparkle.LinkedInNET.Profiles
     }
 }
 
-// WriteReturnTypes(ApiGroup(N='Profiles', M=5, RT=61), ReturnType(N='volunteer-experiences' CN='VolunteerExperiences' F=1))
+// WriteReturnTypes(ApiGroup(N='Profiles', M=6, RT=62), ReturnType(N='volunteer-experiences' CN='VolunteerExperiences' F=1))
 namespace Sparkle.LinkedInNET.Profiles
 {
     using System;
@@ -1031,7 +1031,7 @@ namespace Sparkle.LinkedInNET.Profiles
     }
 }
 
-// WriteReturnTypes(ApiGroup(N='Profiles', M=5, RT=61), ReturnType(N='volunteer-experience' CN='VolunteerExperience' F=4))
+// WriteReturnTypes(ApiGroup(N='Profiles', M=6, RT=62), ReturnType(N='volunteer-experience' CN='VolunteerExperience' F=4))
 namespace Sparkle.LinkedInNET.Profiles
 {
     using System;
@@ -1071,7 +1071,7 @@ namespace Sparkle.LinkedInNET.Profiles
     }
 }
 
-// WriteReturnTypes(ApiGroup(N='Profiles', M=5, RT=61), ReturnType(N='recommendations' CN='Recommendations' F=1))
+// WriteReturnTypes(ApiGroup(N='Profiles', M=6, RT=62), ReturnType(N='recommendations' CN='Recommendations' F=1))
 namespace Sparkle.LinkedInNET.Profiles
 {
     using System;
@@ -1093,7 +1093,7 @@ namespace Sparkle.LinkedInNET.Profiles
     }
 }
 
-// WriteReturnTypes(ApiGroup(N='Profiles', M=5, RT=61), ReturnType(N='recommendation' CN='Recommendation' F=4))
+// WriteReturnTypes(ApiGroup(N='Profiles', M=6, RT=62), ReturnType(N='recommendation' CN='Recommendation' F=4))
 namespace Sparkle.LinkedInNET.Profiles
 {
     using System;
@@ -1133,7 +1133,7 @@ namespace Sparkle.LinkedInNET.Profiles
     }
 }
 
-// WriteReturnTypes(ApiGroup(N='Profiles', M=5, RT=61), ReturnType(N='phone-numbers' CN='PhoneNumbers' F=1))
+// WriteReturnTypes(ApiGroup(N='Profiles', M=6, RT=62), ReturnType(N='phone-numbers' CN='PhoneNumbers' F=1))
 namespace Sparkle.LinkedInNET.Profiles
 {
     using System;
@@ -1155,7 +1155,7 @@ namespace Sparkle.LinkedInNET.Profiles
     }
 }
 
-// WriteReturnTypes(ApiGroup(N='Profiles', M=5, RT=61), ReturnType(N='phone-number' CN='PhoneNumber' F=2))
+// WriteReturnTypes(ApiGroup(N='Profiles', M=6, RT=62), ReturnType(N='phone-number' CN='PhoneNumber' F=2))
 namespace Sparkle.LinkedInNET.Profiles
 {
     using System;
@@ -1183,7 +1183,7 @@ namespace Sparkle.LinkedInNET.Profiles
     }
 }
 
-// WriteReturnTypes(ApiGroup(N='Profiles', M=5, RT=61), ReturnType(N='publications' CN='Publications' F=1))
+// WriteReturnTypes(ApiGroup(N='Profiles', M=6, RT=62), ReturnType(N='publications' CN='Publications' F=1))
 namespace Sparkle.LinkedInNET.Profiles
 {
     using System;
@@ -1205,7 +1205,7 @@ namespace Sparkle.LinkedInNET.Profiles
     }
 }
 
-// WriteReturnTypes(ApiGroup(N='Profiles', M=5, RT=61), ReturnType(N='publication' CN='Publication' F=9))
+// WriteReturnTypes(ApiGroup(N='Profiles', M=6, RT=62), ReturnType(N='publication' CN='Publication' F=9))
 namespace Sparkle.LinkedInNET.Profiles
 {
     using System;
@@ -1265,7 +1265,7 @@ namespace Sparkle.LinkedInNET.Profiles
     }
 }
 
-// WriteReturnTypes(ApiGroup(N='Profiles', M=5, RT=61), ReturnType(N='patents' CN='Patents' F=1))
+// WriteReturnTypes(ApiGroup(N='Profiles', M=6, RT=62), ReturnType(N='patents' CN='Patents' F=1))
 namespace Sparkle.LinkedInNET.Profiles
 {
     using System;
@@ -1287,7 +1287,7 @@ namespace Sparkle.LinkedInNET.Profiles
     }
 }
 
-// WriteReturnTypes(ApiGroup(N='Profiles', M=5, RT=61), ReturnType(N='patent' CN='Patent' F=9))
+// WriteReturnTypes(ApiGroup(N='Profiles', M=6, RT=62), ReturnType(N='patent' CN='Patent' F=9))
 namespace Sparkle.LinkedInNET.Profiles
 {
     using System;
@@ -1357,7 +1357,7 @@ namespace Sparkle.LinkedInNET.Profiles
     }
 }
 
-// WriteReturnTypes(ApiGroup(N='Profiles', M=5, RT=61), ReturnType(N='status' CN='Status' F=2))
+// WriteReturnTypes(ApiGroup(N='Profiles', M=6, RT=62), ReturnType(N='status' CN='Status' F=2))
 namespace Sparkle.LinkedInNET.Profiles
 {
     using System;
@@ -1385,7 +1385,7 @@ namespace Sparkle.LinkedInNET.Profiles
     }
 }
 
-// WriteReturnTypes(ApiGroup(N='Profiles', M=5, RT=61), ReturnType(N='inventors' CN='Inventors' F=1))
+// WriteReturnTypes(ApiGroup(N='Profiles', M=6, RT=62), ReturnType(N='inventors' CN='Inventors' F=1))
 namespace Sparkle.LinkedInNET.Profiles
 {
     using System;
@@ -1407,7 +1407,7 @@ namespace Sparkle.LinkedInNET.Profiles
     }
 }
 
-// WriteReturnTypes(ApiGroup(N='Profiles', M=5, RT=61), ReturnType(N='inventor' CN='Inventor' F=3))
+// WriteReturnTypes(ApiGroup(N='Profiles', M=6, RT=62), ReturnType(N='inventor' CN='Inventor' F=3))
 namespace Sparkle.LinkedInNET.Profiles
 {
     using System;
@@ -1441,7 +1441,7 @@ namespace Sparkle.LinkedInNET.Profiles
     }
 }
 
-// WriteReturnTypes(ApiGroup(N='Profiles', M=5, RT=61), ReturnType(N='person' CN='InventorPerson' F=3))
+// WriteReturnTypes(ApiGroup(N='Profiles', M=6, RT=62), ReturnType(N='person' CN='InventorPerson' F=3))
 namespace Sparkle.LinkedInNET.Profiles
 {
     using System;
@@ -1475,7 +1475,7 @@ namespace Sparkle.LinkedInNET.Profiles
     }
 }
 
-// WriteReturnTypes(ApiGroup(N='Profiles', M=5, RT=61), ReturnType(N='member-url-resources' CN='UrlResources' F=1))
+// WriteReturnTypes(ApiGroup(N='Profiles', M=6, RT=62), ReturnType(N='member-url-resources' CN='UrlResources' F=1))
 namespace Sparkle.LinkedInNET.Profiles
 {
     using System;
@@ -1497,7 +1497,7 @@ namespace Sparkle.LinkedInNET.Profiles
     }
 }
 
-// WriteReturnTypes(ApiGroup(N='Profiles', M=5, RT=61), ReturnType(N='member-url-resource' CN='UrlResource' F=2))
+// WriteReturnTypes(ApiGroup(N='Profiles', M=6, RT=62), ReturnType(N='member-url-resource' CN='UrlResource' F=2))
 namespace Sparkle.LinkedInNET.Profiles
 {
     using System;
@@ -1525,7 +1525,7 @@ namespace Sparkle.LinkedInNET.Profiles
     }
 }
 
-// WriteReturnTypes(ApiGroup(N='Profiles', M=5, RT=61), ReturnType(N='ProfileRequest' CN='' F=2))
+// WriteReturnTypes(ApiGroup(N='Profiles', M=6, RT=62), ReturnType(N='ProfileRequest' CN='' F=2))
 namespace Sparkle.LinkedInNET.Profiles
 {
     using System;
@@ -1553,7 +1553,7 @@ namespace Sparkle.LinkedInNET.Profiles
     }
 }
 
-// WriteReturnTypes(ApiGroup(N='Profiles', M=5, RT=61), ReturnType(N='headers' CN='RequestHeaders' F=1))
+// WriteReturnTypes(ApiGroup(N='Profiles', M=6, RT=62), ReturnType(N='headers' CN='RequestHeaders' F=1))
 namespace Sparkle.LinkedInNET.Profiles
 {
     using System;
@@ -1575,7 +1575,7 @@ namespace Sparkle.LinkedInNET.Profiles
     }
 }
 
-// WriteReturnTypes(ApiGroup(N='Profiles', M=5, RT=61), ReturnType(N='http-header' CN='RequestHeader' F=2))
+// WriteReturnTypes(ApiGroup(N='Profiles', M=6, RT=62), ReturnType(N='http-header' CN='RequestHeader' F=2))
 namespace Sparkle.LinkedInNET.Profiles
 {
     using System;
@@ -1603,7 +1603,7 @@ namespace Sparkle.LinkedInNET.Profiles
     }
 }
 
-// WriteReturnTypes(ApiGroup(N='Profiles', M=5, RT=61), ReturnType(N='FollowingInfos' CN='' F=4))
+// WriteReturnTypes(ApiGroup(N='Profiles', M=6, RT=62), ReturnType(N='FollowingInfos' CN='' F=4))
 namespace Sparkle.LinkedInNET.Profiles
 {
     using System;
@@ -1643,7 +1643,7 @@ namespace Sparkle.LinkedInNET.Profiles
     }
 }
 
-// WriteReturnTypes(ApiGroup(N='Profiles', M=5, RT=61), ReturnType(N='FollowingInfosPeople' CN='' F=1))
+// WriteReturnTypes(ApiGroup(N='Profiles', M=6, RT=62), ReturnType(N='FollowingInfosPeople' CN='' F=1))
 namespace Sparkle.LinkedInNET.Profiles
 {
     using System;
@@ -1665,7 +1665,7 @@ namespace Sparkle.LinkedInNET.Profiles
     }
 }
 
-// WriteReturnTypes(ApiGroup(N='Profiles', M=5, RT=61), ReturnType(N='FollowingInfosCompanies' CN='' F=1))
+// WriteReturnTypes(ApiGroup(N='Profiles', M=6, RT=62), ReturnType(N='FollowingInfosCompanies' CN='' F=1))
 namespace Sparkle.LinkedInNET.Profiles
 {
     using System;
@@ -1687,7 +1687,7 @@ namespace Sparkle.LinkedInNET.Profiles
     }
 }
 
-// WriteReturnTypes(ApiGroup(N='Profiles', M=5, RT=61), ReturnType(N='FollowingInfosIndustries' CN='' F=1))
+// WriteReturnTypes(ApiGroup(N='Profiles', M=6, RT=62), ReturnType(N='FollowingInfosIndustries' CN='' F=1))
 namespace Sparkle.LinkedInNET.Profiles
 {
     using System;
@@ -1709,7 +1709,7 @@ namespace Sparkle.LinkedInNET.Profiles
     }
 }
 
-// WriteReturnTypes(ApiGroup(N='Profiles', M=5, RT=61), ReturnType(N='FollowingInfosSpecialEditions' CN='' F=1))
+// WriteReturnTypes(ApiGroup(N='Profiles', M=6, RT=62), ReturnType(N='FollowingInfosSpecialEditions' CN='' F=1))
 namespace Sparkle.LinkedInNET.Profiles
 {
     using System;
@@ -1731,7 +1731,7 @@ namespace Sparkle.LinkedInNET.Profiles
     }
 }
 
-// WriteReturnTypes(ApiGroup(N='Profiles', M=5, RT=61), ReturnType(N='job-bookmarks' CN='JobBookmarks' F=1))
+// WriteReturnTypes(ApiGroup(N='Profiles', M=6, RT=62), ReturnType(N='job-bookmarks' CN='JobBookmarks' F=1))
 namespace Sparkle.LinkedInNET.Profiles
 {
     using System;
@@ -1753,7 +1753,7 @@ namespace Sparkle.LinkedInNET.Profiles
     }
 }
 
-// WriteReturnTypes(ApiGroup(N='Profiles', M=5, RT=61), ReturnType(N='honors-awards' CN='HonorsAwards' F=1))
+// WriteReturnTypes(ApiGroup(N='Profiles', M=6, RT=62), ReturnType(N='honors-awards' CN='HonorsAwards' F=1))
 namespace Sparkle.LinkedInNET.Profiles
 {
     using System;
@@ -1775,7 +1775,7 @@ namespace Sparkle.LinkedInNET.Profiles
     }
 }
 
-// WriteReturnTypes(ApiGroup(N='Profiles', M=5, RT=61), ReturnType(N='honor-award' CN='HonorAward' F=3))
+// WriteReturnTypes(ApiGroup(N='Profiles', M=6, RT=62), ReturnType(N='honor-award' CN='HonorAward' F=3))
 namespace Sparkle.LinkedInNET.Profiles
 {
     using System;
@@ -1809,7 +1809,7 @@ namespace Sparkle.LinkedInNET.Profiles
     }
 }
 
-// WriteReturnTypes(ApiGroup(N='Profiles', M=5, RT=61), ReturnType(N='twitter-accounts' CN='TwitterAccounts' F=1))
+// WriteReturnTypes(ApiGroup(N='Profiles', M=6, RT=62), ReturnType(N='twitter-accounts' CN='TwitterAccounts' F=1))
 namespace Sparkle.LinkedInNET.Profiles
 {
     using System;
@@ -1831,7 +1831,7 @@ namespace Sparkle.LinkedInNET.Profiles
     }
 }
 
-// WriteReturnTypes(ApiGroup(N='Profiles', M=5, RT=61), ReturnType(N='twitter-account' CN='TwitterAccount' F=2))
+// WriteReturnTypes(ApiGroup(N='Profiles', M=6, RT=62), ReturnType(N='twitter-account' CN='TwitterAccount' F=2))
 namespace Sparkle.LinkedInNET.Profiles
 {
     using System;
@@ -1859,7 +1859,7 @@ namespace Sparkle.LinkedInNET.Profiles
     }
 }
 
-// WriteReturnTypes(ApiGroup(N='Profiles', M=5, RT=61), ReturnType(N='im-accounts' CN='ImAccounts' F=1))
+// WriteReturnTypes(ApiGroup(N='Profiles', M=6, RT=62), ReturnType(N='im-accounts' CN='ImAccounts' F=1))
 namespace Sparkle.LinkedInNET.Profiles
 {
     using System;
@@ -1881,7 +1881,7 @@ namespace Sparkle.LinkedInNET.Profiles
     }
 }
 
-// WriteReturnTypes(ApiGroup(N='Profiles', M=5, RT=61), ReturnType(N='im-account' CN='ImAccount' F=3))
+// WriteReturnTypes(ApiGroup(N='Profiles', M=6, RT=62), ReturnType(N='im-account' CN='ImAccount' F=3))
 namespace Sparkle.LinkedInNET.Profiles
 {
     using System;
@@ -1915,7 +1915,29 @@ namespace Sparkle.LinkedInNET.Profiles
     }
 }
 
-// WriteReturnTypes(ApiGroup(N='Profiles', M=5, RT=61), ReturnType(N='site-standard-profile-request' CN='SiteStandardProfileRequest' F=1))
+// WriteReturnTypes(ApiGroup(N='Profiles', M=6, RT=62), ReturnType(N='picture-urls' CN='PictureUrls' F=1))
+namespace Sparkle.LinkedInNET.Profiles
+{
+    using System;
+    using System.Collections.Generic;
+    using System.Xml.Serialization;
+
+    /// <summary>
+    /// Name: 'picture-urls'
+    /// </summary>
+    [Serializable, XmlRoot("picture-urls")]
+    public class PictureUrls
+    {
+        /// <summary>
+        /// Field: 'picture-url' (on-demand)
+        /// </summary>
+        [XmlElement(ElementName = "picture-url")]
+        public List<string> PictureUrl { get; set; }
+
+    }
+}
+
+// WriteReturnTypes(ApiGroup(N='Profiles', M=6, RT=62), ReturnType(N='site-standard-profile-request' CN='SiteStandardProfileRequest' F=1))
 namespace Sparkle.LinkedInNET.Profiles
 {
     using System;
@@ -1937,7 +1959,7 @@ namespace Sparkle.LinkedInNET.Profiles
     }
 }
 
-// WriteReturnTypes(ApiGroup(N='Profiles', M=5, RT=61), ReturnType(N='location' CN='Location' F=2))
+// WriteReturnTypes(ApiGroup(N='Profiles', M=6, RT=62), ReturnType(N='location' CN='Location' F=2))
 namespace Sparkle.LinkedInNET.Profiles
 {
     using System;
@@ -1965,7 +1987,7 @@ namespace Sparkle.LinkedInNET.Profiles
     }
 }
 
-// WriteReturnTypes(ApiGroup(N='Profiles', M=5, RT=61), ReturnType(N='country' CN='Country' F=1))
+// WriteReturnTypes(ApiGroup(N='Profiles', M=6, RT=62), ReturnType(N='country' CN='Country' F=1))
 namespace Sparkle.LinkedInNET.Profiles
 {
     using System;
@@ -1987,7 +2009,7 @@ namespace Sparkle.LinkedInNET.Profiles
     }
 }
 
-// WriteReturnTypes(ApiGroup(N='Profiles', M=5, RT=61), ReturnType(N='authority' CN='Authority' F=1))
+// WriteReturnTypes(ApiGroup(N='Profiles', M=6, RT=62), ReturnType(N='authority' CN='Authority' F=1))
 namespace Sparkle.LinkedInNET.Profiles
 {
     using System;
@@ -2009,7 +2031,7 @@ namespace Sparkle.LinkedInNET.Profiles
     }
 }
 
-// WriteReturnTypes(ApiGroup(N='Profiles', M=5, RT=61), ReturnType(N='organization' CN='Organization' F=1))
+// WriteReturnTypes(ApiGroup(N='Profiles', M=6, RT=62), ReturnType(N='organization' CN='Organization' F=1))
 namespace Sparkle.LinkedInNET.Profiles
 {
     using System;
@@ -2031,7 +2053,7 @@ namespace Sparkle.LinkedInNET.Profiles
     }
 }
 
-// WriteReturnTypes(ApiGroup(N='Profiles', M=5, RT=61), ReturnType(N='cause' CN='Cause' F=1))
+// WriteReturnTypes(ApiGroup(N='Profiles', M=6, RT=62), ReturnType(N='cause' CN='Cause' F=1))
 namespace Sparkle.LinkedInNET.Profiles
 {
     using System;
@@ -2053,7 +2075,7 @@ namespace Sparkle.LinkedInNET.Profiles
     }
 }
 
-// WriteReturnTypes(ApiGroup(N='Profiles', M=5, RT=61), ReturnType(N='publisher' CN='Publisher' F=1))
+// WriteReturnTypes(ApiGroup(N='Profiles', M=6, RT=62), ReturnType(N='publisher' CN='Publisher' F=1))
 namespace Sparkle.LinkedInNET.Profiles
 {
     using System;
@@ -2075,7 +2097,7 @@ namespace Sparkle.LinkedInNET.Profiles
     }
 }
 
-// WriteReturnTypes(ApiGroup(N='Profiles', M=5, RT=61), ReturnType(N='authors' CN='Authors' F=3))
+// WriteReturnTypes(ApiGroup(N='Profiles', M=6, RT=62), ReturnType(N='authors' CN='Authors' F=3))
 namespace Sparkle.LinkedInNET.Profiles
 {
     using System;
@@ -2109,7 +2131,7 @@ namespace Sparkle.LinkedInNET.Profiles
     }
 }
 
-// WriteReturnTypes(ApiGroup(N='Profiles', M=5, RT=61), ReturnType(N='office' CN='Office' F=1))
+// WriteReturnTypes(ApiGroup(N='Profiles', M=6, RT=62), ReturnType(N='office' CN='Office' F=1))
 namespace Sparkle.LinkedInNET.Profiles
 {
     using System;
@@ -2131,7 +2153,7 @@ namespace Sparkle.LinkedInNET.Profiles
     }
 }
 
-// WriteReturnTypeFields(ApiGroup(N='Profiles', M=5, RT=61))
+// WriteReturnTypeFields(ApiGroup(N='Profiles', M=6, RT=62))
 namespace Sparkle.LinkedInNET.Profiles
 {
     using System;
@@ -2139,7 +2161,7 @@ namespace Sparkle.LinkedInNET.Profiles
     using System.Xml.Serialization;
 
     /// <summary>
-    /// Field selectors for the 'person', 'connections', 'position', 'positions', 'CompanyIdentifier', 'DateParts', 'relation-to-viewer', 'languages', 'language', 'LanguageInfo', 'LanguageProficiency', 'skills', 'skill', 'skill', 'certifications', 'certification', 'educations', 'education', 'courses', 'course', 'volunteer', 'volunteer-experiences', 'volunteer-experience', 'recommendations', 'recommendation', 'phone-numbers', 'phone-number', 'publications', 'publication', 'patents', 'patent', 'status', 'inventors', 'inventor', 'person', 'member-url-resources', 'member-url-resource', 'ProfileRequest', 'headers', 'http-header', 'FollowingInfos', 'FollowingInfosPeople', 'FollowingInfosCompanies', 'FollowingInfosIndustries', 'FollowingInfosSpecialEditions', 'job-bookmarks', 'honors-awards', 'honor-award', 'twitter-accounts', 'twitter-account', 'im-accounts', 'im-account', 'site-standard-profile-request', 'location', 'country', 'authority', 'organization', 'cause', 'publisher', 'authors', 'office' return types.
+    /// Field selectors for the 'person', 'connections', 'position', 'positions', 'CompanyIdentifier', 'DateParts', 'relation-to-viewer', 'languages', 'language', 'LanguageInfo', 'LanguageProficiency', 'skills', 'skill', 'skill', 'certifications', 'certification', 'educations', 'education', 'courses', 'course', 'volunteer', 'volunteer-experiences', 'volunteer-experience', 'recommendations', 'recommendation', 'phone-numbers', 'phone-number', 'publications', 'publication', 'patents', 'patent', 'status', 'inventors', 'inventor', 'person', 'member-url-resources', 'member-url-resource', 'ProfileRequest', 'headers', 'http-header', 'FollowingInfos', 'FollowingInfosPeople', 'FollowingInfosCompanies', 'FollowingInfosIndustries', 'FollowingInfosSpecialEditions', 'job-bookmarks', 'honors-awards', 'honor-award', 'twitter-accounts', 'twitter-account', 'im-accounts', 'im-account', 'picture-urls', 'site-standard-profile-request', 'location', 'country', 'authority', 'organization', 'cause', 'publisher', 'authors', 'office' return types.
     /// </summary>
     public static class ProfilesFields {
         /// <summary>
@@ -3098,19 +3120,19 @@ namespace Sparkle.LinkedInNET.Companies
         /// <summary>
         /// Field: 'company-job-update' (on-demand)
         /// </summary>
-        [XmlElement(ElementName = "company-job-update", IsNullable = true)]
+        [XmlElement(ElementName = "company-job-update")]
         public CompanyJobUpdate CompanyJobUpdate { get; set; }
 
         /// <summary>
         /// Field: 'company-product-update' (on-demand)
         /// </summary>
-        [XmlElement(ElementName = "company-product-update", IsNullable = true)]
+        [XmlElement(ElementName = "company-product-update")]
         public CompanyProductUpdate CompanyProductUpdate { get; set; }
 
         /// <summary>
         /// Field: 'company‐status­‐update' (on-demand)
         /// </summary>
-        [XmlElement(ElementName = "company‐status­‐update", IsNullable = true)]
+        [XmlElement(ElementName = "company‐status­‐update")]
         public CompanyStatusUpdate CompanyStatusUpdate { get; set; }
 
     }
@@ -3885,7 +3907,7 @@ namespace Sparkle.LinkedInNET.Common
     }
 }
 
-// WriteApiGroup(ApiGroup(N='Profiles', M=5, RT=61))
+// WriteApiGroup(ApiGroup(N='Profiles', M=6, RT=62))
 namespace Sparkle.LinkedInNET.Profiles
 {
     using System;
@@ -4015,6 +4037,26 @@ namespace Sparkle.LinkedInNET.Profiles
             return this.HandleXmlResponse<Person>(context);
         }
         
+        /// <summary>
+        /// 
+        /// </summary>
+        public PictureUrls GetOriginalProfilePicture(
+              UserAuthorization user
+            , FieldSelector<PictureUrls> fields = null
+        )
+        {
+            var url = "/v1/people/~/picture-urls::(original)";
+
+            var context = new RequestContext();
+            context.UserAuthorization = user;
+            context.Method =  "GET";
+            context.UrlPath = this.LinkedInApi.Configuration.BaseApiUrl + url;
+
+            if (!this.ExecuteQuery(context))
+                this.HandleXmlErrorResponse(context);
+            return this.HandleXmlResponse<PictureUrls>(context);
+        }
+        
     }
 }
 
@@ -4132,7 +4174,7 @@ namespace Sparkle.LinkedInNET.Companies
         )
         {
             const string urlFormat = "/v1/companies/{int id}/updates";
-            var url = FormatUrl(urlFormat, fields, "int id", id);
+            var url = FormatUrl(urlFormat, fields, "id", id);
 
             var context = new RequestContext();
             context.UserAuthorization = user;

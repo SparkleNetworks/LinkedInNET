@@ -20,6 +20,7 @@ What's implemented and what's not...
 - [ ] [Connections API: Finding New Connections](https://developer.linkedin.com/documents/connections-api)
 - [ ] [People Search API](https://developer.linkedin.com/documents/people-search-api)
 - [ ] [Accessing Out of Network Profiles](https://developer.linkedin.com/documents/accessing-out-network-profiles)
+- [x] [Profile original picture](http://stackoverflow.com/questions/6955647/getting-linkedin-profile-picture/6963184)
 
 ### Groups
 

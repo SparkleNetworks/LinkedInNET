@@ -7,8 +7,8 @@
     <!--<ApiMethod MethodName="QueryProfiles" HttpMethod="GET" Title="queries for some profiles" Path="/v1/people/{PublicProfileUrl}" ReturnType="Person" RequiresUserAuthentication="1" />-->
     <ApiMethod MethodName="GetMyConnections"     HttpMethod="GET" Title="returns a list of 1st degree connections for a user " Path="/v1/people/~/connections" ReturnType="connections" RequiresUserAuthentication="1" />
     <ApiMethod MethodName="GetConnectionsByProfileId"     HttpMethod="GET" Title="returns a list of 1st degree connections for a user " Path="/v1/people/id={MemberToken}/connections" ReturnType="Person" RequiresUserAuthentication="1" />
-    
-    
+    <ApiMethod MethodName="GetOriginalProfilePicture" HttpMethod="GET" Title="returns the original picture posted by the user, fields selector are ignored" Path="/v1/people/~/picture-urls::(original)" ReturnType="PictureUrls" RequiresUserAuthentication="1" />
+
     <ReturnType Name="person" ClassName="Person" AutoGenerateFieldSelectors="1">
       
       <!-- Basic profile fields -->
@@ -44,6 +44,7 @@
       <Field Name="specialties" Title="A short-form text area where the member enumerates their specialties" Remark="Not available via connections API." />
       <Field Name="positions" Title="A collection of positions a member has had, the total indicated by a total attribute" Remark="See Positions Fields below. Only current positions are available for people other than the authenticated member." Type="positions" />
       <Field Name="picture-url" Title="A URL to the profile picture, if the member has associated one with their profile and it is visible to the requestor" Remark="" />
+      <!--<Field Name="picture-urls" Title="A URL to the profile picture originally posted by the user." Remark="" />-->
       <Field Name="site-standard-profile-request" Title="The URL to the member's authenticated profile on LinkedIn (requires a login to be viewed, unlike public profiles)" Remark="" />
       <Field Name="api-standard-profile-request" Type="ProfileRequest" Title="A URL representing the resource you would request for programmatic access to the member's profile" Remark="">
         <FieldSelector Name="api-standard-profile-request:(url)" />
@@ -473,6 +474,10 @@
       <Field Name="im-account-type" />
       <Field Name="im-account-name" />
       <Field Name="id" Type="int" />
+    </ReturnType>
+
+    <ReturnType Name="picture-urls" ClassName="PictureUrls">
+      <Field Name="picture-url" IsCollection="1" Type="string" />
     </ReturnType>
   </ApiGroup>
   

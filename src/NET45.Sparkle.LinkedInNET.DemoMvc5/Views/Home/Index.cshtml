@@ -68,6 +68,14 @@
 {
 <pre>@this.ViewBag.ProfileError</pre>
 }
+<p>Here is the original profile picture.</p>
+@{
+    var pictureUrls = (Sparkle.LinkedInNET.Profiles.PictureUrls)this.ViewBag.Picture;
+}
+@if (pictureUrls != null)
+{
+    <pre>@Newtonsoft.Json.JsonConvert.SerializeObject(pictureUrls, Newtonsoft.Json.Formatting.Indented)</pre>
+}
 <p>Here are the companies profiles.</p>
 @{
     var companies = (IList<Sparkle.LinkedInNET.Companies.Company>)this.ViewBag.Companies;

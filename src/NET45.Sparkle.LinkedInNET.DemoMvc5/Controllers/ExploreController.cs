@@ -38,6 +38,8 @@ namespace Sparkle.LinkedInNET.DemoMvc5.Controllers
                     .WithConnections();
                 this.ViewData["MyProfile"] = this.api.Profiles.GetMyProfile(user, acceptLanguages, fields);
                 this.ViewBag.Profile = this.ViewData["MyProfile"];
+                this.ViewData["ProfilePictures"] = this.api.Profiles.GetOriginalProfilePicture(user);
+                this.ViewBag.Pictures = this.ViewData["ProfilePictures"];
             }
 
             ////{
@@ -83,6 +85,8 @@ namespace Sparkle.LinkedInNET.DemoMvc5.Controllers
                 .WithFirstName().WithLastName().WithHeadline()
                 .WithConnections();
             var company = this.api.Profiles.GetProfileById(user, id, acceptLanguages, fields);
+            this.ViewData["ProfilePictures"] = this.api.Profiles.GetOriginalProfilePicture(user);
+            this.ViewBag.Pictures = this.ViewData["ProfilePictures"];
 
             return this.View(company);
         }

@@ -100,6 +100,9 @@ namespace Sparkle.LinkedInNET.DemoMvc5.Controllers
                         .WithSkills();
                     var profile = this.api.Profiles.GetMyProfile(user, acceptLanguages, fields);
 
+                    var originalPicture = this.api.Profiles.GetOriginalProfilePicture(user);
+                    this.ViewBag.Picture = originalPicture;
+
                     ////if (profile.Positions != null && profile.Positions.Position.Count > 0)
                     ////{
                     ////    var companyFields = FieldSelector.For<Company>()
