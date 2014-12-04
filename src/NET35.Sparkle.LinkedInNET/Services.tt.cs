@@ -4038,7 +4038,7 @@ namespace Sparkle.LinkedInNET.Profiles
         }
         
         /// <summary>
-        /// 
+        /// returns the original picture posted by the user, fields selector are ignored
         /// </summary>
         public PictureUrls GetOriginalProfilePicture(
               UserAuthorization user
@@ -4174,7 +4174,7 @@ namespace Sparkle.LinkedInNET.Companies
         )
         {
             const string urlFormat = "/v1/companies/{int id}/updates";
-            var url = FormatUrl(urlFormat, fields, "id", id);
+            var url = FormatUrl(urlFormat, fields, "int id", id);
 
             var context = new RequestContext();
             context.UserAuthorization = user;

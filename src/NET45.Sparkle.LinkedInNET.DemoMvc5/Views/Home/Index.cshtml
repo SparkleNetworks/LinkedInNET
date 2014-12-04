@@ -72,9 +72,16 @@
 @{
     var pictureUrls = (Sparkle.LinkedInNET.Profiles.PictureUrls)this.ViewBag.Picture;
 }
-@if (pictureUrls != null)
+@if (pictureUrls != null && pictureUrls.PictureUrl != null)
 {
-    <pre>@Newtonsoft.Json.JsonConvert.SerializeObject(pictureUrls, Newtonsoft.Json.Formatting.Indented)</pre>
+<p>
+    @foreach (var picture in pictureUrls.PictureUrl) {
+    <img src="@picture" alt="@picture" title="@picture" />
+    }
+</p>
+<pre>@Newtonsoft.Json.JsonConvert.SerializeObject(pictureUrls, Newtonsoft.Json.Formatting.Indented)</pre>
+} else {
+<pre></pre>
 }
 <p>Here are the companies profiles.</p>
 @{

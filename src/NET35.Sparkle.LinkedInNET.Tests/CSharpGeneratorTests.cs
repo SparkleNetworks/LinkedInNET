@@ -469,6 +469,20 @@ namespace Sparkle.LinkedInNET.Tests
             }
 
             [TestMethod]
+            public void TypedVariable2()
+            {
+                var path = "hello{int id}?nice";
+                var target = new TestCSharpGenerator();
+                var items = target.InvokeGetUrlPathParameters(path);
+
+                Assert.AreEqual(1, items.Count);
+                Assert.IsTrue(items.ContainsKey("id"));
+                Assert.AreEqual("int id", items["id"].OriginalName);
+                Assert.AreEqual("id", items["id"].Name);
+                Assert.AreEqual("int", items["id"].Type);
+            }
+
+            [TestMethod]
             public void TypedAndSimpleVariable()
             {
                 var path = "hello{DateTime World}?nice{test}";

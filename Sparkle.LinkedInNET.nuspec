@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>Sparkle.LinkedInNET</id>
+    <version>1.0.2</version>
+    <authors>Sparkle Networks</authors>
+    <owners>Sparkle Networks</owners>
+    <licenseUrl>https://github.com/SparkleNetworks/LinkedInNET/blob/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/SparkleNetworks/LinkedInNET</projectUrl>
+    <iconUrl>https://raw.githubusercontent.com/SparkleNetworks/LinkedInNET/master/src/LiNET-li.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Sparkle.LinkedInNET will help you query the LinkedIn API :)</description>
+    <releaseNotes>Full profile picture API added. Fixed issues with Companies.GetById.</releaseNotes>
+    <copyright>LGPL v3</copyright>
+    <tags>LinkedIn API</tags>
+  </metadata>
+</package>
