@@ -82,8 +82,10 @@ namespace Sparkle.LinkedInNET.DemoMvc5.Controllers
             var acceptLanguages = new string[] { culture ?? "en-US", "fr-FR", };
 
             var fields = FieldSelector.For<Person>()
+                .WithId()
                 .WithPositions().WithPictureUrl()
                 .WithFirstName().WithLastName().WithHeadline()
+                .WithLanguageId().WithLanguageName().WithLanguageProficiency()
                 .WithConnections();
             var company = this.api.Profiles.GetProfileById(user, id, acceptLanguages, fields);
             //this.ViewData["ProfilePictures"] = this.api.Profiles.GetOriginalProfilePicture(user);
@@ -92,7 +94,7 @@ namespace Sparkle.LinkedInNET.DemoMvc5.Controllers
             return this.View(company);
         }
 
-        public ActionResult Connections(string id, string culture = "en-US", int start = 0, int count = 10)
+        public ActionResult Connections(string id, string culture = "en-US", int start = 0, int count = 10, int? days = null)
         {
             var token = this.data.GetAccessToken();
             this.ViewBag.Token = token;
@@ -108,15 +110,30 @@ namespace Sparkle.LinkedInNET.DemoMvc5.Controllers
 
             Connections model;
             {
-                ////var fields = FieldSelector.For<Connections>()
-                ////    .WithPositions()
-                ////    .WithFirstName().WithLastName().WithHeadline();
-                model = this.api.Profiles.GetConnectionsByProfileId(user, id, start, count);
+                var fields = FieldSelector.For<Connections>()
+                    .WithDistance().WithPictureUrl()
+                    .WithSummary().WithLocationName().WithLocationCountryCode()
+                    .WithIndustry().WithId()
+                    .WithPublicProfileUrl()
+                    .WithFirstName().WithLastName().WithHeadline();
+
+                if (days == null)
+                {
+                    model = this.api.Profiles.GetConnectionsByProfileId(user, id, start, count, fields);
+                }
+                else
+                {
+                    var date = DateTime.UtcNow.AddDays(-days.Value);
+                    var modifiedSince = date.ToUnixTime();
+                    model = this.api.Profiles.GetNewConnectionsByProfileId(user, id, start, count, modifiedSince, fields);
+                }
             }
 
             this.ViewBag.id = id;
             this.ViewBag.start = start;
+            this.ViewBag.days = days;
             this.ViewBag.count = count;
+            this.ViewBag.days = days;
 
             return this.View(model);
         }

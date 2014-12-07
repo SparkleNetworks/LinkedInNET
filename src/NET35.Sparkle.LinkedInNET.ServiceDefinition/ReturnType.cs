@@ -28,6 +28,9 @@ namespace Sparkle.LinkedInNET.ServiceDefinition
         [XmlElement(ElementName = "Field")]
         public List<Field> Fields { get; set; }
 
+        [XmlElement(ElementName = "FieldSelector")]
+        public List<FieldSelector> Selectors { get; set; }
+
         [XmlElement(ElementName = "IsCollectionOf")]
         public string IsCollectionOf { get; set; }
 
@@ -36,7 +39,7 @@ namespace Sparkle.LinkedInNET.ServiceDefinition
 
         public override string ToString()
         {
-            return string.Format("ReturnType(N='{0}' CN='{1}' F={2})", Name, ClassName, Fields != null ? Fields.Count : 0);
+            return string.Format("ReturnType(N='{0}' CN='{1}' F={2} FS={3})", Name, ClassName, Fields != null ? Fields.Count : 0, Selectors != null ? Selectors.Count : 0);
         }
     }
 }

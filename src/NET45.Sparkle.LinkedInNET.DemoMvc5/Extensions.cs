@@ -5,6 +5,7 @@ namespace Sparkle.LinkedInNET.DemoMvc5
     using System.Collections.Generic;
     using System.Linq;
     using System.Web;
+    using System.Web.Mvc;
 
     public static class Extensions
     {
@@ -28,6 +29,45 @@ namespace Sparkle.LinkedInNET.DemoMvc5
             }
 
             return url;
+        }
+
+        public static MvcHtmlString DisplayUrl(this HtmlHelper html, string url)
+        {
+            string value;
+            if (url.StartsWith("https://"))
+            {
+                value = url;
+            }
+            else if (url.StartsWith("http://"))
+            {
+                value = url;
+            }
+            else if (url.StartsWith("www."))
+            {
+                value = "http://" + url;
+            }
+            else
+            {
+                return new MvcHtmlString(url);
+            }
+
+            var tag = new TagBuilder("a");
+            tag.AddCssClass("external");
+            tag.Attributes.Add("href", value);
+            tag.Attributes.Add("title", value);
+            tag.SetInnerText(url);
+
+            return MvcHtmlString.Create(tag.ToString());
+        }
+
+        public static long ToUnixTime(this DateTime value)
+        {
+            var unix = new System.DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
+
+            if (value < unix)
+                throw new ArgumentException("Specified value is lower than the UNIX time.");
+
+            return (long)value.Subtract(unix).TotalMilliseconds;
         }
     }
 }

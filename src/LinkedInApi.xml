@@ -11,9 +11,13 @@
       <IdSelectorFormat Name="ByPublicUrl" Format="url={value}" />
     </ApiMethod>-->
     
-    <ApiMethod MethodName="GetMyConnections"              HttpMethod="GET" Title="returns a list of 1st degree connections for a user "                      Path="/v1/people/~/connections?start={int start}&amp;count={int count}" ReturnType="connections" RequiresUserAuthentication="1" />
-    <ApiMethod MethodName="GetConnectionsByProfileId"     HttpMethod="GET" Title="returns a list of 1st degree connections for a user "       Path="/v1/people/id={MemberToken}/connections?start={int start}&amp;count={int count}" ReturnType="connections" RequiresUserAuthentication="1" />
-    <ApiMethod MethodName="GetConnectionsByPublicProfile" HttpMethod="GET" Title="returns a list of 1st degree connections for a user " Path="/v1/people/url={PublicProfileUrl}/connections?start={int start}&amp;count={int count}" ReturnType="connections" RequiresUserAuthentication="1" />
+    <ApiMethod MethodName="GetMyConnections"                     HttpMethod="GET" Title="returns a list of 1st degree connections for a user "                      Path="/v1/people/~/connections{FieldSelector}?start={int start}&amp;count={int count}" ReturnType="connections" RequiresUserAuthentication="1" />
+    <ApiMethod MethodName="GetConnectionsByProfileId"            HttpMethod="GET" Title="returns a list of 1st degree connections for a user "       Path="/v1/people/id={MemberToken}/connections{FieldSelector}?start={int start}&amp;count={int count}" ReturnType="connections" RequiresUserAuthentication="1" />
+    <ApiMethod MethodName="GetConnectionsByPublicProfile"        HttpMethod="GET" Title="returns a list of 1st degree connections for a user " Path="/v1/people/url={PublicProfileUrl}/connections{FieldSelector}?start={int start}&amp;count={int count}" ReturnType="connections" RequiresUserAuthentication="1" />
+    <ApiMethod MethodName="GetNewConnectionsByProfileId"         HttpMethod="GET" Title="returns a list of 1st degree connections for a user "       Path="/v1/people/id={MemberToken}/connections{FieldSelector}?start={int start}&amp;count={int count}&amp;modified=new&amp;modified-since={long modifiedSince}" ReturnType="connections" RequiresUserAuthentication="1" />
+    <ApiMethod MethodName="GetNewConnectionsByPublicProfile"     HttpMethod="GET" Title="returns a list of 1st degree connections for a user " Path="/v1/people/url={PublicProfileUrl}/connections{FieldSelector}?start={int start}&amp;count={int count}&amp;modified=new&amp;modified-since={long modifiedSince}" ReturnType="connections" RequiresUserAuthentication="1" />
+    <ApiMethod MethodName="GetUpdatedConnectionsByProfileId"     HttpMethod="GET" Title="returns a list of 1st degree connections for a user "       Path="/v1/people/id={MemberToken}/connections{FieldSelector}?start={int start}&amp;count={int count}&amp;modified=updated&amp;modified-since={long modifiedSince}" ReturnType="connections" RequiresUserAuthentication="1" />
+    <ApiMethod MethodName="GetUpdatedConnectionsByPublicProfile" HttpMethod="GET" Title="returns a list of 1st degree connections for a user " Path="/v1/people/url={PublicProfileUrl}/connections{FieldSelector}?start={int start}&amp;count={int count}&amp;modified=updated&amp;modified-since={long modifiedSince}" ReturnType="connections" RequiresUserAuthentication="1" />
     
     <ApiMethod MethodName="GetOriginalProfilePicture" HttpMethod="GET" Title="returns the original picture posted by the user, fields selector are ignored" Path="/v1/people/~/picture-urls::(original)" ReturnType="PictureUrls" RequiresUserAuthentication="1" />
 
@@ -208,6 +212,32 @@
     <ReturnType Name="connections" ClassName="Connections">
       <Field Name="total" IsAttribute="1" Type="int" />
       <Field Name="person" IsCollection="1" Type="Person" />
+      <FieldSelector Name="id" />
+      <FieldSelector Name="first-name" />
+      <FieldSelector Name="last-name" />
+      <FieldSelector Name="maiden-name" />
+      <FieldSelector Name="formatted-name" />
+      <FieldSelector Name="phonetic-first-name" />
+      <FieldSelector Name="phonetic-last-name" />
+      <FieldSelector Name="formatted-phonetic-name" />
+      <FieldSelector Name="headline" />
+      <FieldSelector Name="location:(name)" />
+      <FieldSelector Name="location:(country:(code))" />
+      <FieldSelector Name="industry" />
+      <FieldSelector Name="distance" />
+      <FieldSelector Name="relation-to-viewer:(distance)" />
+      <FieldSelector Name="relation-to-viewer:(related-connections)" />
+      <FieldSelector Name="relation-to-viewer:(connections)" />
+      <FieldSelector Name="num-connections" />
+      <FieldSelector Name="num-connections-capped" />
+      <FieldSelector Name="summary" />
+      <FieldSelector Name="specialties" />
+      <FieldSelector Name="positions" />
+      <FieldSelector Name="picture-url" />
+      <FieldSelector Name="site-standard-profile-request" />
+      <FieldSelector Name="api-standard-profile-request:(url)" />
+      <FieldSelector Name="api-standard-profile-request:(headers)" />
+      <FieldSelector Name="public-profile-url" />
     </ReturnType>
 
     <!--<ReturnType Name="share">

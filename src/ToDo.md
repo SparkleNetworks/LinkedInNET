@@ -16,8 +16,8 @@ What's implemented and what's not...
 - [x] [user profile of the current user](https://developer.linkedin.com/documents/profile-api)  
 - [x] [user profile by id](https://developer.linkedin.com/documents/profile-api)  
 - [x] [user profile by url](https://developer.linkedin.com/documents/profile-api)  
-- [ ] [Connections API](https://developer.linkedin.com/documents/connections-api)
-- [ ] [Connections API: Finding New Connections](https://developer.linkedin.com/documents/connections-api)
+- [x] [Connections API](https://developer.linkedin.com/documents/connections-api)
+- [x] [Connections API: Finding New Connections](https://developer.linkedin.com/documents/connections-api)
 - [ ] [People Search API](https://developer.linkedin.com/documents/people-search-api)
 - [ ] [Accessing Out of Network Profiles](https://developer.linkedin.com/documents/accessing-out-network-profiles)
 - [x] [Profile original picture](http://stackoverflow.com/questions/6955647/getting-linkedin-profile-picture/6963184)
@@ -136,12 +136,15 @@ Code generation
 - [x] Collections of ResultType  
 - [x] Fix generation of sub-fields (ex: location:(name))  
 - [ ] Support entity selectors `/v1/people::(~,id=123456,id=456789):(first-name)` ([ref](https://developer.linkedin.com/documents/field-selectors))  
+    - [ ] API Definition syntax
+    - [ ] Collection of selectors
+    - [ ] Generate API method
 
 API other items
 ---------------------------------
 
 - [x] Profile: Some members have profiles in multiple languages. To specify the language you prefer, pass an Accept-Language HTTP header.  
-- [ ] Pagination: start=0, count=500  
+- [x] Pagination: start=0, count=500  
 - [ ] `/v1/companies?is-company-admin=true`  
 
 For developers

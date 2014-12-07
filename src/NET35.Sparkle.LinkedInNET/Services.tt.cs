@@ -2611,6 +2611,195 @@ namespace Sparkle.LinkedInNET.Profiles
         /// <returns>The field selector.</returns>
         public static FieldSelector<Person> WithAllFields(this FieldSelector<Person> me) { return me.AddRange("first-name", "last-name", "headline", "site-standard-profile-request", "id", "maiden-name", "formatted-name", "phonetic-first-name", "phonetic-last-name", "formatted-phonetic-name", "location:(name)", "location:(country:(code))", "industry", "distance", "relation-to-viewer", "current-status-timestamp", "current-share", "num-connections", "num-connections-capped", "summary", "specialties", "positions", "picture-url", "site-standard-profile-request", "api-standard-profile-request:(url)", "api-standard-profile-request:(headers)", "public-profile-url", "email-address", "last-modified-timestamp", "proposal-comments", "associations", "interests", "publications", "patents:(id,title,summary,number,status:(id,name),office:(name),inventors:(id,name,person),date,url)", "languages:(id)", "languages:(language)", "languages:(proficiency)", "skills", "certifications:(id,name,authority:(name),number,start-date,end-date)", "educations", "courses", "volunteer:(volunteer-experiences:(id,role,organization:(name),cause:(name)))", "three-current-positions", "three-past-positions", "num-recommenders", "recommendations-received", "following", "job-bookmarks", "suggestions", "date-of-birth", "member-url-resources", "related-profile-views", "honors-awards", "phone-numbers", "bound-account-types", "im-accounts", "main-address", "twitter-accounts", "primary-twitter-account", "connections", "group-memberships", "network"); }
         
+        /// <summary>
+        /// Includes the field 'id'.
+        /// </summary>
+        /// <param name="me">The field selector.</param>
+        /// <returns>The field selector.</returns>
+        public static FieldSelector<Connections> WithId(this FieldSelector<Connections> me) { return me.Add("id"); }
+        
+        /// <summary>
+        /// Includes the field 'first-name'.
+        /// </summary>
+        /// <param name="me">The field selector.</param>
+        /// <returns>The field selector.</returns>
+        public static FieldSelector<Connections> WithFirstName(this FieldSelector<Connections> me) { return me.Add("first-name"); }
+        
+        /// <summary>
+        /// Includes the field 'last-name'.
+        /// </summary>
+        /// <param name="me">The field selector.</param>
+        /// <returns>The field selector.</returns>
+        public static FieldSelector<Connections> WithLastName(this FieldSelector<Connections> me) { return me.Add("last-name"); }
+        
+        /// <summary>
+        /// Includes the field 'maiden-name'.
+        /// </summary>
+        /// <param name="me">The field selector.</param>
+        /// <returns>The field selector.</returns>
+        public static FieldSelector<Connections> WithMaidenName(this FieldSelector<Connections> me) { return me.Add("maiden-name"); }
+        
+        /// <summary>
+        /// Includes the field 'formatted-name'.
+        /// </summary>
+        /// <param name="me">The field selector.</param>
+        /// <returns>The field selector.</returns>
+        public static FieldSelector<Connections> WithFormattedName(this FieldSelector<Connections> me) { return me.Add("formatted-name"); }
+        
+        /// <summary>
+        /// Includes the field 'phonetic-first-name'.
+        /// </summary>
+        /// <param name="me">The field selector.</param>
+        /// <returns>The field selector.</returns>
+        public static FieldSelector<Connections> WithPhoneticFirstName(this FieldSelector<Connections> me) { return me.Add("phonetic-first-name"); }
+        
+        /// <summary>
+        /// Includes the field 'phonetic-last-name'.
+        /// </summary>
+        /// <param name="me">The field selector.</param>
+        /// <returns>The field selector.</returns>
+        public static FieldSelector<Connections> WithPhoneticLastName(this FieldSelector<Connections> me) { return me.Add("phonetic-last-name"); }
+        
+        /// <summary>
+        /// Includes the field 'formatted-phonetic-name'.
+        /// </summary>
+        /// <param name="me">The field selector.</param>
+        /// <returns>The field selector.</returns>
+        public static FieldSelector<Connections> WithFormattedPhoneticName(this FieldSelector<Connections> me) { return me.Add("formatted-phonetic-name"); }
+        
+        /// <summary>
+        /// Includes the field 'headline'.
+        /// </summary>
+        /// <param name="me">The field selector.</param>
+        /// <returns>The field selector.</returns>
+        public static FieldSelector<Connections> WithHeadline(this FieldSelector<Connections> me) { return me.Add("headline"); }
+        
+        /// <summary>
+        /// Includes the field 'location:(name)'.
+        /// </summary>
+        /// <param name="me">The field selector.</param>
+        /// <returns>The field selector.</returns>
+        public static FieldSelector<Connections> WithLocationName(this FieldSelector<Connections> me) { return me.Add("location:(name)"); }
+        
+        /// <summary>
+        /// Includes the field 'location:(country:(code))'.
+        /// </summary>
+        /// <param name="me">The field selector.</param>
+        /// <returns>The field selector.</returns>
+        public static FieldSelector<Connections> WithLocationCountryCode(this FieldSelector<Connections> me) { return me.Add("location:(country:(code))"); }
+        
+        /// <summary>
+        /// Includes the field 'industry'.
+        /// </summary>
+        /// <param name="me">The field selector.</param>
+        /// <returns>The field selector.</returns>
+        public static FieldSelector<Connections> WithIndustry(this FieldSelector<Connections> me) { return me.Add("industry"); }
+        
+        /// <summary>
+        /// Includes the field 'distance'.
+        /// </summary>
+        /// <param name="me">The field selector.</param>
+        /// <returns>The field selector.</returns>
+        public static FieldSelector<Connections> WithDistance(this FieldSelector<Connections> me) { return me.Add("distance"); }
+        
+        /// <summary>
+        /// Includes the field 'relation-to-viewer:(distance)'.
+        /// </summary>
+        /// <param name="me">The field selector.</param>
+        /// <returns>The field selector.</returns>
+        public static FieldSelector<Connections> WithRelationToViewerDistance(this FieldSelector<Connections> me) { return me.Add("relation-to-viewer:(distance)"); }
+        
+        /// <summary>
+        /// Includes the field 'relation-to-viewer:(related-connections)'.
+        /// </summary>
+        /// <param name="me">The field selector.</param>
+        /// <returns>The field selector.</returns>
+        public static FieldSelector<Connections> WithRelationToViewerRelatedConnections(this FieldSelector<Connections> me) { return me.Add("relation-to-viewer:(related-connections)"); }
+        
+        /// <summary>
+        /// Includes the field 'relation-to-viewer:(connections)'.
+        /// </summary>
+        /// <param name="me">The field selector.</param>
+        /// <returns>The field selector.</returns>
+        public static FieldSelector<Connections> WithRelationToViewerConnections(this FieldSelector<Connections> me) { return me.Add("relation-to-viewer:(connections)"); }
+        
+        /// <summary>
+        /// Includes the field 'num-connections'.
+        /// </summary>
+        /// <param name="me">The field selector.</param>
+        /// <returns>The field selector.</returns>
+        public static FieldSelector<Connections> WithNumConnections(this FieldSelector<Connections> me) { return me.Add("num-connections"); }
+        
+        /// <summary>
+        /// Includes the field 'num-connections-capped'.
+        /// </summary>
+        /// <param name="me">The field selector.</param>
+        /// <returns>The field selector.</returns>
+        public static FieldSelector<Connections> WithNumConnectionsCapped(this FieldSelector<Connections> me) { return me.Add("num-connections-capped"); }
+        
+        /// <summary>
+        /// Includes the field 'summary'.
+        /// </summary>
+        /// <param name="me">The field selector.</param>
+        /// <returns>The field selector.</returns>
+        public static FieldSelector<Connections> WithSummary(this FieldSelector<Connections> me) { return me.Add("summary"); }
+        
+        /// <summary>
+        /// Includes the field 'specialties'.
+        /// </summary>
+        /// <param name="me">The field selector.</param>
+        /// <returns>The field selector.</returns>
+        public static FieldSelector<Connections> WithSpecialties(this FieldSelector<Connections> me) { return me.Add("specialties"); }
+        
+        /// <summary>
+        /// Includes the field 'positions'.
+        /// </summary>
+        /// <param name="me">The field selector.</param>
+        /// <returns>The field selector.</returns>
+        public static FieldSelector<Connections> WithPositions(this FieldSelector<Connections> me) { return me.Add("positions"); }
+        
+        /// <summary>
+        /// Includes the field 'picture-url'.
+        /// </summary>
+        /// <param name="me">The field selector.</param>
+        /// <returns>The field selector.</returns>
+        public static FieldSelector<Connections> WithPictureUrl(this FieldSelector<Connections> me) { return me.Add("picture-url"); }
+        
+        /// <summary>
+        /// Includes the field 'site-standard-profile-request'.
+        /// </summary>
+        /// <param name="me">The field selector.</param>
+        /// <returns>The field selector.</returns>
+        public static FieldSelector<Connections> WithSiteStandardProfileRequest(this FieldSelector<Connections> me) { return me.Add("site-standard-profile-request"); }
+        
+        /// <summary>
+        /// Includes the field 'api-standard-profile-request:(url)'.
+        /// </summary>
+        /// <param name="me">The field selector.</param>
+        /// <returns>The field selector.</returns>
+        public static FieldSelector<Connections> WithApiStandardProfileRequestUrl(this FieldSelector<Connections> me) { return me.Add("api-standard-profile-request:(url)"); }
+        
+        /// <summary>
+        /// Includes the field 'api-standard-profile-request:(headers)'.
+        /// </summary>
+        /// <param name="me">The field selector.</param>
+        /// <returns>The field selector.</returns>
+        public static FieldSelector<Connections> WithApiStandardProfileRequestHeaders(this FieldSelector<Connections> me) { return me.Add("api-standard-profile-request:(headers)"); }
+        
+        /// <summary>
+        /// Includes the field 'public-profile-url'.
+        /// </summary>
+        /// <param name="me">The field selector.</param>
+        /// <returns>The field selector.</returns>
+        public static FieldSelector<Connections> WithPublicProfileUrl(this FieldSelector<Connections> me) { return me.Add("public-profile-url"); }
+        
+        /// <summary>
+        /// Includes all the fields.
+        /// </summary>
+        /// <param name="me">The field selector.</param>
+        /// <returns>The field selector.</returns>
+        public static FieldSelector<Connections> WithAllFields(this FieldSelector<Connections> me) { return me.AddRange("id", "first-name", "last-name", "maiden-name", "formatted-name", "phonetic-first-name", "phonetic-last-name", "formatted-phonetic-name", "headline", "location:(name)", "location:(country:(code))", "industry", "distance", "relation-to-viewer:(distance)", "relation-to-viewer:(related-connections)", "relation-to-viewer:(connections)", "num-connections", "num-connections-capped", "summary", "specialties", "positions", "picture-url", "site-standard-profile-request", "api-standard-profile-request:(url)", "api-standard-profile-request:(headers)", "public-profile-url"); }
+        
     }
 }
 
@@ -4075,6 +4264,106 @@ namespace Sparkle.LinkedInNET.Profiles
         {
             const string urlFormat = "/v1/people/url={PublicProfileUrl}/connections?start={int start}&count={int count}";
             var url = FormatUrl(urlFormat, fields, "PublicProfileUrl", publicProfileUrl, "int start", start, "int count", count);
+
+            var context = new RequestContext();
+            context.UserAuthorization = user;
+            context.Method =  "GET";
+            context.UrlPath = this.LinkedInApi.Configuration.BaseApiUrl + url;
+
+            if (!this.ExecuteQuery(context))
+                this.HandleXmlErrorResponse(context);
+            return this.HandleXmlResponse<Connections>(context);
+        }
+        
+        /// <summary>
+        /// returns a list of 1st degree connections for a user 
+        /// </summary>
+        public Connections GetNewConnectionsByProfileId(
+              UserAuthorization user
+            , string memberToken
+            , int start
+            , int count
+            , long modifiedSince
+            , FieldSelector<Connections> fields = null
+        )
+        {
+            const string urlFormat = "/v1/people/id={MemberToken}/connections?start={int start}&count={int count}&modified=new&modified-since={long modifiedSince}";
+            var url = FormatUrl(urlFormat, fields, "MemberToken", memberToken, "int start", start, "int count", count, "long modifiedSince", modifiedSince);
+
+            var context = new RequestContext();
+            context.UserAuthorization = user;
+            context.Method =  "GET";
+            context.UrlPath = this.LinkedInApi.Configuration.BaseApiUrl + url;
+
+            if (!this.ExecuteQuery(context))
+                this.HandleXmlErrorResponse(context);
+            return this.HandleXmlResponse<Connections>(context);
+        }
+        
+        /// <summary>
+        /// returns a list of 1st degree connections for a user 
+        /// </summary>
+        public Connections GetNewConnectionsByPublicProfile(
+              UserAuthorization user
+            , string publicProfileUrl
+            , int start
+            , int count
+            , long modifiedSince
+            , FieldSelector<Connections> fields = null
+        )
+        {
+            const string urlFormat = "/v1/people/url={PublicProfileUrl}/connections?start={int start}&count={int count}&modified=new&modified-since={long modifiedSince}";
+            var url = FormatUrl(urlFormat, fields, "PublicProfileUrl", publicProfileUrl, "int start", start, "int count", count, "long modifiedSince", modifiedSince);
+
+            var context = new RequestContext();
+            context.UserAuthorization = user;
+            context.Method =  "GET";
+            context.UrlPath = this.LinkedInApi.Configuration.BaseApiUrl + url;
+
+            if (!this.ExecuteQuery(context))
+                this.HandleXmlErrorResponse(context);
+            return this.HandleXmlResponse<Connections>(context);
+        }
+        
+        /// <summary>
+        /// returns a list of 1st degree connections for a user 
+        /// </summary>
+        public Connections GetUpdatedConnectionsByProfileId(
+              UserAuthorization user
+            , string memberToken
+            , int start
+            , int count
+            , long modifiedSince
+            , FieldSelector<Connections> fields = null
+        )
+        {
+            const string urlFormat = "/v1/people/id={MemberToken}/connections?start={int start}&count={int count}&modified=updated&modified-since={long modifiedSince}";
+            var url = FormatUrl(urlFormat, fields, "MemberToken", memberToken, "int start", start, "int count", count, "long modifiedSince", modifiedSince);
+
+            var context = new RequestContext();
+            context.UserAuthorization = user;
+            context.Method =  "GET";
+            context.UrlPath = this.LinkedInApi.Configuration.BaseApiUrl + url;
+
+            if (!this.ExecuteQuery(context))
+                this.HandleXmlErrorResponse(context);
+            return this.HandleXmlResponse<Connections>(context);
+        }
+        
+        /// <summary>
+        /// returns a list of 1st degree connections for a user 
+        /// </summary>
+        public Connections GetUpdatedConnectionsByPublicProfile(
+              UserAuthorization user
+            , string publicProfileUrl
+            , int start
+            , int count
+            , long modifiedSince
+            , FieldSelector<Connections> fields = null
+        )
+        {
+            const string urlFormat = "/v1/people/url={PublicProfileUrl}/connections?start={int start}&count={int count}&modified=updated&modified-since={long modifiedSince}";
+            var url = FormatUrl(urlFormat, fields, "PublicProfileUrl", publicProfileUrl, "int start", start, "int count", count, "long modifiedSince", modifiedSince);
 
             var context = new RequestContext();
             context.UserAuthorization = user;

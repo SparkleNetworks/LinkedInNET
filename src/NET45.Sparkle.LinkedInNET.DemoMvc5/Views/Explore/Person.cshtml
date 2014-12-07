@@ -22,6 +22,14 @@
     <dt>Headline</dt>
     <dd>@(Model.Headline)</dd>
 
+    <dt>PublicProfileUrl</dt>
+    <dd>@(Model.PublicProfileUrl)</dd>
+
+@if (Model.Location != null){
+    <dt>Location</dt>
+    <dd>@Model.Location.Name @(Model.Location.Country != null ? Model.Location.Country.Code : "")</dd>
+}
+
 @foreach (var position in Model.Positions.Position)
 {
     <dt>Job</dt>
@@ -36,6 +44,20 @@
         @:?
     }
     </dd>
+
+    <dt>Connections</dt>
+    <dd>@Html.ActionLink("Go to all connections", "Connections", new { id = Model.Id, })</dd>
+}
+
+@if (Model.Languages != null && Model.Languages.Language != null) {
+    foreach (var language in Model.Languages.Language) {
+    <dt>Language</dt>
+    <dd>@(language.LanguageInfo != null ? language.LanguageInfo.Name : language.Id.ToString())
+        @if (language.Proficiency != null) {
+        <br />@language.Proficiency.Name
+        }
+    </dd>
+    }
 }
 
 @*@if (Model.Connections != null && Model.Connections.Person != null) {

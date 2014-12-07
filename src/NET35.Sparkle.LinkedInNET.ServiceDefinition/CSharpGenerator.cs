@@ -123,6 +123,20 @@ namespace Sparkle.LinkedInNET.ServiceDefinition
                     }
                 }
 
+                if (returnType.Selectors != null)
+                {
+                    foreach (var customSelector in returnType.Selectors)
+                    {
+                        if (!allFields.Contains(customSelector.Name))
+                        {
+                            var fieldName = this.GetPropertyName(customSelector.PropertyName, customSelector.Name);
+                            WriteReturnTypeField(indent, returnTypeName, fieldName, customSelector.Name);
+
+                            allFields.Add(customSelector.Name);
+                        }
+                    }
+                }
+
                 if (allFields.Count > 0)
                 {
                     this.text.WriteLine(indent, "/// <summary>");

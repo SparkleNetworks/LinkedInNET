@@ -22,33 +22,43 @@
     int start = this.ViewBag.start;
     int count = this.ViewBag.count;
     int pages = (int)Math.Ceiling((double)total / (double)count);
+    int? days = this.ViewBag.days;
 }
 
 <p class="pagination">
 @for (int i = 0; i < pages; i++) {
     int index = i * count;
-    <a href="@Url.Action("Connections", new { id = id, count = count, start = index, })" class="@(start == index ? "current" : "")">@(i + 1)</a>
+    <a href="@Url.Action("Connections", new { id = id, count = count, start = index, days = days, })" class="@(start == index ? "current" : "")">@(i + 1)</a>
 }
+</p>
+
+<p>Other queries: 
+    <a href="@Url.Action("Connections", new { id = id, count = count, start = 0, days = 10, })" >New connections (10 days)</a>, 
+    <a href="@Url.Action("Connections", new { id = id, count = count, start = 0, days = 30, })" >New connections (30 days)</a>, 
+    <a href="@Url.Action("Connections", new { id = id, count = count, start = 0, days = 30, })" >New connections (90 days)</a>
 </p>
 
 @if (Model != null && Model.Person != null) {
     foreach (var c in Model.Person) {
-<h3>
+<h3 class="clear">
             @Html.ActionLink(c.Firstname + " " + c.Lastname, "Person", new { id = c.Id, }), @c.Headline 
         @if (c.SiteStandardProfileRequest != null) {
             @:[<a href="@c.SiteStandardProfileRequest.Url">open</a>]
         }</h3>
-<p>
+<dl class="srkdl">
         @if (c.Location != null) {
-    <br /><span>@c.Location.Name, @c.Location.Country.Code</span>
+    <dt>Location</dt><dd>@c.Location.Name, @c.Location.Country.Code</dd>
         }
         @if (c.Industry != null) {
-    <br /><span>@c.Industry</span>
+    <dt>Industry</dt><dd>@c.Industry</dd>
         }
         @if (c.PictureUrl != null) {
-    <br /><img src="@c.PictureUrl" alt="" />
+    <dt>Picture</dt><dd><img src="@c.PictureUrl" alt="" title="@c.PictureUrl" /></dd>
         }
-</p>
+        @if (c.Summary != null) {
+    <dt>Summary</dt><dd><pre>@c.Summary</pre></dd>
+        }
+</dl>
     }
 }
 
