@@ -83,3 +83,20 @@ dl.srkdl dt label.noafter:after{content:'';}
 .clear{
     clear:both;
 }
+
+
+p.pagination {
+}
+p.pagination a {
+    padding: 10px;
+    border: 1px solid gray;
+    background-color: #eee;
+}
+p.pagination a.current {
+    background-color: #428BCA;
+    color:white;
+}
+
+
+
+

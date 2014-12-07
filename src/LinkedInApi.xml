@@ -5,8 +5,16 @@
     <ApiMethod MethodName="GetProfileById"   HttpMethod="GET" Title="the profile of a user in the network" Path="/v1/people/id={MemberToken}{FieldSelector}" ReturnType="Person" RequiresUserAuthentication="1" UsesAcceptLanguage="1" />
     <ApiMethod MethodName="GetPublicProfile" HttpMethod="GET" Title="the public profile of a user" Path="/v1/people/url={PublicProfileUrl}{FieldSelector}" ReturnType="Person" RequiresUserAuthentication="1" UsesAcceptLanguage="1" />
     <!--<ApiMethod MethodName="QueryProfiles" HttpMethod="GET" Title="queries for some profiles" Path="/v1/people/{PublicProfileUrl}" ReturnType="Person" RequiresUserAuthentication="1" />-->
-    <ApiMethod MethodName="GetMyConnections"     HttpMethod="GET" Title="returns a list of 1st degree connections for a user " Path="/v1/people/~/connections" ReturnType="connections" RequiresUserAuthentication="1" />
-    <ApiMethod MethodName="GetConnectionsByProfileId"     HttpMethod="GET" Title="returns a list of 1st degree connections for a user " Path="/v1/people/id={MemberToken}/connections" ReturnType="Person" RequiresUserAuthentication="1" />
+    <!--<ApiMethod MethodName="GetManyProfiles"  HttpMethod="GET" Title="" Path="/v1/people{IdSelector}{FieldSelector}" ReturnType="Person" RequiresUserAuthentication="1" UsesAcceptLanguage="1">
+      <IdSelectorFormat Name="Self" Format="~" />
+      <IdSelectorFormat Name="ById" Format="id={value}" />
+      <IdSelectorFormat Name="ByPublicUrl" Format="url={value}" />
+    </ApiMethod>-->
+    
+    <ApiMethod MethodName="GetMyConnections"              HttpMethod="GET" Title="returns a list of 1st degree connections for a user "                      Path="/v1/people/~/connections?start={int start}&amp;count={int count}" ReturnType="connections" RequiresUserAuthentication="1" />
+    <ApiMethod MethodName="GetConnectionsByProfileId"     HttpMethod="GET" Title="returns a list of 1st degree connections for a user "       Path="/v1/people/id={MemberToken}/connections?start={int start}&amp;count={int count}" ReturnType="connections" RequiresUserAuthentication="1" />
+    <ApiMethod MethodName="GetConnectionsByPublicProfile" HttpMethod="GET" Title="returns a list of 1st degree connections for a user " Path="/v1/people/url={PublicProfileUrl}/connections?start={int start}&amp;count={int count}" ReturnType="connections" RequiresUserAuthentication="1" />
+    
     <ApiMethod MethodName="GetOriginalProfilePicture" HttpMethod="GET" Title="returns the original picture posted by the user, fields selector are ignored" Path="/v1/people/~/picture-urls::(original)" ReturnType="PictureUrls" RequiresUserAuthentication="1" />
 
     <ReturnType Name="person" ClassName="Person" AutoGenerateFieldSelectors="1">
@@ -198,6 +206,7 @@
     </ReturnType>
 
     <ReturnType Name="connections" ClassName="Connections">
+      <Field Name="total" IsAttribute="1" Type="int" />
       <Field Name="person" IsCollection="1" Type="Person" />
     </ReturnType>
 
@@ -630,6 +639,11 @@
   <ApiGroup Name="Jobs">
   </ApiGroup>
 
+  <ApiGroup Name="Social">
+    <!--<ApiMethod MethodName="Post" HttpMethod="POST" Path="/v1/people/~/shares" RequiresUserAuthentication="1" />-->
+    
+    
+  </ApiGroup>
 
   <ApiGroup Name="Common">
     <ReturnType Name="share" AutoGenerateFieldSelectors="1">

@@ -1,0 +1,54 @@
+﻿@model Sparkle.LinkedInNET.Profiles.Connections
+
+<h1>@Html.ActionLink("Explore", "Index")</h1>
+
+<h2>Profile</h2>
+@{
+    var profile = (Sparkle.LinkedInNET.Profiles.Person)this.ViewBag.Profile;
+    var me = profile;
+}
+<dl class="srkdl">
+    <dt>Name</dt>
+    <dd>@(me.Firstname) @(me.Lastname)</dd>
+
+    <dt>Headline</dt>
+    <dd>@(me.Headline)</dd>
+</dl>
+
+<h2>Connections</h2>
+@{
+    string id = this.ViewBag.id;
+    int total = Model.Total;
+    int start = this.ViewBag.start;
+    int count = this.ViewBag.count;
+    int pages = (int)Math.Ceiling((double)total / (double)count);
+}
+
+<p class="pagination">
+@for (int i = 0; i < pages; i++) {
+    int index = i * count;
+    <a href="@Url.Action("Connections", new { id = id, count = count, start = index, })" class="@(start == index ? "current" : "")">@(i + 1)</a>
+}
+</p>
+
+@if (Model != null && Model.Person != null) {
+    foreach (var c in Model.Person) {
+<h3>
+            @Html.ActionLink(c.Firstname + " " + c.Lastname, "Person", new { id = c.Id, }), @c.Headline 
+        @if (c.SiteStandardProfileRequest != null) {
+            @:[<a href="@c.SiteStandardProfileRequest.Url">open</a>]
+        }</h3>
+<p>
+        @if (c.Location != null) {
+    <br /><span>@c.Location.Name, @c.Location.Country.Code</span>
+        }
+        @if (c.Industry != null) {
+    <br /><span>@c.Industry</span>
+        }
+        @if (c.PictureUrl != null) {
+    <br /><img src="@c.PictureUrl" alt="" />
+        }
+</p>
+    }
+}
+

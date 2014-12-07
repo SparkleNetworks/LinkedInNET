@@ -58,7 +58,7 @@ namespace Sparkle.LinkedInNET.Internals
                 }
                 else
                 {
-                    dic.Add(values[i - 1].ToString(), values[i].ToString());
+                    dic.Add(values[i - 1].ToString(), values[i] != null ? values[i].ToString() : null);
                 }
             }
 
@@ -253,7 +253,7 @@ namespace Sparkle.LinkedInNET.Internals
                 }
 
                 {
-                    var ex1 = FX.ApiException("ApiErrorResult", errorResult.Status, errorResult.Message);
+                    var ex1 = FX.ApiException("ApiErrorResult", errorResult.Status, errorResult.Message, context.UrlPath);
                     TryAttachContextDetails(context, null);
                     ex1.Data.Add("ErrorResult", errorResult);
                     if (errorResult != null)

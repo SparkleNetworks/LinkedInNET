@@ -11,6 +11,10 @@
     var pictureUrls = (Sparkle.LinkedInNET.Profiles.PictureUrls)this.ViewBag.Pictures;
     if (pictureUrls != null) {
         pictures = pictureUrls.PictureUrl;
+        if (me.PictureUrl != null)
+        {
+            pictures.Add(me.PictureUrl);
+        }
     }
 }
 <dl class="srkdl">
@@ -19,6 +23,9 @@
         <dt>Picture</dt>
         <dd><img src="@item" /></dd>
     }
+
+    <dt>Id</dt>
+    <dd>@(me.Id)</dd>
 
     <dt>Name</dt>
     <dd>@(me.Firstname) @(me.Lastname)</dd>
@@ -42,6 +49,8 @@
     </dd>
 }
 
+<dt>Connections</dt>
+<dd>@Html.ActionLink("Go to all connections", "Connections", new { id = me.Id, })</dd>
 @if (me.Connections != null && me.Connections.Person != null) {
     foreach (var c in me.Connections.Person) {
 <dt>Connection</dt>

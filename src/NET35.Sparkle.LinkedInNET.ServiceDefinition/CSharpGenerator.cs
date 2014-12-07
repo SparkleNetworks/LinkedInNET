@@ -12,7 +12,7 @@ namespace Sparkle.LinkedInNET.ServiceDefinition
     {
         private readonly TextWriter text;
         private string rootNamespace = "Sparkle.LinkedInNET";
-        private static Regex urlParametersRegex = new Regex("\\{(?:([^{} ]+) +)?([^{}]+)\\}", RegexOptions.Compiled);
+        private static Regex urlParametersRegex = new Regex("\\{(?:([^{}= ]+) +)?([^{}= ]+)(?: *= *([^}]+))?\\}", RegexOptions.Compiled);
         private static readonly string[] csharpTypes = new string[] { "string", "int", "short", "long", "Guid", "DateTime", "double", "float", "byte", };
 
         public CSharpGenerator(TextWriter text)
@@ -72,7 +72,7 @@ namespace Sparkle.LinkedInNET.ServiceDefinition
         private void WriteReturnTypeFields(GeneratorContext context, ApiGroup apiGroup, ReturnType[] returnTypes)
         {
             int indent = 0;
-            this.text.WriteLine(indent, "// WriteReturnTypeFields(" + apiGroup + ")");
+            this.text.WriteLine(indent, "// WriteReturnTypeFields(" + apiGroup.Name + ")");
             this.text.WriteLine(indent, "namespace " + this.RootNamespace + "." + apiGroup.Name);
             this.text.WriteLine(indent++, "{");
             this.WriteNamespace(indent, "System");
@@ -231,7 +231,7 @@ namespace Sparkle.LinkedInNET.ServiceDefinition
             var className = this.GetPropertyName(null, apiGroup.Name) + "Api";
 
             int indent = 0;
-            this.text.WriteLine(indent, "// WriteApiGroup(" + apiGroup + ")");
+            this.text.WriteLine(indent, "// WriteApiGroup(" + apiGroup.Name + ")");
             this.text.WriteLine(indent, "namespace " + this.RootNamespace + "." + apiGroup.Name);
             this.text.WriteLine(indent++, "{");
             this.WriteNamespace(indent, "System");
@@ -374,6 +374,7 @@ namespace Sparkle.LinkedInNET.ServiceDefinition
                 full = full.Substring(1, full.Length - 2);
                 var key = match.Groups[2].Captures[0].Value;
                 var type = match.Groups[1].Success ? match.Groups[1].Captures[0].Value : null;
+                var value = match.Groups[3].Success ? match.Groups[3].Captures[0].Value : null;
                 if (key == "FieldSelector")
                     continue;
 
@@ -382,6 +383,7 @@ namespace Sparkle.LinkedInNET.ServiceDefinition
                     OriginalName = full,
                     Name = Namify(key, transform),
                     Type = type,
+                    Value = value,
                 };
 
                 values.Add(key, item);
@@ -393,7 +395,7 @@ namespace Sparkle.LinkedInNET.ServiceDefinition
         private void WriteReturnTypes(GeneratorContext context, ReturnType returnType, ApiGroup apiGroup)
         {
             int indent = 0;
-            this.text.WriteLine(indent, "// WriteReturnTypes(" + apiGroup + ", " + returnType + ")");
+            this.text.WriteLine(indent, "// WriteReturnTypes(" + apiGroup.Name + ", " + returnType.Name + ")");
             this.text.WriteLine(indent, "namespace " + this.RootNamespace + "." + apiGroup.Name);
             this.text.WriteLine(indent++, "{");
             this.WriteNamespace(indent, "System");

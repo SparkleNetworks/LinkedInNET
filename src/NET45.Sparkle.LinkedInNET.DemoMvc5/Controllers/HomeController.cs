@@ -176,7 +176,7 @@ namespace Sparkle.LinkedInNET.DemoMvc5.Controllers
         {
             var token = this.data.GetAccessToken();
             var user = new UserAuthorization(token);
-            var connection = this.api.Profiles.GetMyConnections(user);
+            var connection = this.api.Profiles.GetMyConnections(user, 0, 500);
             return this.View(connection);
         }
 

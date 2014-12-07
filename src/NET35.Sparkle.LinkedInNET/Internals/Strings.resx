@@ -124,7 +124,7 @@
     <value>The API returned an empty result</value>
   </data>
   <data name="ApiException_ApiErrorResult" xml:space="preserve">
-    <value>API error ({0}) {1}</value>
+    <value>API error ({0}) {1} at {2}</value>
   </data>
   <data name="ApiException_ApiUnknownError" xml:space="preserve">
     <value>Unknown API error (HTTP code: {0})</value>

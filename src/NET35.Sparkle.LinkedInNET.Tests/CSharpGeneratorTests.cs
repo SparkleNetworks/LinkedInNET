@@ -266,7 +266,7 @@ namespace Sparkle.LinkedInNET.Tests
             var xml = @"<?xml version=""1.0"" encoding=""utf-8""?>
 <Root>
   <ApiGroup Name=""group"">
-    <ReturnType Name=""return"">
+    <ReturnType Name=""return"" AutoGenerateFieldSelectors=""1"">
       <Field Name=""location"" />
     </ReturnType>
   </ApiGroup>
@@ -284,7 +284,7 @@ namespace Sparkle.LinkedInNET.Tests
             var xml = @"<?xml version=""1.0"" encoding=""utf-8""?>
 <Root>
   <ApiGroup Name=""group"">
-    <ReturnType Name=""return"">
+    <ReturnType Name=""return"" AutoGenerateFieldSelectors=""1"">
       <Field Name=""location:(name)"" />
     </ReturnType>
   </ApiGroup>
@@ -304,7 +304,7 @@ namespace Sparkle.LinkedInNET.Tests
             var xml = @"<?xml version=""1.0"" encoding=""utf-8""?>
 <Root>
   <ApiGroup Name=""group"">
-    <ReturnType Name=""return"">
+    <ReturnType Name=""return"" AutoGenerateFieldSelectors=""1"">
       <Field Name=""location"" Type=""location"" />
     </ReturnType>
     <ReturnType Name=""location"">
@@ -455,6 +455,21 @@ namespace Sparkle.LinkedInNET.Tests
             }
 
             [TestMethod]
+            public void BasicVariableWithDefaultValue()
+            {
+                var path = "hello{World = \"hello world\"}?nice";
+                var target = new TestCSharpGenerator();
+                var items = target.InvokeGetUrlPathParameters(path);
+
+                Assert.AreEqual(1, items.Count);
+                Assert.IsTrue(items.ContainsKey("World"));
+                Assert.AreEqual("World = \"hello world\"", items["World"].OriginalName);
+                Assert.AreEqual("World", items["World"].Name);
+                Assert.AreEqual("\"hello world\"", items["World"].Value);
+                Assert.IsNull(items["World"].Type);
+            }
+
+            [TestMethod]
             public void TypedVariable()
             {
                 var path = "hello{DateTime World}?nice";
@@ -480,6 +495,21 @@ namespace Sparkle.LinkedInNET.Tests
                 Assert.AreEqual("int id", items["id"].OriginalName);
                 Assert.AreEqual("id", items["id"].Name);
                 Assert.AreEqual("int", items["id"].Type);
+            }
+
+            [TestMethod]
+            public void TypedVariable2WithDefaultValue()
+            {
+                var path = "hello{int id = 12}?nice";
+                var target = new TestCSharpGenerator();
+                var items = target.InvokeGetUrlPathParameters(path);
+
+                Assert.AreEqual(1, items.Count);
+                Assert.IsTrue(items.ContainsKey("id"));
+                Assert.AreEqual("int id = 12", items["id"].OriginalName);
+                Assert.AreEqual("id", items["id"].Name);
+                Assert.AreEqual("int", items["id"].Type);
+                Assert.AreEqual("12", items["id"].Value);
             }
 
             [TestMethod]

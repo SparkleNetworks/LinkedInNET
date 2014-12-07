@@ -33,12 +33,13 @@ namespace Sparkle.LinkedInNET.DemoMvc5.Controllers
 
             {
                 var fields = FieldSelector.For<Person>()
-                    .WithPositions()
+                    .WithPositions().WithId().WithPictureUrl()
                     .WithFirstName().WithLastName().WithHeadline()
                     .WithConnections();
                 this.ViewData["MyProfile"] = this.api.Profiles.GetMyProfile(user, acceptLanguages, fields);
                 this.ViewBag.Profile = this.ViewData["MyProfile"];
-                this.ViewData["ProfilePictures"] = this.api.Profiles.GetOriginalProfilePicture(user);
+                this.ViewData["ProfilePictures"] = this.api.Profiles.GetOriginalProfilePicture(user)
+                    ?? new PictureUrls() { PictureUrl = new List<string>() };
                 this.ViewBag.Pictures = this.ViewData["ProfilePictures"];
             }
 
@@ -81,14 +82,43 @@ namespace Sparkle.LinkedInNET.DemoMvc5.Controllers
             var acceptLanguages = new string[] { culture ?? "en-US", "fr-FR", };
 
             var fields = FieldSelector.For<Person>()
-                .WithPositions()
+                .WithPositions().WithPictureUrl()
                 .WithFirstName().WithLastName().WithHeadline()
                 .WithConnections();
             var company = this.api.Profiles.GetProfileById(user, id, acceptLanguages, fields);
-            this.ViewData["ProfilePictures"] = this.api.Profiles.GetOriginalProfilePicture(user);
-            this.ViewBag.Pictures = this.ViewData["ProfilePictures"];
+            //this.ViewData["ProfilePictures"] = this.api.Profiles.GetOriginalProfilePicture(user);
+            //this.ViewBag.Pictures = this.ViewData["ProfilePictures"];
 
             return this.View(company);
+        }
+
+        public ActionResult Connections(string id, string culture = "en-US", int start = 0, int count = 10)
+        {
+            var token = this.data.GetAccessToken();
+            this.ViewBag.Token = token;
+            var user = new UserAuthorization(token);
+            var acceptLanguages = new string[] { culture ?? "en-US", "fr-FR", };
+
+            {
+                var fields = FieldSelector.For<Person>()
+                    .WithFirstName().WithLastName().WithHeadline()
+                    .WithPictureUrl();
+                this.ViewBag.Profile = this.api.Profiles.GetMyProfile(user, acceptLanguages, fields);
+            }
+
+            Connections model;
+            {
+                ////var fields = FieldSelector.For<Connections>()
+                ////    .WithPositions()
+                ////    .WithFirstName().WithLastName().WithHeadline();
+                model = this.api.Profiles.GetConnectionsByProfileId(user, id, start, count);
+            }
+
+            this.ViewBag.id = id;
+            this.ViewBag.start = start;
+            this.ViewBag.count = count;
+
+            return this.View(model);
         }
     }
 }
