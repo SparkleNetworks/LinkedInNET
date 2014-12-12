@@ -34,8 +34,8 @@ namespace Sparkle.LinkedInNET.DemoMvc5.Controllers
             {
                 var fields = FieldSelector.For<Person>()
                     .WithPositions().WithId().WithPictureUrl()
-                    .WithFirstName().WithLastName().WithHeadline()
-                    .WithConnections();
+                    .WithFirstName().WithLastName().WithHeadline();
+                    ////.WithConnections();
                 this.ViewData["MyProfile"] = this.api.Profiles.GetMyProfile(user, acceptLanguages, fields);
                 this.ViewBag.Profile = this.ViewData["MyProfile"];
                 this.ViewData["ProfilePictures"] = this.api.Profiles.GetOriginalProfilePicture(user)

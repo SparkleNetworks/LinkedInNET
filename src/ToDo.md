@@ -66,7 +66,7 @@ What's implemented and what's not...
 ### Companies
 
 - [x] Companies  
-- [ ] Get Company shares -> deserialization fails :(
+- [x] Get Company shares
 - [ ] [Post Company Share](https://developer.linkedin.com/creating-company-shares)  
 - [ ] [Historical company statictics](https://developer.linkedin.com/historical-company-statistics)  
 - [ ] [Company Statistics](https://developer.linkedin.com/company-statistics)

@@ -96,7 +96,7 @@
 @if (shares != null && shares.Update != null && shares.Update.Count > 0){
 <dl>
     @foreach (var share in shares.Update) {
-    <dt>@share.Timestamp</dt>
+    <dt>@share.Timestamp.FromUnixTime()</dt>
     <dd>
         @if (share.UpdateContent != null) {
             var content = share.UpdateContent;
@@ -118,7 +118,11 @@
             } else if (content.CompanyProductUpdate != null) {
         <p>CompanyProductUpdate</p>
             } else if (content.CompanyStatusUpdate != null) {
-        <p>CompanyStatusUpdate</p>
+                if (content.CompanyStatusUpdate.Share != null) {
+        <pre>@Newtonsoft.Json.JsonConvert.SerializeObject(content.CompanyStatusUpdate.Share, Newtonsoft.Json.Formatting.Indented)</pre>
+                } else {
+        <p>empty?</p>
+                }
             } else {
         <p>No content: UpdateContent does not contain anything known.</p>
             }

@@ -1,4 +1,4 @@
-﻿Json vs. XML
+Json vs. XML
 ====================
 
 The LinkedIn API replies with XML or JSON but is originaly built for XML. Structures have both children and attributes: this does not map easily to JSON.
@@ -8,6 +8,12 @@ https://developer.linkedin.com/documents/api-requests-json
     x-li-format: json
 
 Current state
+-------------------
+
+This lib uses JSON.
+
+
+Previous state
 -------------------
 
 This lib uses XML because:
@@ -24,5 +30,5 @@ I know JSON is lightweight but there are issues:
 Later
 -------------------
 
-Right now XML work quite well. I may later add a provider pattern to allow a different serializer to be used. Maybe create a Sparkle.LinkedInNET.JsonNet assembly with a dependency to Json.NET... 
+Right now XML works quite well. I may later add a provider pattern to allow a different serializer to be used. Maybe create a Sparkle.LinkedInNET.JsonNet assembly with a dependency to Json.NET... 
 

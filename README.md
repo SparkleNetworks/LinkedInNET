@@ -157,8 +157,8 @@ https://developer.linkedin.com/documents/authentication
 
 Supported .NET Framework versions:
 
-* .NET 4.0 (no dependencies)
-* .NET 3.5 (with a dependency to Newtonsoft.Json 6.0)
+* .NET 4.0 (dependencies: Newtonsoft.Json >= 4.5.8)
+* .NET 3.5 (dependencies: Newtonsoft.Json >= 4.5.8)
 
 We are using a lot of code generation so it won't be difficult to target 4.5 or any other framework. Implementing the async pattern won't be hard neither.
 

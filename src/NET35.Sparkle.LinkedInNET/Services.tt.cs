@@ -14,6 +14,7 @@ namespace Sparkle.LinkedInNET.Profiles
     using System;
     using System.Collections.Generic;
     using System.Xml.Serialization;
+    using Newtonsoft.Json;
 
     /// <summary>
     /// Name: 'person'
@@ -25,12 +26,14 @@ namespace Sparkle.LinkedInNET.Profiles
         /// Field: 'first-name' (default)
         /// </summary>
         [XmlElement(ElementName = "first-name")]
+        [JsonProperty(PropertyName = "firstName")]
         public string Firstname { get; set; }
 
         /// <summary>
         /// Field: 'last-name' (default)
         /// </summary>
         [XmlElement(ElementName = "last-name")]
+        [JsonProperty(PropertyName = "lastName")]
         public string Lastname { get; set; }
 
         /// <summary>
@@ -38,6 +41,7 @@ namespace Sparkle.LinkedInNET.Profiles
         /// Field: 'headline' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "headline")]
+        [JsonProperty(PropertyName = "headline")]
         public string Headline { get; set; }
 
         /// <summary>
@@ -45,42 +49,49 @@ namespace Sparkle.LinkedInNET.Profiles
         /// Field: 'site-standard-profile-request' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "site-standard-profile-request")]
+        [JsonProperty(PropertyName = "siteStandardProfileRequest")]
         public SiteStandardProfileRequest SiteStandardProfileRequest { get; set; }
 
         /// <summary>
         /// Field: 'id' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "id")]
+        [JsonProperty(PropertyName = "id")]
         public string Id { get; set; }
 
         /// <summary>
         /// Field: 'maiden-name' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "maiden-name")]
+        [JsonProperty(PropertyName = "maidenName")]
         public string MaidenName { get; set; }
 
         /// <summary>
         /// Field: 'formatted-name' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "formatted-name")]
+        [JsonProperty(PropertyName = "formattedName")]
         public string FormattedName { get; set; }
 
         /// <summary>
         /// Field: 'phonetic-first-name' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "phonetic-first-name")]
+        [JsonProperty(PropertyName = "phoneticFirstName")]
         public string PhoneticFirstName { get; set; }
 
         /// <summary>
         /// Field: 'phonetic-last-name' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "phonetic-last-name")]
+        [JsonProperty(PropertyName = "phoneticLastName")]
         public string PhoneticLastName { get; set; }
 
         /// <summary>
         /// Field: 'formatted-phonetic-name' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "formatted-phonetic-name")]
+        [JsonProperty(PropertyName = "formattedPhoneticName")]
         public string FormattedPhoneticName { get; set; }
 
         /// <summary>
@@ -88,72 +99,84 @@ namespace Sparkle.LinkedInNET.Profiles
         /// Field: 'location:(country:(code))' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "location")]
+        [JsonProperty(PropertyName = "location")]
         public Location Location { get; set; }
 
         /// <summary>
         /// Field: 'industry' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "industry")]
+        [JsonProperty(PropertyName = "industry")]
         public string Industry { get; set; }
 
         /// <summary>
         /// Field: 'distance' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "distance")]
+        [JsonProperty(PropertyName = "distance")]
         public int? Distance { get; set; }
 
         /// <summary>
         /// Field: 'relation-to-viewer' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "relation-to-viewer")]
+        [JsonProperty(PropertyName = "relationToViewer")]
         public RelationToViewer RelationToViewer { get; set; }
 
         /// <summary>
         /// Field: 'current-status-timestamp' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "current-status-timestamp")]
+        [JsonProperty(PropertyName = "currentStatusTimestamp")]
         public long? CurrentStatusTimestamp { get; set; }
 
         /// <summary>
         /// Field: 'current-share' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "current-share")]
+        [JsonProperty(PropertyName = "currentShare")]
         public Sparkle.LinkedInNET.Common.Share CurrentShare { get; set; }
 
         /// <summary>
         /// Field: 'num-connections' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "num-connections")]
+        [JsonProperty(PropertyName = "numConnections")]
         public int NumConnections { get; set; }
 
         /// <summary>
         /// Field: 'num-connections-capped' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "num-connections-capped")]
+        [JsonProperty(PropertyName = "numConnectionsCapped")]
         public bool? NumConnectionsCapped { get; set; }
 
         /// <summary>
         /// Field: 'summary' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "summary")]
+        [JsonProperty(PropertyName = "summary")]
         public string Summary { get; set; }
 
         /// <summary>
         /// Field: 'specialties' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "specialties")]
-        public string Specialties { get; set; }
+        [JsonProperty(PropertyName = "specialties")]
+        public Specialties Specialties { get; set; }
 
         /// <summary>
         /// Field: 'positions' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "positions")]
+        [JsonProperty(PropertyName = "positions")]
         public PersonPositions Positions { get; set; }
 
         /// <summary>
         /// Field: 'picture-url' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "picture-url")]
+        [JsonProperty(PropertyName = "pictureUrl")]
         public string PictureUrl { get; set; }
 
         /// <summary>
@@ -162,48 +185,56 @@ namespace Sparkle.LinkedInNET.Profiles
         /// Field: 'api-standard-profile-request:(headers)'
         /// </summary>
         [XmlElement(ElementName = "api-standard-profile-request")]
+        [JsonProperty(PropertyName = "apiStandardProfileRequest")]
         public ProfileRequest ApiStandardProfileRequest { get; set; }
 
         /// <summary>
         /// Field: 'public-profile-url' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "public-profile-url")]
+        [JsonProperty(PropertyName = "publicProfileUrl")]
         public string PublicProfileUrl { get; set; }
 
         /// <summary>
         /// Field: 'email-address' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "email-address")]
+        [JsonProperty(PropertyName = "emailAddress")]
         public string EmailAddress { get; set; }
 
         /// <summary>
         /// Field: 'last-modified-timestamp' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "last-modified-timestamp")]
+        [JsonProperty(PropertyName = "lastModifiedTimestamp")]
         public string LastModifiedTimestamp { get; set; }
 
         /// <summary>
         /// Field: 'proposal-comments' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "proposal-comments")]
+        [JsonProperty(PropertyName = "proposalComments")]
         public string ProposalComments { get; set; }
 
         /// <summary>
         /// Field: 'associations' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "associations")]
+        [JsonProperty(PropertyName = "associations")]
         public string Associations { get; set; }
 
         /// <summary>
         /// Field: 'interests' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "interests")]
+        [JsonProperty(PropertyName = "interests")]
         public string Interests { get; set; }
 
         /// <summary>
         /// Field: 'publications' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "publications")]
+        [JsonProperty(PropertyName = "publications")]
         public Publications Publications { get; set; }
 
         /// <summary>
@@ -211,6 +242,7 @@ namespace Sparkle.LinkedInNET.Profiles
         /// Field: 'patents:(id,title,summary,number,status:(id,name),office:(name),inventors:(id,name,person),date,url)'
         /// </summary>
         [XmlElement(ElementName = "patents")]
+        [JsonProperty(PropertyName = "patents")]
         public Patents Patents { get; set; }
 
         /// <summary>
@@ -220,12 +252,14 @@ namespace Sparkle.LinkedInNET.Profiles
         /// Field: 'languages:(proficiency)'
         /// </summary>
         [XmlElement(ElementName = "languages")]
+        [JsonProperty(PropertyName = "languages")]
         public Languages Languages { get; set; }
 
         /// <summary>
         /// Field: 'skills' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "skills")]
+        [JsonProperty(PropertyName = "skills")]
         public Skills Skills { get; set; }
 
         /// <summary>
@@ -233,18 +267,21 @@ namespace Sparkle.LinkedInNET.Profiles
         /// Field: 'certifications:(id,name,authority:(name),number,start-date,end-date)'
         /// </summary>
         [XmlElement(ElementName = "certifications")]
+        [JsonProperty(PropertyName = "certifications")]
         public Certifications Certifications { get; set; }
 
         /// <summary>
         /// Field: 'educations' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "educations")]
+        [JsonProperty(PropertyName = "educations")]
         public Educations Educations { get; set; }
 
         /// <summary>
         /// Field: 'courses' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "courses")]
+        [JsonProperty(PropertyName = "courses")]
         public Courses Courses { get; set; }
 
         /// <summary>
@@ -252,126 +289,147 @@ namespace Sparkle.LinkedInNET.Profiles
         /// Field: 'volunteer:(volunteer-experiences:(id,role,organization:(name),cause:(name)))'
         /// </summary>
         [XmlElement(ElementName = "volunteer")]
+        [JsonProperty(PropertyName = "volunteer")]
         public Volunteer Volunteer { get; set; }
 
         /// <summary>
         /// Field: 'three-current-positions' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "three-current-positions")]
+        [JsonProperty(PropertyName = "threeCurrentPositions")]
         public PersonPositions ThreeCurrentPositions { get; set; }
 
         /// <summary>
         /// Field: 'three-past-positions' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "three-past-positions")]
+        [JsonProperty(PropertyName = "threePastPositions")]
         public PersonPositions ThreePastPositions { get; set; }
 
         /// <summary>
         /// Field: 'num-recommenders' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "num-recommenders")]
+        [JsonProperty(PropertyName = "numRecommenders")]
         public string NumRecommenders { get; set; }
 
         /// <summary>
         /// Field: 'recommendations-received' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "recommendations-received")]
+        [JsonProperty(PropertyName = "recommendationsReceived")]
         public Recommendations RecommendationsReceived { get; set; }
 
         /// <summary>
         /// Field: 'following' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "following")]
+        [JsonProperty(PropertyName = "following")]
         public FollowingInfos Following { get; set; }
 
         /// <summary>
         /// Field: 'job-bookmarks' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "job-bookmarks")]
+        [JsonProperty(PropertyName = "jobBookmarks")]
         public JobBookmarks JobBookmarks { get; set; }
 
         /// <summary>
         /// Field: 'suggestions' (on-demand)
         /// </summary>
         ////[XmlElement(ElementName = "suggestions")]
+        ////[JsonProperty(PropertyName = "suggestions")]
         public string Suggestions { get; set; }
 
         /// <summary>
         /// Field: 'date-of-birth' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "date-of-birth")]
+        [JsonProperty(PropertyName = "dateOfBirth")]
         public DateParts DateOfBirth { get; set; }
 
         /// <summary>
         /// Field: 'member-url-resources' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "member-url-resources")]
+        [JsonProperty(PropertyName = "memberUrlResources")]
         public UrlResources MemberUrlResources { get; set; }
 
         /// <summary>
         /// Field: 'related-profile-views' (on-demand)
         /// </summary>
         ////[XmlElement(ElementName = "related-profile-views")]
+        ////[JsonProperty(PropertyName = "relatedProfileViews")]
         public string RelatedProfileViews { get; set; }
 
         /// <summary>
         /// Field: 'honors-awards' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "honors-awards")]
+        [JsonProperty(PropertyName = "honorsAwards")]
         public HonorsAwards HonorsAwards { get; set; }
 
         /// <summary>
         /// Field: 'phone-numbers' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "phone-numbers")]
+        [JsonProperty(PropertyName = "phoneNumbers")]
         public PhoneNumbers PhoneNumbers { get; set; }
 
         /// <summary>
         /// Field: 'bound-account-types' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "bound-account-types")]
+        [JsonProperty(PropertyName = "boundAccountTypes")]
         public string BoundAccountTypes { get; set; }
 
         /// <summary>
         /// Field: 'im-accounts' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "im-accounts")]
+        [JsonProperty(PropertyName = "imAccounts")]
         public ImAccounts ImAccounts { get; set; }
 
         /// <summary>
         /// Field: 'main-address' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "main-address")]
+        [JsonProperty(PropertyName = "mainAddress")]
         public string MainAddress { get; set; }
 
         /// <summary>
         /// Field: 'twitter-accounts' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "twitter-accounts")]
+        [JsonProperty(PropertyName = "twitterAccounts")]
         public TwitterAccounts TwitterAccounts { get; set; }
 
         /// <summary>
         /// Field: 'primary-twitter-account' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "primary-twitter-account")]
+        [JsonProperty(PropertyName = "primaryTwitterAccount")]
         public TwitterAccount PrimaryTwitterAccount { get; set; }
 
         /// <summary>
         /// Field: 'connections' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "connections")]
+        [JsonProperty(PropertyName = "connections")]
         public Connections Connections { get; set; }
 
         /// <summary>
         /// Field: 'group-memberships' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "group-memberships")]
+        [JsonProperty(PropertyName = "groupMemberships")]
         public string GroupMemberships { get; set; }
 
         /// <summary>
         /// Field: 'network' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "network")]
+        [JsonProperty(PropertyName = "network")]
         public string Network { get; set; }
 
     }
@@ -383,6 +441,7 @@ namespace Sparkle.LinkedInNET.Profiles
     using System;
     using System.Collections.Generic;
     using System.Xml.Serialization;
+    using Newtonsoft.Json;
 
     /// <summary>
     /// Name: 'connections'
@@ -394,12 +453,14 @@ namespace Sparkle.LinkedInNET.Profiles
         /// Field: 'total' (on-demand)
         /// </summary>
         [XmlAttribute(AttributeName = "total")]
+        [JsonProperty(PropertyName = "_total")]
         public int Total { get; set; }
 
         /// <summary>
         /// Field: 'person' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "person")]
+        [JsonProperty(PropertyName = "values")]
         public List<Person> Person { get; set; }
 
     }
@@ -411,6 +472,7 @@ namespace Sparkle.LinkedInNET.Profiles
     using System;
     using System.Collections.Generic;
     using System.Xml.Serialization;
+    using Newtonsoft.Json;
 
     /// <summary>
     /// Name: 'position'
@@ -422,42 +484,49 @@ namespace Sparkle.LinkedInNET.Profiles
         /// Field: 'id' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "id")]
+        [JsonProperty(PropertyName = "id")]
         public int Id { get; set; }
 
         /// <summary>
         /// Field: 'title' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "title")]
+        [JsonProperty(PropertyName = "title")]
         public string Title { get; set; }
 
         /// <summary>
         /// Field: 'summary' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "summary")]
+        [JsonProperty(PropertyName = "summary")]
         public string Summary { get; set; }
 
         /// <summary>
         /// Field: 'start-date' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "start-date")]
+        [JsonProperty(PropertyName = "startDate")]
         public DateParts StartDate { get; set; }
 
         /// <summary>
         /// Field: 'end-date' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "end-date")]
+        [JsonProperty(PropertyName = "endDate")]
         public DateParts EndDate { get; set; }
 
         /// <summary>
         /// Field: 'is-current' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "is-current")]
+        [JsonProperty(PropertyName = "isCurrent")]
         public bool IsCurrent { get; set; }
 
         /// <summary>
         /// Field: 'company' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "company")]
+        [JsonProperty(PropertyName = "company")]
         public CompanyIdentifier Company { get; set; }
 
     }
@@ -469,6 +538,7 @@ namespace Sparkle.LinkedInNET.Profiles
     using System;
     using System.Collections.Generic;
     using System.Xml.Serialization;
+    using Newtonsoft.Json;
 
     /// <summary>
     /// Name: 'positions'
@@ -480,6 +550,7 @@ namespace Sparkle.LinkedInNET.Profiles
         /// Field: 'position' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "position")]
+        [JsonProperty(PropertyName = "values")]
         public List<PersonPosition> Position { get; set; }
 
     }
@@ -491,6 +562,7 @@ namespace Sparkle.LinkedInNET.Profiles
     using System;
     using System.Collections.Generic;
     using System.Xml.Serialization;
+    using Newtonsoft.Json;
 
     /// <summary>
     /// Name: 'CompanyIdentifier'
@@ -502,30 +574,35 @@ namespace Sparkle.LinkedInNET.Profiles
         /// Field: 'id' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "id")]
+        [JsonProperty(PropertyName = "id")]
         public int Id { get; set; }
 
         /// <summary>
         /// Field: 'name' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "name")]
+        [JsonProperty(PropertyName = "name")]
         public string Name { get; set; }
 
         /// <summary>
         /// Field: 'type' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "type")]
+        [JsonProperty(PropertyName = "type")]
         public string Type { get; set; }
 
         /// <summary>
         /// Field: 'industry' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "industry")]
+        [JsonProperty(PropertyName = "industry")]
         public string Industry { get; set; }
 
         /// <summary>
         /// Field: 'ticker' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "ticker")]
+        [JsonProperty(PropertyName = "ticker")]
         public string Ticker { get; set; }
 
     }
@@ -537,6 +614,7 @@ namespace Sparkle.LinkedInNET.Profiles
     using System;
     using System.Collections.Generic;
     using System.Xml.Serialization;
+    using Newtonsoft.Json;
 
     /// <summary>
     /// Name: 'DateParts'
@@ -548,18 +626,21 @@ namespace Sparkle.LinkedInNET.Profiles
         /// Field: 'year' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "year")]
+        [JsonProperty(PropertyName = "year")]
         public short? Year { get; set; }
 
         /// <summary>
         /// Field: 'month' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "month")]
+        [JsonProperty(PropertyName = "month")]
         public short? Month { get; set; }
 
         /// <summary>
         /// Field: 'day' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "day")]
+        [JsonProperty(PropertyName = "day")]
         public short? Day { get; set; }
 
     }
@@ -571,6 +652,7 @@ namespace Sparkle.LinkedInNET.Profiles
     using System;
     using System.Collections.Generic;
     using System.Xml.Serialization;
+    using Newtonsoft.Json;
 
     /// <summary>
     /// Name: 'relation-to-viewer'
@@ -582,18 +664,21 @@ namespace Sparkle.LinkedInNET.Profiles
         /// Field: 'distance' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "distance")]
+        [JsonProperty(PropertyName = "distance")]
         public int? Distance { get; set; }
 
         /// <summary>
         /// Field: 'related-connections' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "related-connections")]
+        [JsonProperty(PropertyName = "relatedConnections")]
         public string RelatedConnections { get; set; }
 
         /// <summary>
         /// Field: 'connections' (on-demand)
         /// </summary>
         ////[XmlElement(ElementName = "connections")]
+        ////[JsonProperty(PropertyName = "connections")]
         public int? Connections { get; set; }
 
     }
@@ -605,6 +690,7 @@ namespace Sparkle.LinkedInNET.Profiles
     using System;
     using System.Collections.Generic;
     using System.Xml.Serialization;
+    using Newtonsoft.Json;
 
     /// <summary>
     /// Name: 'languages'
@@ -616,6 +702,7 @@ namespace Sparkle.LinkedInNET.Profiles
         /// Field: 'language' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "language")]
+        [JsonProperty(PropertyName = "values")]
         public List<Language> Language { get; set; }
 
     }
@@ -627,6 +714,7 @@ namespace Sparkle.LinkedInNET.Profiles
     using System;
     using System.Collections.Generic;
     using System.Xml.Serialization;
+    using Newtonsoft.Json;
 
     /// <summary>
     /// Name: 'language'
@@ -638,18 +726,21 @@ namespace Sparkle.LinkedInNET.Profiles
         /// Field: 'id' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "id")]
+        [JsonProperty(PropertyName = "id")]
         public int Id { get; set; }
 
         /// <summary>
         /// Field: 'language' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "language")]
+        [JsonProperty(PropertyName = "language")]
         public LanguageInfo LanguageInfo { get; set; }
 
         /// <summary>
         /// Field: 'proficiency' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "proficiency")]
+        [JsonProperty(PropertyName = "proficiency")]
         public LanguageProficiency Proficiency { get; set; }
 
     }
@@ -661,6 +752,7 @@ namespace Sparkle.LinkedInNET.Profiles
     using System;
     using System.Collections.Generic;
     using System.Xml.Serialization;
+    using Newtonsoft.Json;
 
     /// <summary>
     /// Name: 'LanguageInfo'
@@ -672,6 +764,7 @@ namespace Sparkle.LinkedInNET.Profiles
         /// Field: 'name' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "name")]
+        [JsonProperty(PropertyName = "name")]
         public string Name { get; set; }
 
     }
@@ -683,6 +776,7 @@ namespace Sparkle.LinkedInNET.Profiles
     using System;
     using System.Collections.Generic;
     using System.Xml.Serialization;
+    using Newtonsoft.Json;
 
     /// <summary>
     /// Name: 'LanguageProficiency'
@@ -694,12 +788,14 @@ namespace Sparkle.LinkedInNET.Profiles
         /// Field: 'level' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "level")]
+        [JsonProperty(PropertyName = "level")]
         public string Level { get; set; }
 
         /// <summary>
         /// Field: 'name' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "name")]
+        [JsonProperty(PropertyName = "name")]
         public string Name { get; set; }
 
     }
@@ -711,6 +807,7 @@ namespace Sparkle.LinkedInNET.Profiles
     using System;
     using System.Collections.Generic;
     using System.Xml.Serialization;
+    using Newtonsoft.Json;
 
     /// <summary>
     /// Name: 'skills'
@@ -722,6 +819,7 @@ namespace Sparkle.LinkedInNET.Profiles
         /// Field: 'skill' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "skill")]
+        [JsonProperty(PropertyName = "values")]
         public List<Skill> Skill { get; set; }
 
     }
@@ -733,6 +831,7 @@ namespace Sparkle.LinkedInNET.Profiles
     using System;
     using System.Collections.Generic;
     using System.Xml.Serialization;
+    using Newtonsoft.Json;
 
     /// <summary>
     /// Name: 'skill'
@@ -744,12 +843,14 @@ namespace Sparkle.LinkedInNET.Profiles
         /// Field: 'id' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "id")]
+        [JsonProperty(PropertyName = "id")]
         public string Id { get; set; }
 
         /// <summary>
         /// Field: 'skill' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "skill")]
+        [JsonProperty(PropertyName = "skill")]
         public SkillName SkillName { get; set; }
 
     }
@@ -761,6 +862,7 @@ namespace Sparkle.LinkedInNET.Profiles
     using System;
     using System.Collections.Generic;
     using System.Xml.Serialization;
+    using Newtonsoft.Json;
 
     /// <summary>
     /// Name: 'skill'
@@ -772,6 +874,7 @@ namespace Sparkle.LinkedInNET.Profiles
         /// Field: 'name' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "name")]
+        [JsonProperty(PropertyName = "name")]
         public string Name { get; set; }
 
     }
@@ -783,6 +886,7 @@ namespace Sparkle.LinkedInNET.Profiles
     using System;
     using System.Collections.Generic;
     using System.Xml.Serialization;
+    using Newtonsoft.Json;
 
     /// <summary>
     /// Name: 'certifications'
@@ -794,6 +898,7 @@ namespace Sparkle.LinkedInNET.Profiles
         /// Field: 'certification' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "certification")]
+        [JsonProperty(PropertyName = "values")]
         public List<Certification> Certification { get; set; }
 
     }
@@ -805,6 +910,7 @@ namespace Sparkle.LinkedInNET.Profiles
     using System;
     using System.Collections.Generic;
     using System.Xml.Serialization;
+    using Newtonsoft.Json;
 
     /// <summary>
     /// Name: 'certification'
@@ -816,36 +922,42 @@ namespace Sparkle.LinkedInNET.Profiles
         /// Field: 'id' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "id")]
+        [JsonProperty(PropertyName = "id")]
         public int Id { get; set; }
 
         /// <summary>
         /// Field: 'name' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "name")]
+        [JsonProperty(PropertyName = "name")]
         public string Name { get; set; }
 
         /// <summary>
         /// Field: 'authority:(name)' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "authority")]
+        [JsonProperty(PropertyName = "authority")]
         public Authority Authority { get; set; }
 
         /// <summary>
         /// Field: 'number' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "number")]
+        [JsonProperty(PropertyName = "number")]
         public string Number { get; set; }
 
         /// <summary>
         /// Field: 'start-date' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "start-date")]
+        [JsonProperty(PropertyName = "startDate")]
         public DateParts StartDate { get; set; }
 
         /// <summary>
         /// Field: 'end-date' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "end-date")]
+        [JsonProperty(PropertyName = "endDate")]
         public DateParts EndDate { get; set; }
 
     }
@@ -857,6 +969,7 @@ namespace Sparkle.LinkedInNET.Profiles
     using System;
     using System.Collections.Generic;
     using System.Xml.Serialization;
+    using Newtonsoft.Json;
 
     /// <summary>
     /// Name: 'educations'
@@ -868,6 +981,7 @@ namespace Sparkle.LinkedInNET.Profiles
         /// Field: 'education' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "education")]
+        [JsonProperty(PropertyName = "values")]
         public List<Education> Education { get; set; }
 
     }
@@ -879,6 +993,7 @@ namespace Sparkle.LinkedInNET.Profiles
     using System;
     using System.Collections.Generic;
     using System.Xml.Serialization;
+    using Newtonsoft.Json;
 
     /// <summary>
     /// Name: 'education'
@@ -890,48 +1005,56 @@ namespace Sparkle.LinkedInNET.Profiles
         /// Field: 'id' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "id")]
+        [JsonProperty(PropertyName = "id")]
         public long Id { get; set; }
 
         /// <summary>
         /// Field: 'school-name' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "school-name")]
+        [JsonProperty(PropertyName = "schoolName")]
         public string SchoolName { get; set; }
 
         /// <summary>
         /// Field: 'notes' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "notes")]
+        [JsonProperty(PropertyName = "notes")]
         public string Notes { get; set; }
 
         /// <summary>
         /// Field: 'activities' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "activities")]
+        [JsonProperty(PropertyName = "activities")]
         public string Activities { get; set; }
 
         /// <summary>
         /// Field: 'field-of-study' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "field-of-study")]
+        [JsonProperty(PropertyName = "fieldOfStudy")]
         public string FieldOfStudy { get; set; }
 
         /// <summary>
         /// Field: 'degree' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "degree")]
+        [JsonProperty(PropertyName = "degree")]
         public string Degree { get; set; }
 
         /// <summary>
         /// Field: 'start-date' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "start-date")]
+        [JsonProperty(PropertyName = "startDate")]
         public DateParts StartDate { get; set; }
 
         /// <summary>
         /// Field: 'end-date' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "end-date")]
+        [JsonProperty(PropertyName = "endDate")]
         public DateParts EndDate { get; set; }
 
     }
@@ -943,6 +1066,7 @@ namespace Sparkle.LinkedInNET.Profiles
     using System;
     using System.Collections.Generic;
     using System.Xml.Serialization;
+    using Newtonsoft.Json;
 
     /// <summary>
     /// Name: 'courses'
@@ -954,6 +1078,7 @@ namespace Sparkle.LinkedInNET.Profiles
         /// Field: 'course' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "course")]
+        [JsonProperty(PropertyName = "values")]
         public List<Course> Course { get; set; }
 
     }
@@ -965,6 +1090,7 @@ namespace Sparkle.LinkedInNET.Profiles
     using System;
     using System.Collections.Generic;
     using System.Xml.Serialization;
+    using Newtonsoft.Json;
 
     /// <summary>
     /// Name: 'course'
@@ -976,18 +1102,21 @@ namespace Sparkle.LinkedInNET.Profiles
         /// Field: 'id' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "id")]
+        [JsonProperty(PropertyName = "id")]
         public string Id { get; set; }
 
         /// <summary>
         /// Field: 'name' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "name")]
+        [JsonProperty(PropertyName = "name")]
         public string Name { get; set; }
 
         /// <summary>
         /// Field: 'number' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "number")]
+        [JsonProperty(PropertyName = "number")]
         public string Number { get; set; }
 
     }
@@ -999,6 +1128,7 @@ namespace Sparkle.LinkedInNET.Profiles
     using System;
     using System.Collections.Generic;
     using System.Xml.Serialization;
+    using Newtonsoft.Json;
 
     /// <summary>
     /// Name: 'volunteer'
@@ -1010,6 +1140,7 @@ namespace Sparkle.LinkedInNET.Profiles
         /// Field: 'volunteer-experiences' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "volunteer-experiences")]
+        [JsonProperty(PropertyName = "volunteerExperiences")]
         public VolunteerExperiences VolunteerExperiences { get; set; }
 
     }
@@ -1021,6 +1152,7 @@ namespace Sparkle.LinkedInNET.Profiles
     using System;
     using System.Collections.Generic;
     using System.Xml.Serialization;
+    using Newtonsoft.Json;
 
     /// <summary>
     /// Name: 'volunteer-experiences'
@@ -1032,6 +1164,7 @@ namespace Sparkle.LinkedInNET.Profiles
         /// Field: 'volunteer-experience' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "volunteer-experience")]
+        [JsonProperty(PropertyName = "values")]
         public List<VolunteerExperience> VolunteerExperience { get; set; }
 
     }
@@ -1043,6 +1176,7 @@ namespace Sparkle.LinkedInNET.Profiles
     using System;
     using System.Collections.Generic;
     using System.Xml.Serialization;
+    using Newtonsoft.Json;
 
     /// <summary>
     /// Name: 'volunteer-experience'
@@ -1054,24 +1188,28 @@ namespace Sparkle.LinkedInNET.Profiles
         /// Field: 'id' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "id")]
+        [JsonProperty(PropertyName = "id")]
         public int Id { get; set; }
 
         /// <summary>
         /// Field: 'role' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "role")]
+        [JsonProperty(PropertyName = "role")]
         public string Role { get; set; }
 
         /// <summary>
         /// Field: 'organization:(name)' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "organization")]
+        [JsonProperty(PropertyName = "organization")]
         public Organization Organization { get; set; }
 
         /// <summary>
         /// Field: 'cause:(name)' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "cause")]
+        [JsonProperty(PropertyName = "cause")]
         public Cause Cause { get; set; }
 
     }
@@ -1083,6 +1221,7 @@ namespace Sparkle.LinkedInNET.Profiles
     using System;
     using System.Collections.Generic;
     using System.Xml.Serialization;
+    using Newtonsoft.Json;
 
     /// <summary>
     /// Name: 'recommendations'
@@ -1094,6 +1233,7 @@ namespace Sparkle.LinkedInNET.Profiles
         /// Field: 'recommendation' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "recommendation")]
+        [JsonProperty(PropertyName = "values")]
         public List<Recommendation> Recommendation { get; set; }
 
     }
@@ -1105,6 +1245,7 @@ namespace Sparkle.LinkedInNET.Profiles
     using System;
     using System.Collections.Generic;
     using System.Xml.Serialization;
+    using Newtonsoft.Json;
 
     /// <summary>
     /// Name: 'recommendation'
@@ -1116,24 +1257,28 @@ namespace Sparkle.LinkedInNET.Profiles
         /// Field: 'id' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "id")]
+        [JsonProperty(PropertyName = "id")]
         public string Id { get; set; }
 
         /// <summary>
         /// Field: 'recommendation-type' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "recommendation-type")]
+        [JsonProperty(PropertyName = "recommendationType")]
         public string RecommendationType { get; set; }
 
         /// <summary>
         /// Field: 'recommendation-text' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "recommendation-text")]
+        [JsonProperty(PropertyName = "recommendationText")]
         public string RecommendationText { get; set; }
 
         /// <summary>
         /// Field: 'recommender' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "recommender")]
+        [JsonProperty(PropertyName = "recommender")]
         public string Recommender { get; set; }
 
     }
@@ -1145,6 +1290,7 @@ namespace Sparkle.LinkedInNET.Profiles
     using System;
     using System.Collections.Generic;
     using System.Xml.Serialization;
+    using Newtonsoft.Json;
 
     /// <summary>
     /// Name: 'phone-numbers'
@@ -1156,6 +1302,7 @@ namespace Sparkle.LinkedInNET.Profiles
         /// Field: 'phone-number' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "phone-number")]
+        [JsonProperty(PropertyName = "values")]
         public List<PhoneNumber> PhoneNumber { get; set; }
 
     }
@@ -1167,6 +1314,7 @@ namespace Sparkle.LinkedInNET.Profiles
     using System;
     using System.Collections.Generic;
     using System.Xml.Serialization;
+    using Newtonsoft.Json;
 
     /// <summary>
     /// Name: 'phone-number'
@@ -1178,12 +1326,14 @@ namespace Sparkle.LinkedInNET.Profiles
         /// Field: 'phone-type' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "phone-type")]
+        [JsonProperty(PropertyName = "phoneType")]
         public string Type { get; set; }
 
         /// <summary>
         /// Field: 'phone-number' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "phone-number")]
+        [JsonProperty(PropertyName = "phoneNumber")]
         public string Number { get; set; }
 
     }
@@ -1195,6 +1345,7 @@ namespace Sparkle.LinkedInNET.Profiles
     using System;
     using System.Collections.Generic;
     using System.Xml.Serialization;
+    using Newtonsoft.Json;
 
     /// <summary>
     /// Name: 'publications'
@@ -1206,6 +1357,7 @@ namespace Sparkle.LinkedInNET.Profiles
         /// Field: 'publication' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "publication")]
+        [JsonProperty(PropertyName = "values")]
         public List<Publication> Publication { get; set; }
 
     }
@@ -1217,6 +1369,7 @@ namespace Sparkle.LinkedInNET.Profiles
     using System;
     using System.Collections.Generic;
     using System.Xml.Serialization;
+    using Newtonsoft.Json;
 
     /// <summary>
     /// Name: 'publication'
@@ -1228,18 +1381,21 @@ namespace Sparkle.LinkedInNET.Profiles
         /// Field: 'id' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "id")]
+        [JsonProperty(PropertyName = "id")]
         public string Id { get; set; }
 
         /// <summary>
         /// Field: 'title' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "title")]
+        [JsonProperty(PropertyName = "title")]
         public string Title { get; set; }
 
         /// <summary>
         /// Field: 'publisher:(name)' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "publisher")]
+        [JsonProperty(PropertyName = "publisher")]
         public Publisher Publisher { get; set; }
 
         /// <summary>
@@ -1248,24 +1404,28 @@ namespace Sparkle.LinkedInNET.Profiles
         /// Field: 'authors:(person)' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "authors")]
+        [JsonProperty(PropertyName = "authors")]
         public Authors Authors { get; set; }
 
         /// <summary>
         /// Field: 'date' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "date")]
+        [JsonProperty(PropertyName = "date")]
         public DateParts Date { get; set; }
 
         /// <summary>
         /// Field: 'url' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "url")]
+        [JsonProperty(PropertyName = "url")]
         public string Url { get; set; }
 
         /// <summary>
         /// Field: 'summary' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "summary")]
+        [JsonProperty(PropertyName = "summary")]
         public string Summary { get; set; }
 
     }
@@ -1277,6 +1437,7 @@ namespace Sparkle.LinkedInNET.Profiles
     using System;
     using System.Collections.Generic;
     using System.Xml.Serialization;
+    using Newtonsoft.Json;
 
     /// <summary>
     /// Name: 'patents'
@@ -1288,6 +1449,7 @@ namespace Sparkle.LinkedInNET.Profiles
         /// Field: 'patent' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "patent")]
+        [JsonProperty(PropertyName = "values")]
         public List<Patent> Patent { get; set; }
 
     }
@@ -1299,6 +1461,7 @@ namespace Sparkle.LinkedInNET.Profiles
     using System;
     using System.Collections.Generic;
     using System.Xml.Serialization;
+    using Newtonsoft.Json;
 
     /// <summary>
     /// Name: 'patent'
@@ -1310,54 +1473,63 @@ namespace Sparkle.LinkedInNET.Profiles
         /// Field: 'id' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "id")]
+        [JsonProperty(PropertyName = "id")]
         public int Id { get; set; }
 
         /// <summary>
         /// Field: 'title' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "title")]
+        [JsonProperty(PropertyName = "title")]
         public string Title { get; set; }
 
         /// <summary>
         /// Field: 'date' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "date")]
+        [JsonProperty(PropertyName = "date")]
         public DateParts Date { get; set; }
 
         /// <summary>
         /// Field: 'url' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "url")]
+        [JsonProperty(PropertyName = "url")]
         public string Url { get; set; }
 
         /// <summary>
         /// Field: 'summary' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "summary")]
+        [JsonProperty(PropertyName = "summary")]
         public string Summary { get; set; }
 
         /// <summary>
         /// Field: 'number' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "number")]
+        [JsonProperty(PropertyName = "number")]
         public string Number { get; set; }
 
         /// <summary>
         /// Field: 'status' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "status")]
+        [JsonProperty(PropertyName = "status")]
         public Status Status { get; set; }
 
         /// <summary>
         /// Field: 'office:(name)' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "office")]
+        [JsonProperty(PropertyName = "office")]
         public Office Office { get; set; }
 
         /// <summary>
         /// Field: 'inventors' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "inventors")]
+        [JsonProperty(PropertyName = "inventors")]
         public Inventors Inventors { get; set; }
 
     }
@@ -1369,6 +1541,7 @@ namespace Sparkle.LinkedInNET.Profiles
     using System;
     using System.Collections.Generic;
     using System.Xml.Serialization;
+    using Newtonsoft.Json;
 
     /// <summary>
     /// Name: 'status'
@@ -1380,12 +1553,14 @@ namespace Sparkle.LinkedInNET.Profiles
         /// Field: 'id' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "id")]
+        [JsonProperty(PropertyName = "id")]
         public int Id { get; set; }
 
         /// <summary>
         /// Field: 'name' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "name")]
+        [JsonProperty(PropertyName = "name")]
         public string Name { get; set; }
 
     }
@@ -1397,6 +1572,7 @@ namespace Sparkle.LinkedInNET.Profiles
     using System;
     using System.Collections.Generic;
     using System.Xml.Serialization;
+    using Newtonsoft.Json;
 
     /// <summary>
     /// Name: 'inventors'
@@ -1408,6 +1584,7 @@ namespace Sparkle.LinkedInNET.Profiles
         /// Field: 'inventor' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "inventor")]
+        [JsonProperty(PropertyName = "values")]
         public List<Inventor> Inventor { get; set; }
 
     }
@@ -1419,6 +1596,7 @@ namespace Sparkle.LinkedInNET.Profiles
     using System;
     using System.Collections.Generic;
     using System.Xml.Serialization;
+    using Newtonsoft.Json;
 
     /// <summary>
     /// Name: 'inventor'
@@ -1430,18 +1608,21 @@ namespace Sparkle.LinkedInNET.Profiles
         /// Field: 'id' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "id")]
+        [JsonProperty(PropertyName = "id")]
         public int Id { get; set; }
 
         /// <summary>
         /// Field: 'name' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "name")]
+        [JsonProperty(PropertyName = "name")]
         public string Name { get; set; }
 
         /// <summary>
         /// Field: 'person' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "person")]
+        [JsonProperty(PropertyName = "person")]
         public InventorPerson Person { get; set; }
 
     }
@@ -1453,6 +1634,7 @@ namespace Sparkle.LinkedInNET.Profiles
     using System;
     using System.Collections.Generic;
     using System.Xml.Serialization;
+    using Newtonsoft.Json;
 
     /// <summary>
     /// Name: 'person'
@@ -1464,18 +1646,21 @@ namespace Sparkle.LinkedInNET.Profiles
         /// Field: 'id' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "id")]
+        [JsonProperty(PropertyName = "id")]
         public string Id { get; set; }
 
         /// <summary>
         /// Field: 'first-name' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "first-name")]
+        [JsonProperty(PropertyName = "firstName")]
         public string FirstName { get; set; }
 
         /// <summary>
         /// Field: 'last-name' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "last-name")]
+        [JsonProperty(PropertyName = "lastName")]
         public string LastName { get; set; }
 
     }
@@ -1487,6 +1672,7 @@ namespace Sparkle.LinkedInNET.Profiles
     using System;
     using System.Collections.Generic;
     using System.Xml.Serialization;
+    using Newtonsoft.Json;
 
     /// <summary>
     /// Name: 'member-url-resources'
@@ -1498,6 +1684,7 @@ namespace Sparkle.LinkedInNET.Profiles
         /// Field: 'member-url-resource' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "member-url-resource")]
+        [JsonProperty(PropertyName = "values")]
         public List<UrlResource> MemberUrlResource { get; set; }
 
     }
@@ -1509,6 +1696,7 @@ namespace Sparkle.LinkedInNET.Profiles
     using System;
     using System.Collections.Generic;
     using System.Xml.Serialization;
+    using Newtonsoft.Json;
 
     /// <summary>
     /// Name: 'member-url-resource'
@@ -1520,12 +1708,14 @@ namespace Sparkle.LinkedInNET.Profiles
         /// Field: 'url' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "url")]
+        [JsonProperty(PropertyName = "url")]
         public string Url { get; set; }
 
         /// <summary>
         /// Field: 'name' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "name")]
+        [JsonProperty(PropertyName = "name")]
         public string Name { get; set; }
 
     }
@@ -1537,6 +1727,7 @@ namespace Sparkle.LinkedInNET.Profiles
     using System;
     using System.Collections.Generic;
     using System.Xml.Serialization;
+    using Newtonsoft.Json;
 
     /// <summary>
     /// Name: 'ProfileRequest'
@@ -1548,12 +1739,14 @@ namespace Sparkle.LinkedInNET.Profiles
         /// Field: 'url' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "url")]
+        [JsonProperty(PropertyName = "url")]
         public string Url { get; set; }
 
         /// <summary>
         /// Field: 'headers' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "headers")]
+        [JsonProperty(PropertyName = "headers")]
         public RequestHeaders Headers { get; set; }
 
     }
@@ -1565,6 +1758,7 @@ namespace Sparkle.LinkedInNET.Profiles
     using System;
     using System.Collections.Generic;
     using System.Xml.Serialization;
+    using Newtonsoft.Json;
 
     /// <summary>
     /// Name: 'headers'
@@ -1576,6 +1770,7 @@ namespace Sparkle.LinkedInNET.Profiles
         /// Field: 'http-header' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "http-header")]
+        [JsonProperty(PropertyName = "values")]
         public List<RequestHeader> HttpHeader { get; set; }
 
     }
@@ -1587,6 +1782,7 @@ namespace Sparkle.LinkedInNET.Profiles
     using System;
     using System.Collections.Generic;
     using System.Xml.Serialization;
+    using Newtonsoft.Json;
 
     /// <summary>
     /// Name: 'http-header'
@@ -1598,12 +1794,14 @@ namespace Sparkle.LinkedInNET.Profiles
         /// Field: 'name' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "name")]
+        [JsonProperty(PropertyName = "name")]
         public string Name { get; set; }
 
         /// <summary>
         /// Field: 'value' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "value")]
+        [JsonProperty(PropertyName = "value")]
         public string Value { get; set; }
 
     }
@@ -1615,6 +1813,7 @@ namespace Sparkle.LinkedInNET.Profiles
     using System;
     using System.Collections.Generic;
     using System.Xml.Serialization;
+    using Newtonsoft.Json;
 
     /// <summary>
     /// Name: 'FollowingInfos'
@@ -1626,24 +1825,28 @@ namespace Sparkle.LinkedInNET.Profiles
         /// Field: 'people' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "people")]
+        [JsonProperty(PropertyName = "people")]
         public FollowingInfosPeople People { get; set; }
 
         /// <summary>
         /// Field: 'companies' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "companies")]
+        [JsonProperty(PropertyName = "companies")]
         public FollowingInfosCompanies Companies { get; set; }
 
         /// <summary>
         /// Field: 'industries' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "industries")]
+        [JsonProperty(PropertyName = "industries")]
         public FollowingInfosIndustries Industries { get; set; }
 
         /// <summary>
         /// Field: 'special-editions' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "special-editions")]
+        [JsonProperty(PropertyName = "specialEditions")]
         public FollowingInfosSpecialEditions SpecialEditions { get; set; }
 
     }
@@ -1655,6 +1858,7 @@ namespace Sparkle.LinkedInNET.Profiles
     using System;
     using System.Collections.Generic;
     using System.Xml.Serialization;
+    using Newtonsoft.Json;
 
     /// <summary>
     /// Name: 'FollowingInfosPeople'
@@ -1666,6 +1870,7 @@ namespace Sparkle.LinkedInNET.Profiles
         /// Field: 'total' (on-demand)
         /// </summary>
         [XmlAttribute(AttributeName = "total")]
+        [JsonProperty(PropertyName = "_total")]
         public string Total { get; set; }
 
     }
@@ -1677,6 +1882,7 @@ namespace Sparkle.LinkedInNET.Profiles
     using System;
     using System.Collections.Generic;
     using System.Xml.Serialization;
+    using Newtonsoft.Json;
 
     /// <summary>
     /// Name: 'FollowingInfosCompanies'
@@ -1688,6 +1894,7 @@ namespace Sparkle.LinkedInNET.Profiles
         /// Field: 'total' (on-demand)
         /// </summary>
         [XmlAttribute(AttributeName = "total")]
+        [JsonProperty(PropertyName = "_total")]
         public string Total { get; set; }
 
     }
@@ -1699,6 +1906,7 @@ namespace Sparkle.LinkedInNET.Profiles
     using System;
     using System.Collections.Generic;
     using System.Xml.Serialization;
+    using Newtonsoft.Json;
 
     /// <summary>
     /// Name: 'FollowingInfosIndustries'
@@ -1710,6 +1918,7 @@ namespace Sparkle.LinkedInNET.Profiles
         /// Field: 'total' (on-demand)
         /// </summary>
         [XmlAttribute(AttributeName = "total")]
+        [JsonProperty(PropertyName = "_total")]
         public string Total { get; set; }
 
     }
@@ -1721,6 +1930,7 @@ namespace Sparkle.LinkedInNET.Profiles
     using System;
     using System.Collections.Generic;
     using System.Xml.Serialization;
+    using Newtonsoft.Json;
 
     /// <summary>
     /// Name: 'FollowingInfosSpecialEditions'
@@ -1732,6 +1942,7 @@ namespace Sparkle.LinkedInNET.Profiles
         /// Field: 'total' (on-demand)
         /// </summary>
         [XmlAttribute(AttributeName = "total")]
+        [JsonProperty(PropertyName = "_total")]
         public string Total { get; set; }
 
     }
@@ -1743,6 +1954,7 @@ namespace Sparkle.LinkedInNET.Profiles
     using System;
     using System.Collections.Generic;
     using System.Xml.Serialization;
+    using Newtonsoft.Json;
 
     /// <summary>
     /// Name: 'job-bookmarks'
@@ -1754,6 +1966,7 @@ namespace Sparkle.LinkedInNET.Profiles
         /// Field: 'total' (on-demand)
         /// </summary>
         [XmlAttribute(AttributeName = "total")]
+        [JsonProperty(PropertyName = "_total")]
         public string Total { get; set; }
 
     }
@@ -1765,6 +1978,7 @@ namespace Sparkle.LinkedInNET.Profiles
     using System;
     using System.Collections.Generic;
     using System.Xml.Serialization;
+    using Newtonsoft.Json;
 
     /// <summary>
     /// Name: 'honors-awards'
@@ -1776,6 +1990,7 @@ namespace Sparkle.LinkedInNET.Profiles
         /// Field: 'honor-award' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "honor-award")]
+        [JsonProperty(PropertyName = "values")]
         public List<HonorAward> HonorAward { get; set; }
 
     }
@@ -1787,6 +2002,7 @@ namespace Sparkle.LinkedInNET.Profiles
     using System;
     using System.Collections.Generic;
     using System.Xml.Serialization;
+    using Newtonsoft.Json;
 
     /// <summary>
     /// Name: 'honor-award'
@@ -1798,18 +2014,21 @@ namespace Sparkle.LinkedInNET.Profiles
         /// Field: 'id' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "id")]
+        [JsonProperty(PropertyName = "id")]
         public string Id { get; set; }
 
         /// <summary>
         /// Field: 'name' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "name")]
+        [JsonProperty(PropertyName = "name")]
         public string Name { get; set; }
 
         /// <summary>
         /// Field: 'issuer' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "issuer")]
+        [JsonProperty(PropertyName = "issuer")]
         public string Issuer { get; set; }
 
     }
@@ -1821,6 +2040,7 @@ namespace Sparkle.LinkedInNET.Profiles
     using System;
     using System.Collections.Generic;
     using System.Xml.Serialization;
+    using Newtonsoft.Json;
 
     /// <summary>
     /// Name: 'twitter-accounts'
@@ -1832,6 +2052,7 @@ namespace Sparkle.LinkedInNET.Profiles
         /// Field: 'twitter-account' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "twitter-account")]
+        [JsonProperty(PropertyName = "values")]
         public List<TwitterAccount> TwitterAccount { get; set; }
 
     }
@@ -1843,6 +2064,7 @@ namespace Sparkle.LinkedInNET.Profiles
     using System;
     using System.Collections.Generic;
     using System.Xml.Serialization;
+    using Newtonsoft.Json;
 
     /// <summary>
     /// Name: 'twitter-account'
@@ -1854,12 +2076,14 @@ namespace Sparkle.LinkedInNET.Profiles
         /// Field: 'provider-account-id' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "provider-account-id")]
+        [JsonProperty(PropertyName = "providerAccountId")]
         public long ProviderAccountId { get; set; }
 
         /// <summary>
         /// Field: 'provider-account-name' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "provider-account-name")]
+        [JsonProperty(PropertyName = "providerAccountName")]
         public string ProviderAccountName { get; set; }
 
     }
@@ -1871,6 +2095,7 @@ namespace Sparkle.LinkedInNET.Profiles
     using System;
     using System.Collections.Generic;
     using System.Xml.Serialization;
+    using Newtonsoft.Json;
 
     /// <summary>
     /// Name: 'im-accounts'
@@ -1882,6 +2107,7 @@ namespace Sparkle.LinkedInNET.Profiles
         /// Field: 'im-account' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "im-account")]
+        [JsonProperty(PropertyName = "values")]
         public List<ImAccount> ImAccount { get; set; }
 
     }
@@ -1893,6 +2119,7 @@ namespace Sparkle.LinkedInNET.Profiles
     using System;
     using System.Collections.Generic;
     using System.Xml.Serialization;
+    using Newtonsoft.Json;
 
     /// <summary>
     /// Name: 'im-account'
@@ -1904,18 +2131,21 @@ namespace Sparkle.LinkedInNET.Profiles
         /// Field: 'im-account-type' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "im-account-type")]
+        [JsonProperty(PropertyName = "imAccountType")]
         public string ImAccountType { get; set; }
 
         /// <summary>
         /// Field: 'im-account-name' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "im-account-name")]
+        [JsonProperty(PropertyName = "imAccountName")]
         public string ImAccountName { get; set; }
 
         /// <summary>
         /// Field: 'id' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "id")]
+        [JsonProperty(PropertyName = "id")]
         public int Id { get; set; }
 
     }
@@ -1927,6 +2157,7 @@ namespace Sparkle.LinkedInNET.Profiles
     using System;
     using System.Collections.Generic;
     using System.Xml.Serialization;
+    using Newtonsoft.Json;
 
     /// <summary>
     /// Name: 'picture-urls'
@@ -1938,7 +2169,39 @@ namespace Sparkle.LinkedInNET.Profiles
         /// Field: 'picture-url' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "picture-url")]
+        [JsonProperty(PropertyName = "values")]
         public List<string> PictureUrl { get; set; }
+
+    }
+}
+
+// WriteReturnTypes(Profiles, specialties)
+namespace Sparkle.LinkedInNET.Profiles
+{
+    using System;
+    using System.Collections.Generic;
+    using System.Xml.Serialization;
+    using Newtonsoft.Json;
+
+    /// <summary>
+    /// Name: 'specialties'
+    /// </summary>
+    [Serializable, XmlRoot("specialties")]
+    public class Specialties
+    {
+        /// <summary>
+        /// Field: 'total' (on-demand)
+        /// </summary>
+        [XmlAttribute(AttributeName = "total")]
+        [JsonProperty(PropertyName = "_total")]
+        public int Total { get; set; }
+
+        /// <summary>
+        /// Field: 'specialty' (on-demand)
+        /// </summary>
+        [XmlElement(ElementName = "specialty")]
+        [JsonProperty(PropertyName = "values")]
+        public List<string> Specialty { get; set; }
 
     }
 }
@@ -1949,6 +2212,7 @@ namespace Sparkle.LinkedInNET.Profiles
     using System;
     using System.Collections.Generic;
     using System.Xml.Serialization;
+    using Newtonsoft.Json;
 
     /// <summary>
     /// Name: 'site-standard-profile-request'
@@ -1960,6 +2224,7 @@ namespace Sparkle.LinkedInNET.Profiles
         /// Field: 'url' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "url")]
+        [JsonProperty(PropertyName = "url")]
         public string Url { get; set; }
 
     }
@@ -1971,6 +2236,7 @@ namespace Sparkle.LinkedInNET.Profiles
     using System;
     using System.Collections.Generic;
     using System.Xml.Serialization;
+    using Newtonsoft.Json;
 
     /// <summary>
     /// Name: 'location'
@@ -1982,12 +2248,14 @@ namespace Sparkle.LinkedInNET.Profiles
         /// Field: 'name' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "name")]
+        [JsonProperty(PropertyName = "name")]
         public string Name { get; set; }
 
         /// <summary>
         /// Field: 'country' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "country")]
+        [JsonProperty(PropertyName = "country")]
         public Country Country { get; set; }
 
     }
@@ -1999,6 +2267,7 @@ namespace Sparkle.LinkedInNET.Profiles
     using System;
     using System.Collections.Generic;
     using System.Xml.Serialization;
+    using Newtonsoft.Json;
 
     /// <summary>
     /// Name: 'country'
@@ -2010,6 +2279,7 @@ namespace Sparkle.LinkedInNET.Profiles
         /// Field: 'code' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "code")]
+        [JsonProperty(PropertyName = "code")]
         public string Code { get; set; }
 
     }
@@ -2021,6 +2291,7 @@ namespace Sparkle.LinkedInNET.Profiles
     using System;
     using System.Collections.Generic;
     using System.Xml.Serialization;
+    using Newtonsoft.Json;
 
     /// <summary>
     /// Name: 'authority'
@@ -2032,6 +2303,7 @@ namespace Sparkle.LinkedInNET.Profiles
         /// Field: 'name' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "name")]
+        [JsonProperty(PropertyName = "name")]
         public string Name { get; set; }
 
     }
@@ -2043,6 +2315,7 @@ namespace Sparkle.LinkedInNET.Profiles
     using System;
     using System.Collections.Generic;
     using System.Xml.Serialization;
+    using Newtonsoft.Json;
 
     /// <summary>
     /// Name: 'organization'
@@ -2054,6 +2327,7 @@ namespace Sparkle.LinkedInNET.Profiles
         /// Field: 'name' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "name")]
+        [JsonProperty(PropertyName = "name")]
         public string Name { get; set; }
 
     }
@@ -2065,6 +2339,7 @@ namespace Sparkle.LinkedInNET.Profiles
     using System;
     using System.Collections.Generic;
     using System.Xml.Serialization;
+    using Newtonsoft.Json;
 
     /// <summary>
     /// Name: 'cause'
@@ -2076,6 +2351,7 @@ namespace Sparkle.LinkedInNET.Profiles
         /// Field: 'name' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "name")]
+        [JsonProperty(PropertyName = "name")]
         public string Name { get; set; }
 
     }
@@ -2087,6 +2363,7 @@ namespace Sparkle.LinkedInNET.Profiles
     using System;
     using System.Collections.Generic;
     using System.Xml.Serialization;
+    using Newtonsoft.Json;
 
     /// <summary>
     /// Name: 'publisher'
@@ -2098,6 +2375,7 @@ namespace Sparkle.LinkedInNET.Profiles
         /// Field: 'name' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "name")]
+        [JsonProperty(PropertyName = "name")]
         public string Name { get; set; }
 
     }
@@ -2109,6 +2387,7 @@ namespace Sparkle.LinkedInNET.Profiles
     using System;
     using System.Collections.Generic;
     using System.Xml.Serialization;
+    using Newtonsoft.Json;
 
     /// <summary>
     /// Name: 'authors'
@@ -2120,18 +2399,21 @@ namespace Sparkle.LinkedInNET.Profiles
         /// Field: 'id' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "id")]
+        [JsonProperty(PropertyName = "id")]
         public string Id { get; set; }
 
         /// <summary>
         /// Field: 'name' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "name")]
+        [JsonProperty(PropertyName = "name")]
         public string Name { get; set; }
 
         /// <summary>
         /// Field: 'person' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "person")]
+        [JsonProperty(PropertyName = "person")]
         public string Person { get; set; }
 
     }
@@ -2143,6 +2425,7 @@ namespace Sparkle.LinkedInNET.Profiles
     using System;
     using System.Collections.Generic;
     using System.Xml.Serialization;
+    using Newtonsoft.Json;
 
     /// <summary>
     /// Name: 'office'
@@ -2154,6 +2437,7 @@ namespace Sparkle.LinkedInNET.Profiles
         /// Field: 'name' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "name")]
+        [JsonProperty(PropertyName = "name")]
         public string Name { get; set; }
 
     }
@@ -2167,7 +2451,7 @@ namespace Sparkle.LinkedInNET.Profiles
     using System.Xml.Serialization;
 
     /// <summary>
-    /// Field selectors for the 'person', 'connections', 'position', 'positions', 'CompanyIdentifier', 'DateParts', 'relation-to-viewer', 'languages', 'language', 'LanguageInfo', 'LanguageProficiency', 'skills', 'skill', 'skill', 'certifications', 'certification', 'educations', 'education', 'courses', 'course', 'volunteer', 'volunteer-experiences', 'volunteer-experience', 'recommendations', 'recommendation', 'phone-numbers', 'phone-number', 'publications', 'publication', 'patents', 'patent', 'status', 'inventors', 'inventor', 'person', 'member-url-resources', 'member-url-resource', 'ProfileRequest', 'headers', 'http-header', 'FollowingInfos', 'FollowingInfosPeople', 'FollowingInfosCompanies', 'FollowingInfosIndustries', 'FollowingInfosSpecialEditions', 'job-bookmarks', 'honors-awards', 'honor-award', 'twitter-accounts', 'twitter-account', 'im-accounts', 'im-account', 'picture-urls', 'site-standard-profile-request', 'location', 'country', 'authority', 'organization', 'cause', 'publisher', 'authors', 'office' return types.
+    /// Field selectors for the 'person', 'connections', 'position', 'positions', 'CompanyIdentifier', 'DateParts', 'relation-to-viewer', 'languages', 'language', 'LanguageInfo', 'LanguageProficiency', 'skills', 'skill', 'skill', 'certifications', 'certification', 'educations', 'education', 'courses', 'course', 'volunteer', 'volunteer-experiences', 'volunteer-experience', 'recommendations', 'recommendation', 'phone-numbers', 'phone-number', 'publications', 'publication', 'patents', 'patent', 'status', 'inventors', 'inventor', 'person', 'member-url-resources', 'member-url-resource', 'ProfileRequest', 'headers', 'http-header', 'FollowingInfos', 'FollowingInfosPeople', 'FollowingInfosCompanies', 'FollowingInfosIndustries', 'FollowingInfosSpecialEditions', 'job-bookmarks', 'honors-awards', 'honor-award', 'twitter-accounts', 'twitter-account', 'im-accounts', 'im-account', 'picture-urls', 'specialties', 'site-standard-profile-request', 'location', 'country', 'authority', 'organization', 'cause', 'publisher', 'authors', 'office' return types.
     /// </summary>
     public static class ProfilesFields {
         /// <summary>
@@ -2809,6 +3093,7 @@ namespace Sparkle.LinkedInNET.Companies
     using System;
     using System.Collections.Generic;
     using System.Xml.Serialization;
+    using Newtonsoft.Json;
 
     /// <summary>
     /// Name: 'company'
@@ -2820,24 +3105,28 @@ namespace Sparkle.LinkedInNET.Companies
         /// Field: 'id' (default)
         /// </summary>
         [XmlElement(ElementName = "id")]
+        [JsonProperty(PropertyName = "id")]
         public long Id { get; set; }
 
         /// <summary>
         /// Field: 'name' (default)
         /// </summary>
         [XmlElement(ElementName = "name")]
+        [JsonProperty(PropertyName = "name")]
         public string Name { get; set; }
 
         /// <summary>
         /// Field: 'universal-name' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "universal-name")]
+        [JsonProperty(PropertyName = "universalName")]
         public string UniversalName { get; set; }
 
         /// <summary>
         /// Field: 'email-domains' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "email-domains")]
+        [JsonProperty(PropertyName = "emailDomains")]
         public CompanyEmailDomains EmailDomains { get; set; }
 
         /// <summary>
@@ -2845,103 +3134,120 @@ namespace Sparkle.LinkedInNET.Companies
         /// Field: 'company-type:(code,name)'
         /// </summary>
         [XmlElement(ElementName = "company-type")]
+        [JsonProperty(PropertyName = "companyType")]
         public CompanyKeyValue CompanyType { get; set; }
 
         /// <summary>
         /// Field: 'ticker' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "ticker")]
+        [JsonProperty(PropertyName = "ticker")]
         public string Ticker { get; set; }
 
         /// <summary>
         /// Field: 'website-url' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "website-url")]
+        [JsonProperty(PropertyName = "websiteUrl")]
         public string WebsiteUrl { get; set; }
 
         /// <summary>
         /// Field: 'industries' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "industries")]
+        [JsonProperty(PropertyName = "industries")]
         public CompanyIndustries Industries { get; set; }
 
         /// <summary>
         /// Field: 'status' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "status")]
+        [JsonProperty(PropertyName = "status")]
         public CompanyKeyValue Status { get; set; }
 
         /// <summary>
         /// Field: 'logo-url' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "logo-url")]
+        [JsonProperty(PropertyName = "logoUrl")]
         public string LogoUrl { get; set; }
 
         /// <summary>
         /// Field: 'square-logo-url' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "square-logo-url")]
+        [JsonProperty(PropertyName = "squareLogoUrl")]
         public string SquareLogoUrl { get; set; }
 
         /// <summary>
         /// Field: 'blog-rss-url' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "blog-rss-url")]
+        [JsonProperty(PropertyName = "blogRssUrl")]
         public string BlogRssUrl { get; set; }
 
         /// <summary>
         /// Field: 'twitter-id' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "twitter-id")]
+        [JsonProperty(PropertyName = "twitterId")]
         public string TwitterId { get; set; }
 
         /// <summary>
         /// Field: 'employee-count-range' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "employee-count-range")]
+        [JsonProperty(PropertyName = "employeeCountRange")]
         public CompanyKeyValue EmployeeCountRange { get; set; }
 
         /// <summary>
         /// Field: 'specialties' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "specialties")]
-        public string Specialties { get; set; }
+        [JsonProperty(PropertyName = "specialties")]
+        public Specialties Specialties { get; set; }
 
         /// <summary>
         /// Field: 'locations' (on-demand)
         /// Field: 'locations:(description,is-headquarters,is-active,address:(street1,street2,city,state,postal-code,country-code,region-code),contact-info:(phone1,phone2,fax))'
         /// </summary>
         [XmlElement(ElementName = "locations")]
+        [JsonProperty(PropertyName = "locations")]
         public CompanyLocations Locations { get; set; }
 
         /// <summary>
         /// Field: 'description' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "description")]
+        [JsonProperty(PropertyName = "description")]
         public string Description { get; set; }
 
         /// <summary>
         /// Field: 'stock-exchange' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "stock-exchange")]
+        [JsonProperty(PropertyName = "stockExchange")]
         public string StockExchange { get; set; }
 
         /// <summary>
         /// Field: 'founded-year' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "founded-year")]
+        [JsonProperty(PropertyName = "foundedYear")]
         public string FoundedYear { get; set; }
 
         /// <summary>
         /// Field: 'end-year' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "end-year")]
+        [JsonProperty(PropertyName = "endYear")]
         public string EndYear { get; set; }
 
         /// <summary>
         /// Field: 'num-followers' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "num-followers")]
+        [JsonProperty(PropertyName = "numFollowers")]
         public int NumFollowers { get; set; }
 
     }
@@ -2953,6 +3259,7 @@ namespace Sparkle.LinkedInNET.Companies
     using System;
     using System.Collections.Generic;
     using System.Xml.Serialization;
+    using Newtonsoft.Json;
 
     /// <summary>
     /// Name: 'locations'
@@ -2964,6 +3271,7 @@ namespace Sparkle.LinkedInNET.Companies
         /// Field: 'location' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "location")]
+        [JsonProperty(PropertyName = "values")]
         public List<CompanyLocation> Location { get; set; }
 
     }
@@ -2975,6 +3283,7 @@ namespace Sparkle.LinkedInNET.Companies
     using System;
     using System.Collections.Generic;
     using System.Xml.Serialization;
+    using Newtonsoft.Json;
 
     /// <summary>
     /// Name: 'location'
@@ -2986,30 +3295,35 @@ namespace Sparkle.LinkedInNET.Companies
         /// Field: 'description' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "description")]
+        [JsonProperty(PropertyName = "description")]
         public string Description { get; set; }
 
         /// <summary>
         /// Field: 'is-headquarters' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "is-headquarters")]
+        [JsonProperty(PropertyName = "isHeadquarters")]
         public bool IsHeadquarters { get; set; }
 
         /// <summary>
         /// Field: 'is-active' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "is-active")]
+        [JsonProperty(PropertyName = "isActive")]
         public bool IsActive { get; set; }
 
         /// <summary>
         /// Field: 'address' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "address")]
+        [JsonProperty(PropertyName = "address")]
         public CompanyAddress Address { get; set; }
 
         /// <summary>
         /// Field: 'contact-info' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "contact-info")]
+        [JsonProperty(PropertyName = "contactInfo")]
         public CompanyContact ContactInfo { get; set; }
 
     }
@@ -3021,6 +3335,7 @@ namespace Sparkle.LinkedInNET.Companies
     using System;
     using System.Collections.Generic;
     using System.Xml.Serialization;
+    using Newtonsoft.Json;
 
     /// <summary>
     /// Name: 'address'
@@ -3032,42 +3347,49 @@ namespace Sparkle.LinkedInNET.Companies
         /// Field: 'street1' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "street1")]
+        [JsonProperty(PropertyName = "street1")]
         public string Street1 { get; set; }
 
         /// <summary>
         /// Field: 'street2' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "street2")]
+        [JsonProperty(PropertyName = "street2")]
         public string Street2 { get; set; }
 
         /// <summary>
         /// Field: 'city' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "city")]
+        [JsonProperty(PropertyName = "city")]
         public string City { get; set; }
 
         /// <summary>
         /// Field: 'state' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "state")]
+        [JsonProperty(PropertyName = "state")]
         public string State { get; set; }
 
         /// <summary>
         /// Field: 'postal-code' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "postal-code")]
+        [JsonProperty(PropertyName = "postalCode")]
         public string PostalCode { get; set; }
 
         /// <summary>
         /// Field: 'country-code' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "country-code")]
+        [JsonProperty(PropertyName = "countryCode")]
         public string CountryCode { get; set; }
 
         /// <summary>
         /// Field: 'region-code' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "region-code")]
+        [JsonProperty(PropertyName = "regionCode")]
         public string RegionCode { get; set; }
 
     }
@@ -3079,6 +3401,7 @@ namespace Sparkle.LinkedInNET.Companies
     using System;
     using System.Collections.Generic;
     using System.Xml.Serialization;
+    using Newtonsoft.Json;
 
     /// <summary>
     /// Name: 'contact-info'
@@ -3090,18 +3413,21 @@ namespace Sparkle.LinkedInNET.Companies
         /// Field: 'phone1' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "phone1")]
+        [JsonProperty(PropertyName = "phone1")]
         public string Phone1 { get; set; }
 
         /// <summary>
         /// Field: 'phone2' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "phone2")]
+        [JsonProperty(PropertyName = "phone2")]
         public string Phone2 { get; set; }
 
         /// <summary>
         /// Field: 'fax' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "fax")]
+        [JsonProperty(PropertyName = "fax")]
         public string Fax { get; set; }
 
     }
@@ -3113,6 +3439,7 @@ namespace Sparkle.LinkedInNET.Companies
     using System;
     using System.Collections.Generic;
     using System.Xml.Serialization;
+    using Newtonsoft.Json;
 
     /// <summary>
     /// Name: 'email-domains'
@@ -3124,6 +3451,7 @@ namespace Sparkle.LinkedInNET.Companies
         /// Field: 'email-domain' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "email-domain")]
+        [JsonProperty(PropertyName = "values")]
         public List<string> EmailDomain { get; set; }
 
     }
@@ -3135,6 +3463,7 @@ namespace Sparkle.LinkedInNET.Companies
     using System;
     using System.Collections.Generic;
     using System.Xml.Serialization;
+    using Newtonsoft.Json;
 
     /// <summary>
     /// Name: 'company-key-value'
@@ -3146,12 +3475,14 @@ namespace Sparkle.LinkedInNET.Companies
         /// Field: 'code' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "code")]
+        [JsonProperty(PropertyName = "code")]
         public string Code { get; set; }
 
         /// <summary>
         /// Field: 'name' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "name")]
+        [JsonProperty(PropertyName = "name")]
         public string Name { get; set; }
 
     }
@@ -3163,6 +3494,7 @@ namespace Sparkle.LinkedInNET.Companies
     using System;
     using System.Collections.Generic;
     using System.Xml.Serialization;
+    using Newtonsoft.Json;
 
     /// <summary>
     /// Name: 'industries'
@@ -3174,6 +3506,7 @@ namespace Sparkle.LinkedInNET.Companies
         /// Field: 'industry' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "industry")]
+        [JsonProperty(PropertyName = "values")]
         public List<CompanyIndustry> Industry { get; set; }
 
     }
@@ -3185,6 +3518,7 @@ namespace Sparkle.LinkedInNET.Companies
     using System;
     using System.Collections.Generic;
     using System.Xml.Serialization;
+    using Newtonsoft.Json;
 
     /// <summary>
     /// Name: 'industry'
@@ -3196,12 +3530,14 @@ namespace Sparkle.LinkedInNET.Companies
         /// Field: 'code' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "code")]
+        [JsonProperty(PropertyName = "code")]
         public int Code { get; set; }
 
         /// <summary>
         /// Field: 'name' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "name")]
+        [JsonProperty(PropertyName = "name")]
         public string Name { get; set; }
 
     }
@@ -3213,6 +3549,7 @@ namespace Sparkle.LinkedInNET.Companies
     using System;
     using System.Collections.Generic;
     using System.Xml.Serialization;
+    using Newtonsoft.Json;
 
     /// <summary>
     /// Name: 'updates'
@@ -3224,6 +3561,7 @@ namespace Sparkle.LinkedInNET.Companies
         /// Field: 'update' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "update")]
+        [JsonProperty(PropertyName = "values")]
         public List<CompanyUpdate> Update { get; set; }
 
     }
@@ -3235,6 +3573,7 @@ namespace Sparkle.LinkedInNET.Companies
     using System;
     using System.Collections.Generic;
     using System.Xml.Serialization;
+    using Newtonsoft.Json;
 
     /// <summary>
     /// Name: 'CompanyUpdate'
@@ -3246,48 +3585,56 @@ namespace Sparkle.LinkedInNET.Companies
         /// Field: 'timestamp' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "timestamp")]
+        [JsonProperty(PropertyName = "timestamp")]
         public long Timestamp { get; set; }
 
         /// <summary>
         /// Field: 'update-key' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "update-key")]
+        [JsonProperty(PropertyName = "updateKey")]
         public string UpdateKey { get; set; }
 
         /// <summary>
         /// Field: 'update-type' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "update-type")]
+        [JsonProperty(PropertyName = "updateType")]
         public string UpdateType { get; set; }
 
         /// <summary>
         /// Field: 'update-content' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "update-content")]
+        [JsonProperty(PropertyName = "updateContent")]
         public CompanyUpdateContent UpdateContent { get; set; }
 
         /// <summary>
         /// Field: 'is-commentable' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "is-commentable")]
+        [JsonProperty(PropertyName = "isCommentable")]
         public bool? IsCommentable { get; set; }
 
         /// <summary>
         /// Field: 'is-likable' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "is-likable")]
+        [JsonProperty(PropertyName = "isLikable")]
         public bool? IsLikable { get; set; }
 
         /// <summary>
         /// Field: 'is-liked' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "is-liked")]
+        [JsonProperty(PropertyName = "isLiked")]
         public bool? IsLiked { get; set; }
 
         /// <summary>
         /// Field: 'num-likes' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "num-likes")]
+        [JsonProperty(PropertyName = "numLikes")]
         public int? NumLikes { get; set; }
 
     }
@@ -3299,6 +3646,7 @@ namespace Sparkle.LinkedInNET.Companies
     using System;
     using System.Collections.Generic;
     using System.Xml.Serialization;
+    using Newtonsoft.Json;
 
     /// <summary>
     /// Name: 'CompanyUpdateContent'
@@ -3309,25 +3657,29 @@ namespace Sparkle.LinkedInNET.Companies
         /// <summary>
         /// Field: 'company' (on-demand)
         /// </summary>
-        [XmlElement(ElementName = "company", IsNullable = true)]
+        [XmlElement(ElementName = "company")]
+        [JsonProperty(PropertyName = "company")]
         public CompanyIdentifier Company { get; set; }
 
         /// <summary>
         /// Field: 'company-job-update' (on-demand)
         /// </summary>
-        [XmlElement(ElementName = "company-job-update", IsNullable = true)]
+        [XmlElement(ElementName = "company-job-update")]
+        [JsonProperty(PropertyName = "companyJobUpdate")]
         public CompanyJobUpdate CompanyJobUpdate { get; set; }
 
         /// <summary>
         /// Field: 'company-product-update' (on-demand)
         /// </summary>
-        [XmlElement(ElementName = "company-product-update", IsNullable = true)]
+        [XmlElement(ElementName = "company-product-update")]
+        [JsonProperty(PropertyName = "companyProductUpdate")]
         public CompanyProductUpdate CompanyProductUpdate { get; set; }
 
         /// <summary>
-        /// Field: 'company‐status­‐update' (on-demand)
+        /// Field: 'company-status-update' (on-demand)
         /// </summary>
-        [XmlElement(ElementName = "company‐status­‐update", IsNullable = true)]
+        [XmlElement(ElementName = "company-status-update")]
+        [JsonProperty(PropertyName = "companyStatusUpdate")]
         public CompanyStatusUpdate CompanyStatusUpdate { get; set; }
 
     }
@@ -3339,6 +3691,7 @@ namespace Sparkle.LinkedInNET.Companies
     using System;
     using System.Collections.Generic;
     using System.Xml.Serialization;
+    using Newtonsoft.Json;
 
     /// <summary>
     /// Name: 'CompanyIdentifier'
@@ -3350,12 +3703,14 @@ namespace Sparkle.LinkedInNET.Companies
         /// Field: 'id' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "id")]
+        [JsonProperty(PropertyName = "id")]
         public int Id { get; set; }
 
         /// <summary>
         /// Field: 'name' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "name")]
+        [JsonProperty(PropertyName = "name")]
         public string Name { get; set; }
 
     }
@@ -3367,6 +3722,7 @@ namespace Sparkle.LinkedInNET.Companies
     using System;
     using System.Collections.Generic;
     using System.Xml.Serialization;
+    using Newtonsoft.Json;
 
     /// <summary>
     /// Name: 'CompanyJobUpdate'
@@ -3378,12 +3734,14 @@ namespace Sparkle.LinkedInNET.Companies
         /// Field: 'job' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "job")]
+        [JsonProperty(PropertyName = "job")]
         public CompanyJobUpdateJob Job { get; set; }
 
         /// <summary>
         /// Field: 'action/code' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "action")]
+        [JsonProperty(PropertyName = "action")]
         public Action Action { get; set; }
 
     }
@@ -3395,6 +3753,7 @@ namespace Sparkle.LinkedInNET.Companies
     using System;
     using System.Collections.Generic;
     using System.Xml.Serialization;
+    using Newtonsoft.Json;
 
     /// <summary>
     /// Name: 'CompanyJobUpdateJob'
@@ -3406,36 +3765,42 @@ namespace Sparkle.LinkedInNET.Companies
         /// Field: 'id' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "id")]
+        [JsonProperty(PropertyName = "id")]
         public int Id { get; set; }
 
         /// <summary>
         /// Field: 'company' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "company")]
+        [JsonProperty(PropertyName = "company")]
         public CompanyIdentifier Company { get; set; }
 
         /// <summary>
         /// Field: 'position' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "position")]
+        [JsonProperty(PropertyName = "position")]
         public PositionIdentifier Position { get; set; }
 
         /// <summary>
         /// Field: 'site­‐job­‐request' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "site­‐job­‐request")]
+        [JsonProperty(PropertyName = "site­‐job­‐request")]
         public UrlIdentifier Url { get; set; }
 
         /// <summary>
         /// Field: 'description' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "description")]
+        [JsonProperty(PropertyName = "description")]
         public string Description { get; set; }
 
         /// <summary>
         /// Field: 'location-­description' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "location-­description")]
+        [JsonProperty(PropertyName = "location­description")]
         public string Location { get; set; }
 
     }
@@ -3447,6 +3812,7 @@ namespace Sparkle.LinkedInNET.Companies
     using System;
     using System.Collections.Generic;
     using System.Xml.Serialization;
+    using Newtonsoft.Json;
 
     /// <summary>
     /// Name: 'PositionIdentifier'
@@ -3458,6 +3824,7 @@ namespace Sparkle.LinkedInNET.Companies
         /// Field: 'title' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "title")]
+        [JsonProperty(PropertyName = "title")]
         public string Title { get; set; }
 
     }
@@ -3469,6 +3836,7 @@ namespace Sparkle.LinkedInNET.Companies
     using System;
     using System.Collections.Generic;
     using System.Xml.Serialization;
+    using Newtonsoft.Json;
 
     /// <summary>
     /// Name: 'UrlIdentifier'
@@ -3480,6 +3848,7 @@ namespace Sparkle.LinkedInNET.Companies
         /// Field: 'url' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "url")]
+        [JsonProperty(PropertyName = "url")]
         public string Url { get; set; }
 
     }
@@ -3491,6 +3860,7 @@ namespace Sparkle.LinkedInNET.Companies
     using System;
     using System.Collections.Generic;
     using System.Xml.Serialization;
+    using Newtonsoft.Json;
 
     /// <summary>
     /// Name: 'CompanyProductUpdate'
@@ -3502,18 +3872,21 @@ namespace Sparkle.LinkedInNET.Companies
         /// Field: 'action/code' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "action")]
+        [JsonProperty(PropertyName = "action")]
         public Action Action { get; set; }
 
         /// <summary>
         /// Field: 'event-type/code' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "event-type")]
+        [JsonProperty(PropertyName = "eventType")]
         public EventType EventType { get; set; }
 
         /// <summary>
         /// Field: 'product' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "product")]
+        [JsonProperty(PropertyName = "product")]
         public CompanyProduct Product { get; set; }
 
     }
@@ -3525,6 +3898,7 @@ namespace Sparkle.LinkedInNET.Companies
     using System;
     using System.Collections.Generic;
     using System.Xml.Serialization;
+    using Newtonsoft.Json;
 
     /// <summary>
     /// Name: 'CompanyProduct'
@@ -3536,35 +3910,70 @@ namespace Sparkle.LinkedInNET.Companies
         /// Field: 'id' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "id")]
+        [JsonProperty(PropertyName = "id")]
         public string Id { get; set; }
 
         /// <summary>
         /// Field: 'name' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "name")]
+        [JsonProperty(PropertyName = "name")]
         public string Name { get; set; }
 
     }
 }
 
-// WriteReturnTypes(Companies, CompanyStatusUpdate)
+// WriteReturnTypes(Companies, company‐status­‐update)
 namespace Sparkle.LinkedInNET.Companies
 {
     using System;
     using System.Collections.Generic;
     using System.Xml.Serialization;
+    using Newtonsoft.Json;
 
     /// <summary>
-    /// Name: 'CompanyStatusUpdate'
+    /// Name: 'company‐status­‐update'
     /// </summary>
-    [Serializable, XmlRoot("CompanyStatusUpdate")]
+    [Serializable, XmlRoot("company‐status­‐update")]
     public class CompanyStatusUpdate
     {
         /// <summary>
         /// Field: 'share' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "share")]
+        [JsonProperty(PropertyName = "share")]
         public Sparkle.LinkedInNET.Common.Share Share { get; set; }
+
+    }
+}
+
+// WriteReturnTypes(Companies, specialties)
+namespace Sparkle.LinkedInNET.Companies
+{
+    using System;
+    using System.Collections.Generic;
+    using System.Xml.Serialization;
+    using Newtonsoft.Json;
+
+    /// <summary>
+    /// Name: 'specialties'
+    /// </summary>
+    [Serializable, XmlRoot("specialties")]
+    public class Specialties
+    {
+        /// <summary>
+        /// Field: 'total' (on-demand)
+        /// </summary>
+        [XmlAttribute(AttributeName = "total")]
+        [JsonProperty(PropertyName = "_total")]
+        public int Total { get; set; }
+
+        /// <summary>
+        /// Field: 'specialty' (on-demand)
+        /// </summary>
+        [XmlElement(ElementName = "specialty")]
+        [JsonProperty(PropertyName = "values")]
+        public List<string> Specialty { get; set; }
 
     }
 }
@@ -3575,6 +3984,7 @@ namespace Sparkle.LinkedInNET.Companies
     using System;
     using System.Collections.Generic;
     using System.Xml.Serialization;
+    using Newtonsoft.Json;
 
     /// <summary>
     /// Name: 'action'
@@ -3587,6 +3997,7 @@ namespace Sparkle.LinkedInNET.Companies
         /// Field: 'code' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "code")]
+        [JsonProperty(PropertyName = "code")]
         public string Code { get; set; }
 
     }
@@ -3598,6 +4009,7 @@ namespace Sparkle.LinkedInNET.Companies
     using System;
     using System.Collections.Generic;
     using System.Xml.Serialization;
+    using Newtonsoft.Json;
 
     /// <summary>
     /// Name: 'event-type'
@@ -3609,6 +4021,7 @@ namespace Sparkle.LinkedInNET.Companies
         /// Field: 'code' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "code")]
+        [JsonProperty(PropertyName = "code")]
         public string Code { get; set; }
 
     }
@@ -3622,7 +4035,7 @@ namespace Sparkle.LinkedInNET.Companies
     using System.Xml.Serialization;
 
     /// <summary>
-    /// Field selectors for the 'company', 'locations', 'location', 'address', 'contact-info', 'email-domains', 'company-key-value', 'industries', 'industry', 'updates', 'CompanyUpdate', 'CompanyUpdateContent', 'CompanyIdentifier', 'CompanyJobUpdate', 'CompanyJobUpdateJob', 'PositionIdentifier', 'UrlIdentifier', 'CompanyProductUpdate', 'CompanyProduct', 'CompanyStatusUpdate', 'action', 'event-type' return types.
+    /// Field selectors for the 'company', 'locations', 'location', 'address', 'contact-info', 'email-domains', 'company-key-value', 'industries', 'industry', 'updates', 'CompanyUpdate', 'CompanyUpdateContent', 'CompanyIdentifier', 'CompanyJobUpdate', 'CompanyJobUpdateJob', 'PositionIdentifier', 'UrlIdentifier', 'CompanyProductUpdate', 'CompanyProduct', 'company‐status­‐update', 'specialties', 'action', 'event-type' return types.
     /// </summary>
     public static class CompaniesFields {
         /// <summary>
@@ -3830,6 +4243,7 @@ namespace Sparkle.LinkedInNET.Common
     using System;
     using System.Collections.Generic;
     using System.Xml.Serialization;
+    using Newtonsoft.Json;
 
     /// <summary>
     /// Name: 'share'
@@ -3841,42 +4255,49 @@ namespace Sparkle.LinkedInNET.Common
         /// Field: 'id' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "id")]
+        [JsonProperty(PropertyName = "id")]
         public string Id { get; set; }
 
         /// <summary>
         /// Field: 'timestamp' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "timestamp")]
+        [JsonProperty(PropertyName = "timestamp")]
         public long Timestamp { get; set; }
 
         /// <summary>
         /// Field: 'comment' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "comment")]
+        [JsonProperty(PropertyName = "comment")]
         public string Comment { get; set; }
 
         /// <summary>
         /// Field: 'content' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "content")]
+        [JsonProperty(PropertyName = "content")]
         public ShareContent Content { get; set; }
 
         /// <summary>
         /// Field: 'visibility/code' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "visibility")]
+        [JsonProperty(PropertyName = "visibility")]
         public Visibility Visibility { get; set; }
 
         /// <summary>
         /// Field: 'source' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "source")]
+        [JsonProperty(PropertyName = "source")]
         public ShareSource Source { get; set; }
 
         /// <summary>
         /// Field: 'author' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "author")]
+        [JsonProperty(PropertyName = "author")]
         public ShareAuthor Author { get; set; }
 
     }
@@ -3888,6 +4309,7 @@ namespace Sparkle.LinkedInNET.Common
     using System;
     using System.Collections.Generic;
     using System.Xml.Serialization;
+    using Newtonsoft.Json;
 
     /// <summary>
     /// Name: 'ShareSource'
@@ -3899,12 +4321,14 @@ namespace Sparkle.LinkedInNET.Common
         /// Field: 'service-provider' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "service-provider")]
+        [JsonProperty(PropertyName = "serviceProvider")]
         public ShareSourceProvider ServiceProvider { get; set; }
 
         /// <summary>
         /// Field: 'service-provider-share-id' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "service-provider-share-id")]
+        [JsonProperty(PropertyName = "serviceProviderShareId")]
         public string ServiceProviderShareId { get; set; }
 
     }
@@ -3916,6 +4340,7 @@ namespace Sparkle.LinkedInNET.Common
     using System;
     using System.Collections.Generic;
     using System.Xml.Serialization;
+    using Newtonsoft.Json;
 
     /// <summary>
     /// Name: 'ShareSourceProvider'
@@ -3927,6 +4352,7 @@ namespace Sparkle.LinkedInNET.Common
         /// Field: 'name' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "name")]
+        [JsonProperty(PropertyName = "name")]
         public string Name { get; set; }
 
     }
@@ -3938,6 +4364,7 @@ namespace Sparkle.LinkedInNET.Common
     using System;
     using System.Collections.Generic;
     using System.Xml.Serialization;
+    using Newtonsoft.Json;
 
     /// <summary>
     /// Name: 'ShareContent'
@@ -3949,42 +4376,49 @@ namespace Sparkle.LinkedInNET.Common
         /// Field: 'title' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "title")]
+        [JsonProperty(PropertyName = "title")]
         public string Title { get; set; }
 
         /// <summary>
         /// Field: 'description' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "description")]
+        [JsonProperty(PropertyName = "description")]
         public string Description { get; set; }
 
         /// <summary>
         /// Field: 'submitted-url' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "submitted-url")]
+        [JsonProperty(PropertyName = "submittedUrl")]
         public string SubmittedUrl { get; set; }
 
         /// <summary>
         /// Field: 'shortened-url' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "shortened-url")]
+        [JsonProperty(PropertyName = "shortenedUrl")]
         public string ShortenedUrl { get; set; }
 
         /// <summary>
         /// Field: 'submitted-image-url' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "submitted-image-url")]
+        [JsonProperty(PropertyName = "submittedImageUrl")]
         public string SubmittedImageUrl { get; set; }
 
         /// <summary>
         /// Field: 'thumbnail-url' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "thumbnail-url")]
+        [JsonProperty(PropertyName = "thumbnailUrl")]
         public string ThumbnailUrl { get; set; }
 
         /// <summary>
         /// Field: 'eyebrow-url' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "eyebrow-url")]
+        [JsonProperty(PropertyName = "eyebrowUrl")]
         public string EyebrowUrl { get; set; }
 
     }
@@ -3996,6 +4430,7 @@ namespace Sparkle.LinkedInNET.Common
     using System;
     using System.Collections.Generic;
     using System.Xml.Serialization;
+    using Newtonsoft.Json;
 
     /// <summary>
     /// Name: 'ShareAuthor'
@@ -4007,18 +4442,21 @@ namespace Sparkle.LinkedInNET.Common
         /// Field: 'id' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "id")]
+        [JsonProperty(PropertyName = "id")]
         public string Id { get; set; }
 
         /// <summary>
         /// Field: 'first-name' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "first-name")]
+        [JsonProperty(PropertyName = "firstName")]
         public string FirstName { get; set; }
 
         /// <summary>
         /// Field: 'last-name' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "last-name")]
+        [JsonProperty(PropertyName = "lastName")]
         public string LastName { get; set; }
 
     }
@@ -4030,6 +4468,7 @@ namespace Sparkle.LinkedInNET.Common
     using System;
     using System.Collections.Generic;
     using System.Xml.Serialization;
+    using Newtonsoft.Json;
 
     /// <summary>
     /// Name: 'visibility'
@@ -4041,6 +4480,7 @@ namespace Sparkle.LinkedInNET.Common
         /// Field: 'code' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "code")]
+        [JsonProperty(PropertyName = "code")]
         public string Code { get; set; }
 
     }
@@ -4152,8 +4592,8 @@ namespace Sparkle.LinkedInNET.Profiles
             context.UrlPath = this.LinkedInApi.Configuration.BaseApiUrl + url;
 
             if (!this.ExecuteQuery(context))
-                this.HandleXmlErrorResponse(context);
-            return this.HandleXmlResponse<Person>(context);
+                this.HandleJsonErrorResponse(context);
+            return this.HandleJsonResponse<Person>(context);
         }
         
         /// <summary>
@@ -4176,8 +4616,8 @@ namespace Sparkle.LinkedInNET.Profiles
             context.UrlPath = this.LinkedInApi.Configuration.BaseApiUrl + url;
 
             if (!this.ExecuteQuery(context))
-                this.HandleXmlErrorResponse(context);
-            return this.HandleXmlResponse<Person>(context);
+                this.HandleJsonErrorResponse(context);
+            return this.HandleJsonResponse<Person>(context);
         }
         
         /// <summary>
@@ -4200,8 +4640,8 @@ namespace Sparkle.LinkedInNET.Profiles
             context.UrlPath = this.LinkedInApi.Configuration.BaseApiUrl + url;
 
             if (!this.ExecuteQuery(context))
-                this.HandleXmlErrorResponse(context);
-            return this.HandleXmlResponse<Person>(context);
+                this.HandleJsonErrorResponse(context);
+            return this.HandleJsonResponse<Person>(context);
         }
         
         /// <summary>
@@ -4214,7 +4654,7 @@ namespace Sparkle.LinkedInNET.Profiles
             , FieldSelector<Connections> fields = null
         )
         {
-            const string urlFormat = "/v1/people/~/connections?start={int start}&count={int count}";
+            const string urlFormat = "/v1/people/~/connections{FieldSelector}?start={int start}&count={int count}";
             var url = FormatUrl(urlFormat, fields, "int start", start, "int count", count);
 
             var context = new RequestContext();
@@ -4223,8 +4663,8 @@ namespace Sparkle.LinkedInNET.Profiles
             context.UrlPath = this.LinkedInApi.Configuration.BaseApiUrl + url;
 
             if (!this.ExecuteQuery(context))
-                this.HandleXmlErrorResponse(context);
-            return this.HandleXmlResponse<Connections>(context);
+                this.HandleJsonErrorResponse(context);
+            return this.HandleJsonResponse<Connections>(context);
         }
         
         /// <summary>
@@ -4238,7 +4678,7 @@ namespace Sparkle.LinkedInNET.Profiles
             , FieldSelector<Connections> fields = null
         )
         {
-            const string urlFormat = "/v1/people/id={MemberToken}/connections?start={int start}&count={int count}";
+            const string urlFormat = "/v1/people/id={MemberToken}/connections{FieldSelector}?start={int start}&count={int count}";
             var url = FormatUrl(urlFormat, fields, "MemberToken", memberToken, "int start", start, "int count", count);
 
             var context = new RequestContext();
@@ -4247,8 +4687,8 @@ namespace Sparkle.LinkedInNET.Profiles
             context.UrlPath = this.LinkedInApi.Configuration.BaseApiUrl + url;
 
             if (!this.ExecuteQuery(context))
-                this.HandleXmlErrorResponse(context);
-            return this.HandleXmlResponse<Connections>(context);
+                this.HandleJsonErrorResponse(context);
+            return this.HandleJsonResponse<Connections>(context);
         }
         
         /// <summary>
@@ -4262,7 +4702,7 @@ namespace Sparkle.LinkedInNET.Profiles
             , FieldSelector<Connections> fields = null
         )
         {
-            const string urlFormat = "/v1/people/url={PublicProfileUrl}/connections?start={int start}&count={int count}";
+            const string urlFormat = "/v1/people/url={PublicProfileUrl}/connections{FieldSelector}?start={int start}&count={int count}";
             var url = FormatUrl(urlFormat, fields, "PublicProfileUrl", publicProfileUrl, "int start", start, "int count", count);
 
             var context = new RequestContext();
@@ -4271,8 +4711,8 @@ namespace Sparkle.LinkedInNET.Profiles
             context.UrlPath = this.LinkedInApi.Configuration.BaseApiUrl + url;
 
             if (!this.ExecuteQuery(context))
-                this.HandleXmlErrorResponse(context);
-            return this.HandleXmlResponse<Connections>(context);
+                this.HandleJsonErrorResponse(context);
+            return this.HandleJsonResponse<Connections>(context);
         }
         
         /// <summary>
@@ -4287,7 +4727,7 @@ namespace Sparkle.LinkedInNET.Profiles
             , FieldSelector<Connections> fields = null
         )
         {
-            const string urlFormat = "/v1/people/id={MemberToken}/connections?start={int start}&count={int count}&modified=new&modified-since={long modifiedSince}";
+            const string urlFormat = "/v1/people/id={MemberToken}/connections{FieldSelector}?start={int start}&count={int count}&modified=new&modified-since={long modifiedSince}";
             var url = FormatUrl(urlFormat, fields, "MemberToken", memberToken, "int start", start, "int count", count, "long modifiedSince", modifiedSince);
 
             var context = new RequestContext();
@@ -4296,8 +4736,8 @@ namespace Sparkle.LinkedInNET.Profiles
             context.UrlPath = this.LinkedInApi.Configuration.BaseApiUrl + url;
 
             if (!this.ExecuteQuery(context))
-                this.HandleXmlErrorResponse(context);
-            return this.HandleXmlResponse<Connections>(context);
+                this.HandleJsonErrorResponse(context);
+            return this.HandleJsonResponse<Connections>(context);
         }
         
         /// <summary>
@@ -4312,7 +4752,7 @@ namespace Sparkle.LinkedInNET.Profiles
             , FieldSelector<Connections> fields = null
         )
         {
-            const string urlFormat = "/v1/people/url={PublicProfileUrl}/connections?start={int start}&count={int count}&modified=new&modified-since={long modifiedSince}";
+            const string urlFormat = "/v1/people/url={PublicProfileUrl}/connections{FieldSelector}?start={int start}&count={int count}&modified=new&modified-since={long modifiedSince}";
             var url = FormatUrl(urlFormat, fields, "PublicProfileUrl", publicProfileUrl, "int start", start, "int count", count, "long modifiedSince", modifiedSince);
 
             var context = new RequestContext();
@@ -4321,8 +4761,8 @@ namespace Sparkle.LinkedInNET.Profiles
             context.UrlPath = this.LinkedInApi.Configuration.BaseApiUrl + url;
 
             if (!this.ExecuteQuery(context))
-                this.HandleXmlErrorResponse(context);
-            return this.HandleXmlResponse<Connections>(context);
+                this.HandleJsonErrorResponse(context);
+            return this.HandleJsonResponse<Connections>(context);
         }
         
         /// <summary>
@@ -4337,7 +4777,7 @@ namespace Sparkle.LinkedInNET.Profiles
             , FieldSelector<Connections> fields = null
         )
         {
-            const string urlFormat = "/v1/people/id={MemberToken}/connections?start={int start}&count={int count}&modified=updated&modified-since={long modifiedSince}";
+            const string urlFormat = "/v1/people/id={MemberToken}/connections{FieldSelector}?start={int start}&count={int count}&modified=updated&modified-since={long modifiedSince}";
             var url = FormatUrl(urlFormat, fields, "MemberToken", memberToken, "int start", start, "int count", count, "long modifiedSince", modifiedSince);
 
             var context = new RequestContext();
@@ -4346,8 +4786,8 @@ namespace Sparkle.LinkedInNET.Profiles
             context.UrlPath = this.LinkedInApi.Configuration.BaseApiUrl + url;
 
             if (!this.ExecuteQuery(context))
-                this.HandleXmlErrorResponse(context);
-            return this.HandleXmlResponse<Connections>(context);
+                this.HandleJsonErrorResponse(context);
+            return this.HandleJsonResponse<Connections>(context);
         }
         
         /// <summary>
@@ -4362,7 +4802,7 @@ namespace Sparkle.LinkedInNET.Profiles
             , FieldSelector<Connections> fields = null
         )
         {
-            const string urlFormat = "/v1/people/url={PublicProfileUrl}/connections?start={int start}&count={int count}&modified=updated&modified-since={long modifiedSince}";
+            const string urlFormat = "/v1/people/url={PublicProfileUrl}/connections{FieldSelector}?start={int start}&count={int count}&modified=updated&modified-since={long modifiedSince}";
             var url = FormatUrl(urlFormat, fields, "PublicProfileUrl", publicProfileUrl, "int start", start, "int count", count, "long modifiedSince", modifiedSince);
 
             var context = new RequestContext();
@@ -4371,8 +4811,8 @@ namespace Sparkle.LinkedInNET.Profiles
             context.UrlPath = this.LinkedInApi.Configuration.BaseApiUrl + url;
 
             if (!this.ExecuteQuery(context))
-                this.HandleXmlErrorResponse(context);
-            return this.HandleXmlResponse<Connections>(context);
+                this.HandleJsonErrorResponse(context);
+            return this.HandleJsonResponse<Connections>(context);
         }
         
         /// <summary>
@@ -4391,8 +4831,8 @@ namespace Sparkle.LinkedInNET.Profiles
             context.UrlPath = this.LinkedInApi.Configuration.BaseApiUrl + url;
 
             if (!this.ExecuteQuery(context))
-                this.HandleXmlErrorResponse(context);
-            return this.HandleXmlResponse<PictureUrls>(context);
+                this.HandleJsonErrorResponse(context);
+            return this.HandleJsonResponse<PictureUrls>(context);
         }
         
     }
@@ -4432,8 +4872,8 @@ namespace Sparkle.LinkedInNET.Companies
             context.UrlPath = this.LinkedInApi.Configuration.BaseApiUrl + url;
 
             if (!this.ExecuteQuery(context))
-                this.HandleXmlErrorResponse(context);
-            return this.HandleXmlResponse<Company>(context);
+                this.HandleJsonErrorResponse(context);
+            return this.HandleJsonResponse<Company>(context);
         }
         
         /// <summary>
@@ -4454,8 +4894,8 @@ namespace Sparkle.LinkedInNET.Companies
             context.UrlPath = this.LinkedInApi.Configuration.BaseApiUrl + url;
 
             if (!this.ExecuteQuery(context))
-                this.HandleXmlErrorResponse(context);
-            return this.HandleXmlResponse<Company>(context);
+                this.HandleJsonErrorResponse(context);
+            return this.HandleJsonResponse<Company>(context);
         }
         
         /// <summary>
@@ -4476,8 +4916,8 @@ namespace Sparkle.LinkedInNET.Companies
             context.UrlPath = this.LinkedInApi.Configuration.BaseApiUrl + url;
 
             if (!this.ExecuteQuery(context))
-                this.HandleXmlErrorResponse(context);
-            return this.HandleXmlResponse<Company>(context);
+                this.HandleJsonErrorResponse(context);
+            return this.HandleJsonResponse<Company>(context);
         }
         
         /// <summary>
@@ -4498,8 +4938,8 @@ namespace Sparkle.LinkedInNET.Companies
             context.UrlPath = this.LinkedInApi.Configuration.BaseApiUrl + url;
 
             if (!this.ExecuteQuery(context))
-                this.HandleXmlErrorResponse(context);
-            return this.HandleXmlResponse<Company>(context);
+                this.HandleJsonErrorResponse(context);
+            return this.HandleJsonResponse<Company>(context);
         }
         
         /// <summary>
@@ -4520,8 +4960,8 @@ namespace Sparkle.LinkedInNET.Companies
             context.UrlPath = this.LinkedInApi.Configuration.BaseApiUrl + url;
 
             if (!this.ExecuteQuery(context))
-                this.HandleXmlErrorResponse(context);
-            return this.HandleXmlResponse<CompanyUpdates>(context);
+                this.HandleJsonErrorResponse(context);
+            return this.HandleJsonResponse<CompanyUpdates>(context);
         }
         
     }

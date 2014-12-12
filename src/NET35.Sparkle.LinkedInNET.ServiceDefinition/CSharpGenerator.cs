@@ -364,8 +364,10 @@ namespace Sparkle.LinkedInNET.ServiceDefinition
                 // body / execute
                 this.text.WriteLine();
                 text.WriteLine(indent++, "if (!this.ExecuteQuery(context))");
-                text.WriteLine(indent--, "this.HandleXmlErrorResponse(context);");
-                text.WriteLine(indent, "return this.HandleXmlResponse<" + returnType + ">(context);");
+                ////text.WriteLine(indent--, "this.HandleXmlErrorResponse(context);");
+                ////text.WriteLine(indent, "return this.HandleXmlResponse<" + returnType + ">(context);");
+                text.WriteLine(indent--, "this.HandleJsonErrorResponse(context);");
+                text.WriteLine(indent, "return this.HandleJsonResponse<" + returnType + ">(context);");
 
                 // body / handle
 
@@ -415,6 +417,7 @@ namespace Sparkle.LinkedInNET.ServiceDefinition
             this.WriteNamespace(indent, "System");
             this.WriteNamespace(indent, "System.Collections.Generic");
             this.WriteNamespace(indent, "System.Xml.Serialization");
+            this.WriteNamespace(indent, "Newtonsoft.Json");
             this.text.WriteLine();
             this.text.WriteLine(indent, "/// <summary>");
             this.text.WriteLine(indent, "/// Name: '" + returnType.Name + "'");
@@ -467,9 +470,13 @@ namespace Sparkle.LinkedInNET.ServiceDefinition
 
                 var xmlAttribute = item.IsAttribute ? "XmlAttribute" : "XmlElement";
                 var xmlAttributeNameProp = item.IsAttribute ? "AttributeName" : "ElementName";
+                var jsonName = (item.IsAttribute ? "_" : "") + Namify(item.FieldName.ApiName, NameTransformation.PascalCase);
+                if (item.IsCollection)
+                    jsonName = "values";
 
                 this.text.WriteLine(indent, "/// </summary>");
                 this.text.WriteLine(indent, (item.Ignore ? "////" : "") + "[" + xmlAttribute + "(" + xmlAttributeNameProp + " = \"" + item.FieldName.ApiName + "\")]");
+                this.text.WriteLine(indent, (item.Ignore ? "////" : "") + "[JsonProperty(PropertyName = \"" + jsonName + "\")]");
                 this.text.WriteLine(indent, "public " + type + " " + item.FieldName.PropertyName + " { get; set; }");
                 this.text.WriteLine();
             }
@@ -503,7 +510,10 @@ namespace Sparkle.LinkedInNET.ServiceDefinition
                 string word = words[i];
                 if ((transform & NameTransformation.PascalCase) == NameTransformation.PascalCase)
                 {
-                    word = word[0].ToString().ToLowerInvariant() + new string(word.Skip(1).ToArray());
+                    if (i == 0)
+                        word = word[0].ToString().ToLowerInvariant() + new string(word.Skip(1).ToArray());
+                    else
+                        word = word[0].ToString().ToUpperInvariant() + new string(word.Skip(1).ToArray());
                 }
 
                 if ((transform & NameTransformation.CamelCase) == NameTransformation.CamelCase)

@@ -53,7 +53,7 @@
       <Field Name="num-connections" Title="the # of connections the member has" Remark="Available in some places, such as /people/~/connections, when connections is not. More efficient than checking the total attribute of connections even when connections is available." Type="int" />
       <Field Name="num-connections-capped" Title="true if the value of num-connections has been capped at 500. false otherwise." Remark="Allows you to distinguish whether num-connections = 500 because the member has exactly 500 connections or actually 500+ because we're hiding the true value." Type="bool?" />
       <Field Name="summary" Title="A long-form text area where the member describes their professional profile" Remark="Not available via connections API." />
-      <Field Name="specialties" Title="A short-form text area where the member enumerates their specialties" Remark="Not available via connections API." />
+      <Field Name="specialties" Type="Specialties" Title="A short-form text area where the member enumerates their specialties" Remark="Not available via connections API." />
       <Field Name="positions" Title="A collection of positions a member has had, the total indicated by a total attribute" Remark="See Positions Fields below. Only current positions are available for people other than the authenticated member." Type="positions" />
       <Field Name="picture-url" Title="A URL to the profile picture, if the member has associated one with their profile and it is visible to the requestor" Remark="" />
       <!--<Field Name="picture-urls" Title="A URL to the profile picture originally posted by the user." Remark="" />-->
@@ -518,6 +518,11 @@
     <ReturnType Name="picture-urls" ClassName="PictureUrls">
       <Field Name="picture-url" IsCollection="1" Type="string" />
     </ReturnType>
+
+    <ReturnType Name="specialties" ClassName="Specialties">
+      <Field Name="total" IsAttribute="1" Type="int" />
+      <Field Name="specialty" IsCollection="1" />
+    </ReturnType>
   </ApiGroup>
   
   <ApiGroup Name="Companies">
@@ -545,7 +550,7 @@
       <Field Name="blog-rss-url" Title="URL for the company blog." />
       <Field Name="twitter-id" Title="Handle for the company Twitter feed." />
       <Field Name="employee-count-range" Type="CompanyKeyValue" Title="Number range of employees at the company. Use this field instead of the deprecated size field. Valid values are:    A:1    B: 2-10    C: 11-50    D: 51-200    E: 201-500    F: 501-1000    G: 1001-5000    H: 5001-10,000    I: 10,000+" />
-      <Field Name="specialties" Title="Company specialties. Retrieves information from string input." />
+      <Field Name="specialties" Type="Specialties" Title="Company specialties. Retrieves information from string input." />
       <Field Name="locations" Type="CompanyLocations" Title="Company location.">
         <FieldSelector Name="locations:(description,is-headquarters,is-active,address:(street1,street2,city,state,postal-code,country-code,region-code),contact-info:(phone1,phone2,fax))" PropertyName="Locations" />
       </Field>
@@ -617,7 +622,7 @@
       <Field Name="company"                Type="CompanyIdentifier" />
       <Field Name="company-job-update"     Type="CompanyJobUpdate" />
       <Field Name="company-product-update" Type="CompanyProductUpdate" />
-      <Field Name="company‐status­‐update"  Type="CompanyStatusUpdate" PropertyName="CompanyStatusUpdate" />
+      <Field Name="company-status-update"  Type="CompanyStatusUpdate" />
     </ReturnType>
 
     <ReturnType Name="CompanyIdentifier">
@@ -658,8 +663,13 @@
       <Field Name="name" />
     </ReturnType>
 
-    <ReturnType Name="CompanyStatusUpdate">
+    <ReturnType Name="company‐status­‐update" ClassName="CompanyStatusUpdate">
       <Field Name="share"    Type="Sparkle.LinkedInNET.Common.Share" />
+    </ReturnType>
+
+    <ReturnType Name="specialties" ClassName="Specialties">
+      <Field Name="total" IsAttribute="1" Type="int" />
+      <Field Name="specialty" IsCollection="1" />
     </ReturnType>
   </ApiGroup>
 

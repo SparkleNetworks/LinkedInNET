@@ -69,5 +69,11 @@ namespace Sparkle.LinkedInNET.DemoMvc5
 
             return (long)value.Subtract(unix).TotalMilliseconds;
         }
+
+        public static DateTime FromUnixTime(this long value)
+        {
+            var unix = new System.DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
+            return unix.AddMilliseconds(value);
+        }
     }
 }

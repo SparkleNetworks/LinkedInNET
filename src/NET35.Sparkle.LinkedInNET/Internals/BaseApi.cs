@@ -1,6 +1,7 @@
 ﻿
 namespace Sparkle.LinkedInNET.Internals
 {
+    using Newtonsoft.Json;
     using System;
     using System.Collections.Generic;
     using System.IO;
@@ -109,6 +110,7 @@ namespace Sparkle.LinkedInNET.Internals
             var request = (HttpWebRequest)HttpWebRequest.Create(context.UrlPath);
             request.Method = context.Method;
             request.UserAgent = LibraryInfo.UserAgent;
+            request.Headers.Add("x-li-format", "json");
 
             if (context.AcceptLanguages != null)
             {
@@ -202,6 +204,23 @@ namespace Sparkle.LinkedInNET.Internals
             throw ex1;
         }
 
+        internal void HandleJsonErrorResponse(RequestContext context)
+        {
+            var error = this.HandleJsonResponse<ApiError>(context);
+
+            Exception ex1;
+            if (error != null)
+            {
+                ex1 = FX.ApiException("ApiErrorResult", error.Status, error.Message);
+            }
+            else
+            {
+                ex1 = FX.ApiException("ApiEmptyErrorResult", (int)(context.HttpStatusCode));
+            }
+
+            throw ex1;
+        }
+
         private static int[] validHttpCodes = new int[] { 200, 201, 202, };
         private static int[] errorHttpCodes = new int[] { 400, 401, 403, 404, 500, };
 
@@ -244,6 +263,89 @@ namespace Sparkle.LinkedInNET.Internals
                 try
                 {
                     errorResult = (ApiError)serializer.Deserialize(context.ResponseStream);
+                }
+                catch (Exception ex)
+                {
+                    var ex1 = FX.InternalException("SerializerDeserializeError", ex, ex.Message);
+                    TryAttachContextDetails(context, ex1);
+                    throw ex1;
+                }
+
+                {
+                    var ex1 = FX.ApiException("ApiErrorResult", errorResult.Status, errorResult.Message, context.UrlPath);
+                    TryAttachContextDetails(context, null);
+                    ex1.Data.Add("ErrorResult", errorResult);
+                    if (errorResult != null)
+                    {
+                        if (errorResult.Status == 401)
+                            ex1.Data["ShouldRenewToken"] = true;
+                    }
+
+                    throw ex1;
+                }
+            }
+            else
+            {
+                // unknown HTTP code
+                var ex1 = FX.ApiException("ApiUnknownHttpCode", context.HttpStatusCode);
+                TryAttachContextDetails(context, null);
+                throw ex1;
+            }
+
+            if (result == null)
+            {
+                var ex1 = FX.ApiException("ApiEmptyResult");
+                TryAttachContextDetails(context, null);
+                throw ex1;
+            }
+
+            return result;
+        }
+
+        internal T HandleJsonResponse<T>(RequestContext context)
+            where T : class, new()
+        {
+            T result = null;
+            ApiError errorResult = null;
+
+            // create serializers
+            // it may fail if attributes are wrong
+            ////XmlSerializer serializer, errorSerializer;
+            var settings = new JsonSerializerSettings
+            {
+            };
+
+            string json;
+            try
+            {
+                var reader = new StreamReader(context.ResponseStream, Encoding.UTF8);
+                json = reader.ReadToEnd();
+            }
+            catch (Exception ex)
+            {
+                throw FX.InternalException("ReadStreamAsText", ex, ex.Message);
+            }
+
+            if (validHttpCodes.Contains(context.HttpStatusCode))
+            {
+                // the HTTP code matches a success response
+                try
+                {
+                    result = JsonConvert.DeserializeObject<T>(json);
+                }
+                catch (Exception ex)
+                {
+                    var ex1 = FX.InternalException("SerializerDeserialize", ex, ex.Message);
+                    TryAttachContextDetails(context, ex1);
+                    throw ex1;
+                }
+            }
+            else if (errorHttpCodes.Contains(context.HttpStatusCode))
+            {
+                // the HTTP code matches a error response
+                try
+                {
+                    errorResult = JsonConvert.DeserializeObject<ApiError>(json);
                 }
                 catch (Exception ex)
                 {

@@ -115,6 +115,15 @@ namespace Sparkle.LinkedInNET.Internals {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Could not read stream as text: {0}.
+        /// </summary>
+        internal static string InternalException_ReadStreamAsText {
+            get {
+                return ResourceManager.GetString("InternalException_ReadStreamAsText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Could not create serializer for this API call: {0}.
         /// </summary>
         internal static string InternalException_SerializerCtor {

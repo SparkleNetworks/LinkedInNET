@@ -13,8 +13,8 @@
     IList<string> pictures = null;
     var pictureUrls = (Sparkle.LinkedInNET.Profiles.PictureUrls)this.ViewBag.Pictures;
     if (pictureUrls != null) {
-        pictures = pictureUrls.PictureUrl;
-        if (me.PictureUrl != null)
+        pictures = pictureUrls.PictureUrl ?? new List<string>();
+        if (me != null && me.PictureUrl != null)
         {
             pictures.Add(me.PictureUrl);
         }
@@ -36,20 +36,26 @@
     <dt>Headline</dt>
     <dd>@(me.Headline)</dd>
 
-@foreach (var position in me.Positions.Position)
+@if (me.Positions != null && me.Positions.Position != null)
 {
+    foreach (var position in me.Positions.Position)
+    {
     <dt>Job</dt>
     <dd><em>@position.Title</em> at 
-    @if (position.Company != null){
-        if (position.Company.Id > 0){
-            @Html.ActionLink(position.Company.Name, "Company", new { id = position.Company.Id, })
-        }else{
+        @if (position.Company != null){
+            if (position.Company.Id > 0){
+                @Html.ActionLink(position.Company.Name, "Company", new { id = position.Company.Id, })
+            }else{
             <strong>@position.Company.Name</strong>
+            }
+        }else{
+            @:?
         }
-    }else{
-        @:?
-    }
     </dd>
+    }
+} else {
+    <dt>Job</dt>
+    <dd>none</dd>
 }
 
 <dt>Connections</dt>
