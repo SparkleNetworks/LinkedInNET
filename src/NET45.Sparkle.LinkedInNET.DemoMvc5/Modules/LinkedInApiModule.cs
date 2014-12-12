@@ -11,7 +11,6 @@ namespace Sparkle.LinkedInNET.DemoMvc5.Modules
     {
         public override void Load()
         {
-            var config = LinkedInApiConfiguration.FromAppSettings("MyDemo.LinkedInConnect");
             this.Bind<LinkedInApiConfiguration>().ToMethod(_ => LinkedInApiConfiguration.FromAppSettings("MyDemo.LinkedInConnect"));
             this.Bind<LinkedInApi>().ToSelf().InSingletonScope();
         }

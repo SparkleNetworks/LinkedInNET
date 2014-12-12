@@ -70,7 +70,7 @@ echo Copy libs
 echo -----------------------------
 mkdir %outputDirectory%\lib
 mkdir %outputDirectory%\lib\net40
-xcopy /Q %solutionDirectory%\NET40.Sparkle.LinkedInNET\bin\Release\* %outputDirectory%\lib\net40
+xcopy /Q %solutionDirectory%\NET40.Sparkle.LinkedInNET\bin\Release\Sparkle* %outputDirectory%\lib\net40
 echo Done.
 
 
@@ -80,6 +80,8 @@ echo:
 echo Increment version number
 echo -----------------------------
 
+echo Hit return to continue...
+pause 
 %vincrement% -file=%outputDirectory%\version.txt 0.0.1 %outputDirectory%\version.txt
 if not %ERRORLEVEL% == 0 (
  echo ERROR: vincrement. exiting.
@@ -95,6 +97,9 @@ echo Done: %version%
 echo:
 echo Build NuGet package
 echo -----------------------------
+
+echo Hit return to continue...
+pause 
 cd %outputDirectory%
 %nuget% pack Sparkle.LinkedInNet.nuspec -Version %version%
 echo Done.
