@@ -3,7 +3,10 @@
 
 <h2>You</h2>
 @{
-     
+     var jsonSettings = new Newtonsoft.Json.JsonSerializerSettings
+    {
+        NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore,
+    };
     //var me = (Sparkle.LinkedInNET.Profiles.Person)this.ViewData["MyProfile"];
     var profile = (Sparkle.LinkedInNET.Profiles.Person)this.ViewBag.Profile;
     var me = profile;
@@ -77,7 +80,7 @@
 
     <dt>JSON</dt>
     <dd>
-        <p><code>@me.GetType().ToString()</code></p>
-        <pre>@Newtonsoft.Json.JsonConvert.SerializeObject(me, Newtonsoft.Json.Formatting.Indented)</pre>
+        <p>Type: <code>@me.GetType().ToString()</code></p>
+        <pre>@Newtonsoft.Json.JsonConvert.SerializeObject(me, Newtonsoft.Json.Formatting.Indented, jsonSettings)</pre>
     </dd>
 </dl>

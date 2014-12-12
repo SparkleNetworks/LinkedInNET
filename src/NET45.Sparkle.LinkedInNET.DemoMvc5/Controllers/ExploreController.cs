@@ -70,7 +70,7 @@ namespace Sparkle.LinkedInNET.DemoMvc5.Controllers
                 var shares = this.api.Companies.GetShares(user, id);
                 this.ViewBag.Shares = shares;
             }
-
+            
             return this.View(company);
         }
 

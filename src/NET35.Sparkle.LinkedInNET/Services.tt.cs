@@ -3309,25 +3309,25 @@ namespace Sparkle.LinkedInNET.Companies
         /// <summary>
         /// Field: 'company' (on-demand)
         /// </summary>
-        [XmlElement(ElementName = "company")]
+        [XmlElement(ElementName = "company", IsNullable = true)]
         public CompanyIdentifier Company { get; set; }
 
         /// <summary>
         /// Field: 'company-job-update' (on-demand)
         /// </summary>
-        [XmlElement(ElementName = "company-job-update")]
+        [XmlElement(ElementName = "company-job-update", IsNullable = true)]
         public CompanyJobUpdate CompanyJobUpdate { get; set; }
 
         /// <summary>
         /// Field: 'company-product-update' (on-demand)
         /// </summary>
-        [XmlElement(ElementName = "company-product-update")]
+        [XmlElement(ElementName = "company-product-update", IsNullable = true)]
         public CompanyProductUpdate CompanyProductUpdate { get; set; }
 
         /// <summary>
         /// Field: 'company‐status­‐update' (on-demand)
         /// </summary>
-        [XmlElement(ElementName = "company‐status­‐update")]
+        [XmlElement(ElementName = "company‐status­‐update", IsNullable = true)]
         public CompanyStatusUpdate CompanyStatusUpdate { get; set; }
 
     }

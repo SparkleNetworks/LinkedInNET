@@ -8,6 +8,7 @@ namespace Sparkle.LinkedInNET.Tests
     using System.Xml.Serialization;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Sparkle.LinkedInNET.Profiles;
+    using Sparkle.LinkedInNET.Companies;
 
     [TestClass]
     public class XmlTests
@@ -164,6 +165,27 @@ namespace Sparkle.LinkedInNET.Tests
 
             Assert.IsNotNull(item.ApiStandardProfileRequest);
             Assert.IsFalse(string.IsNullOrEmpty(item.ApiStandardProfileRequest.Url));
+        }
+
+        [TestMethod]
+        public void MyTestMethod()
+        {
+            CompanyUpdates item;
+            var serializer = new XmlSerializer(typeof(CompanyUpdates));
+            using (var stream = this.GetType().Assembly.GetManifestResourceStream("Sparkle.LinkedInNET.Tests.Files.company-updates.xml"))
+            {
+                item = (CompanyUpdates)serializer.Deserialize(stream);
+            }
+
+            
+            Assert.AreEqual(10, item.Update.Count);
+            Assert.AreEqual(1416244578910, item.Update[0].Timestamp);
+            Assert.AreEqual("UPDATE-c132885-5940160302124408832", item.Update[0].UpdateKey);
+            Assert.AreEqual("CMPY", item.Update[0].UpdateType);
+            Assert.AreEqual(132885, item.Update[0].UpdateContent.Company.Id);
+            Assert.AreEqual("Itelios", item.Update[0].UpdateContent.Company.Name);
+            Assert.AreEqual("s5940160302267002880", item.Update[0].UpdateContent.CompanyStatusUpdate.Share.Id);
+            //Assert.AreEqual("CMPY", item.Update[0].);
         }
     }
 }

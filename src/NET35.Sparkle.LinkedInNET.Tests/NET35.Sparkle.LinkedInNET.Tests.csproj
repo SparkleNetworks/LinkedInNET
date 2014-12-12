@@ -76,6 +76,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Files\FullProfile.xml" />
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Files\company-updates.xml" />
+  </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>
