@@ -74,7 +74,7 @@ What's implemented and what's not...
 - [ ] [Commenting on a Company Share](https://developer.linkedin.com/documents/commenting-and-liking-company-share)
 - [ ] [Liking a Company Share](https://developer.linkedin.com/documents/commenting-and-liking-company-share)
 - [ ] [Comment on Company Updates as Company](https://developer.linkedin.com/documents/commenting-and-liking-company-share)
-- [ ] [Company Search](https://developer.linkedin.com/documents/company-search)
+- [x] [Company Search](https://developer.linkedin.com/documents/company-search)
 - [ ] [Retrieving a List of Companies Followed](https://developer.linkedin.com/documents/company-follow-and-suggestions)
 - [ ] [Start Following a Company](https://developer.linkedin.com/documents/company-follow-and-suggestions)
 - [ ] [Stop Following a Company](https://developer.linkedin.com/documents/company-follow-and-suggestions)

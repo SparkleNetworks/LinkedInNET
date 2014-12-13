@@ -154,6 +154,7 @@
     <Content Include="Views\Explore\Company.cshtml" />
     <Content Include="Views\Explore\Person.cshtml" />
     <Content Include="Views\Explore\Connections.cshtml" />
+    <Content Include="Views\Explore\SearchCompany.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

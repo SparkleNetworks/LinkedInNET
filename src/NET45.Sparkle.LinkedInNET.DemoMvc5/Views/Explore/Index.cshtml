@@ -1,6 +1,13 @@
 ﻿
 <h1>@Html.ActionLink("Explore", "Index")</h1>
 
+<h2>Search</h2>
+
+@using (Html.BeginForm("SearchCompany", "Explore", FormMethod.Get)){
+<label>Keywords: @Html.TextBox("keywords")</label>
+<input type="submit" value="Search company" />
+}
+
 <h2>You</h2>
 @{
      var jsonSettings = new Newtonsoft.Json.JsonSerializerSettings

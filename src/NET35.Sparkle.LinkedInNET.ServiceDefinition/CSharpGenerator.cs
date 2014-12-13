@@ -137,6 +137,27 @@ namespace Sparkle.LinkedInNET.ServiceDefinition
                     }
                 }
 
+                if (returnType.ImportFieldSelectors != null)
+                {
+                    foreach (var import in returnType.ImportFieldSelectors)
+                    {
+                        if (import.ReturnType != null)
+                        {
+                            var type = context.Definition.FindReturnType(import.ReturnType);
+                            if (type != null)
+                            {
+                                foreach (var field in type.Fields)
+                                {
+                                    var fullName = import.Name + ":(" + field.Name + ")";
+                                    var fullPropertyName = this.GetPropertyName(null, import.Name) + this.GetPropertyName(field.PropertyName, field.Name);
+                                    WriteReturnTypeField(indent, returnTypeName, fullPropertyName, fullName);
+                                    allFields.Add(fullName);
+                                }
+                            }
+                        }
+                    }
+                }
+
                 if (allFields.Count > 0)
                 {
                     this.text.WriteLine(indent, "/// <summary>");
@@ -228,7 +249,8 @@ namespace Sparkle.LinkedInNET.ServiceDefinition
                 this.text.WriteLine(indent, "/// <summary>");
                 this.text.WriteLine(indent, "/// The " + name + " API.");
                 this.text.WriteLine(indent, "/// </summary>");
-                this.text.WriteLine(indent++, "public " + name + "Api " + name + "{");
+                this.text.WriteLine(indent++, "public " + name + "Api " + name + " {");
+                this.text.WriteLine(indent, "[System.Diagnostics.DebuggerStepThrough]");
                 this.text.WriteLine(indent, "get { return new " + name + "Api(this); }");
                 this.text.WriteLine(--indent, "}");
                 this.text.WriteLine();
@@ -260,6 +282,7 @@ namespace Sparkle.LinkedInNET.ServiceDefinition
 
             // ctor
 
+            this.text.WriteLine(indent, "[System.Diagnostics.DebuggerStepThrough]");
             this.text.WriteLine(indent, "internal " + className + "(LinkedInApi linkedInApi)");
             this.text.WriteLine(indent, "    : base(linkedInApi)");
             this.text.WriteLine(indent++, "{");

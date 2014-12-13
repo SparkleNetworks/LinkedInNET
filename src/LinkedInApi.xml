@@ -533,6 +533,9 @@
 
     <ApiMethod MethodName="GetShares" HttpMethod="GET" Title="Retrieve the company's updates" Path="/v1/companies/{int id}/updates" ReturnType="CompanyUpdates" RequiresUserAuthentication="1" />
 
+    <ApiMethod MethodName="Search" HttpMethod="GET" Path="/v1/company-search{FieldSelector}?start={int start}&amp;count={int count}&amp;keywords={keywords}" ReturnType="company-search" RequiresUserAuthentication="1" />
+    <ApiMethod MethodName="FacetSearch" HttpMethod="GET" Path="/v1/company-search{FieldSelector}?start={int start}&amp;count={int count}&amp;keywords={keywords}&amp;facet={facet}" ReturnType="company-search" RequiresUserAuthentication="1" />
+
     <ReturnType Name="company" ClassName="Company" AutoGenerateFieldSelectors="1">
       <Field Name="id" Type="long" Title="Default. The unique internal numeric company identifier." IsDefault="1" />
       <Field Name="name" Title="Default. The human readable name of the company." IsDefault="1" />
@@ -670,6 +673,47 @@
     <ReturnType Name="specialties" ClassName="Specialties">
       <Field Name="total" IsAttribute="1" Type="int" />
       <Field Name="specialty" IsCollection="1" />
+    </ReturnType>
+
+    <ReturnType Name="company-search">
+      <Field Name="companies" Type="SearchCompanyList" />
+      <ImportFieldSelectors Name="companies" ReturnType="company" />
+      <!-- companies:(name,id,status,) -->
+      
+      <Field Name="num-results" Type="int" />
+      
+      <Field Name="facets" Type="SearchFacetList" />
+      <FieldSelector Name="facets" />
+    </ReturnType>
+
+    <ReturnType Name="SearchCompanyList">
+      <Field Name="total" IsAttribute="1" Type="int" />
+      <Field Name="count" IsAttribute="1" Type="int" />
+      <Field Name="start" IsAttribute="1" Type="int" />
+      <Field Name="company" IsCollection="1" Type="company" PropertyName="Items" />
+    </ReturnType>
+
+    <ReturnType Name="SearchFacetList">
+      <Field Name="total" IsAttribute="1" Type="int" />
+      <Field Name="facet" IsCollection="1" Type="facet" PropertyName="Items" />
+    </ReturnType>
+
+    <ReturnType Name="facet">
+      <Field Name="code" />
+      <Field Name="name" />
+      <Field Name="buckets" Type="buckets" />
+    </ReturnType>
+
+    <ReturnType Name="buckets">
+      <Field Name="total" IsAttribute="1" Type="int" />
+      <Field Name="bucket" IsCollection="1" Type="bucket" PropertyName="Items" />
+    </ReturnType>
+
+    <ReturnType Name="bucket">
+      <Field Name="code" />
+      <Field Name="name" />
+      <Field Name="count" Type="int" />
+      <Field Name="selected" Type="bool" />
     </ReturnType>
   </ApiGroup>
 

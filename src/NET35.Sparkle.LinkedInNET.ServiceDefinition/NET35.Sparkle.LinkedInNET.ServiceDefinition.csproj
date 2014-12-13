@@ -45,6 +45,7 @@
     <Compile Include="CSharpProperty.cs" />
     <Compile Include="FieldName.cs" />
     <Compile Include="FieldSelector.cs" />
+    <Compile Include="ImportFieldSelectors.cs" />
     <Compile Include="ServiceDefinitionBuilder.cs" />
     <Compile Include="Field.cs" />
     <Compile Include="NameTransformation.cs" />

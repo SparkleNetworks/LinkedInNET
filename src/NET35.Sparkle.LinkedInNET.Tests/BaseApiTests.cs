@@ -66,6 +66,14 @@ namespace Sparkle.LinkedInNET.Tests
             var result = target.FormatUrlInvoke("a{FieldSelector}a", FieldSelector.For<object>().Add("site-standard-profile-request/url"));
             Assert.AreEqual("a:(site-standard-profile-request/url)a", result);
         }
+
+        ////[TestMethod]
+        ////public void FormatUrl1()
+        ////{
+        ////    var target = new Api();
+        ////    var result = target.FormatUrlInvoke("path?a=1&{Query}");
+        ////    Assert.AreEqual("aca", result);
+        ////}
     }
 
     public class Api : BaseApi

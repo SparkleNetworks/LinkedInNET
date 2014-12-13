@@ -135,6 +135,14 @@ namespace Sparkle.LinkedInNET.ServiceDefinition
                                 var subReturnType = definition.FindReturnType(mainPart, apiGroup.Name, subPart: subPart, typeName: item.Type);
                             }
                         }
+
+                        if (returnType.ImportFieldSelectors != null)
+                        {
+                            foreach (var import in returnType.ImportFieldSelectors)
+                            {
+                                
+                            }
+                        }
                     }
                 }
             }

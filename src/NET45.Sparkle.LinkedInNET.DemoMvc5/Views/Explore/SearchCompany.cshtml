@@ -1,0 +1,116 @@
+﻿@model Sparkle.LinkedInNET.Companies.CompanySearch
+@{
+    string facet = this.ViewBag.facet;
+    string keywords = this.ViewBag.keywords;
+    int total = (Model != null && Model.Companies != null) ? Model.Companies.Total : 0;
+    int start = this.ViewBag.start;
+    int count = this.ViewBag.count;
+    int pages = (int)Math.Ceiling((double)total / (double)count);
+
+}
+
+<h1>@Html.ActionLink("Explore", "Index")</h1>
+
+<h2>Search companies</h2>
+
+@using (Html.BeginForm("SearchCompany", "Explore", FormMethod.Get)) {
+<p><label>Keywords: @Html.TextBox("keywords")</label></p>
+<p><input type="submit" value="Search company" /></p>
+}
+
+<h3>Facets</h3>
+
+@if (Model != null && Model.Facets != null && Model.Facets.Items != null)
+{
+    foreach (var facetItem in Model.Facets.Items )
+    {
+<p class="facet">Filter by @facetItem.Name: 
+        @if (facetItem.Buckets != null && facetItem.Buckets.Items != null) {
+            foreach (var bucket in facetItem.Buckets.Items ) {
+    <a href="@Url.Action("SearchCompany", new { keywords = keywords, facet = (facetItem.Code + "," + bucket.Code), })" class="@(bucket.Selected ? "current" : "") bucket">@bucket.Name</a>
+            }
+        }
+</p>
+    }
+
+
+<pre>@Newtonsoft.Json.JsonConvert.SerializeObject(Model.Facets.Items, Newtonsoft.Json.Formatting.Indented)</pre>
+}else{
+<p>None.</p>
+}
+
+
+
+<h3>Results</h3>
+
+@if (Model.Companies != null && Model.Companies.Items != null){
+
+
+<p class="pagination">
+@for (int i = 0; i < pages; i++) {
+    int index = i * count;
+    <a href="@Url.Action("SearchCompany", new { keywords = keywords, count = count, start = index, facet = facet, })" class="@(start == index ? "current" : "")">@(i + 1)</a>
+}
+</p>
+
+    foreach (var company in Model.Companies.Items)
+    {
+<div>
+<h4 class="clear">@company.Name</h4>
+<dl class="srkdl">
+    <dt>Id</dt>
+    <dd>@company.Id</dd>
+
+        @if (company.UniversalName != null){
+    <dt>UniversalName</dt>
+    <dd>@company.UniversalName</dd>
+        }
+
+        @if (company.CompanyType != null){
+    <dt>CompanyType</dt>
+    <dd>@if (company.CompanyType != null){
+        @:@company.CompanyType.Name (@company.CompanyType.Code)
+    }</dd>
+        }
+
+        @if (company.Description != null){
+    <dt>Description</dt>
+    <dd><pre>@company.Description</pre></dd>
+        }
+
+        @if (company.StockExchange != null){
+    <dt>StockExchange</dt>
+    <dd>@company.StockExchange</dd>
+        }
+
+        @if (company.SquareLogoUrl != null || company.LogoUrl != null){
+    <dt>Logo</dt>
+    <dd>
+@if (company.SquareLogoUrl != null){<img src="@company.SquareLogoUrl" alt="SquareLogoUrl" />}
+@if (company.LogoUrl != null){<img src="@company.LogoUrl" alt="LogoUrl" />}
+    </dd>
+        }
+
+        @if (company.Status != null){
+    <dt>Status</dt>
+    <dd>@if (company.Status != null){
+        @:@company.Status.Name (@company.Status.Code)
+    }</dd>
+        }
+
+        @if (company.WebsiteUrl != null){
+    <dt>WebsiteUrl</dt>
+    <dd>@Html.DisplayUrl(company.WebsiteUrl)</dd>
+        }
+
+        @if (company.Ticker != null){
+    <dt>Ticker</dt>
+    <dd>@company.Ticker</dd>
+        }
+</dl>
+</div>
+    }
+}
+
+<div class="clear"></div>
+

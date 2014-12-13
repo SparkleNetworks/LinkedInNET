@@ -21,6 +21,7 @@ namespace Sparkle.LinkedInNET.Internals
         /// Initializes a new instance of the <see cref="BaseApi"/> class.
         /// </summary>
         /// <param name="linkedInApi">The API factory.</param>
+        [System.Diagnostics.DebuggerStepThrough]
         internal protected BaseApi(LinkedInApi linkedInApi)
         {
             this.linkedInApi = linkedInApi;
@@ -54,10 +55,7 @@ namespace Sparkle.LinkedInNET.Internals
             var dic = new Dictionary<string, string>(values.Length / 2);
             for (int i = 0; i < values.Length; i++)
             {
-                if (i % 2 == 0)
-                {
-                }
-                else
+                if (i % 2 == 1)
                 {
                     dic.Add(values[i - 1].ToString(), values[i] != null ? values[i].ToString() : null);
                 }
@@ -74,7 +72,11 @@ namespace Sparkle.LinkedInNET.Internals
 
             foreach (var key in dic.Keys)
             {
-                result = result.Replace("{" + key + "}", dic[key]);
+                var value = dic[key];
+                if (value != null)
+                    result = result.Replace("{" + key + "}", value);
+                else
+                    result = result.Replace("{" + key + "}", string.Empty);
             }
 
             return result;

@@ -37,6 +37,9 @@ namespace Sparkle.LinkedInNET.ServiceDefinition
         [XmlAttribute]
         public bool AutoGenerateFieldSelectors { get; set; }
 
+        [XmlElement(ElementName = "ImportFieldSelectors")]
+        public List<ImportFieldSelectors> ImportFieldSelectors { get; set; }
+
         public override string ToString()
         {
             return string.Format("ReturnType(N='{0}' CN='{1}' F={2} FS={3})", Name, ClassName, Fields != null ? Fields.Count : 0, Selectors != null ? Selectors.Count : 0);

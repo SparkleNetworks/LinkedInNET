@@ -86,6 +86,7 @@ dl.srkdl dt label.noafter:after{content:'';}
 
 
 p.pagination {
+    line-height: 3;
 }
 p.pagination a {
     padding: 10px;
@@ -97,6 +98,14 @@ p.pagination a.current {
     color:white;
 }
 
+.facet a.bucket{
+    background-color: gray;
+    color:white;
+}
 
+.facet a.bucket.current{
+    background-color: #428BCA;
+    color:white;
+}
 
 

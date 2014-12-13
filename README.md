@@ -6,9 +6,9 @@ LinkedInNET
 
 Sparkle.LinkedInNET will help you query the LinkedIn API :)
 
-By using the LinkedIn APIs you agree to the [LinkedIn APIs Terms of Use](https://developer.linkedin.com/documents/linkedin-apis-terms-use). 
-
-This project is released under the LGPL v3 license. 
+By using the LinkedIn APIs you agree to the [LinkedIn APIs Terms of Use](https://developer.linkedin.com/documents/linkedin-apis-terms-use).  
+This project is released under the LGPL v3 license.  
+This is NOT an official client library.
 
 Motivation
 ------------
@@ -18,7 +18,7 @@ Bring the .NET world a nice LinkedIn client library.
 Usage
 ------------
 
-### Installation
+### 1. Installation
 
 [Via NuGet](https://www.nuget.org/packages/Sparkle.LinkedInNET/)
 
@@ -28,7 +28,7 @@ PM> Install-Package Sparkle.LinkedInNET
 
 Or build the sources... You have to create your own .snk file.
 
-### Create API client with configuration
+### 2. Create API client with configuration
 
 The `LinkedInApi` class is the entry point for all API calls. You must instantiate it with a configuration object. The minimum configuration is the API key and secret.  
 
@@ -51,7 +51,7 @@ var api = new LinkedInApi(config);
 </configuration>
 ````
 
-### Create OAuth2 authorize url
+### 3. Create OAuth2 authorize url
 
 The OAuth2 authentication process is fully supported. The `GetAUthorizationUrl` method will generate the OAuth2 url to navigate the user to.
 
@@ -63,7 +63,7 @@ var url = api.OAuth2.GetAuthorizationUrl(scope, state, redirectUrl);
 // https://www.linkedin.com/uas/oauth2/authorization?response_type=code&client_id=...
 ````
 
-### Get access token
+### 4. Get access token
 
 When redirected to your own website, you can get an access code.
 
@@ -72,7 +72,7 @@ When redirected to your own website, you can get an access code.
 var userToken = api.OAuth2.GetAccessToken(code, redirectUrl);
 ````
 
-### Fetch user profile
+### 5. Example call: fetch user profile
 
 ````csharp
 var user = new UserAuthorization(userToken.AccessToken);
@@ -81,9 +81,9 @@ var profile = api.Profiles.GetMyProfile(user);
 
 Yes, you have to pass the token for each call. This might seem redundant for some but we prefer stateless objects for multi-threaded contexts. 
 
-### Field selectors
+### 6. Field selectors
 
-The API uses field lists to fetch the desired data. Simple extension methods will allow you to make strongly-typed field selection.
+The API uses [field lists](https://developer.linkedin.com/documents/field-selectors) to fetch the desired data. Simple extension methods will allow you to make strongly-typed field selection.
 
 ````csharp
 var profile = api.Profiles.GetMyProfile(
@@ -92,7 +92,7 @@ var profile = api.Profiles.GetMyProfile(
 // https://api.linkedin.com/v1/people/~:(first-name,last-name,location:(name))
 ````
 
-The `.WithAllFields()` method will generate the list of al available fields. LinkedIn recommends not to do that.
+The `.WithAllFields()` method will generate the list of all available fields. LinkedIn recommends not to do that.
 
 ````csharp
 var profile = api.Profiles.GetMyProfile(
@@ -102,9 +102,7 @@ var profile = api.Profiles.GetMyProfile(
 // however it is not recommended to specify all fields
 ````
 
-Links: [Field selectors](https://developer.linkedin.com/documents/field-selectors), 
-
-### Errors
+### 7. Errors
 
 API error results throw `LinkedInApiException`s. You can find extra info in the Data collection.
 
@@ -131,18 +129,25 @@ Library internal errors throw `LinkedInNetException`s. You should not catch them
 
 You should not catch `WebException`s as they are wrapped into `LinkedInApiException`s.
 
+### 8. Explore
+
+Code documentation is quite present. You auto-completion to discover stuff.
+
+The MVC demo app has a /Explore page that demonstrates most API calls. Have a look at it.
 
 Contribute
 ------------
 
 We are generating code based on a XML file. 
 This XML file is manually filled to represent the API. 
-We are still working hard on bringing something reliable here. 
+We worked hard to bring something reliable. 
 The API coverage should be implemented by expanding the XML file and enhancing code generation.
 
-To generate the API code, simply "Run custom tool" on the `Service.tt` file.  
-To alter code generation, search for `CSharpGenerator.cs`.  
-To alter API methods and return types, search for `LinkedInApi.xml`.
+To generate the API code, build the "ServiceDefinition" project in Debug mode, then "Run custom tool" on the `Service.tt` file. The XML file will be read and most of the code will be updated automagically. 
+  
+To alter code generation, search for `CSharpGenerator.cs`. Different methods are responsible of generating different parts of C# code (return types, api groups, selectors).
+  
+To add/alter API methods and return types, search for `LinkedInApi.xml`. This file describes the API in a human-readable and machine-readable way. Don't forget to re-generate the code (Service.tt).
 
 
 References
@@ -157,17 +162,13 @@ https://developer.linkedin.com/documents/authentication
 
 Supported .NET Framework versions:
 
-* .NET 4.0 (dependencies: Newtonsoft.Json >= 4.5.8)
-* .NET 3.5 (dependencies: Newtonsoft.Json >= 4.5.8)
+* .NET 4.0 (dependencies: Newtonsoft.Json ≥ 4.5.8)
+* .NET 3.5 (dependencies: Newtonsoft.Json ≥ 4.5.8)
 
-We are using a lot of code generation so it won't be difficult to target 4.5 or any other framework. Implementing the async pattern won't be hard neither.
+We are using a lot of code generation so it won't be difficult to target 4.5 or any other framework. Implementing the async pattern won't be hard either.
 
 
 Status
 ------------
 
-[We are just at the beginning](src/ToDo.md).
-
-* code generation is ok
-* api coverage is very low; but rising
-* requesting fields: fluid `FieldSelector` syntax is now working
+See our [internal to-do list](src/ToDo.md).

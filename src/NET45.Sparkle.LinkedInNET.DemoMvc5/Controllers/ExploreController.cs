@@ -137,5 +137,30 @@ namespace Sparkle.LinkedInNET.DemoMvc5.Controllers
 
             return this.View(model);
         }
+
+        public ActionResult SearchCompany(string keywords, int start = 0, int count = 20, string facet = null)
+        {
+            var token = this.data.GetAccessToken();
+            var user = new UserAuthorization(token);
+            var fields = FieldSelector.For<CompanySearch>()
+                .WithFacets()
+                .WithCompaniesDescription().WithCompaniesId()
+                .WithCompaniesLogoUrl().WithCompaniesName()
+                .WithCompaniesSquareLogoUrl().WithCompaniesStatus()
+                .WithCompaniesWebsiteUrl();
+
+            CompanySearch result;
+            if (!string.IsNullOrEmpty(facet))
+                result = this.api.Companies.FacetSearch(user, start, count, keywords, facet, fields);
+            else
+                result = this.api.Companies.Search(user, start, count, keywords, fields);
+
+            this.ViewBag.keywords = keywords;
+            this.ViewBag.start = start;
+            this.ViewBag.count = count;
+            this.ViewBag.facet = facet;
+
+            return this.View(result);
+        }
     }
 }
