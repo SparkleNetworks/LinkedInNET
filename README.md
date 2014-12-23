@@ -138,7 +138,7 @@ The MVC demo app has a /Explore page that demonstrates most API calls. Have a lo
 Contribute
 ------------
 
-We are generating code based on a XML file. 
+We are generating code based on a [XML file](DefinitionFile.md). 
 This XML file is manually filled to represent the API. 
 We worked hard to bring something reliable. 
 The API coverage should be implemented by expanding the XML file and enhancing code generation.
@@ -147,7 +147,7 @@ To generate the API code, build the "ServiceDefinition" project in Debug mode, t
   
 To alter code generation, search for `CSharpGenerator.cs`. Different methods are responsible of generating different parts of C# code (return types, api groups, selectors).
   
-To add/alter API methods and return types, search for `LinkedInApi.xml`. This file describes the API in a human-readable and machine-readable way. Don't forget to re-generate the code (Service.tt).
+To add/alter API methods and return types, search for `LinkedInApi.xml`. This file [describes the API in a human-readable and machine-readable way](DefinitionFile.md). Don't forget to re-generate the code (Service.tt).
 
 
 References

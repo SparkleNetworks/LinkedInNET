@@ -107,6 +107,19 @@ echo Done.
 
 
 
+echo:
+echo Push NuGet package
+echo -----------------------------
+
+echo Hit return to continue...
+pause 
+cd %outputDirectory%
+%nuget% push Sparkle.LinkedInNet.%version%.nupkg
+echo Done.
+
+
+
+
 
 cd %currentDirectory%
 pause

@@ -67,8 +67,9 @@ What's implemented and what's not...
 
 > For the purposes of testing, we've created a special LinkedIn Company Page that is available for all developers to use. This company page doesn't require the authenticated user making the API call to be an administrator of the company: https://www.linkedin.com/company/devtestco (Company ID 2414183) 
 
-- [x] Companies  
-- [x] Get Company shares
+- Get operations
+    - [x] Companies  
+    - [x] Get Company shares
 - [Post Company Share](https://developer.linkedin.com/creating-company-shares)  
     - [x] Post a new company share
     - [ ] Re-post a share. *you provide an attribution/id value instead of a content block*
@@ -96,14 +97,15 @@ What's implemented and what's not...
     - [ ] targeting code: job functions
     - [ ] targeting code: industries
     - [ ] targeting code: seniorities
-- [ ] [Commenting on a Company Share](https://developer.linkedin.com/documents/commenting-and-liking-company-share)
-- [ ] [Liking a Company Share](https://developer.linkedin.com/documents/commenting-and-liking-company-share)
-- [ ] [Comment on Company Updates as Company](https://developer.linkedin.com/documents/commenting-and-liking-company-share)
-- [x] [Company Search](https://developer.linkedin.com/documents/company-search)
-- [ ] [Retrieving a List of Companies Followed](https://developer.linkedin.com/documents/company-follow-and-suggestions)
-- [ ] [Start Following a Company](https://developer.linkedin.com/documents/company-follow-and-suggestions)
-- [ ] [Stop Following a Company](https://developer.linkedin.com/documents/company-follow-and-suggestions)
-- [ ] [Suggested Companies to Follow](https://developer.linkedin.com/documents/company-follow-and-suggestions)
+- Other operations
+    - [ ] [Commenting on a Company Share](https://developer.linkedin.com/documents/commenting-and-liking-company-share)
+    - [ ] [Liking a Company Share](https://developer.linkedin.com/documents/commenting-and-liking-company-share)
+    - [ ] [Comment on Company Updates as Company](https://developer.linkedin.com/documents/commenting-and-liking-company-share)
+    - [x] [Company Search](https://developer.linkedin.com/documents/company-search)
+    - [ ] [Retrieving a List of Companies Followed](https://developer.linkedin.com/documents/company-follow-and-suggestions)
+    - [ ] [Start Following a Company](https://developer.linkedin.com/documents/company-follow-and-suggestions)
+    - [ ] [Stop Following a Company](https://developer.linkedin.com/documents/company-follow-and-suggestions)
+    - [ ] [Suggested Companies to Follow](https://developer.linkedin.com/documents/company-follow-and-suggestions)
 
 ### Jobs
 
