@@ -67,10 +67,33 @@ What's implemented and what's not...
 
 - [x] Companies  
 - [x] Get Company shares
-- [ ] [Post Company Share](https://developer.linkedin.com/creating-company-shares)  
-- [ ] [Historical company statictics](https://developer.linkedin.com/historical-company-statistics)  
-- [ ] [Company Statistics](https://developer.linkedin.com/company-statistics)
-- [ ] [Targeting Company Shares](https://developer.linkedin.com/documents/targeting-company-shares)
+- [Post Company Share](https://developer.linkedin.com/creating-company-shares)  
+    - [ ] Post a new company share
+    - [ ] Re-post a share. *you provide an attribution/id value instead of a content block*)
+    - [ ] check to see if a company has shares enabled
+    - [ ] check to see if the current viewer is an administrator for a company (so they can share)
+    - [ ] make a single call to fetch a list of all companies the current user is an administrator of (pagination by 10)
+- [Historical company statistics](https://developer.linkedin.com/historical-company-statistics)
+    - [ ] Fetching Historical Follower Statistics
+    - [ ] Fetching Daily Stats
+    - [ ] Fetching Historical Status Update Statistics
+    - [ ] Fetching Daily Stats
+    - [ ] Fetching Statistics for a Specific Company Update
+- [Company Statistics](https://developer.linkedin.com/company-statistics)
+    - [ ] retrieve statistics for a particular company page
+- [Targeting Company Shares](https://developer.linkedin.com/documents/targeting-company-shares)
+    - [ ] segment: share-target-reach
+    - [ ] segment: share-targets
+    - [ ] segment: share-target
+    - [ ] segment: code
+    - [ ] segment: tvalues
+    - [ ] segment: tvalue 
+    - [ ] Targeting Minimums
+    - [ ] targeting code: geographies
+    - [ ] targeting code: company sizes
+    - [ ] targeting code: job functions
+    - [ ] targeting code: industries
+    - [ ] targeting code: seniorities
 - [ ] [Commenting on a Company Share](https://developer.linkedin.com/documents/commenting-and-liking-company-share)
 - [ ] [Liking a Company Share](https://developer.linkedin.com/documents/commenting-and-liking-company-share)
 - [ ] [Comment on Company Updates as Company](https://developer.linkedin.com/documents/commenting-and-liking-company-share)
@@ -81,6 +104,8 @@ What's implemented and what's not...
 - [ ] [Suggested Companies to Follow](https://developer.linkedin.com/documents/company-follow-and-suggestions)
 
 ### Jobs
+
+> Jobs API is a part of our Vetted API Access Program. You must [apply here](https://help.linkedin.com/app/api-dvr) and get LinkedIn's approval before using this API.
 
 - [ ] [Use Field Selectors to retrieve the specific fields](https://developer.linkedin.com/documents/job-lookup-api-and-fields)
 - [ ] [Job Fields](https://developer.linkedin.com/documents/job-fields)
