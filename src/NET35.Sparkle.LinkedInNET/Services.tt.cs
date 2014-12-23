@@ -8,6 +8,9 @@
 //------------------------------------------------------------------------------
 
 // XML document found at '\src\NET35.Sparkle.LinkedInNET\..\LinkedInApi.xml'
+
+#region ReturnTypes for Profiles
+
 // WriteReturnTypes(Profiles, person)
 namespace Sparkle.LinkedInNET.Profiles
 {
@@ -3087,6 +3090,10 @@ namespace Sparkle.LinkedInNET.Profiles
     }
 }
 
+#endregion
+
+#region ReturnTypes for Companies
+
 // WriteReturnTypes(Companies, company)
 namespace Sparkle.LinkedInNET.Companies
 {
@@ -4584,6 +4591,10 @@ namespace Sparkle.LinkedInNET.Companies
     }
 }
 
+#endregion
+
+#region ReturnTypes for Groups
+
 // WriteReturnTypeFields(Groups)
 namespace Sparkle.LinkedInNET.Groups
 {
@@ -4597,6 +4608,10 @@ namespace Sparkle.LinkedInNET.Groups
     public static class GroupsFields {
     }
 }
+
+#endregion
+
+#region ReturnTypes for Jobs
 
 // WriteReturnTypeFields(Jobs)
 namespace Sparkle.LinkedInNET.Jobs
@@ -4612,6 +4627,10 @@ namespace Sparkle.LinkedInNET.Jobs
     }
 }
 
+#endregion
+
+#region ReturnTypes for Social
+
 // WriteReturnTypeFields(Social)
 namespace Sparkle.LinkedInNET.Social
 {
@@ -4625,6 +4644,10 @@ namespace Sparkle.LinkedInNET.Social
     public static class SocialFields {
     }
 }
+
+#endregion
+
+#region ReturnTypes for Common
 
 // WriteReturnTypes(Common, share)
 namespace Sparkle.LinkedInNET.Common
@@ -4851,6 +4874,111 @@ namespace Sparkle.LinkedInNET.Common
     }
 }
 
+// WriteReturnTypes(Common, PostShare)
+namespace Sparkle.LinkedInNET.Common
+{
+    using System;
+    using System.Collections.Generic;
+    using System.Xml.Serialization;
+    using Newtonsoft.Json;
+
+    /// <summary>
+    /// Name: 'PostShare'
+    /// </summary>
+    [Serializable, XmlRoot("PostShare")]
+    public class PostShare
+    {
+        /// <summary>
+        /// Field: 'comment' (on-demand)
+        /// </summary>
+        [XmlElement(ElementName = "comment")]
+        [JsonProperty(PropertyName = "comment")]
+        public string Comment { get; set; }
+
+        /// <summary>
+        /// Field: 'content' (on-demand)
+        /// </summary>
+        [XmlElement(ElementName = "content")]
+        [JsonProperty(PropertyName = "content")]
+        public PostShareContent Content { get; set; }
+
+        /// <summary>
+        /// Field: 'visibility/code' (on-demand)
+        /// </summary>
+        [XmlElement(ElementName = "visibility")]
+        [JsonProperty(PropertyName = "visibility")]
+        public Visibility Visibility { get; set; }
+
+    }
+}
+
+// WriteReturnTypes(Common, PostShareContent)
+namespace Sparkle.LinkedInNET.Common
+{
+    using System;
+    using System.Collections.Generic;
+    using System.Xml.Serialization;
+    using Newtonsoft.Json;
+
+    /// <summary>
+    /// Name: 'PostShareContent'
+    /// </summary>
+    [Serializable, XmlRoot("PostShareContent")]
+    public class PostShareContent
+    {
+        /// <summary>
+        /// Field: 'title' (on-demand)
+        /// </summary>
+        [XmlElement(ElementName = "title")]
+        [JsonProperty(PropertyName = "title")]
+        public string Title { get; set; }
+
+        /// <summary>
+        /// Field: 'description' (on-demand)
+        /// </summary>
+        [XmlElement(ElementName = "description")]
+        [JsonProperty(PropertyName = "description")]
+        public string Description { get; set; }
+
+        /// <summary>
+        /// Field: 'submitted-url' (on-demand)
+        /// </summary>
+        [XmlElement(ElementName = "submitted-url")]
+        [JsonProperty(PropertyName = "submittedUrl")]
+        public string SubmittedUrl { get; set; }
+
+        /// <summary>
+        /// Field: 'submitted-image-url' (on-demand)
+        /// </summary>
+        [XmlElement(ElementName = "submitted-image-url")]
+        [JsonProperty(PropertyName = "submittedImageUrl")]
+        public string SubmittedImageUrl { get; set; }
+
+    }
+}
+
+// WriteReturnTypes(Common, PostShareResult)
+namespace Sparkle.LinkedInNET.Common
+{
+    using System;
+    using System.Collections.Generic;
+    using System.Xml.Serialization;
+    using Newtonsoft.Json;
+
+    /// <summary>
+    /// Name: 'PostShareResult'
+    /// </summary>
+    [Serializable, XmlRoot("PostShareResult")]
+    public class PostShareResult
+    {
+        /// <summary>
+        /// HTTP header 'Location'
+        /// </summary>
+        public string Location { get; set; }
+
+    }
+}
+
 // WriteReturnTypes(Common, visibility)
 namespace Sparkle.LinkedInNET.Common
 {
@@ -4866,6 +4994,7 @@ namespace Sparkle.LinkedInNET.Common
     public class Visibility
     {
         /// <summary>
+        /// Field: 'code' (on-demand)
         /// Field: 'code' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "code")]
@@ -4883,7 +5012,7 @@ namespace Sparkle.LinkedInNET.Common
     using System.Xml.Serialization;
 
     /// <summary>
-    /// Field selectors for the 'share', 'ShareSource', 'ShareSourceProvider', 'ShareContent', 'ShareAuthor', 'visibility' return types.
+    /// Field selectors for the 'share', 'ShareSource', 'ShareSourceProvider', 'ShareContent', 'ShareAuthor', 'PostShare', 'PostShareContent', 'PostShareResult', 'visibility' return types.
     /// </summary>
     public static class CommonFields {
         /// <summary>
@@ -4945,6 +5074,10 @@ namespace Sparkle.LinkedInNET.Common
     }
 }
 
+#endregion
+
+#region API clients
+
 // WriteApiGroup(Profiles)
 namespace Sparkle.LinkedInNET.Profiles
 {
@@ -4966,10 +5099,10 @@ namespace Sparkle.LinkedInNET.Profiles
         /// <summary>
         /// the profile of the current user
         /// </summary>
-        public Person GetMyProfile(
+        public Profiles.Person GetMyProfile(
               UserAuthorization user
             , string[] acceptLanguages = null
-            , FieldSelector<Person> fields = null
+            , FieldSelector<Profiles.Person> fields = null
         )
         {
             const string urlFormat = "/v1/people/~{FieldSelector}";
@@ -4983,17 +5116,19 @@ namespace Sparkle.LinkedInNET.Profiles
 
             if (!this.ExecuteQuery(context))
                 this.HandleJsonErrorResponse(context);
-            return this.HandleJsonResponse<Person>(context);
+            
+            var result = this.HandleJsonResponse<Profiles.Person>(context);
+            return result;
         }
         
         /// <summary>
         /// the profile of a user in the network
         /// </summary>
-        public Person GetProfileById(
+        public Profiles.Person GetProfileById(
               UserAuthorization user
             , string memberToken
             , string[] acceptLanguages = null
-            , FieldSelector<Person> fields = null
+            , FieldSelector<Profiles.Person> fields = null
         )
         {
             const string urlFormat = "/v1/people/id={MemberToken}{FieldSelector}";
@@ -5007,17 +5142,19 @@ namespace Sparkle.LinkedInNET.Profiles
 
             if (!this.ExecuteQuery(context))
                 this.HandleJsonErrorResponse(context);
-            return this.HandleJsonResponse<Person>(context);
+            
+            var result = this.HandleJsonResponse<Profiles.Person>(context);
+            return result;
         }
         
         /// <summary>
         /// the public profile of a user
         /// </summary>
-        public Person GetPublicProfile(
+        public Profiles.Person GetPublicProfile(
               UserAuthorization user
             , string publicProfileUrl
             , string[] acceptLanguages = null
-            , FieldSelector<Person> fields = null
+            , FieldSelector<Profiles.Person> fields = null
         )
         {
             const string urlFormat = "/v1/people/url={PublicProfileUrl}{FieldSelector}";
@@ -5031,17 +5168,19 @@ namespace Sparkle.LinkedInNET.Profiles
 
             if (!this.ExecuteQuery(context))
                 this.HandleJsonErrorResponse(context);
-            return this.HandleJsonResponse<Person>(context);
+            
+            var result = this.HandleJsonResponse<Profiles.Person>(context);
+            return result;
         }
         
         /// <summary>
         /// returns a list of 1st degree connections for a user 
         /// </summary>
-        public Connections GetMyConnections(
+        public Profiles.Connections GetMyConnections(
               UserAuthorization user
             , int start
             , int count
-            , FieldSelector<Connections> fields = null
+            , FieldSelector<Profiles.Connections> fields = null
         )
         {
             const string urlFormat = "/v1/people/~/connections{FieldSelector}?start={int start}&count={int count}";
@@ -5054,18 +5193,20 @@ namespace Sparkle.LinkedInNET.Profiles
 
             if (!this.ExecuteQuery(context))
                 this.HandleJsonErrorResponse(context);
-            return this.HandleJsonResponse<Connections>(context);
+            
+            var result = this.HandleJsonResponse<Profiles.Connections>(context);
+            return result;
         }
         
         /// <summary>
         /// returns a list of 1st degree connections for a user 
         /// </summary>
-        public Connections GetConnectionsByProfileId(
+        public Profiles.Connections GetConnectionsByProfileId(
               UserAuthorization user
             , string memberToken
             , int start
             , int count
-            , FieldSelector<Connections> fields = null
+            , FieldSelector<Profiles.Connections> fields = null
         )
         {
             const string urlFormat = "/v1/people/id={MemberToken}/connections{FieldSelector}?start={int start}&count={int count}";
@@ -5078,18 +5219,20 @@ namespace Sparkle.LinkedInNET.Profiles
 
             if (!this.ExecuteQuery(context))
                 this.HandleJsonErrorResponse(context);
-            return this.HandleJsonResponse<Connections>(context);
+            
+            var result = this.HandleJsonResponse<Profiles.Connections>(context);
+            return result;
         }
         
         /// <summary>
         /// returns a list of 1st degree connections for a user 
         /// </summary>
-        public Connections GetConnectionsByPublicProfile(
+        public Profiles.Connections GetConnectionsByPublicProfile(
               UserAuthorization user
             , string publicProfileUrl
             , int start
             , int count
-            , FieldSelector<Connections> fields = null
+            , FieldSelector<Profiles.Connections> fields = null
         )
         {
             const string urlFormat = "/v1/people/url={PublicProfileUrl}/connections{FieldSelector}?start={int start}&count={int count}";
@@ -5102,19 +5245,21 @@ namespace Sparkle.LinkedInNET.Profiles
 
             if (!this.ExecuteQuery(context))
                 this.HandleJsonErrorResponse(context);
-            return this.HandleJsonResponse<Connections>(context);
+            
+            var result = this.HandleJsonResponse<Profiles.Connections>(context);
+            return result;
         }
         
         /// <summary>
         /// returns a list of 1st degree connections for a user 
         /// </summary>
-        public Connections GetNewConnectionsByProfileId(
+        public Profiles.Connections GetNewConnectionsByProfileId(
               UserAuthorization user
             , string memberToken
             , int start
             , int count
             , long modifiedSince
-            , FieldSelector<Connections> fields = null
+            , FieldSelector<Profiles.Connections> fields = null
         )
         {
             const string urlFormat = "/v1/people/id={MemberToken}/connections{FieldSelector}?start={int start}&count={int count}&modified=new&modified-since={long modifiedSince}";
@@ -5127,19 +5272,21 @@ namespace Sparkle.LinkedInNET.Profiles
 
             if (!this.ExecuteQuery(context))
                 this.HandleJsonErrorResponse(context);
-            return this.HandleJsonResponse<Connections>(context);
+            
+            var result = this.HandleJsonResponse<Profiles.Connections>(context);
+            return result;
         }
         
         /// <summary>
         /// returns a list of 1st degree connections for a user 
         /// </summary>
-        public Connections GetNewConnectionsByPublicProfile(
+        public Profiles.Connections GetNewConnectionsByPublicProfile(
               UserAuthorization user
             , string publicProfileUrl
             , int start
             , int count
             , long modifiedSince
-            , FieldSelector<Connections> fields = null
+            , FieldSelector<Profiles.Connections> fields = null
         )
         {
             const string urlFormat = "/v1/people/url={PublicProfileUrl}/connections{FieldSelector}?start={int start}&count={int count}&modified=new&modified-since={long modifiedSince}";
@@ -5152,19 +5299,21 @@ namespace Sparkle.LinkedInNET.Profiles
 
             if (!this.ExecuteQuery(context))
                 this.HandleJsonErrorResponse(context);
-            return this.HandleJsonResponse<Connections>(context);
+            
+            var result = this.HandleJsonResponse<Profiles.Connections>(context);
+            return result;
         }
         
         /// <summary>
         /// returns a list of 1st degree connections for a user 
         /// </summary>
-        public Connections GetUpdatedConnectionsByProfileId(
+        public Profiles.Connections GetUpdatedConnectionsByProfileId(
               UserAuthorization user
             , string memberToken
             , int start
             , int count
             , long modifiedSince
-            , FieldSelector<Connections> fields = null
+            , FieldSelector<Profiles.Connections> fields = null
         )
         {
             const string urlFormat = "/v1/people/id={MemberToken}/connections{FieldSelector}?start={int start}&count={int count}&modified=updated&modified-since={long modifiedSince}";
@@ -5177,19 +5326,21 @@ namespace Sparkle.LinkedInNET.Profiles
 
             if (!this.ExecuteQuery(context))
                 this.HandleJsonErrorResponse(context);
-            return this.HandleJsonResponse<Connections>(context);
+            
+            var result = this.HandleJsonResponse<Profiles.Connections>(context);
+            return result;
         }
         
         /// <summary>
         /// returns a list of 1st degree connections for a user 
         /// </summary>
-        public Connections GetUpdatedConnectionsByPublicProfile(
+        public Profiles.Connections GetUpdatedConnectionsByPublicProfile(
               UserAuthorization user
             , string publicProfileUrl
             , int start
             , int count
             , long modifiedSince
-            , FieldSelector<Connections> fields = null
+            , FieldSelector<Profiles.Connections> fields = null
         )
         {
             const string urlFormat = "/v1/people/url={PublicProfileUrl}/connections{FieldSelector}?start={int start}&count={int count}&modified=updated&modified-since={long modifiedSince}";
@@ -5202,15 +5353,17 @@ namespace Sparkle.LinkedInNET.Profiles
 
             if (!this.ExecuteQuery(context))
                 this.HandleJsonErrorResponse(context);
-            return this.HandleJsonResponse<Connections>(context);
+            
+            var result = this.HandleJsonResponse<Profiles.Connections>(context);
+            return result;
         }
         
         /// <summary>
         /// returns the original picture posted by the user, fields selector are ignored
         /// </summary>
-        public PictureUrls GetOriginalProfilePicture(
+        public Profiles.PictureUrls GetOriginalProfilePicture(
               UserAuthorization user
-            , FieldSelector<PictureUrls> fields = null
+            , FieldSelector<Profiles.PictureUrls> fields = null
         )
         {
             var url = "/v1/people/~/picture-urls::(original)";
@@ -5222,7 +5375,9 @@ namespace Sparkle.LinkedInNET.Profiles
 
             if (!this.ExecuteQuery(context))
                 this.HandleJsonErrorResponse(context);
-            return this.HandleJsonResponse<PictureUrls>(context);
+            
+            var result = this.HandleJsonResponse<Profiles.PictureUrls>(context);
+            return result;
         }
         
     }
@@ -5249,9 +5404,9 @@ namespace Sparkle.LinkedInNET.Companies
         /// <summary>
         /// Hacker Summary
         /// </summary>
-        public Company GetList(
+        public Companies.Company GetList(
               UserAuthorization user
-            , FieldSelector<Company> fields = null
+            , FieldSelector<Companies.Company> fields = null
         )
         {
             const string urlFormat = "/v1/companies{FieldSelector}";
@@ -5264,16 +5419,18 @@ namespace Sparkle.LinkedInNET.Companies
 
             if (!this.ExecuteQuery(context))
                 this.HandleJsonErrorResponse(context);
-            return this.HandleJsonResponse<Company>(context);
+            
+            var result = this.HandleJsonResponse<Companies.Company>(context);
+            return result;
         }
         
         /// <summary>
         /// retrieve a company by using the company ID
         /// </summary>
-        public Company GetById(
+        public Companies.Company GetById(
               UserAuthorization user
             , string companyId
-            , FieldSelector<Company> fields = null
+            , FieldSelector<Companies.Company> fields = null
         )
         {
             const string urlFormat = "/v1/companies/{CompanyId}{FieldSelector}";
@@ -5286,16 +5443,18 @@ namespace Sparkle.LinkedInNET.Companies
 
             if (!this.ExecuteQuery(context))
                 this.HandleJsonErrorResponse(context);
-            return this.HandleJsonResponse<Company>(context);
+            
+            var result = this.HandleJsonResponse<Companies.Company>(context);
+            return result;
         }
         
         /// <summary>
         /// Retrieve a company by universal-name.
         /// </summary>
-        public Company GetByName(
+        public Companies.Company GetByName(
               UserAuthorization user
             , string universalName
-            , FieldSelector<Company> fields = null
+            , FieldSelector<Companies.Company> fields = null
         )
         {
             const string urlFormat = "/v1/companies/universal-name={UniversalName}{FieldSelector}";
@@ -5308,16 +5467,18 @@ namespace Sparkle.LinkedInNET.Companies
 
             if (!this.ExecuteQuery(context))
                 this.HandleJsonErrorResponse(context);
-            return this.HandleJsonResponse<Company>(context);
+            
+            var result = this.HandleJsonResponse<Companies.Company>(context);
+            return result;
         }
         
         /// <summary>
         /// This returns an array of companies that match to the specified email domain.
         /// </summary>
-        public Company GetListByEmailDomain(
+        public Companies.Company GetListByEmailDomain(
               UserAuthorization user
             , string universalName
-            , FieldSelector<Company> fields = null
+            , FieldSelector<Companies.Company> fields = null
         )
         {
             const string urlFormat = "/v1/companies/universal-name={UniversalName}{FieldSelector}";
@@ -5330,16 +5491,18 @@ namespace Sparkle.LinkedInNET.Companies
 
             if (!this.ExecuteQuery(context))
                 this.HandleJsonErrorResponse(context);
-            return this.HandleJsonResponse<Company>(context);
+            
+            var result = this.HandleJsonResponse<Companies.Company>(context);
+            return result;
         }
         
         /// <summary>
         /// Retrieve the company's updates
         /// </summary>
-        public CompanyUpdates GetShares(
+        public Companies.CompanyUpdates GetShares(
               UserAuthorization user
             , int id
-            , FieldSelector<CompanyUpdates> fields = null
+            , FieldSelector<Companies.CompanyUpdates> fields = null
         )
         {
             const string urlFormat = "/v1/companies/{int id}/updates";
@@ -5352,18 +5515,20 @@ namespace Sparkle.LinkedInNET.Companies
 
             if (!this.ExecuteQuery(context))
                 this.HandleJsonErrorResponse(context);
-            return this.HandleJsonResponse<CompanyUpdates>(context);
+            
+            var result = this.HandleJsonResponse<Companies.CompanyUpdates>(context);
+            return result;
         }
         
         /// <summary>
         /// 
         /// </summary>
-        public CompanySearch Search(
+        public Companies.CompanySearch Search(
               UserAuthorization user
             , int start
             , int count
             , string keywords
-            , FieldSelector<CompanySearch> fields = null
+            , FieldSelector<Companies.CompanySearch> fields = null
         )
         {
             const string urlFormat = "/v1/company-search{FieldSelector}?start={int start}&count={int count}&keywords={keywords}";
@@ -5376,19 +5541,21 @@ namespace Sparkle.LinkedInNET.Companies
 
             if (!this.ExecuteQuery(context))
                 this.HandleJsonErrorResponse(context);
-            return this.HandleJsonResponse<CompanySearch>(context);
+            
+            var result = this.HandleJsonResponse<Companies.CompanySearch>(context);
+            return result;
         }
         
         /// <summary>
         /// 
         /// </summary>
-        public CompanySearch FacetSearch(
+        public Companies.CompanySearch FacetSearch(
               UserAuthorization user
             , int start
             , int count
             , string keywords
             , string facet
-            , FieldSelector<CompanySearch> fields = null
+            , FieldSelector<Companies.CompanySearch> fields = null
         )
         {
             const string urlFormat = "/v1/company-search{FieldSelector}?start={int start}&count={int count}&keywords={keywords}&facet={facet}";
@@ -5401,7 +5568,35 @@ namespace Sparkle.LinkedInNET.Companies
 
             if (!this.ExecuteQuery(context))
                 this.HandleJsonErrorResponse(context);
-            return this.HandleJsonResponse<CompanySearch>(context);
+            
+            var result = this.HandleJsonResponse<Companies.CompanySearch>(context);
+            return result;
+        }
+        
+        /// <summary>
+        /// 
+        /// </summary>
+        public Common.PostShareResult Share(
+              UserAuthorization user
+            , int companyId
+            , Common.PostShare postData
+        )
+        {
+            const string urlFormat = "/v1/companies/{int companyId}/shares";
+            var url = FormatUrl(urlFormat, default(FieldSelector), "int companyId", companyId);
+
+            var context = new RequestContext();
+            context.UserAuthorization = user;
+            context.Method =  "POST";
+            context.UrlPath = this.LinkedInApi.Configuration.BaseApiUrl + url;
+            this.CreateJsonPostStream(context, postData);
+
+            if (!this.ExecuteQuery(context))
+                this.HandleJsonErrorResponse(context);
+            
+            var result = this.HandleJsonResponse<Common.PostShareResult>(context);
+            result.Location = this.ReadHeader<string>(context, "Location");
+            return result;
         }
         
     }
@@ -5559,5 +5754,7 @@ namespace Sparkle.LinkedInNET
 
     }
 }
+
+#endregion
 
 

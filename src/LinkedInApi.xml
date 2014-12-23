@@ -240,34 +240,6 @@
       <FieldSelector Name="public-profile-url" />
     </ReturnType>
 
-    <!--<ReturnType Name="share">
-      <Field Name="id" />
-      <Field Name="timestamp" Type="long" />
-      <Field Name="comment" Title="Text of member's comment. (Similar to deprecated current-status field.)" Remark="Post must contain comment and/or (content/title and content/submitted-url). Max length is 700 characters (bytes)." />
-      <Field Name="content" Title="Parent node for information on shared document" Remark="" Type="ShareContent" />
-      --><!--<Field Name="visibility" Title="Parent node for visibility information" Remark="" />--><!--
-      <Field Name="visibility/code" Title="One of anyone: all members or connections-only: connections only." Remark="" />
-      <Field Name="source" Type="ShareSource" />
-      <Field Name="author" Type="ShareAuthor" />
-    </ReturnType>
-    <ReturnType Name="ShareSource" ClassName="ShareSource">
-      <Field Name="service-provider" Type="ShareSourceProvider" />
-    </ReturnType>
-    <ReturnType Name="ShareSourceProvider" ClassName="ShareSourceProvider">
-      <Field Name="name" />
-    </ReturnType>
-    <ReturnType Name="ShareContent" ClassName="ShareContent">
-      <Field Name="title" Title="Title of shared document" Remark="Post must contain comment and/or (content/title and content/submitted-url). Max length is 200 characters (bytes)." />
-      <Field Name="submitted-url" Title="URL for shared content" Remark="Post must contain comment and/or (content/title and content/submitted-url)." />
-      <Field Name="submitted-image-url" Title="URL for image of shared content" Remark="Invalid without (content/title and content/submitted-url)." />
-      <Field Name="description" Title="Description of shared content" Remark="Max length of 256 characters (bytes)." ClassName="ShareContent" />
-    </ReturnType>
-    <ReturnType Name="ShareAuthor">
-      <Field Name="id" />
-      <Field Name="first-name" />
-      <Field Name="last-name" />
-    </ReturnType>-->
-
     <ReturnType Name="position" ClassName="PersonPosition">
       <Field Name="id" Type="int" Title="a unique identifier for this member's position" Remark="" />
       <Field Name="title" Title="the job title held at the position, as indicated by the member" Remark="" />
@@ -536,6 +508,8 @@
     <ApiMethod MethodName="Search" HttpMethod="GET" Path="/v1/company-search{FieldSelector}?start={int start}&amp;count={int count}&amp;keywords={keywords}" ReturnType="company-search" RequiresUserAuthentication="1" />
     <ApiMethod MethodName="FacetSearch" HttpMethod="GET" Path="/v1/company-search{FieldSelector}?start={int start}&amp;count={int count}&amp;keywords={keywords}&amp;facet={facet}" ReturnType="company-search" RequiresUserAuthentication="1" />
 
+    <ApiMethod MethodName="Share" HttpMethod="POST" Path="/v1/companies/{int companyId}/shares" PostReturnType="Common.PostShare" ReturnType="Common.PostShareResult" RequiresUserAuthentication="1" SuccessHttpCode="201" UseFieldSelectors="0" />
+    
     <ReturnType Name="company" ClassName="Company" AutoGenerateFieldSelectors="1">
       <Field Name="id" Type="long" Title="Default. The unique internal numeric company identifier." IsDefault="1" />
       <Field Name="name" Title="Default. The human readable name of the company." IsDefault="1" />
@@ -736,7 +710,7 @@
       <Field Name="comment" Title="Text of member's comment. (Similar to deprecated current-status field.)" Remark="Post must contain comment and/or (content/title and content/submitted-url). Max length is 700 characters (bytes)." />
       <Field Name="content" Title="Parent node for information on shared document" Remark="" Type="ShareContent" />
       <!--<Field Name="visibility" Title="Parent node for visibility information" Remark="" />-->
-      <Field Name="visibility/code" Title="One of anyone: all members or connections-only: connections only." Remark="" />
+      <Field Name="visibility/code" Title="One of 'anyone': all members or 'connections-only': connections only." Remark="" />
       <Field Name="source" Type="ShareSource" />
       <Field Name="author" Type="ShareAuthor" />
     </ReturnType>
@@ -757,12 +731,29 @@
       <Field Name="submitted-image-url" Title="URL for image of shared content" Remark="Invalid without (content/title and content/submitted-url)." />
       <Field Name="thumbnail-url"  />
       <Field Name="eyebrow-url"  />
-      
     </ReturnType>
     <ReturnType Name="ShareAuthor">
       <Field Name="id" />
       <Field Name="first-name" />
       <Field Name="last-name" />
+    </ReturnType>
+
+    <ReturnType Name="PostShare">
+      <Field Name="comment" Title="Text of member's comment. (Similar to deprecated current-status field.)" Remark="Post must contain comment and/or (content/title and content/submitted-url). Max length is 700 characters (bytes)." />
+      <Field Name="content" Title="Parent node for information on shared document" Remark="" Type="PostShareContent" />
+      <Field Name="visibility/code" Title="One of 'anyone': all members or 'connections-only': connections only." Remark="" />
+      <!--<Field Name="source" Type="ShareSource" />
+      <Field Name="author" Type="ShareAuthor" />-->
+    </ReturnType>
+    <ReturnType Name="PostShareContent" ClassName="PostShareContent">
+      <Field Name="title" Title="Title of shared document" Remark="Post must contain comment and/or (content/title and content/submitted-url). Max length is 200 characters (bytes)." />
+      <Field Name="description" Title="Description of shared content" Remark="Max length of 256 characters (bytes)." ClassName="ShareContent" />
+      <Field Name="submitted-url" Title="URL for shared content" Remark="Post must contain comment and/or (content/title and content/submitted-url)." />
+      <Field Name="submitted-image-url" Title="URL for image of shared content" Remark="Invalid without (content/title and content/submitted-url)." />
+    </ReturnType>
+
+    <ReturnType Name="PostShareResult">
+      <Header Name="Location" />
     </ReturnType>
   </ApiGroup>
 </Root>

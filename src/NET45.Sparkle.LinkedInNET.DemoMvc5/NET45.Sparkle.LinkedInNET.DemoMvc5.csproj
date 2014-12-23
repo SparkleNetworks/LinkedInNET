@@ -138,6 +138,7 @@
     <Compile Include="Modules\LinkedInApiModule.cs" />
     <Compile Include="NinjectControllerFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\Explore\CompanyShareModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
@@ -155,6 +156,7 @@
     <Content Include="Views\Explore\Person.cshtml" />
     <Content Include="Views\Explore\Connections.cshtml" />
     <Content Include="Views\Explore\SearchCompany.cshtml" />
+    <Content Include="Views\Explore\CompanyShare.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -164,7 +166,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\NET35.Sparkle.LinkedInNET.ServiceDefinition\NET35.Sparkle.LinkedInNET.ServiceDefinition.csproj">

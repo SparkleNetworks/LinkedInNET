@@ -1,0 +1,22 @@
+﻿@model Sparkle.LinkedInNET.DemoMvc5.ViewModels.Explore.CompanyShareModel
+@{
+}
+
+<h1>@Html.ActionLink("Explore", "Index")</h1>
+
+
+<h2>Post as company</h2>
+
+@if (this.ViewBag.Result != null){
+<p>Success! <code>Location: @this.ViewBag.Result</code></p>
+}
+
+@using (Html.BeginForm("CompanyShare", "Explore", FormMethod.Post)) {
+<p><label>Company ID: @Html.TextBox("CompanyId", Model.CompanyId)</label></p>
+<p><label>Content: <br />@Html.TextArea("Json", Model.Json, new { rows = 14, cols = 120, })</label></p>
+<p><input type="submit" value="Post" /></p>
+}
+
+<h2>Infos</h2>
+<p>You can use <a href="https://www.linkedin.com/company/2414183">the test company</a> of id <code>2414183</code>.</p>
+<p><a href="https://developer.linkedin.com/creating-company-shares">developer.linkedin.com: Creating Company Shares</a></p>

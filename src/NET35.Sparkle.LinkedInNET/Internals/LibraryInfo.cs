@@ -9,5 +9,6 @@ namespace Sparkle.LinkedInNET.Internals
     internal static class LibraryInfo
     {
         internal const string UserAgent = "Sparkle.LinkedInNET";
+        internal const string LinkedInXmlNamespace = "http://api.linkedin.com/v1";
     }
 }

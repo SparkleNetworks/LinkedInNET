@@ -48,9 +48,13 @@ namespace Sparkle.LinkedInNET.ServiceDefinition
             ////    };
             ////    this.WriteReturnTypes(context, returnType, apiGroup);
             ////}
+            this.text.WriteLine("");
 
             foreach (var apiGroup in context.Root.ApiGroups)
             {
+                this.text.WriteLine("#region ReturnTypes for " + apiGroup.Name);
+                this.text.WriteLine("");
+
                 // write all return types
                 foreach (var returnType in apiGroup.ReturnTypes.ToArray())
                 {
@@ -58,7 +62,13 @@ namespace Sparkle.LinkedInNET.ServiceDefinition
                 }
 
                 this.WriteReturnTypeFields(context, apiGroup, apiGroup.ReturnTypes.ToArray());
+
+                this.text.WriteLine("#endregion");
+                this.text.WriteLine("");
             }
+
+            this.text.WriteLine("#region API clients");
+            this.text.WriteLine("");
 
             foreach (var apiGroup in context.Root.ApiGroups)
             {
@@ -67,6 +77,9 @@ namespace Sparkle.LinkedInNET.ServiceDefinition
             }
 
             this.WriteRootServices(context);
+
+            this.text.WriteLine("#endregion");
+            this.text.WriteLine("");
         }
 
         private void WriteReturnTypeFields(GeneratorContext context, ApiGroup apiGroup, ReturnType[] returnTypes)
@@ -310,6 +323,19 @@ namespace Sparkle.LinkedInNET.ServiceDefinition
                     if (returnTypeType != null)
                     {
                         returnType = this.GetPropertyName(returnTypeType.ClassName, returnTypeType.Name);
+                        returnType = returnTypeType.ApiGroup + "." + returnType;
+                    }
+                }
+
+                string postReturnType = null;
+                ReturnType postReturnTypeType = null;
+                if (method.PostReturnType != null)
+                {
+                    postReturnTypeType = context.Definition.FindReturnType(method.PostReturnType, apiGroup.Name);
+                    if (postReturnTypeType != null)
+                    {
+                        postReturnType = this.GetPropertyName(postReturnTypeType.ClassName, postReturnTypeType.Name);
+                        postReturnType = postReturnTypeType.ApiGroup + "." + postReturnType;
                     }
                 }
 
@@ -346,8 +372,16 @@ namespace Sparkle.LinkedInNET.ServiceDefinition
                     sep = ", ";
                 }
 
-                if (returnType != null)
+                if (postReturnTypeType != null)
+                {
+                    this.text.WriteLine(indent, ", " + postReturnType + " postData");
+                }
+
+                if (returnType != null && method.UseFieldSelectors)
+                {
                     this.text.WriteLine(indent, ", FieldSelector<" + returnType + "> fields = null");
+                }
+
                 this.text.WriteLine(--indent, ")");
                 this.text.WriteLine(indent++, "{");
 
@@ -355,7 +389,8 @@ namespace Sparkle.LinkedInNET.ServiceDefinition
                 if (urlParams.Count > 0)
                 {
                     this.text.WriteLine(indent, "const string urlFormat = \"" + method.Path + "\";");
-                    this.text.WriteLine(indent, "var url = FormatUrl(urlFormat, fields, " + string.Join(", ", urlParams.Values.Select(p => "\"" + p.OriginalName + "\", " + p.Name).ToArray()) + ");");
+
+                    this.text.WriteLine(indent, "var url = FormatUrl(urlFormat, " + (method.UseFieldSelectors ? "fields" : "default(FieldSelector)") + ", " + string.Join(", ", urlParams.Values.Select(p => "\"" + p.OriginalName + "\", " + p.Name).ToArray()) + ");");
                 }
                 else if (method.Path.Contains("FieldSelector"))
                 {
@@ -384,13 +419,29 @@ namespace Sparkle.LinkedInNET.ServiceDefinition
                 text.WriteLine(indent, "context.Method =  \"" + method.HttpMethod + "\";");
                 text.WriteLine(indent, "context.UrlPath = this.LinkedInApi.Configuration.BaseApiUrl + url;");
 
+                if (postReturnTypeType != null)
+                {
+                    this.text.WriteLine(indent, "this.CreateJsonPostStream(context, postData);");
+                }
+
                 // body / execute
                 this.text.WriteLine();
                 text.WriteLine(indent++, "if (!this.ExecuteQuery(context))");
                 ////text.WriteLine(indent--, "this.HandleXmlErrorResponse(context);");
                 ////text.WriteLine(indent, "return this.HandleXmlResponse<" + returnType + ">(context);");
                 text.WriteLine(indent--, "this.HandleJsonErrorResponse(context);");
-                text.WriteLine(indent, "return this.HandleJsonResponse<" + returnType + ">(context);");
+                text.WriteLine(indent, "");
+                text.WriteLine(indent, "var result = this.HandleJsonResponse<" + returnType + ">(context);");
+
+                if (returnTypeType != null && returnTypeType.Headers != null)
+                {
+                    foreach (var header in returnTypeType.Headers)
+                    {
+                        text.WriteLine(indent, "result." + header.PropertyName + " = this.ReadHeader<" + (header.Type ?? "string") + ">(context, \"" + header.Name + "\");"); 
+                    }
+                }
+
+                text.WriteLine(indent, "return result;");
 
                 // body / handle
 
@@ -459,9 +510,6 @@ namespace Sparkle.LinkedInNET.ServiceDefinition
             foreach (var itemGroup in returnType.Fields.GroupBy(f => f.FieldName.PropertyName).ToArray())
             {
                 var item = itemGroup.First();
-                ////var parts = item.Name.Split(new char[] { ':', }, 2);
-                ////var mainPart = parts.Length == 1 ? parts[0] : parts[0];
-                ////var subPart = parts.Length == 2 ? parts[1] : null;
                 var isCollection = item.IsCollection;
 
                 var type = item.Type ?? item.FieldName.ClassName ?? "string";
@@ -502,6 +550,36 @@ namespace Sparkle.LinkedInNET.ServiceDefinition
                 this.text.WriteLine(indent, (item.Ignore ? "////" : "") + "[JsonProperty(PropertyName = \"" + jsonName + "\")]");
                 this.text.WriteLine(indent, "public " + type + " " + item.FieldName.PropertyName + " { get; set; }");
                 this.text.WriteLine();
+            }
+
+            if (returnType.Headers != null)
+            {
+                foreach (var item in returnType.Headers)
+                {
+                    var isCollection = item.IsCollection;
+
+                    var type = item.Type ?? item.FieldName.ClassName ?? "string";
+                    ReturnType fieldReturnType = null;
+                    if (!csharpTypes.Contains(type))
+                    {
+                        fieldReturnType = context.Definition.FindReturnType(type);
+                        if (fieldReturnType != null)
+                        {
+                            type = fieldReturnType.ClassName ?? Namify(fieldReturnType.Name);
+                        }
+                    }
+
+                    if (isCollection)
+                    {
+                        type = "List<" + type + ">";
+                    }
+
+                    this.text.WriteLine(indent, "/// <summary>");
+                    this.text.WriteLine(indent, "/// HTTP header '" + item.Name + "'");
+                    this.text.WriteLine(indent, "/// </summary>");
+                    this.text.WriteLine(indent, "public " + type + " " + item.FieldName.PropertyName + " { get; set; }");
+                    this.text.WriteLine();
+                }
             }
 
             this.text.WriteLine(--indent, "}");

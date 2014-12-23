@@ -12,6 +12,7 @@ namespace Sparkle.LinkedInNET.Internals
     {
         private Dictionary<string, string> queryStrings;
         private Dictionary<string, string> postQueryStrings;
+        private Dictionary<string, string> requestHeaders = new Dictionary<string,string>();
         private bool bufferizeResponseStream = true;
 
         public string Method { get; set; }
@@ -28,6 +29,11 @@ namespace Sparkle.LinkedInNET.Internals
         public Dictionary<string, string> PostQueryStrings
         {
             get { return this.postQueryStrings; }
+        }
+
+        public Dictionary<string, string> RequestHeaders
+        {
+            get { return this.requestHeaders; }
         }
 
         public bool BufferizeResponseStream
@@ -52,10 +58,16 @@ namespace Sparkle.LinkedInNET.Internals
             this.postQueryStrings.Add(key, value);
         }
 
+        public string PostDataType { get; set; }
+
+        public byte[] PostData { get; set; }
+
         public Stream ResponseStream { get; set; }
 
         public int HttpStatusCode { get; set; }
 
         public string[] AcceptLanguages { get; set; }
+
+        public System.Net.WebHeaderCollection ResponseHeaders { get; set; }
     }
 }

@@ -65,11 +65,13 @@ What's implemented and what's not...
 
 ### Companies
 
+> For the purposes of testing, we've created a special LinkedIn Company Page that is available for all developers to use. This company page doesn't require the authenticated user making the API call to be an administrator of the company: https://www.linkedin.com/company/devtestco (Company ID 2414183) 
+
 - [x] Companies  
 - [x] Get Company shares
 - [Post Company Share](https://developer.linkedin.com/creating-company-shares)  
-    - [ ] Post a new company share
-    - [ ] Re-post a share. *you provide an attribution/id value instead of a content block*)
+    - [x] Post a new company share
+    - [ ] Re-post a share. *you provide an attribution/id value instead of a content block*
     - [ ] check to see if a company has shares enabled
     - [ ] check to see if the current viewer is an administrator for a company (so they can share)
     - [ ] make a single call to fetch a list of all companies the current user is an administrator of (pagination by 10)

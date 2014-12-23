@@ -13,6 +13,8 @@ namespace Sparkle.LinkedInNET.ServiceDefinition
         [XmlAttribute]
         public string Name { get; set; }
 
+        public string ApiGroup { get; set; }
+
         [XmlAttribute]
         public string ClassName { get; set; }
 
@@ -39,6 +41,9 @@ namespace Sparkle.LinkedInNET.ServiceDefinition
 
         [XmlElement(ElementName = "ImportFieldSelectors")]
         public List<ImportFieldSelectors> ImportFieldSelectors { get; set; }
+
+        [XmlElement(ElementName = "Header")]
+        public List<Field> Headers { get; set; }
 
         public override string ToString()
         {

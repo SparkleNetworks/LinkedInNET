@@ -15,6 +15,9 @@ namespace Sparkle.LinkedInNET.Internals
     /// </summary>
     public class BaseApi
     {
+        private static int[] validHttpCodes = new int[] { 200, 201, 202, };
+        private static int[] errorHttpCodes = new int[] { 400, 401, 403, 404, 500, };
+
         private LinkedInApi linkedInApi;
 
         /// <summary>
@@ -48,6 +51,13 @@ namespace Sparkle.LinkedInNET.Internals
             return this.FormatUrl(format, null, values);
         }
 
+        /// <summary>
+        /// Formats the URL.
+        /// </summary>
+        /// <param name="format">The format.</param>
+        /// <param name="fieldSelector">The field selectors.</param>
+        /// <param name="values">The values.</param>
+        /// <returns></returns>
         protected string FormatUrl(string format, FieldSelector fieldSelector, params object[] values)
         {
             var result = format;
@@ -119,8 +129,6 @@ namespace Sparkle.LinkedInNET.Internals
                 request.Headers.Add(HttpRequestHeader.AcceptLanguage, string.Join(",", context.AcceptLanguages));
             }
 
-            // post stuff?
-
             // user authorization
             if (context.UserAuthorization != null)
             {
@@ -130,12 +138,41 @@ namespace Sparkle.LinkedInNET.Internals
                 request.Headers.Add("Authorization", "Bearer " + context.UserAuthorization.AccessToken);
             }
 
+            foreach (var header in context.RequestHeaders)
+            {
+                request.Headers[header.Key] = header.Value;
+            }
+
+            // post stuff?
+            if (context.PostData != null)
+            {
+                try
+                {
+                    if (context.PostDataType != null)
+                        request.ContentType = context.PostDataType;
+
+                    ////request.ContentLength = context.PostData.Length;
+                    var stream = request.GetRequestStream();
+                    stream.Write(context.PostData, 0, context.PostData.Length);
+                    stream.Flush();
+                }
+                catch (WebException ex)
+                {
+                    throw new InvalidOperationException("Error POSTing to API (" + ex.Message + ")", ex);
+                }
+                catch (Exception ex)
+                {
+                    throw new InvalidOperationException("Error POSTing to API (" + ex.Message + ")", ex);
+                }
+            }
+
             // get response
             HttpWebResponse response;
             try
             {
                 response = (HttpWebResponse)request.GetResponse();
                 context.HttpStatusCode = (int)response.StatusCode;
+                context.ResponseHeaders = response.Headers;
 
                 var readStream = response.GetResponseStream();
                 BufferizeResponse(context, readStream);
@@ -155,6 +192,7 @@ namespace Sparkle.LinkedInNET.Internals
                 if (response != null)
                 {
                     context.HttpStatusCode = (int)response.StatusCode;
+                    context.ResponseHeaders = response.Headers;
 
                     var stream = response.GetResponseStream();
                     if (stream != null)
@@ -164,19 +202,6 @@ namespace Sparkle.LinkedInNET.Internals
                         var responseString = new StreamReader(context.ResponseStream, Encoding.UTF8).ReadToEnd();
 
                         context.ResponseStream.Seek(0L, SeekOrigin.Begin);
-                        ////var error = this.HandleXmlResponse<ApiError>(context);
-                        ////Exception ex1;
-                        ////if (error != null)
-                        ////{
-                        ////    ex1 = FX.ApiException("ApiErrorResult", error.Status, error.Message);
-                        ////}
-                        ////else
-                        ////{
-                        ////    ex1 = FX.ApiException("ApiEmptyErrorResult", (int)(response.StatusCode));
-                        ////}
-
-                        ////ex1.Data["ApiRawResponse"] = responseString;
-                        ////throw ex1;
                         return false;
                     }
 
@@ -223,8 +248,47 @@ namespace Sparkle.LinkedInNET.Internals
             throw ex1;
         }
 
-        private static int[] validHttpCodes = new int[] { 200, 201, 202, };
-        private static int[] errorHttpCodes = new int[] { 400, 401, 403, 404, 500, };
+        internal T1 ReadHeader<T1>(RequestContext context, string headerName)
+        {
+            if (context.ResponseHeaders == null)
+                return default(T1);
+
+            var value = context.ResponseHeaders[headerName];
+            if (value == null)
+                return default(T1);
+
+            return (T1)Convert.ChangeType(value, typeof(T1));
+        }
+
+        internal void CreateJsonPostStream(RequestContext context, object postData)
+        {
+            var settings = new JsonSerializerSettings
+            {
+                NullValueHandling = NullValueHandling.Ignore,
+            };
+            var json = JsonConvert.SerializeObject(postData, settings);
+            var bytes = Encoding.UTF8.GetBytes(json);
+
+            context.RequestHeaders.Add("x-li-format", "json");
+            context.PostDataType = "application/json";
+            context.PostData = bytes;
+        }
+
+        internal void CreateXmlPostStream(RequestContext context, object postData)
+        {
+            var ser = new XmlSerializer(postData.GetType());
+
+            byte[] bytes;
+            using (var stream = new MemoryStream())
+            {
+                ser.Serialize(stream, postData);
+                stream.Seek(0L, SeekOrigin.Begin);
+                bytes = stream.ToArray();
+            }
+
+            context.PostDataType = "application/xml";
+            context.PostData = bytes;
+        }
 
         internal T HandleXmlResponse<T>(RequestContext context)
             where T : class, new()

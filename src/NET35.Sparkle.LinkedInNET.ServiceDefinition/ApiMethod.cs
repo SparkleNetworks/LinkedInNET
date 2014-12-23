@@ -10,6 +10,8 @@ namespace Sparkle.LinkedInNET.ServiceDefinition
     [Serializable]
     public class ApiMethod
     {
+        private bool useFieldSelectors = true;
+
         [XmlAttribute]
         public string Title { get; set; }
 
@@ -18,6 +20,9 @@ namespace Sparkle.LinkedInNET.ServiceDefinition
 
         [XmlAttribute]
         public string ReturnType { get; set; }
+
+        [XmlAttribute]
+        public string PostReturnType { get; set; }
 
         [XmlAttribute]
         public string MethodName { get; set; }
@@ -30,6 +35,13 @@ namespace Sparkle.LinkedInNET.ServiceDefinition
 
         [XmlAttribute]
         public bool UsesAcceptLanguage { get; set; }
+
+        [XmlAttribute]
+        public bool UseFieldSelectors
+        {
+            get { return this.useFieldSelectors; }
+            set { this.useFieldSelectors = value; }
+        }
 
         ////[XmlAttribute]
         ////public List<Field> QueryFields { get; set; }

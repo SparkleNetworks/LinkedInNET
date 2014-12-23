@@ -59,7 +59,7 @@
 <h4 class="clear">@company.Name</h4>
 <dl class="srkdl">
     <dt>Id</dt>
-    <dd>@company.Id</dd>
+    <dd>@Html.ActionLink(company.Id.ToString(), "Company", new { id = company.Id, })</dd>
 
         @if (company.UniversalName != null){
     <dt>UniversalName</dt>
@@ -97,6 +97,9 @@
         @:@company.Status.Name (@company.Status.Code)
     }</dd>
         }
+
+    <dt>LinkedIn URL</dt>
+    <dd>@Html.DisplayUrl("https://www.linkedin.com/company/" + company.Id)</dd>
 
         @if (company.WebsiteUrl != null){
     <dt>WebsiteUrl</dt>

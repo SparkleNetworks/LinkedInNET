@@ -346,6 +346,91 @@ namespace Sparkle.LinkedInNET.Tests
             Assert.IsTrue(result.Contains(@"public static FieldSelector<Return> WithLocationName(this FieldSelector<Return> me) { return me.Add(""location:(name)""); }"));
         }
 
+        [TestMethod]
+        public void ReturnTypeHeader()
+        {
+            var xml = @"<?xml version=""1.0"" encoding=""utf-8""?>
+<Root>
+  <ApiGroup Name=""group"">
+    <ReturnType Name=""return"">
+      <Header Name=""location"" />
+    </ReturnType>
+  </ApiGroup>
+</Root>";
+            var result = GetGeneratedCodeFromXmlDefinition(xml);
+            result = result.Replace(Environment.NewLine, string.Empty);
+
+            Assert.IsFalse(string.IsNullOrEmpty(result));
+            Assert.IsTrue(result.Contains(@"public string Location { get; set; }"));
+        }
+
+        [TestMethod]
+        public void ReturnTypeHeaderWithMethod()
+        {
+            var xml = @"<?xml version=""1.0"" encoding=""utf-8""?>
+<Root>
+  <ApiGroup Name=""group"">
+    <ApiMethod MethodName=""Oops"" Path=""oops"" ReturnType=""return"" />
+    <ReturnType Name=""return"">
+      <Header Name=""location"" />
+    </ReturnType>
+  </ApiGroup>
+</Root>";
+            var result = GetGeneratedCodeFromXmlDefinition(xml);
+            result = result.Replace(Environment.NewLine, string.Empty);
+
+            Assert.IsFalse(string.IsNullOrEmpty(result));
+            Assert.IsTrue(result.Contains(@"public string Location { get; set; }"));
+            Assert.IsTrue(result.Contains(@"public group.Return Oops"));
+            Assert.IsTrue(result.Contains(@"result.Location = this.ReadHeader"));
+        }
+
+        [TestMethod]
+        public void ReturnTypeHeaderWithMethodDifferentGroup()
+        {
+            var xml = @"<?xml version=""1.0"" encoding=""utf-8""?>
+<Root>
+  <ApiGroup Name=""mtd"">
+    <ApiMethod MethodName=""Oops"" Path=""oops"" ReturnType=""Rtn.Return"" />
+  </ApiGroup>
+  <ApiGroup Name=""Rtn"">
+    <ReturnType Name=""Return"">
+      <Header Name=""location"" />
+    </ReturnType>
+  </ApiGroup>
+</Root>";
+            var result = GetGeneratedCodeFromXmlDefinition(xml);
+            result = result.Replace(Environment.NewLine, string.Empty);
+
+            Assert.IsFalse(string.IsNullOrEmpty(result));
+            Assert.IsTrue(result.Contains(@"public string Location { get; set; }"));
+            Assert.IsTrue(result.Contains(@"public Rtn.Return Oops"));
+            Assert.IsTrue(result.Contains(@"result.Location = this.ReadHeader"));
+        }
+
+        [TestMethod]
+        public void PostReturnType()
+        {
+            var xml = @"<?xml version=""1.0"" encoding=""utf-8""?>
+<Root>
+  <ApiGroup Name=""mtd"">
+    <ApiMethod MethodName=""Oops"" Path=""oops"" PostReturnType=""Post"" ReturnType=""Return"" />
+    <ReturnType Name=""Post"">
+      <Header Name=""location"" />
+    </ReturnType>
+    <ReturnType Name=""Return"">
+      <Header Name=""location"" />
+    </ReturnType>
+  </ApiGroup>
+</Root>";
+            var result = GetGeneratedCodeFromXmlDefinition(xml);
+            result = result.Replace(Environment.NewLine, string.Empty);
+
+            Assert.IsFalse(string.IsNullOrEmpty(result));
+            Assert.IsTrue(result.Contains(@"public mtd.Return Oops"));
+            Assert.IsTrue(result.Contains(@", mtd.Post postData"));
+        }
+
         private static string GetGeneratedCodeFromXmlDefinition(string xml)
         {
             ////var serializer = new XmlSerializer(typeof(ApisRoot));

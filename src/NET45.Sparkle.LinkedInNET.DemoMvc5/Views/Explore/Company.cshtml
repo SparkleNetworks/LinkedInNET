@@ -23,6 +23,9 @@
     <dt>Id</dt>
     <dd>@Model.Id</dd>
 
+    <dt>LinkedIn URL</dt>
+    <dd>@Html.DisplayUrl("https://www.linkedin.com/company/" + Model.Id)</dd>
+
     <dt>WebsiteUrl</dt>
     <dd>@Html.DisplayUrl(Model.WebsiteUrl)</dd>
 

@@ -34,7 +34,7 @@ namespace Sparkle.LinkedInNET.DemoMvc5.Controllers
             this.ViewBag.Configuration = this.apiConfig;
             
             // step 2: authorize url
-            var scope = AuthorizationScope.ReadFullProfile | AuthorizationScope.ReadEmailAddress | AuthorizationScope.ReadNetwork | AuthorizationScope.ReadContactInfo;
+            var scope = AuthorizationScope.ReadFullProfile | AuthorizationScope.ReadEmailAddress | AuthorizationScope.ReadNetwork | AuthorizationScope.ReadContactInfo | AuthorizationScope.ReadWriteCompanyPage;
             var state = Guid.NewGuid().ToString();
             var redirectUrl = this.Request.Compose() + this.Url.Action("OAuth2");
             this.ViewBag.LocalRedirectUrl = redirectUrl;

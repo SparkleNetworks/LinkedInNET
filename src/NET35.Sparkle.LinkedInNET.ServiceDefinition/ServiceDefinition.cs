@@ -24,6 +24,26 @@ namespace Sparkle.LinkedInNET.ServiceDefinition
         {
             // find return type or null
             ReturnType returnItem = null;
+
+            // handle different namespaces
+            int dotPosition = name.LastIndexOf('.');
+            if (dotPosition > 0)
+            {
+                var ns = name.Substring(0, dotPosition);
+                int dotPosition2 = ns.LastIndexOf('.');
+                if (dotPosition2 > 0)
+                {
+                    ns = ns.Substring(0, dotPosition2);
+                }
+
+                if (apiGroupName != null)
+                {
+                    apiGroupName = ns;
+                }
+
+                name = name.Substring(dotPosition + 1);
+            }
+
             foreach (var group in this.Root.ApiGroups.Where(g => apiGroupName == null || g.Name == apiGroupName))
             {
                 if (returnItem != null)
