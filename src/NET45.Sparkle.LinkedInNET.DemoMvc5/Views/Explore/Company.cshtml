@@ -96,10 +96,11 @@
 @{
     var shares = (Sparkle.LinkedInNET.Companies.CompanyUpdates)this.ViewBag.Shares;
 }
-@if (shares != null && shares.Update != null && shares.Update.Count > 0){
+@if (shares != null && shares.Update != null && shares.Update.Count > 0)
+{
 <dl>
     @foreach (var share in shares.Update) {
-    <dt>@share.Timestamp.FromUnixTime()</dt>
+    <dt class="clear">@share.Timestamp.FromUnixTime()</dt>
     <dd>
         @if (share.UpdateContent != null) {
             var content = share.UpdateContent;
@@ -122,7 +123,19 @@
         <p>CompanyProductUpdate</p>
             } else if (content.CompanyStatusUpdate != null) {
                 if (content.CompanyStatusUpdate.Share != null) {
-        <pre>@Newtonsoft.Json.JsonConvert.SerializeObject(content.CompanyStatusUpdate.Share, Newtonsoft.Json.Formatting.Indented)</pre>
+                    var update = content.CompanyStatusUpdate.Share;
+                    if (update.Content != null)
+                    {
+                        if (update.Content.SubmittedImageUrl != null || update.Content.ThumbnailUrl != null)
+                        {
+        <div style="float:left; max-width:250px; padding:  0.3em 1em .5em 0em;"><img src="@(update.Content.ThumbnailUrl)" /></div>
+                        }
+        <p>@(update.Content.Title != null ? update.Content.Title : "no title")</p>
+        <p>@(update.Content.Description != null ? update.Content.Description : "no description")</p>
+        <p>@(update.Content.SubmittedUrl != null ? update.Content.SubmittedUrl : "no SubmittedUrl")</p>
+                    }
+        <pre>@Newtonsoft.Json.JsonConvert.SerializeObject(update, Newtonsoft.Json.Formatting.Indented)</pre>
+        <p>@Html.ActionLink("re-share as company", "CompanyShare", new { ShareId = update.Id, })</p>
                 } else {
         <p>empty?</p>
                 }

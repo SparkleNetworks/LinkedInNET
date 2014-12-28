@@ -4903,6 +4903,13 @@ namespace Sparkle.LinkedInNET.Common
         public PostShareContent Content { get; set; }
 
         /// <summary>
+        /// Field: 'attribution/share/id' (on-demand)
+        /// </summary>
+        [XmlElement(ElementName = "attribution")]
+        [JsonProperty(PropertyName = "attribution")]
+        public Attribution Attribution { get; set; }
+
+        /// <summary>
         /// Field: 'visibility/code' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "visibility")]
@@ -5004,6 +5011,30 @@ namespace Sparkle.LinkedInNET.Common
     }
 }
 
+// WriteReturnTypes(Common, attribution)
+namespace Sparkle.LinkedInNET.Common
+{
+    using System;
+    using System.Collections.Generic;
+    using System.Xml.Serialization;
+    using Newtonsoft.Json;
+
+    /// <summary>
+    /// Name: 'attribution'
+    /// </summary>
+    [Serializable, XmlRoot("attribution")]
+    public class Attribution
+    {
+        /// <summary>
+        /// Field: 'share' (on-demand)
+        /// </summary>
+        [XmlElement(ElementName = "share")]
+        [JsonProperty(PropertyName = "share")]
+        public string Share { get; set; }
+
+    }
+}
+
 // WriteReturnTypeFields(Common)
 namespace Sparkle.LinkedInNET.Common
 {
@@ -5012,7 +5043,7 @@ namespace Sparkle.LinkedInNET.Common
     using System.Xml.Serialization;
 
     /// <summary>
-    /// Field selectors for the 'share', 'ShareSource', 'ShareSourceProvider', 'ShareContent', 'ShareAuthor', 'PostShare', 'PostShareContent', 'PostShareResult', 'visibility' return types.
+    /// Field selectors for the 'share', 'ShareSource', 'ShareSourceProvider', 'ShareContent', 'ShareAuthor', 'PostShare', 'PostShareContent', 'PostShareResult', 'visibility', 'attribution' return types.
     /// </summary>
     public static class CommonFields {
         /// <summary>
@@ -5099,6 +5130,9 @@ namespace Sparkle.LinkedInNET.Profiles
         /// <summary>
         /// the profile of the current user
         /// </summary>
+        /// <remarks>
+        /// See https://developer.linkedin.com/documents/profile-api
+        /// </remarks>
         public Profiles.Person GetMyProfile(
               UserAuthorization user
             , string[] acceptLanguages = null
@@ -5124,6 +5158,9 @@ namespace Sparkle.LinkedInNET.Profiles
         /// <summary>
         /// the profile of a user in the network
         /// </summary>
+        /// <remarks>
+        /// See https://developer.linkedin.com/documents/profile-api
+        /// </remarks>
         public Profiles.Person GetProfileById(
               UserAuthorization user
             , string memberToken
@@ -5150,6 +5187,9 @@ namespace Sparkle.LinkedInNET.Profiles
         /// <summary>
         /// the public profile of a user
         /// </summary>
+        /// <remarks>
+        /// See https://developer.linkedin.com/documents/profile-api
+        /// </remarks>
         public Profiles.Person GetPublicProfile(
               UserAuthorization user
             , string publicProfileUrl
@@ -5574,8 +5614,11 @@ namespace Sparkle.LinkedInNET.Companies
         }
         
         /// <summary>
-        /// 
+        /// Share a new company update.
         /// </summary>
+        /// <remarks>
+        /// See https://developer.linkedin.com/creating-company-shares
+        /// </remarks>
         public Common.PostShareResult Share(
               UserAuthorization user
             , int companyId

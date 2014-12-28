@@ -1,9 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Root>
   <ApiGroup Name="Profiles">
-    <ApiMethod MethodName="GetMyProfile"     HttpMethod="GET" Title="the profile of the current user" Path="/v1/people/~{FieldSelector}" ReturnType="Person" RequiresUserAuthentication="1" UsesAcceptLanguage="1" />
-    <ApiMethod MethodName="GetProfileById"   HttpMethod="GET" Title="the profile of a user in the network" Path="/v1/people/id={MemberToken}{FieldSelector}" ReturnType="Person" RequiresUserAuthentication="1" UsesAcceptLanguage="1" />
-    <ApiMethod MethodName="GetPublicProfile" HttpMethod="GET" Title="the public profile of a user" Path="/v1/people/url={PublicProfileUrl}{FieldSelector}" ReturnType="Person" RequiresUserAuthentication="1" UsesAcceptLanguage="1" />
+    <ApiMethod MethodName="GetMyProfile"     HttpMethod="GET" ReturnType="Person" Path="/v1/people/~{FieldSelector}"
+      Title="the profile of the current user" Remark="See https://developer.linkedin.com/documents/profile-api"
+      RequiresUserAuthentication="1" UsesAcceptLanguage="1" />
+    <ApiMethod MethodName="GetProfileById"   HttpMethod="GET" Path="/v1/people/id={MemberToken}{FieldSelector}" ReturnType="Person"
+      Title="the profile of a user in the network" Remark="See https://developer.linkedin.com/documents/profile-api"
+      RequiresUserAuthentication="1" UsesAcceptLanguage="1" />
+    <ApiMethod MethodName="GetPublicProfile" HttpMethod="GET" Path="/v1/people/url={PublicProfileUrl}{FieldSelector}" ReturnType="Person"
+      Title="the public profile of a user" Remark="See https://developer.linkedin.com/documents/profile-api"
+      RequiresUserAuthentication="1" UsesAcceptLanguage="1" />
     <!--<ApiMethod MethodName="QueryProfiles" HttpMethod="GET" Title="queries for some profiles" Path="/v1/people/{PublicProfileUrl}" ReturnType="Person" RequiresUserAuthentication="1" />-->
     <!--<ApiMethod MethodName="GetManyProfiles"  HttpMethod="GET" Title="" Path="/v1/people{IdSelector}{FieldSelector}" ReturnType="Person" RequiresUserAuthentication="1" UsesAcceptLanguage="1">
       <IdSelectorFormat Name="Self" Format="~" />
@@ -11,15 +17,39 @@
       <IdSelectorFormat Name="ByPublicUrl" Format="url={value}" />
     </ApiMethod>-->
     
-    <ApiMethod MethodName="GetMyConnections"                     HttpMethod="GET" Title="returns a list of 1st degree connections for a user "                      Path="/v1/people/~/connections{FieldSelector}?start={int start}&amp;count={int count}" ReturnType="connections" RequiresUserAuthentication="1" />
-    <ApiMethod MethodName="GetConnectionsByProfileId"            HttpMethod="GET" Title="returns a list of 1st degree connections for a user "       Path="/v1/people/id={MemberToken}/connections{FieldSelector}?start={int start}&amp;count={int count}" ReturnType="connections" RequiresUserAuthentication="1" />
-    <ApiMethod MethodName="GetConnectionsByPublicProfile"        HttpMethod="GET" Title="returns a list of 1st degree connections for a user " Path="/v1/people/url={PublicProfileUrl}/connections{FieldSelector}?start={int start}&amp;count={int count}" ReturnType="connections" RequiresUserAuthentication="1" />
-    <ApiMethod MethodName="GetNewConnectionsByProfileId"         HttpMethod="GET" Title="returns a list of 1st degree connections for a user "       Path="/v1/people/id={MemberToken}/connections{FieldSelector}?start={int start}&amp;count={int count}&amp;modified=new&amp;modified-since={long modifiedSince}" ReturnType="connections" RequiresUserAuthentication="1" />
-    <ApiMethod MethodName="GetNewConnectionsByPublicProfile"     HttpMethod="GET" Title="returns a list of 1st degree connections for a user " Path="/v1/people/url={PublicProfileUrl}/connections{FieldSelector}?start={int start}&amp;count={int count}&amp;modified=new&amp;modified-since={long modifiedSince}" ReturnType="connections" RequiresUserAuthentication="1" />
-    <ApiMethod MethodName="GetUpdatedConnectionsByProfileId"     HttpMethod="GET" Title="returns a list of 1st degree connections for a user "       Path="/v1/people/id={MemberToken}/connections{FieldSelector}?start={int start}&amp;count={int count}&amp;modified=updated&amp;modified-since={long modifiedSince}" ReturnType="connections" RequiresUserAuthentication="1" />
-    <ApiMethod MethodName="GetUpdatedConnectionsByPublicProfile" HttpMethod="GET" Title="returns a list of 1st degree connections for a user " Path="/v1/people/url={PublicProfileUrl}/connections{FieldSelector}?start={int start}&amp;count={int count}&amp;modified=updated&amp;modified-since={long modifiedSince}" ReturnType="connections" RequiresUserAuthentication="1" />
+    <ApiMethod MethodName="GetMyConnections"                     HttpMethod="GET" ReturnType="connections"
+      Title="returns a list of 1st degree connections for a user "                      
+      Path="/v1/people/~/connections{FieldSelector}?start={int start}&amp;count={int count}"
+      RequiresUserAuthentication="1" />
+    <ApiMethod MethodName="GetConnectionsByProfileId"            HttpMethod="GET" ReturnType="connections"
+      Title="returns a list of 1st degree connections for a user "       
+      Path="/v1/people/id={MemberToken}/connections{FieldSelector}?start={int start}&amp;count={int count}"
+      RequiresUserAuthentication="1" />
+    <ApiMethod MethodName="GetConnectionsByPublicProfile"        HttpMethod="GET" ReturnType="connections"
+      Title="returns a list of 1st degree connections for a user "
+      Path="/v1/people/url={PublicProfileUrl}/connections{FieldSelector}?start={int start}&amp;count={int count}"
+      RequiresUserAuthentication="1" />
+    <ApiMethod MethodName="GetNewConnectionsByProfileId"         HttpMethod="GET" ReturnType="connections"
+      Title="returns a list of 1st degree connections for a user "       
+      Path="/v1/people/id={MemberToken}/connections{FieldSelector}?start={int start}&amp;count={int count}&amp;modified=new&amp;modified-since={long modifiedSince}"
+      RequiresUserAuthentication="1" />
+    <ApiMethod MethodName="GetNewConnectionsByPublicProfile"     HttpMethod="GET" ReturnType="connections"
+      Title="returns a list of 1st degree connections for a user "
+      Path="/v1/people/url={PublicProfileUrl}/connections{FieldSelector}?start={int start}&amp;count={int count}&amp;modified=new&amp;modified-since={long modifiedSince}"
+      RequiresUserAuthentication="1" />
+    <ApiMethod MethodName="GetUpdatedConnectionsByProfileId"     HttpMethod="GET" ReturnType="connections"
+      Title="returns a list of 1st degree connections for a user "       
+      Path="/v1/people/id={MemberToken}/connections{FieldSelector}?start={int start}&amp;count={int count}&amp;modified=updated&amp;modified-since={long modifiedSince}"
+      RequiresUserAuthentication="1" />
+    <ApiMethod MethodName="GetUpdatedConnectionsByPublicProfile" HttpMethod="GET" ReturnType="connections"
+      Title="returns a list of 1st degree connections for a user "
+      Path="/v1/people/url={PublicProfileUrl}/connections{FieldSelector}?start={int start}&amp;count={int count}&amp;modified=updated&amp;modified-since={long modifiedSince}"
+      RequiresUserAuthentication="1" />
     
-    <ApiMethod MethodName="GetOriginalProfilePicture" HttpMethod="GET" Title="returns the original picture posted by the user, fields selector are ignored" Path="/v1/people/~/picture-urls::(original)" ReturnType="PictureUrls" RequiresUserAuthentication="1" />
+    <ApiMethod MethodName="GetOriginalProfilePicture" HttpMethod="GET" ReturnType="PictureUrls"
+      Title="returns the original picture posted by the user, fields selector are ignored"
+      Path="/v1/people/~/picture-urls::(original)"
+      RequiresUserAuthentication="1" />
 
     <ReturnType Name="person" ClassName="Person" AutoGenerateFieldSelectors="1">
       
@@ -498,17 +528,37 @@
   </ApiGroup>
   
   <ApiGroup Name="Companies">
-    <ApiMethod MethodName="GetList" HttpMethod="GET" Title="Hacker Summary" Path="/v1/companies{FieldSelector}" ReturnType="Company" RequiresUserAuthentication="1" />
-    <ApiMethod MethodName="GetById"   HttpMethod="GET" Title="retrieve a company by using the company ID" Path="/v1/companies/{CompanyId}{FieldSelector}" ReturnType="Company" RequiresUserAuthentication="1" />
-    <ApiMethod MethodName="GetByName"   HttpMethod="GET" Title="Retrieve a company by universal-name." Path="/v1/companies/universal-name={UniversalName}{FieldSelector}" ReturnType="Company" RequiresUserAuthentication="1" />
-    <ApiMethod MethodName="GetListByEmailDomain"   HttpMethod="GET" Title="This returns an array of companies that match to the specified email domain." Path="/v1/companies/universal-name={UniversalName}{FieldSelector}" ReturnType="Company" RequiresUserAuthentication="1" />
+    <ApiMethod MethodName="GetList" HttpMethod="GET" Path="/v1/companies{FieldSelector}" ReturnType="Company"
+      Title="Hacker Summary"
+      RequiresUserAuthentication="1" />
+    <ApiMethod MethodName="GetById"   HttpMethod="GET" Path="/v1/companies/{CompanyId}{FieldSelector}" ReturnType="Company"
+      Title="retrieve a company by using the company ID"
+      RequiresUserAuthentication="1" />
+    <ApiMethod MethodName="GetByName"   HttpMethod="GET" ReturnType="Company"
+      Path="/v1/companies/universal-name={UniversalName}{FieldSelector}"
+      Title="Retrieve a company by universal-name."
+      RequiresUserAuthentication="1" />
+    <ApiMethod MethodName="GetListByEmailDomain"   HttpMethod="GET" ReturnType="Company"
+      Title="This returns an array of companies that match to the specified email domain."
+      Path="/v1/companies/universal-name={UniversalName}{FieldSelector}"
+      RequiresUserAuthentication="1" />
 
-    <ApiMethod MethodName="GetShares" HttpMethod="GET" Title="Retrieve the company's updates" Path="/v1/companies/{int id}/updates" ReturnType="CompanyUpdates" RequiresUserAuthentication="1" />
+    <ApiMethod MethodName="GetShares" HttpMethod="GET" Path="/v1/companies/{int id}/updates" ReturnType="CompanyUpdates"
+      Title="Retrieve the company's updates"
+      RequiresUserAuthentication="1" />
 
-    <ApiMethod MethodName="Search" HttpMethod="GET" Path="/v1/company-search{FieldSelector}?start={int start}&amp;count={int count}&amp;keywords={keywords}" ReturnType="company-search" RequiresUserAuthentication="1" />
-    <ApiMethod MethodName="FacetSearch" HttpMethod="GET" Path="/v1/company-search{FieldSelector}?start={int start}&amp;count={int count}&amp;keywords={keywords}&amp;facet={facet}" ReturnType="company-search" RequiresUserAuthentication="1" />
+    <ApiMethod MethodName="Search" HttpMethod="GET" ReturnType="company-search"
+      Path="/v1/company-search{FieldSelector}?start={int start}&amp;count={int count}&amp;keywords={keywords}"
+      RequiresUserAuthentication="1" />
+    <ApiMethod MethodName="FacetSearch" HttpMethod="GET" ReturnType="company-search"
+      Path="/v1/company-search{FieldSelector}?start={int start}&amp;count={int count}&amp;keywords={keywords}&amp;facet={facet}"
+      RequiresUserAuthentication="1" />
 
-    <ApiMethod MethodName="Share" HttpMethod="POST" Path="/v1/companies/{int companyId}/shares" PostReturnType="Common.PostShare" ReturnType="Common.PostShareResult" RequiresUserAuthentication="1" SuccessHttpCode="201" UseFieldSelectors="0" />
+    <ApiMethod MethodName="Share"  HttpMethod="POST" PostReturnType="Common.PostShare" ReturnType="Common.PostShareResult"
+      Path="/v1/companies/{int companyId}/shares"
+      Title="Share a new company update." Remark="See https://developer.linkedin.com/creating-company-shares"
+      RequiresUserAuthentication="1" UseFieldSelectors="0" />
+    <!--<ApiMethod MethodName="Repost" HttpMethod="POST" Path="/v1/companies/{int companyId}/shares" PostReturnType="Common.PostShare" ReturnType="Common.PostShareResult" RequiresUserAuthentication="1" UseFieldSelectors="0" Title="Share a company update based on an existing update." Remark="See https://developer.linkedin.com/creating-company-shares" />-->
     
     <ReturnType Name="company" ClassName="Company" AutoGenerateFieldSelectors="1">
       <Field Name="id" Type="long" Title="Default. The unique internal numeric company identifier." IsDefault="1" />
@@ -740,7 +790,8 @@
 
     <ReturnType Name="PostShare">
       <Field Name="comment" Title="Text of member's comment. (Similar to deprecated current-status field.)" Remark="Post must contain comment and/or (content/title and content/submitted-url). Max length is 700 characters (bytes)." />
-      <Field Name="content" Title="Parent node for information on shared document" Remark="" Type="PostShareContent" />
+      <Field Name="content" Title="Content to share" Remark="" Type="PostShareContent" />
+      <Field Name="attribution/share/id" Title="Content ID to re-share" Remark="" />
       <Field Name="visibility/code" Title="One of 'anyone': all members or 'connections-only': connections only." Remark="" />
       <!--<Field Name="source" Type="ShareSource" />
       <Field Name="author" Type="ShareAuthor" />-->

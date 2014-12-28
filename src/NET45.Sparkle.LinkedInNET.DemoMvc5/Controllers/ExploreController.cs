@@ -18,6 +18,10 @@ namespace Sparkle.LinkedInNET.DemoMvc5.Controllers
         private LinkedInApi api;
         private DataService data;
         private LinkedInApiConfiguration apiConfig;
+        private JsonSerializerSettings shareSettings = new JsonSerializerSettings
+        {
+            NullValueHandling = NullValueHandling.Ignore,
+        };
 
         public ExploreController(LinkedInApi api, DataService data, LinkedInApiConfiguration apiConfig)
         {
@@ -166,8 +170,9 @@ namespace Sparkle.LinkedInNET.DemoMvc5.Controllers
             return this.View(result);
         }
 
-        public ActionResult CompanyShare()
+        public ActionResult CompanyShare(string ShareId)
         {
+
             var item = new Sparkle.LinkedInNET.Common.PostShare
             {
                 Visibility = new Visibility
@@ -175,20 +180,32 @@ namespace Sparkle.LinkedInNET.DemoMvc5.Controllers
                     Code = "anyone",
                 },
                 Comment = "Testing a full company share with Sparkle.LinkedInNET in C#.NET!",
-                Content = new PostShareContent
+            };
+
+            if (ShareId != null)
+            {
+                item.Attribution = new Attribution
+                {
+                    Share = ShareId,
+                };
+            }
+            else
+            {
+                item.Content = new PostShareContent
                 {
                     SubmittedUrl = "https://github.com/SparkleNetworks/LinkedInNET",
                     Title = "SparkleNetworks/LinkedInNET",
                     Description = "Sparkle.LinkedInNET will help you query the LinkedIn API with C# :)",
                     SubmittedImageUrl = "https://raw.githubusercontent.com/SparkleNetworks/LinkedInNET/master/src/LiNET-200.png",
-                },
-            };
+                };
+            }
+
             this.ViewBag.Share = item;
 
             var model = new CompanyShareModel
             {
                 CompanyId = 2414183,
-                Json = JsonConvert.SerializeObject(item, Formatting.Indented),
+                Json = JsonConvert.SerializeObject(item, Formatting.Indented, shareSettings),
             };
             return this.View(model);
         }

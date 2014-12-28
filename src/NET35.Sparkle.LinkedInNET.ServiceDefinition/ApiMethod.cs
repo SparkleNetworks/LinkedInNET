@@ -16,6 +16,9 @@ namespace Sparkle.LinkedInNET.ServiceDefinition
         public string Title { get; set; }
 
         [XmlAttribute]
+        public string Remark { get; set; }
+
+        [XmlAttribute]
         public string Path { get; set; }
 
         [XmlAttribute]

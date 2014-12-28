@@ -362,6 +362,13 @@ namespace Sparkle.LinkedInNET.ServiceDefinition
                 this.text.WriteLine(indent, "/// " + method.Title);
                 this.text.WriteLine(indent, "/// </summary>");
 
+                if (method.Remark != null)
+                {
+                    this.text.WriteLine(indent, "/// <remarks>");
+                    this.text.WriteLine(indent, "/// " + method.Remark + "");
+                    this.text.WriteLine(indent, "/// </remarks>");
+                }
+
                 // name and arguments
                 this.text.WriteLine(indent++, "public " + returnType + " " + this.GetPropertyName(method.MethodName, method.Path) + "(");
 
