@@ -30,23 +30,25 @@
     <dd>@Model.Location.Name @(Model.Location.Country != null ? Model.Location.Country.Code : "")</dd>
 }
 
-@foreach (var position in Model.Positions.Position)
-{
-    <dt>Job</dt>
-    <dd><em>@position.Title</em> at 
-    @if (position.Company != null){
-        if (position.Company.Id > 0){
-            @Html.ActionLink(position.Company.Name, "Company", new { id = position.Company.Id, })
+@if (Model.Positions != null && Model.Positions.Position != null) {
+    foreach (var position in Model.Positions.Position)
+    {
+        <dt>Job</dt>
+        <dd><em>@position.Title</em> at 
+        @if (position.Company != null){
+            if (position.Company.Id > 0){
+                @Html.ActionLink(position.Company.Name, "Company", new { id = position.Company.Id, })
+            }else{
+                <strong>@position.Company.Name</strong>
+            }
         }else{
-            <strong>@position.Company.Name</strong>
+            @:?
         }
-    }else{
-        @:?
+        </dd>
+    
+        <dt>Connections</dt>
+        <dd>@Html.ActionLink("Go to all connections", "Connections", new { id = Model.Id, })</dd>
     }
-    </dd>
-
-    <dt>Connections</dt>
-    <dd>@Html.ActionLink("Go to all connections", "Connections", new { id = Model.Id, })</dd>
 }
 
 @if (Model.Languages != null && Model.Languages.Language != null) {
