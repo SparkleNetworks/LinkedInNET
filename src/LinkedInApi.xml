@@ -52,7 +52,7 @@
       RequiresUserAuthentication="1" />
 
     <ReturnType Name="person" ClassName="Person" AutoGenerateFieldSelectors="1">
-      
+
       <!-- Basic profile fields -->
       <Field Name="first-name" PropertyName="Firstname" Title="the member's first name" IsDefault="1" />
       <Field Name="last-name" PropertyName="Lastname" Title="the member's last name" IsDefault="1" />
@@ -66,10 +66,10 @@
       <Field Name="phonetic-last-name" Title="the member's last name spelled phonetically" Remark="This field might be omitted from some results depending on the member's privacy settings" />
       <Field Name="formatted-phonetic-name" Title="the member's name spelled phonetically and formatted based on language" Remark="This field might be omitted from some results or return a value of private, depending on the member's privacy settings" />
       <Field Name="headline" Title="the member's headline (often &quot;Job Title at Company&quot;)" Remark="" />
-      
+
       <Field Name="location:(name)" Title="Generic name of the location of the LinkedIn member, (ex: &quot;San Francisco Bay Area&quot;)" Remark="" />
       <Field Name="location:(country:(code))" Title="country code for the LinkedIn member" Remark="Lower case values as defined by ISO 3166-1 alpha-2 standard." Ignore="1" />
-      
+
       <Field Name="industry" Title="the industry the LinkedIn member has indicated their profile belongs to (Industry Codes)" Remark="" />
       <Field Name="distance" Title="" Type="int?" />
       <Field Name="relation-to-viewer" Type="relation-to-viewer">
@@ -84,7 +84,16 @@
       <Field Name="num-connections-capped" Title="true if the value of num-connections has been capped at 500. false otherwise." Remark="Allows you to distinguish whether num-connections = 500 because the member has exactly 500 connections or actually 500+ because we're hiding the true value." Type="bool?" />
       <Field Name="summary" Title="A long-form text area where the member describes their professional profile" Remark="Not available via connections API." />
       <Field Name="specialties" Type="Specialties" Title="A short-form text area where the member enumerates their specialties" Remark="Not available via connections API." />
-      <Field Name="positions" Title="A collection of positions a member has had, the total indicated by a total attribute" Remark="See Positions Fields below. Only current positions are available for people other than the authenticated member." Type="positions" />
+      <Field Name="positions" Title="A collection of positions a member has had, the total indicated by a total attribute" Remark="See Positions Fields below. Only current positions are available for people other than the authenticated member." Type="positions">
+        <FieldSelector Name="positions:(id,title,start-date,end-date,is-current,company)" PropertyName="Positions" />
+        <FieldSelector Name="positions:(id)" Type="int" Title="a unique identifier for this member's position" Remark="" />
+        <FieldSelector Name="positions:(title)" Title="the job title held at the position, as indicated by the member" Remark="" />
+        <FieldSelector Name="positions:(summary)" Title="a summary of the member's position" Remark="Not available via connections." />
+        <FieldSelector Name="positions:(start-date)" Type="DateParts" Title="a structured object with month and year fields indicating when the position began" Remark="" />
+        <FieldSelector Name="positions:(end-date)"   Type="DateParts" Title="a structured object with month and year fields indicating when the position ended" Remark="Blank when the position is current" />
+        <FieldSelector Name="positions:(is-current)" Type="bool" Title="a &quot;true&quot; or &quot;false&quot; value, depending on whether it is marked current" Remark="" />
+        <FieldSelector Name="positions:(company)" Type="CompanyIdentifier" Title="the company the member works for" Remark="https://developer.linkedin.com/documents/profile-fields#company" />
+      </Field>
       <Field Name="picture-url" Title="A URL to the profile picture, if the member has associated one with their profile and it is visible to the requestor" Remark="" />
       <!--<Field Name="picture-urls" Title="A URL to the profile picture originally posted by the user." Remark="" />-->
       <Field Name="site-standard-profile-request" Title="The URL to the member's authenticated profile on LinkedIn (requires a login to be viewed, unlike public profiles)" Remark="" />
@@ -142,13 +151,13 @@
 
       <!-- Connection fields -->
       <Field Name="connections" Type="Connections" Title="an empty collection, indicating the # of connections the member has with a total attribute" Remark="LinkedIn will not report whether a user has more than 500 connections" />
-      
+
       <!-- Group membership fields -->
       <Field Name="group-memberships" Title="a collection of groups that the member is following" />
-      
+
       <!-- Network update fields -->
       <Field Name="network" Title="the member's network statistics and updates" />
-      
+
       <!-- Company 
       <Field Name="id" Title="the ID for the company (useful with facets or the Company API)" Remark="" />
       <Field Name="name" Title="the name of the company" Remark="" />
@@ -383,9 +392,9 @@
     </ReturnType>
     <ReturnType Name="recommendation" ClassName="Recommendation">
       <Field Name="id" Title="a unique identifier for this recommendation" Remark="" />
-      <Field Name="recommendation-type" Title="indicates type of recommendation that was selected by the person making the recommendation" Remark="" />
+      <Field Name="recommendation-type:(code)" Title="indicates type of recommendation that was selected by the person making the recommendation" Remark="" />
       <Field Name="recommendation-text" Title="the text of the recommendation received" Remark="" />
-      <Field Name="recommender" Title="a collection defining the person who made the recommendation" Remark="" />
+      <Field Name="recommender" Type="Person" Title="a collection defining the person who made the recommendation" Remark="" />
     </ReturnType>
 
     <ReturnType Name="phone-numbers" ClassName="PhoneNumbers">

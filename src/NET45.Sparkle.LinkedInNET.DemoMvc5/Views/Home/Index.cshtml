@@ -2,6 +2,10 @@
     ViewBag.Title = "Index";
     var configuration = (Sparkle.LinkedInNET.LinkedInApiConfiguration)this.ViewBag.Configuration ?? new Sparkle.LinkedInNET.LinkedInApiConfiguration();
     var configIsValid = !string.IsNullOrEmpty(configuration.ApiKey) && !string.IsNullOrEmpty(configuration.ApiSecretKey);
+    var jsonSettings = new Newtonsoft.Json.JsonSerializerSettings
+    {
+        NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore,
+    };
 }
 
 <style type="text/css">
@@ -62,7 +66,7 @@
     <dt>Headline</dt>
     <dd>@profile.Headline</dd>
 </dl>
-    <pre>@Newtonsoft.Json.JsonConvert.SerializeObject(profile, Newtonsoft.Json.Formatting.Indented)</pre>
+    <pre>@Newtonsoft.Json.JsonConvert.SerializeObject(profile, Newtonsoft.Json.Formatting.Indented, jsonSettings)</pre>
 }
 @if (this.ViewBag.ProfileError != null)
 {
@@ -79,7 +83,7 @@
     <img src="@picture" alt="@picture" title="@picture" />
     }
 </p>
-<pre>@Newtonsoft.Json.JsonConvert.SerializeObject(pictureUrls, Newtonsoft.Json.Formatting.Indented)</pre>
+<pre>@Newtonsoft.Json.JsonConvert.SerializeObject(pictureUrls, Newtonsoft.Json.Formatting.Indented, jsonSettings)</pre>
 } else {
 <pre></pre>
 }
