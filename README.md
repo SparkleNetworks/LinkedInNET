@@ -6,6 +6,23 @@ LinkedInNET
 
 Sparkle.LinkedInNET will help you query the LinkedIn API :)
 
+**WARNING: [LinkedIn is changing a lot of things in its developer program](https://developer.linkedin.com/blog/posts/2015/developer-program-changes). When using this API, your applications might break on May 12, 2015**. 
+
+**WARNING**: many documented URLs in this project are broken because LinkedIn changed the documentation pages. Here is the [old documentation via the WaybackMachine](https://web.archive.org/web/20140719025807/http://developer.linkedin.com/documents/people).
+
+> Starting on May 12, 2015, we will be limiting the open APIs to only support the following uses:
+
+> - Allowing members to represent their professional identity via their LinkedIn profile using our Profile API.
+- Enabling members to post certifications directly to their LinkedIn profile with our Add to Profile tools.
+- Enabling members to share professional content to their LinkedIn network from across the Web leveraging our Share API.
+- Enabling companies to share professional content to LinkedIn with our Company API.
+
+> All other APIs will require developers to become a member of one of our partnership programs.
+
+> For many developers, we understand that today’s changes may be disappointing and disruptive, but we believe these changes will provide further clarity and focus on which types of integrations will be supported by LinkedIn.
+
+> -- [Changes to our Developer Program](https://developer.linkedin.com/blog/posts/2015/developer-program-changes), February 12, 2015
+
 By using the LinkedIn APIs you agree to the [LinkedIn APIs Terms of Use](https://developer.linkedin.com/documents/linkedin-apis-terms-use).  
 This project is released under the LGPL v3 license.  
 This is NOT an official client library.

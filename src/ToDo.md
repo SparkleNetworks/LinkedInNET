@@ -4,6 +4,8 @@ API definition
 
 What's implemented and what's not...
 
+Links are now broken. Here is the [old documentation via the WaybackMachine](https://web.archive.org/web/20140719025807/http://developer.linkedin.com/documents/people).
+
 ### Basis
 
 - [x] APIs are grouped as `<ApiGroup />`  
