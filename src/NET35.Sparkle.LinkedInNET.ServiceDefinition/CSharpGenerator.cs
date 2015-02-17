@@ -339,22 +339,22 @@ namespace Sparkle.LinkedInNET.ServiceDefinition
                     }
                 }
 
-                var parameters = new List<TupleStruct<string, string>>();
+                var parameters = new List<Parameter>();
 
                 if (method.RequiresUserAuthentication)
                 {
-                    parameters.Add(new TupleStruct<string, string>("UserAuthorization", "user"));
+                    parameters.Add(new Parameter("user", "UserAuthorization"));
                 }
 
                 var urlParams = this.GetUrlPathParameters(method.Path, NameTransformation.PascalCase);
                 foreach (var urlParam in urlParams)
                 {
-                    parameters.Add(new TupleStruct<string, string>(urlParam.Value.Type ?? "string", urlParam.Value.Name));
+                    parameters.Add(urlParam.Value);
                 }
 
                 if (method.UsesAcceptLanguage)
                 {
-                    parameters.Add(new TupleStruct<string, string>("string[]", "acceptLanguages = null"));
+                    parameters.Add(new Parameter("acceptLanguages", "string[]", originalName: "acceptLanguages = null"));
                 }
 
                 // doc
@@ -375,7 +375,9 @@ namespace Sparkle.LinkedInNET.ServiceDefinition
                 var sep = "  ";
                 foreach (var parameter in parameters)
                 {
-                    this.text.WriteLine(indent, sep + parameter.Value1 + " " + parameter.Value2);
+                    this.text.WriteLine(indent, sep + (parameter.Type ?? "string") + " " 
+                        + parameter.Name + " " 
+                        + (parameter.Value != null ? ("= " + parameter.Value) : string.Empty));
                     sep = ", ";
                 }
 
@@ -503,6 +505,7 @@ namespace Sparkle.LinkedInNET.ServiceDefinition
             this.text.WriteLine(indent, "/// <summary>");
             this.text.WriteLine(indent, "/// Name: '" + returnType.Name + "'");
             this.text.WriteLine(indent, "/// </summary>");
+
             if (returnType.Remark != null)
             {
                 this.text.WriteLine(indent, "/// <remarks>");
@@ -510,8 +513,9 @@ namespace Sparkle.LinkedInNET.ServiceDefinition
                 this.text.WriteLine(indent, "/// </remarks>");
             }
 
+            var className = this.GetPropertyName(returnType.ClassName, returnType.Name);
             this.text.WriteLine(indent, "[Serializable, XmlRoot(\"" + returnType.Name + "\")]");
-            this.text.WriteLine(indent, "public class " + this.GetPropertyName(returnType.ClassName, returnType.Name));
+            this.text.WriteLine(indent, "public class " + className);
             this.text.WriteLine(indent++, "{");
 
             foreach (var itemGroup in returnType.Fields.GroupBy(f => f.FieldName.PropertyName).ToArray())
@@ -524,7 +528,8 @@ namespace Sparkle.LinkedInNET.ServiceDefinition
                 if (!csharpTypes.Contains(type))
                 {
                     fieldReturnType = context.Definition.FindReturnType(type);
-                    if (fieldReturnType != null)
+
+                    if (fieldReturnType != null && !type.Contains('.'))
                     {
                         type = fieldReturnType.ClassName ?? Namify(fieldReturnType.Name);
                     }

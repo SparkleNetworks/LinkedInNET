@@ -522,6 +522,40 @@ namespace Sparkle.LinkedInNET.Tests
         }
         */
 
+        [TestMethod]
+        public void UrlPathWithBoolVariable()
+        {
+            var xml = @"<?xml version=""1.0"" encoding=""utf-8""?>
+<Root>
+  <ApiGroup Name=""group"">
+    <ApiMethod MethodName=""mymethod"" Path=""/api?isOk={bool isOk}"" RequiresUserAuthentication=""1"" />
+  </ApiGroup>
+</Root>";
+            var result = GetGeneratedCodeFromXmlDefinition(xml);
+            result = result.Replace(Environment.NewLine, string.Empty);
+
+            Assert.IsFalse(string.IsNullOrEmpty(result));
+            Assert.IsTrue(result.Contains(@"        , bool isOk"));
+            Assert.IsTrue(result.Contains(@"var url = FormatUrl(urlFormat, fields, ""bool isOk"", isOk);"));
+        }
+
+        [TestMethod]
+        public void UrlPathWithBoolVariableAndDefaultValue()
+        {
+            var xml = @"<?xml version=""1.0"" encoding=""utf-8""?>
+<Root>
+  <ApiGroup Name=""group"">
+    <ApiMethod MethodName=""mymethod"" Path=""/api?isOk={bool isOk = false}"" RequiresUserAuthentication=""1"" />
+  </ApiGroup>
+</Root>";
+            var result = GetGeneratedCodeFromXmlDefinition(xml);
+            result = result.Replace(Environment.NewLine, string.Empty);
+
+            Assert.IsFalse(string.IsNullOrEmpty(result));
+            Assert.IsTrue(result.Contains(@"        , bool isOk = false"));
+            Assert.IsTrue(result.Contains(@"var url = FormatUrl(urlFormat, fields, ""bool isOk = false"", isOk);"));
+        }
+
         [TestClass]
         public class GetUrlPathParametersMethod
         {
@@ -613,6 +647,21 @@ namespace Sparkle.LinkedInNET.Tests
                 Assert.AreEqual("test", items["test"].OriginalName);
                 Assert.AreEqual("test", items["test"].Name);
                 Assert.IsNull(items["test"].Type);
+            }
+
+            [TestMethod]
+            public void BoolVariableWithDefaultValue()
+            {
+                var path = "hello{bool World = false}?nice";
+                var target = new TestCSharpGenerator();
+                var items = target.InvokeGetUrlPathParameters(path);
+
+                Assert.AreEqual(1, items.Count);
+                Assert.IsTrue(items.ContainsKey("World"));
+                Assert.AreEqual("bool World = false", items["World"].OriginalName);
+                Assert.AreEqual("World", items["World"].Name);
+                Assert.AreEqual("bool", items["World"].Type);
+                Assert.AreEqual("false", items["World"].Value);
             }
         }
 

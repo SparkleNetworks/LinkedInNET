@@ -749,8 +749,30 @@
 
   <ApiGroup Name="Social">
     <!--<ApiMethod MethodName="Post" HttpMethod="POST" Path="/v1/people/~/shares" RequiresUserAuthentication="1" />-->
-    
-    
+    <ApiMethod MethodName="GetMyUpdates" HttpMethod="GET" ReturnType="UserUpdates"
+      Path="/v1/people/~/network/updates?scope=self&amp;start={int start = 0}&amp;count={int count = 50}&amp;before={DateTime? before = null}&amp;after={DateTime? after = null}&amp;show-hidden-members={bool showHiddenMembers = false}"
+      Title="retrieve the member's updates" 
+      RequiresUserAuthentication="1" />
+
+    <ReturnType Name="updates" ClassName="UserUpdates">
+      <Field Name="update" Type="UserUpdate" IsCollection="1" />
+    </ReturnType>
+    <ReturnType Name="UserUpdate">
+      <Field Name="timestamp" Type="long" />
+      <Field Name="update-key" />
+      <Field Name="update-type" />
+      <Field Name="update-content" Type="UserUpdateContent" />
+      <Field Name="is-commentable" Type="bool?" />
+      <Field Name="is-commentable"     Type="bool?" />
+    </ReturnType>
+    <ReturnType Name="UserUpdateContent">
+      <Field Name="person"                Type="Sparkle.LinkedInNET.Profiles.Person" />
+      <Field Name="person-status-update"  Type="UserStatusUpdate" />
+    </ReturnType>
+    <ReturnType Name="user-status-update" ClassName="UserStatusUpdate">
+      <Field Name="share"                 Type="Sparkle.LinkedInNET.Common.Share" />
+    </ReturnType>
+
   </ApiGroup>
 
   <ApiGroup Name="Common">

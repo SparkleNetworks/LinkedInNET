@@ -35,5 +35,15 @@ namespace Sparkle.LinkedInNET.Internals
                     throw new NotSupportedException("Scope of value '" + scope.ToString() + " is not supported");
             }
         }
+
+        internal static long ToUnixTime(this DateTime value)
+        {
+            var unix = new System.DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
+
+            if (value < unix)
+                throw new ArgumentException("Specified value is lower than the UNIX time.");
+
+            return (long)value.Subtract(unix).TotalMilliseconds;
+        }
     }
 }

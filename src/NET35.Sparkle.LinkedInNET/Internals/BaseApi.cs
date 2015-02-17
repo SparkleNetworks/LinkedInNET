@@ -67,7 +67,32 @@ namespace Sparkle.LinkedInNET.Internals
             {
                 if (i % 2 == 1)
                 {
-                    dic.Add(values[i - 1].ToString(), values[i] != null ? values[i].ToString() : null);
+                    var key = values[i - 1].ToString();
+                    object valueObject = values[i] != null ? values[i] : null;
+                    var value = valueObject != null ? valueObject.ToString() : null;
+
+                    if (valueObject != null)
+                    {
+                        var type = valueObject.GetType();
+                        DateTime? ndt = null;
+
+                        if (type == typeof(DateTime?))
+                        {
+                            ndt = (DateTime?)valueObject;
+                        }
+
+                        if (type == typeof(DateTime))
+                        {
+                            ndt = (DateTime)valueObject;
+                        }
+
+                        if (ndt != null)
+                        {
+                            value = ndt.Value.ToUnixTime().ToString();
+                        }
+                    }
+
+                    dic.Add(key, value);
                 }
             }
 
@@ -84,9 +109,13 @@ namespace Sparkle.LinkedInNET.Internals
             {
                 var value = dic[key];
                 if (value != null)
+                {
                     result = result.Replace("{" + key + "}", value);
+                }
                 else
+                {
                     result = result.Replace("{" + key + "}", string.Empty);
+                }
             }
 
             return result;

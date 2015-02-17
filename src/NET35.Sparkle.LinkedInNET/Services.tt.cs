@@ -4631,6 +4631,142 @@ namespace Sparkle.LinkedInNET.Jobs
 
 #region ReturnTypes for Social
 
+// WriteReturnTypes(Social, updates)
+namespace Sparkle.LinkedInNET.Social
+{
+    using System;
+    using System.Collections.Generic;
+    using System.Xml.Serialization;
+    using Newtonsoft.Json;
+
+    /// <summary>
+    /// Name: 'updates'
+    /// </summary>
+    [Serializable, XmlRoot("updates")]
+    public class UserUpdates
+    {
+        /// <summary>
+        /// Field: 'update' (on-demand)
+        /// </summary>
+        [XmlElement(ElementName = "update")]
+        [JsonProperty(PropertyName = "values")]
+        public List<UserUpdate> Update { get; set; }
+
+    }
+}
+
+// WriteReturnTypes(Social, UserUpdate)
+namespace Sparkle.LinkedInNET.Social
+{
+    using System;
+    using System.Collections.Generic;
+    using System.Xml.Serialization;
+    using Newtonsoft.Json;
+
+    /// <summary>
+    /// Name: 'UserUpdate'
+    /// </summary>
+    [Serializable, XmlRoot("UserUpdate")]
+    public class UserUpdate
+    {
+        /// <summary>
+        /// Field: 'timestamp' (on-demand)
+        /// </summary>
+        [XmlElement(ElementName = "timestamp")]
+        [JsonProperty(PropertyName = "timestamp")]
+        public long Timestamp { get; set; }
+
+        /// <summary>
+        /// Field: 'update-key' (on-demand)
+        /// </summary>
+        [XmlElement(ElementName = "update-key")]
+        [JsonProperty(PropertyName = "updateKey")]
+        public string UpdateKey { get; set; }
+
+        /// <summary>
+        /// Field: 'update-type' (on-demand)
+        /// </summary>
+        [XmlElement(ElementName = "update-type")]
+        [JsonProperty(PropertyName = "updateType")]
+        public string UpdateType { get; set; }
+
+        /// <summary>
+        /// Field: 'update-content' (on-demand)
+        /// </summary>
+        [XmlElement(ElementName = "update-content")]
+        [JsonProperty(PropertyName = "updateContent")]
+        public UserUpdateContent UpdateContent { get; set; }
+
+        /// <summary>
+        /// Field: 'is-commentable' (on-demand)
+        /// Field: 'is-commentable' (on-demand)
+        /// </summary>
+        [XmlElement(ElementName = "is-commentable")]
+        [JsonProperty(PropertyName = "isCommentable")]
+        public bool? IsCommentable { get; set; }
+
+    }
+}
+
+// WriteReturnTypes(Social, UserUpdateContent)
+namespace Sparkle.LinkedInNET.Social
+{
+    using System;
+    using System.Collections.Generic;
+    using System.Xml.Serialization;
+    using Newtonsoft.Json;
+
+    /// <summary>
+    /// Name: 'UserUpdateContent'
+    /// </summary>
+    [Serializable, XmlRoot("UserUpdateContent")]
+    public class UserUpdateContent
+    {
+        // fieldReturnType = ReturnType(N='person' CN='Person' F=60 FS=0)
+        /// <summary>
+        /// Field: 'person' (on-demand)
+        /// </summary>
+        [XmlElement(ElementName = "person")]
+        [JsonProperty(PropertyName = "person")]
+        public Sparkle.LinkedInNET.Profiles.Person Person { get; set; }
+
+        // fieldReturnType = ReturnType(N='user-status-update' CN='UserStatusUpdate' F=1 FS=0)
+        // oldType = UserStatusUpdate | newType = UserStatusUpdate
+        /// <summary>
+        /// Field: 'person-status-update' (on-demand)
+        /// </summary>
+        [XmlElement(ElementName = "person-status-update")]
+        [JsonProperty(PropertyName = "personStatusUpdate")]
+        public UserStatusUpdate PersonStatusUpdate { get; set; }
+
+    }
+}
+
+// WriteReturnTypes(Social, user-status-update)
+namespace Sparkle.LinkedInNET.Social
+{
+    using System;
+    using System.Collections.Generic;
+    using System.Xml.Serialization;
+    using Newtonsoft.Json;
+
+    /// <summary>
+    /// Name: 'user-status-update'
+    /// </summary>
+    [Serializable, XmlRoot("user-status-update")]
+    public class UserStatusUpdate
+    {
+        // fieldReturnType = 
+        /// <summary>
+        /// Field: 'share' (on-demand)
+        /// </summary>
+        [XmlElement(ElementName = "share")]
+        [JsonProperty(PropertyName = "share")]
+        public Sparkle.LinkedInNET.Common.Share Share { get; set; }
+
+    }
+}
+
 // WriteReturnTypeFields(Social)
 namespace Sparkle.LinkedInNET.Social
 {
@@ -4639,7 +4775,7 @@ namespace Sparkle.LinkedInNET.Social
     using System.Xml.Serialization;
 
     /// <summary>
-    /// Field selectors for the '' return types.
+    /// Field selectors for the 'updates', 'UserUpdate', 'UserUpdateContent', 'user-status-update' return types.
     /// </summary>
     public static class SocialFields {
     }
@@ -5134,8 +5270,8 @@ namespace Sparkle.LinkedInNET.Profiles
         /// See https://developer.linkedin.com/documents/profile-api
         /// </remarks>
         public Profiles.Person GetMyProfile(
-              UserAuthorization user
-            , string[] acceptLanguages = null
+              UserAuthorization user 
+            , string[] acceptLanguages 
             , FieldSelector<Profiles.Person> fields = null
         )
         {
@@ -5162,9 +5298,9 @@ namespace Sparkle.LinkedInNET.Profiles
         /// See https://developer.linkedin.com/documents/profile-api
         /// </remarks>
         public Profiles.Person GetProfileById(
-              UserAuthorization user
-            , string memberToken
-            , string[] acceptLanguages = null
+              UserAuthorization user 
+            , string memberToken 
+            , string[] acceptLanguages 
             , FieldSelector<Profiles.Person> fields = null
         )
         {
@@ -5191,9 +5327,9 @@ namespace Sparkle.LinkedInNET.Profiles
         /// See https://developer.linkedin.com/documents/profile-api
         /// </remarks>
         public Profiles.Person GetPublicProfile(
-              UserAuthorization user
-            , string publicProfileUrl
-            , string[] acceptLanguages = null
+              UserAuthorization user 
+            , string publicProfileUrl 
+            , string[] acceptLanguages 
             , FieldSelector<Profiles.Person> fields = null
         )
         {
@@ -5217,9 +5353,9 @@ namespace Sparkle.LinkedInNET.Profiles
         /// returns a list of 1st degree connections for a user 
         /// </summary>
         public Profiles.Connections GetMyConnections(
-              UserAuthorization user
-            , int start
-            , int count
+              UserAuthorization user 
+            , int start 
+            , int count 
             , FieldSelector<Profiles.Connections> fields = null
         )
         {
@@ -5242,10 +5378,10 @@ namespace Sparkle.LinkedInNET.Profiles
         /// returns a list of 1st degree connections for a user 
         /// </summary>
         public Profiles.Connections GetConnectionsByProfileId(
-              UserAuthorization user
-            , string memberToken
-            , int start
-            , int count
+              UserAuthorization user 
+            , string memberToken 
+            , int start 
+            , int count 
             , FieldSelector<Profiles.Connections> fields = null
         )
         {
@@ -5268,10 +5404,10 @@ namespace Sparkle.LinkedInNET.Profiles
         /// returns a list of 1st degree connections for a user 
         /// </summary>
         public Profiles.Connections GetConnectionsByPublicProfile(
-              UserAuthorization user
-            , string publicProfileUrl
-            , int start
-            , int count
+              UserAuthorization user 
+            , string publicProfileUrl 
+            , int start 
+            , int count 
             , FieldSelector<Profiles.Connections> fields = null
         )
         {
@@ -5294,11 +5430,11 @@ namespace Sparkle.LinkedInNET.Profiles
         /// returns a list of 1st degree connections for a user 
         /// </summary>
         public Profiles.Connections GetNewConnectionsByProfileId(
-              UserAuthorization user
-            , string memberToken
-            , int start
-            , int count
-            , long modifiedSince
+              UserAuthorization user 
+            , string memberToken 
+            , int start 
+            , int count 
+            , long modifiedSince 
             , FieldSelector<Profiles.Connections> fields = null
         )
         {
@@ -5321,11 +5457,11 @@ namespace Sparkle.LinkedInNET.Profiles
         /// returns a list of 1st degree connections for a user 
         /// </summary>
         public Profiles.Connections GetNewConnectionsByPublicProfile(
-              UserAuthorization user
-            , string publicProfileUrl
-            , int start
-            , int count
-            , long modifiedSince
+              UserAuthorization user 
+            , string publicProfileUrl 
+            , int start 
+            , int count 
+            , long modifiedSince 
             , FieldSelector<Profiles.Connections> fields = null
         )
         {
@@ -5348,11 +5484,11 @@ namespace Sparkle.LinkedInNET.Profiles
         /// returns a list of 1st degree connections for a user 
         /// </summary>
         public Profiles.Connections GetUpdatedConnectionsByProfileId(
-              UserAuthorization user
-            , string memberToken
-            , int start
-            , int count
-            , long modifiedSince
+              UserAuthorization user 
+            , string memberToken 
+            , int start 
+            , int count 
+            , long modifiedSince 
             , FieldSelector<Profiles.Connections> fields = null
         )
         {
@@ -5375,11 +5511,11 @@ namespace Sparkle.LinkedInNET.Profiles
         /// returns a list of 1st degree connections for a user 
         /// </summary>
         public Profiles.Connections GetUpdatedConnectionsByPublicProfile(
-              UserAuthorization user
-            , string publicProfileUrl
-            , int start
-            , int count
-            , long modifiedSince
+              UserAuthorization user 
+            , string publicProfileUrl 
+            , int start 
+            , int count 
+            , long modifiedSince 
             , FieldSelector<Profiles.Connections> fields = null
         )
         {
@@ -5402,7 +5538,7 @@ namespace Sparkle.LinkedInNET.Profiles
         /// returns the original picture posted by the user, fields selector are ignored
         /// </summary>
         public Profiles.PictureUrls GetOriginalProfilePicture(
-              UserAuthorization user
+              UserAuthorization user 
             , FieldSelector<Profiles.PictureUrls> fields = null
         )
         {
@@ -5445,7 +5581,7 @@ namespace Sparkle.LinkedInNET.Companies
         /// Hacker Summary
         /// </summary>
         public Companies.Company GetList(
-              UserAuthorization user
+              UserAuthorization user 
             , FieldSelector<Companies.Company> fields = null
         )
         {
@@ -5468,8 +5604,8 @@ namespace Sparkle.LinkedInNET.Companies
         /// retrieve a company by using the company ID
         /// </summary>
         public Companies.Company GetById(
-              UserAuthorization user
-            , string companyId
+              UserAuthorization user 
+            , string companyId 
             , FieldSelector<Companies.Company> fields = null
         )
         {
@@ -5492,8 +5628,8 @@ namespace Sparkle.LinkedInNET.Companies
         /// Retrieve a company by universal-name.
         /// </summary>
         public Companies.Company GetByName(
-              UserAuthorization user
-            , string universalName
+              UserAuthorization user 
+            , string universalName 
             , FieldSelector<Companies.Company> fields = null
         )
         {
@@ -5516,8 +5652,8 @@ namespace Sparkle.LinkedInNET.Companies
         /// This returns an array of companies that match to the specified email domain.
         /// </summary>
         public Companies.Company GetListByEmailDomain(
-              UserAuthorization user
-            , string universalName
+              UserAuthorization user 
+            , string universalName 
             , FieldSelector<Companies.Company> fields = null
         )
         {
@@ -5540,8 +5676,8 @@ namespace Sparkle.LinkedInNET.Companies
         /// Retrieve the company's updates
         /// </summary>
         public Companies.CompanyUpdates GetShares(
-              UserAuthorization user
-            , int id
+              UserAuthorization user 
+            , int id 
             , FieldSelector<Companies.CompanyUpdates> fields = null
         )
         {
@@ -5564,10 +5700,10 @@ namespace Sparkle.LinkedInNET.Companies
         /// 
         /// </summary>
         public Companies.CompanySearch Search(
-              UserAuthorization user
-            , int start
-            , int count
-            , string keywords
+              UserAuthorization user 
+            , int start 
+            , int count 
+            , string keywords 
             , FieldSelector<Companies.CompanySearch> fields = null
         )
         {
@@ -5590,11 +5726,11 @@ namespace Sparkle.LinkedInNET.Companies
         /// 
         /// </summary>
         public Companies.CompanySearch FacetSearch(
-              UserAuthorization user
-            , int start
-            , int count
-            , string keywords
-            , string facet
+              UserAuthorization user 
+            , int start 
+            , int count 
+            , string keywords 
+            , string facet 
             , FieldSelector<Companies.CompanySearch> fields = null
         )
         {
@@ -5620,8 +5756,8 @@ namespace Sparkle.LinkedInNET.Companies
         /// See https://developer.linkedin.com/creating-company-shares
         /// </remarks>
         public Common.PostShareResult Share(
-              UserAuthorization user
-            , int companyId
+              UserAuthorization user 
+            , int companyId 
             , Common.PostShare postData
         )
         {
@@ -5703,6 +5839,34 @@ namespace Sparkle.LinkedInNET.Social
         internal SocialApi(LinkedInApi linkedInApi)
             : base(linkedInApi)
         {
+        }
+        
+        /// <summary>
+        /// retrieve the member's updates
+        /// </summary>
+        public Social.UserUpdates GetMyUpdates(
+              UserAuthorization user 
+            , int start = 0
+            , int count = 50
+            , DateTime? before = null
+            , DateTime? after = null
+            , bool showHiddenMembers = false
+            , FieldSelector<Social.UserUpdates> fields = null
+        )
+        {
+            const string urlFormat = "/v1/people/~/network/updates?scope=self&start={int start = 0}&count={int count = 50}&before={DateTime? before = null}&after={DateTime? after = null}&show-hidden-members={bool showHiddenMembers = false}";
+            var url = FormatUrl(urlFormat, fields, "int start = 0", start, "int count = 50", count, "DateTime? before = null", before, "DateTime? after = null", after, "bool showHiddenMembers = false", showHiddenMembers);
+
+            var context = new RequestContext();
+            context.UserAuthorization = user;
+            context.Method =  "GET";
+            context.UrlPath = this.LinkedInApi.Configuration.BaseApiUrl + url;
+
+            if (!this.ExecuteQuery(context))
+                this.HandleJsonErrorResponse(context);
+            
+            var result = this.HandleJsonResponse<Social.UserUpdates>(context);
+            return result;
         }
         
     }

@@ -67,8 +67,34 @@ namespace Sparkle.LinkedInNET.Tests
             Assert.AreEqual("a:(site-standard-profile-request/url)a", result);
         }
 
+        [TestMethod]
+        public void DefaultValueAndType()
+        {
+            var target = new Api();
+            var result = target.FormatUrlInvoke("a{bool b = false}z", "bool b = false", true.ToString());
+            Assert.AreEqual("aTruez", result);
+        }
+
+        [TestMethod]
+        public void NullableDateTimeGetsConvertedToUnixTs()
+        {
+            var target = new Api();
+            DateTime? date = new DateTime(2015, 4, 4, 16, 32, 17, 3, DateTimeKind.Utc);
+            var result = target.FormatUrlInvoke("a{DateTime? date}z", "DateTime? date", date);
+            Assert.AreEqual("a1428165137003z", result);
+        }
+
+        [TestMethod]
+        public void DateTimeGetsConvertedToUnixTs()
+        {
+            var target = new Api();
+            DateTime date = new DateTime(2015, 4, 4, 16, 32, 17, 3, DateTimeKind.Utc);
+            var result = target.FormatUrlInvoke("a{DateTime date}z", "DateTime date", date);
+            Assert.AreEqual("a1428165137003z", result);
+        }
+
         ////[TestMethod]
-        ////public void FormatUrl1()
+        ////public void FormatUrlWithQueryString()
         ////{
         ////    var target = new Api();
         ////    var result = target.FormatUrlInvoke("path?a=1&{Query}");
@@ -88,12 +114,12 @@ namespace Sparkle.LinkedInNET.Tests
         {
         }
 
-        public string FormatUrlInvoke(string format, params string[] values)
+        public string FormatUrlInvoke(string format, params object[] values)
         {
             return FormatUrl(format, values);
         }
 
-        public string FormatUrlInvoke(string format, FieldSelector fields, params string[] values)
+        public string FormatUrlInvoke(string format, FieldSelector fields, params object[] values)
         {
             return FormatUrl(format, fields, values);
         }
