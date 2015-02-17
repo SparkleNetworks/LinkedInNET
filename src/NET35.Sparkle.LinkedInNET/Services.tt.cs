@@ -170,6 +170,14 @@ namespace Sparkle.LinkedInNET.Profiles
 
         /// <summary>
         /// Field: 'positions' (on-demand)
+        /// Field: 'positions:(id,title,start-date,end-date,is-current,company)'
+        /// Field: 'positions:(id)'
+        /// Field: 'positions:(title)'
+        /// Field: 'positions:(summary)'
+        /// Field: 'positions:(start-date)'
+        /// Field: 'positions:(end-date)'
+        /// Field: 'positions:(is-current)'
+        /// Field: 'positions:(company)'
         /// </summary>
         [XmlElement(ElementName = "positions")]
         [JsonProperty(PropertyName = "positions")]
@@ -1264,11 +1272,11 @@ namespace Sparkle.LinkedInNET.Profiles
         public string Id { get; set; }
 
         /// <summary>
-        /// Field: 'recommendation-type' (on-demand)
+        /// Field: 'recommendation-type:(code)' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "recommendation-type")]
         [JsonProperty(PropertyName = "recommendationType")]
-        public string RecommendationType { get; set; }
+        public RecommendationType RecommendationType { get; set; }
 
         /// <summary>
         /// Field: 'recommendation-text' (on-demand)
@@ -1282,7 +1290,7 @@ namespace Sparkle.LinkedInNET.Profiles
         /// </summary>
         [XmlElement(ElementName = "recommender")]
         [JsonProperty(PropertyName = "recommender")]
-        public string Recommender { get; set; }
+        public Person Recommender { get; set; }
 
     }
 }
@@ -2360,6 +2368,30 @@ namespace Sparkle.LinkedInNET.Profiles
     }
 }
 
+// WriteReturnTypes(Profiles, recommendation-type)
+namespace Sparkle.LinkedInNET.Profiles
+{
+    using System;
+    using System.Collections.Generic;
+    using System.Xml.Serialization;
+    using Newtonsoft.Json;
+
+    /// <summary>
+    /// Name: 'recommendation-type'
+    /// </summary>
+    [Serializable, XmlRoot("recommendation-type")]
+    public class RecommendationType
+    {
+        /// <summary>
+        /// Field: 'code' (on-demand)
+        /// </summary>
+        [XmlElement(ElementName = "code")]
+        [JsonProperty(PropertyName = "code")]
+        public string Code { get; set; }
+
+    }
+}
+
 // WriteReturnTypes(Profiles, publisher)
 namespace Sparkle.LinkedInNET.Profiles
 {
@@ -2454,7 +2486,7 @@ namespace Sparkle.LinkedInNET.Profiles
     using System.Xml.Serialization;
 
     /// <summary>
-    /// Field selectors for the 'person', 'connections', 'position', 'positions', 'CompanyIdentifier', 'DateParts', 'relation-to-viewer', 'languages', 'language', 'LanguageInfo', 'LanguageProficiency', 'skills', 'skill', 'skill', 'certifications', 'certification', 'educations', 'education', 'courses', 'course', 'volunteer', 'volunteer-experiences', 'volunteer-experience', 'recommendations', 'recommendation', 'phone-numbers', 'phone-number', 'publications', 'publication', 'patents', 'patent', 'status', 'inventors', 'inventor', 'person', 'member-url-resources', 'member-url-resource', 'ProfileRequest', 'headers', 'http-header', 'FollowingInfos', 'FollowingInfosPeople', 'FollowingInfosCompanies', 'FollowingInfosIndustries', 'FollowingInfosSpecialEditions', 'job-bookmarks', 'honors-awards', 'honor-award', 'twitter-accounts', 'twitter-account', 'im-accounts', 'im-account', 'picture-urls', 'specialties', 'site-standard-profile-request', 'location', 'country', 'authority', 'organization', 'cause', 'publisher', 'authors', 'office' return types.
+    /// Field selectors for the 'person', 'connections', 'position', 'positions', 'CompanyIdentifier', 'DateParts', 'relation-to-viewer', 'languages', 'language', 'LanguageInfo', 'LanguageProficiency', 'skills', 'skill', 'skill', 'certifications', 'certification', 'educations', 'education', 'courses', 'course', 'volunteer', 'volunteer-experiences', 'volunteer-experience', 'recommendations', 'recommendation', 'phone-numbers', 'phone-number', 'publications', 'publication', 'patents', 'patent', 'status', 'inventors', 'inventor', 'person', 'member-url-resources', 'member-url-resource', 'ProfileRequest', 'headers', 'http-header', 'FollowingInfos', 'FollowingInfosPeople', 'FollowingInfosCompanies', 'FollowingInfosIndustries', 'FollowingInfosSpecialEditions', 'job-bookmarks', 'honors-awards', 'honor-award', 'twitter-accounts', 'twitter-account', 'im-accounts', 'im-account', 'picture-urls', 'specialties', 'site-standard-profile-request', 'location', 'country', 'authority', 'organization', 'cause', 'recommendation-type', 'publisher', 'authors', 'office' return types.
     /// </summary>
     public static class ProfilesFields {
         /// <summary>
@@ -2605,11 +2637,60 @@ namespace Sparkle.LinkedInNET.Profiles
         public static FieldSelector<Person> WithSpecialties(this FieldSelector<Person> me) { return me.Add("specialties"); }
         
         /// <summary>
-        /// Includes the field 'positions'.
+        /// Includes the field 'positions:(id,title,start-date,end-date,is-current,company)'.
         /// </summary>
         /// <param name="me">The field selector.</param>
         /// <returns>The field selector.</returns>
-        public static FieldSelector<Person> WithPositions(this FieldSelector<Person> me) { return me.Add("positions"); }
+        public static FieldSelector<Person> WithPositions(this FieldSelector<Person> me) { return me.Add("positions:(id,title,start-date,end-date,is-current,company)"); }
+        
+        /// <summary>
+        /// Includes the field 'positions:(id)'.
+        /// </summary>
+        /// <param name="me">The field selector.</param>
+        /// <returns>The field selector.</returns>
+        public static FieldSelector<Person> WithPositionsId(this FieldSelector<Person> me) { return me.Add("positions:(id)"); }
+        
+        /// <summary>
+        /// Includes the field 'positions:(title)'.
+        /// </summary>
+        /// <param name="me">The field selector.</param>
+        /// <returns>The field selector.</returns>
+        public static FieldSelector<Person> WithPositionsTitle(this FieldSelector<Person> me) { return me.Add("positions:(title)"); }
+        
+        /// <summary>
+        /// Includes the field 'positions:(summary)'.
+        /// </summary>
+        /// <param name="me">The field selector.</param>
+        /// <returns>The field selector.</returns>
+        public static FieldSelector<Person> WithPositionsSummary(this FieldSelector<Person> me) { return me.Add("positions:(summary)"); }
+        
+        /// <summary>
+        /// Includes the field 'positions:(start-date)'.
+        /// </summary>
+        /// <param name="me">The field selector.</param>
+        /// <returns>The field selector.</returns>
+        public static FieldSelector<Person> WithPositionsStartDate(this FieldSelector<Person> me) { return me.Add("positions:(start-date)"); }
+        
+        /// <summary>
+        /// Includes the field 'positions:(end-date)'.
+        /// </summary>
+        /// <param name="me">The field selector.</param>
+        /// <returns>The field selector.</returns>
+        public static FieldSelector<Person> WithPositionsEndDate(this FieldSelector<Person> me) { return me.Add("positions:(end-date)"); }
+        
+        /// <summary>
+        /// Includes the field 'positions:(is-current)'.
+        /// </summary>
+        /// <param name="me">The field selector.</param>
+        /// <returns>The field selector.</returns>
+        public static FieldSelector<Person> WithPositionsIsCurrent(this FieldSelector<Person> me) { return me.Add("positions:(is-current)"); }
+        
+        /// <summary>
+        /// Includes the field 'positions:(company)'.
+        /// </summary>
+        /// <param name="me">The field selector.</param>
+        /// <returns>The field selector.</returns>
+        public static FieldSelector<Person> WithPositionsCompany(this FieldSelector<Person> me) { return me.Add("positions:(company)"); }
         
         /// <summary>
         /// Includes the field 'picture-url'.
@@ -2896,7 +2977,7 @@ namespace Sparkle.LinkedInNET.Profiles
         /// </summary>
         /// <param name="me">The field selector.</param>
         /// <returns>The field selector.</returns>
-        public static FieldSelector<Person> WithAllFields(this FieldSelector<Person> me) { return me.AddRange("first-name", "last-name", "headline", "site-standard-profile-request", "id", "maiden-name", "formatted-name", "phonetic-first-name", "phonetic-last-name", "formatted-phonetic-name", "location:(name)", "location:(country:(code))", "industry", "distance", "relation-to-viewer", "current-status-timestamp", "current-share", "num-connections", "num-connections-capped", "summary", "specialties", "positions", "picture-url", "site-standard-profile-request", "api-standard-profile-request:(url)", "api-standard-profile-request:(headers)", "public-profile-url", "email-address", "last-modified-timestamp", "proposal-comments", "associations", "interests", "publications", "patents:(id,title,summary,number,status:(id,name),office:(name),inventors:(id,name,person),date,url)", "languages:(id)", "languages:(language)", "languages:(proficiency)", "skills", "certifications:(id,name,authority:(name),number,start-date,end-date)", "educations", "courses", "volunteer:(volunteer-experiences:(id,role,organization:(name),cause:(name)))", "three-current-positions", "three-past-positions", "num-recommenders", "recommendations-received", "following", "job-bookmarks", "suggestions", "date-of-birth", "member-url-resources", "related-profile-views", "honors-awards", "phone-numbers", "bound-account-types", "im-accounts", "main-address", "twitter-accounts", "primary-twitter-account", "connections", "group-memberships", "network"); }
+        public static FieldSelector<Person> WithAllFields(this FieldSelector<Person> me) { return me.AddRange("first-name", "last-name", "headline", "site-standard-profile-request", "id", "maiden-name", "formatted-name", "phonetic-first-name", "phonetic-last-name", "formatted-phonetic-name", "location:(name)", "location:(country:(code))", "industry", "distance", "relation-to-viewer", "current-status-timestamp", "current-share", "num-connections", "num-connections-capped", "summary", "specialties", "positions:(id,title,start-date,end-date,is-current,company)", "positions:(id)", "positions:(title)", "positions:(summary)", "positions:(start-date)", "positions:(end-date)", "positions:(is-current)", "positions:(company)", "picture-url", "site-standard-profile-request", "api-standard-profile-request:(url)", "api-standard-profile-request:(headers)", "public-profile-url", "email-address", "last-modified-timestamp", "proposal-comments", "associations", "interests", "publications", "patents:(id,title,summary,number,status:(id,name),office:(name),inventors:(id,name,person),date,url)", "languages:(id)", "languages:(language)", "languages:(proficiency)", "skills", "certifications:(id,name,authority:(name),number,start-date,end-date)", "educations", "courses", "volunteer:(volunteer-experiences:(id,role,organization:(name),cause:(name)))", "three-current-positions", "three-past-positions", "num-recommenders", "recommendations-received", "following", "job-bookmarks", "suggestions", "date-of-birth", "member-url-resources", "related-profile-views", "honors-awards", "phone-numbers", "bound-account-types", "im-accounts", "main-address", "twitter-accounts", "primary-twitter-account", "connections", "group-memberships", "network"); }
         
         /// <summary>
         /// Includes the field 'id'.

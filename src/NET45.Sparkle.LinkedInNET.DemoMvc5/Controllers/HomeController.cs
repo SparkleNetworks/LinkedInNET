@@ -78,6 +78,7 @@ namespace Sparkle.LinkedInNET.DemoMvc5.Controllers
                         .WithIndustry()
 
                         .WithPositions()
+                        .WithPositionsSummary()
                         .WithThreeCurrentPositions()
                         .WithThreePastPositions()
 
@@ -91,7 +92,8 @@ namespace Sparkle.LinkedInNET.DemoMvc5.Controllers
                         .WithEducations()
                         .WithFullVolunteer()
                         .WithPatents()
-                        ////.WithRecommendationsReceived() // may not use that
+                        .WithRecommendationsReceived() // may not use that
+
                         .WithDateOfBirth()
                         .WithPhoneNumbers()
                         .WithImAccounts()
