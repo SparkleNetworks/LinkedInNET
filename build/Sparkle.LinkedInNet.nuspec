@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>Sparkle.LinkedInNET</id>
+    <version>1.0.0</version>
+    <authors>Sparkle Networks</authors>
+    <owners>Sparkle Networks</owners>
+    <licenseUrl>https://github.com/SparkleNetworks/LinkedInNET/blob/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/SparkleNetworks/LinkedInNET</projectUrl>
+    <iconUrl>https://raw.githubusercontent.com/SparkleNetworks/LinkedInNET/master/src/LiNET-li.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Sparkle.LinkedInNET will help you query the LinkedIn API :)</description>
+    <releaseNotes>Some fixes in profile API.
+Get profile picture of anyone by any size.
+Minor changes.</releaseNotes>
+    <copyright>LGPL v3</copyright>
+    <tags>LinkedIn API</tags>
+    <dependencies>
+      <dependency id="Newtonsoft.Json" version="4.5.8" />
+    </dependencies>
+  </metadata>
+</package>

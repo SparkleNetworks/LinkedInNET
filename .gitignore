@@ -13,7 +13,7 @@
 [Rr]eleases/
 x64/
 x86/
-build/
+build/lib/
 bld/
 [Bb]in/
 [Oo]bj/
@@ -138,6 +138,7 @@ publish/
 !**/packages/build/
 # If using the old MSBuild-Integrated Package Restore, uncomment this:
 #!**/packages/repositories.config
+tools/NuGet.exe
 
 # Windows Azure Build Output
 csx/
