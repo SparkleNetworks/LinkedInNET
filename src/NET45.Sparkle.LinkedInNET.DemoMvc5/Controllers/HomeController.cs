@@ -92,7 +92,8 @@ namespace Sparkle.LinkedInNET.DemoMvc5.Controllers
                         .WithEducations()
                         .WithFullVolunteer()
                         .WithPatents()
-                        .WithRecommendationsReceived() // may not use that
+                        ////.WithRecommendationsReceived() // may not use that
+                        .WithRecommendationsReceivedWithAdditionalRecommenderInfo()
 
                         .WithDateOfBirth()
                         .WithPhoneNumbers()
@@ -190,6 +191,8 @@ namespace Sparkle.LinkedInNET.DemoMvc5.Controllers
                     .WithEducations()
                     .WithFullVolunteer()
                     //.WithRecommendationsReceived() // may not use that
+                    .WithRecommendationsReceivedWithAdditionalRecommenderInfo()
+
                     .WithDateOfBirth()
                     .WithPhoneNumbers()
                     .WithImAccounts()

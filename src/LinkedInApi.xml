@@ -145,7 +145,10 @@
       <Field Name="three-current-positions"  Type="PersonPositions"   Title="A collection of positions a member currently holds, limited to three and indicated by a total attribute. You can use the &lt;positions&gt; collection to get the full set or use this collection to limit the return to just the first three positions." Remark="https://developer.linkedin.com/documents/profile-fields#positions" />
       <Field Name="three-past-positions"     Type="PersonPositions"   Title="A collection of positions a member formerly held, limited to the three most recent and indicated by a total attribute. You can use the &lt;positions&gt; collection to get the full set or use  this collection to limit the return to just the first three positions." Remark="https://developer.linkedin.com/documents/profile-fields#positions" />
       <Field Name="num-recommenders"                                  Title="The number of recommendations the member has" Remark="" />
-      <Field Name="recommendations-received" Type="Recommendations"   Title="A collection of recommendations a member has received." Remark="https://developer.linkedin.com/documents/profile-fields#recommendations" />
+      <Field Name="recommendations-received" Type="Recommendations"   Title="A collection of recommendations a member has received." Remark="https://developer.linkedin.com/documents/profile-fields#recommendations" >
+        <FieldSelector Name="recommendations-received" PropertyName="RecommendationsReceived" />
+        <FieldSelector Name="recommendations-received:(id,recommendation-type:(code),recommendation-text,recommender:(id,first-name,last-name,num-connections,headline))" PropertyName="RecommendationsReceivedWithAdditionalRecommenderInfo" />
+      </Field>
       <Field Name="following"                Type="FollowingInfos"    Title="a collection of people, company, and industries that the member is following" Remark="" />
       <Field Name="job-bookmarks"            Type="JobBookmarks"      Title="a collection of jobs that the member is following" Remark="" />
       <Field Name="suggestions"              Ignore="1"               Title="a collection of people, company, and industries suggested for the member to follow" Remark="" />
