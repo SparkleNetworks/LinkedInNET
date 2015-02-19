@@ -1,20 +1,27 @@
 ﻿@model Sparkle.LinkedInNET.Profiles.Person
 @{
     
+    IList<string> pictures = null;
+    var pictureUrls = (Sparkle.LinkedInNET.Profiles.PictureUrls)this.ViewBag.Pictures;
+    if (pictureUrls != null)
+    {
+        pictures = pictureUrls.PictureUrl ?? new List<string>();
+        if (Model != null && Model.PictureUrl != null)
+        {
+            pictures.Add(Model.PictureUrl);
+        }
+    }
 }
 
 <h1>@Html.ActionLink("Explore", "Index")</h1>
 
 <h2>@Model.Firstname @Model.Lastname</h2>
 <dl class="srkdl">
-    <dt>Picture</dt>
-    <dd>
-@if (Model.PictureUrl != null) {
-<img src="@Model.PictureUrl" alt="picture" title="@Model.PictureUrl" />
-} else {
-@:none
-}
-    </dd>
+    @foreach (var item in pictures)
+    {
+        <dt>Picture</dt>
+        <dd><img src="@item" /></dd>
+    }
 
     <dt>Name</dt>
     <dd>@(Model.Firstname) @(Model.Lastname)</dd>

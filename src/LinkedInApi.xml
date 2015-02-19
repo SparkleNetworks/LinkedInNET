@@ -49,7 +49,20 @@
     <ApiMethod MethodName="GetOriginalProfilePicture" HttpMethod="GET" ReturnType="PictureUrls"
       Title="returns the original picture posted by the user, fields selector are ignored"
       Path="/v1/people/~/picture-urls::(original)"
-      RequiresUserAuthentication="1" />
+      RequiresUserAuthentication="1" UseFieldSelectors="0" />
+    <ApiMethod MethodName="GetProfilePicture" HttpMethod="GET" ReturnType="PictureUrls"
+      Title="returns the original picture posted by the user, fields selector are ignored"
+      Path="/v1/people/~/picture-urls::({short width}x{short height})"
+      RequiresUserAuthentication="1" UseFieldSelectors="0" />
+
+    <ApiMethod MethodName="GetOriginalProfilePicture" HttpMethod="GET" ReturnType="PictureUrls"
+      Title="returns the original picture posted by the user, fields selector are ignored"
+      Path="/v1/people/id={MemberToken}/picture-urls::(original)"
+      RequiresUserAuthentication="1" UseFieldSelectors="0" />
+    <ApiMethod MethodName="GetProfilePicture" HttpMethod="GET" ReturnType="PictureUrls"
+      Title="returns the original picture posted by the user, fields selector are ignored"
+      Path="/v1/people/id={MemberToken}/picture-urls::({short width}x{short height})"
+      RequiresUserAuthentication="1" UseFieldSelectors="0" />
 
     <ReturnType Name="person" ClassName="Person" AutoGenerateFieldSelectors="1">
 

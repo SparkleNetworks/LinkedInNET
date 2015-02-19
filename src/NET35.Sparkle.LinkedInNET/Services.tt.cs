@@ -4803,7 +4803,6 @@ namespace Sparkle.LinkedInNET.Social
     [Serializable, XmlRoot("UserUpdateContent")]
     public class UserUpdateContent
     {
-        // fieldReturnType = ReturnType(N='person' CN='Person' F=60 FS=0)
         /// <summary>
         /// Field: 'person' (on-demand)
         /// </summary>
@@ -4811,8 +4810,6 @@ namespace Sparkle.LinkedInNET.Social
         [JsonProperty(PropertyName = "person")]
         public Sparkle.LinkedInNET.Profiles.Person Person { get; set; }
 
-        // fieldReturnType = ReturnType(N='user-status-update' CN='UserStatusUpdate' F=1 FS=0)
-        // oldType = UserStatusUpdate | newType = UserStatusUpdate
         /// <summary>
         /// Field: 'person-status-update' (on-demand)
         /// </summary>
@@ -4837,7 +4834,6 @@ namespace Sparkle.LinkedInNET.Social
     [Serializable, XmlRoot("user-status-update")]
     public class UserStatusUpdate
     {
-        // fieldReturnType = 
         /// <summary>
         /// Field: 'share' (on-demand)
         /// </summary>
@@ -5620,10 +5616,81 @@ namespace Sparkle.LinkedInNET.Profiles
         /// </summary>
         public Profiles.PictureUrls GetOriginalProfilePicture(
               UserAuthorization user 
-            , FieldSelector<Profiles.PictureUrls> fields = null
         )
         {
             var url = "/v1/people/~/picture-urls::(original)";
+
+            var context = new RequestContext();
+            context.UserAuthorization = user;
+            context.Method =  "GET";
+            context.UrlPath = this.LinkedInApi.Configuration.BaseApiUrl + url;
+
+            if (!this.ExecuteQuery(context))
+                this.HandleJsonErrorResponse(context);
+            
+            var result = this.HandleJsonResponse<Profiles.PictureUrls>(context);
+            return result;
+        }
+        
+        /// <summary>
+        /// returns the original picture posted by the user, fields selector are ignored
+        /// </summary>
+        public Profiles.PictureUrls GetProfilePicture(
+              UserAuthorization user 
+            , short width 
+            , short height 
+        )
+        {
+            const string urlFormat = "/v1/people/~/picture-urls::({short width}x{short height})";
+            var url = FormatUrl(urlFormat, default(FieldSelector), "short width", width, "short height", height);
+
+            var context = new RequestContext();
+            context.UserAuthorization = user;
+            context.Method =  "GET";
+            context.UrlPath = this.LinkedInApi.Configuration.BaseApiUrl + url;
+
+            if (!this.ExecuteQuery(context))
+                this.HandleJsonErrorResponse(context);
+            
+            var result = this.HandleJsonResponse<Profiles.PictureUrls>(context);
+            return result;
+        }
+        
+        /// <summary>
+        /// returns the original picture posted by the user, fields selector are ignored
+        /// </summary>
+        public Profiles.PictureUrls GetOriginalProfilePicture(
+              UserAuthorization user 
+            , string memberToken 
+        )
+        {
+            const string urlFormat = "/v1/people/id={MemberToken}/picture-urls::(original)";
+            var url = FormatUrl(urlFormat, default(FieldSelector), "MemberToken", memberToken);
+
+            var context = new RequestContext();
+            context.UserAuthorization = user;
+            context.Method =  "GET";
+            context.UrlPath = this.LinkedInApi.Configuration.BaseApiUrl + url;
+
+            if (!this.ExecuteQuery(context))
+                this.HandleJsonErrorResponse(context);
+            
+            var result = this.HandleJsonResponse<Profiles.PictureUrls>(context);
+            return result;
+        }
+        
+        /// <summary>
+        /// returns the original picture posted by the user, fields selector are ignored
+        /// </summary>
+        public Profiles.PictureUrls GetProfilePicture(
+              UserAuthorization user 
+            , string memberToken 
+            , short width 
+            , short height 
+        )
+        {
+            const string urlFormat = "/v1/people/id={MemberToken}/picture-urls::({short width}x{short height})";
+            var url = FormatUrl(urlFormat, default(FieldSelector), "MemberToken", memberToken, "short width", width, "short height", height);
 
             var context = new RequestContext();
             context.UserAuthorization = user;

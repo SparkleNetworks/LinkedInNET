@@ -41,12 +41,24 @@ namespace Sparkle.LinkedInNET.DemoMvc5.Controllers
                 var fields = FieldSelector.For<Person>()
                     .WithPositions().WithId().WithPictureUrl()
                     .WithFirstName().WithLastName().WithHeadline();
-                    ////.WithConnections();
+                ////.WithConnections();
                 this.ViewData["MyProfile"] = this.api.Profiles.GetMyProfile(user, acceptLanguages, fields);
                 this.ViewBag.Profile = this.ViewData["MyProfile"];
-                this.ViewData["ProfilePictures"] = this.api.Profiles.GetOriginalProfilePicture(user)
-                    ?? new PictureUrls() { PictureUrl = new List<string>() };
-                this.ViewBag.Pictures = this.ViewData["ProfilePictures"];
+
+                {
+                    var pictures = this.api.Profiles.GetOriginalProfilePicture(user)
+                        ?? new PictureUrls() { PictureUrl = new List<string>() };
+
+                    {
+                        var more = this.api.Profiles.GetProfilePicture(user, 120, 120);
+                        if (more != null && more.PictureUrl != null)
+                        {
+                            pictures.PictureUrl.AddRange(more.PictureUrl);
+                        }
+                    }
+
+                    this.ViewBag.Pictures = this.ViewData["ProfilePictures"] = pictures;
+                }
             }
 
             ////{
@@ -93,11 +105,21 @@ namespace Sparkle.LinkedInNET.DemoMvc5.Controllers
                 .WithFirstName().WithLastName().WithHeadline()
                 .WithLanguageId().WithLanguageName().WithLanguageProficiency()
                 .WithConnections();
-            var company = this.api.Profiles.GetProfileById(user, id, acceptLanguages, fields);
-            //this.ViewData["ProfilePictures"] = this.api.Profiles.GetOriginalProfilePicture(user);
-            //this.ViewBag.Pictures = this.ViewData["ProfilePictures"];
+            var profile = this.api.Profiles.GetProfileById(user, id, acceptLanguages, fields);
 
-            return this.View(company);
+            {
+                var pictures = this.api.Profiles.GetOriginalProfilePicture(user, profile.Id)
+                     ?? new PictureUrls() { PictureUrl = new List<string>() };
+                var more = this.api.Profiles.GetProfilePicture(user, profile.Id, 120, 120);
+                if (more != null && more.PictureUrl != null)
+                {
+                    pictures.PictureUrl.AddRange(more.PictureUrl);
+                }
+
+                this.ViewBag.Pictures = this.ViewData["ProfilePictures"] = pictures;
+            }
+
+            return this.View(profile);
         }
 
         public ActionResult Connections(string id, string culture = "en-US", int start = 0, int count = 10, int? days = null)
