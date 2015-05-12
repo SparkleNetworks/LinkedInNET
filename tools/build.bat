@@ -70,7 +70,7 @@ echo Copy libs
 echo -----------------------------
 mkdir %outputDirectory%\lib
 mkdir %outputDirectory%\lib\net40
-xcopy /Q %solutionDirectory%\NET40.Sparkle.LinkedInNET\bin\Release\Sparkle* %outputDirectory%\lib\net40
+xcopy /Y /Q %solutionDirectory%\NET40.Sparkle.LinkedInNET\bin\Release\Sparkle* %outputDirectory%\lib\net40
 echo Done.
 
 

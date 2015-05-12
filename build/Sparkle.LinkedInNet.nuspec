@@ -10,9 +10,7 @@
     <iconUrl>https://raw.githubusercontent.com/SparkleNetworks/LinkedInNET/master/src/LiNET-li.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Sparkle.LinkedInNET will help you query the LinkedIn API :)</description>
-    <releaseNotes>Some fixes in profile API.
-Get profile picture of anyone by any size.
-Minor changes.</releaseNotes>
+    <releaseNotes>Added new authorization scope w_share.</releaseNotes>
     <copyright>LGPL v3</copyright>
     <tags>LinkedIn API</tags>
     <dependencies>
