@@ -8,7 +8,7 @@ Sparkle.LinkedInNET will help you query the LinkedIn API :)
 
 **WARNING: [LinkedIn is changing a lot of things in its developer program](https://developer.linkedin.com/blog/posts/2015/developer-program-changes). When using this API, your applications might break on May 12, 2015**. 
 
-**WARNING**: many documented URLs in this project are broken because LinkedIn changed the documentation pages. Here is the [old documentation via the WaybackMachine](https://web.archive.org/web/20140719025807/http://developer.linkedin.com/documents/people).
+**WARNING:** many documented URLs in this project are broken because LinkedIn changed the documentation pages. Here is the [old documentation via the WaybackMachine](https://web.archive.org/web/20140719025807/http://developer.linkedin.com/documents/people).
 
 > Starting on May 12, 2015, we will be limiting the open APIs to only support the following uses:
 
@@ -47,7 +47,7 @@ Or build the sources... You have to create your own .snk file.
 
 ### 2. Create API client with configuration
 
-The `LinkedInApi` class is the entry point for all API calls. You must instantiate it with a configuration object. The minimum configuration is the API key and secret.  
+The `LinkedInApi` class is the entry point for all API calls. You must instantiate it with a configuration object. The minimum configuration is the API key and secret.  [Get a LinkedIn API key](https://www.linkedin.com/secure/developer).
 
 ````csharp
 // create from config file
@@ -119,6 +119,8 @@ var profile = api.Profiles.GetMyProfile(
 // however it is not recommended to specify all fields
 ````
 
+You can create your own extension methods when you desire many fields. Check the source code to see how it works.
+
 ### 7. Errors
 
 API error results throw `LinkedInApiException`s. You can find extra info in the Data collection.
@@ -148,7 +150,7 @@ You should not catch `WebException`s as they are wrapped into `LinkedInApiExcept
 
 ### 8. Explore
 
-Code documentation is quite present. You auto-completion to discover stuff.
+Code documentation is quite present. Use auto-completion to discover stuff.
 
 The MVC demo app has a /Explore page that demonstrates most API calls. Have a look at it.
 
