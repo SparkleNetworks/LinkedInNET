@@ -44,7 +44,7 @@
         <dd><em>@position.Title</em> at 
         @if (position.Company != null){
             if (position.Company.Id > 0){
-                @Html.ActionLink(position.Company.Name, "Company", new { id = position.Company.Id, })
+                @Html.ActionLink(position.Company.Name ?? "???????", "Company", new { id = position.Company.Id, })
             }else{
                 <strong>@position.Company.Name</strong>
             }
