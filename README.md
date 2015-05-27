@@ -6,9 +6,18 @@ LinkedInNET
 
 Sparkle.LinkedInNET will help you query the LinkedIn API :)
 
-**WARNING: [LinkedIn is changing a lot of things in its developer program](https://developer.linkedin.com/blog/posts/2015/developer-program-changes). When using this API, your applications might break on May 12, 2015**. 
+Motivation
+------------
 
-**WARNING:** many documented URLs in this project are broken because LinkedIn changed the documentation pages. Here is the [old documentation via the WaybackMachine](https://web.archive.org/web/20140719025807/http://developer.linkedin.com/documents/people).
+Bring the .NET world a nice LinkedIn client library.
+
+
+Before you start - About LinkedIn API recent changes
+----------------------------------------------------------------
+
+**[LinkedIn recently changed a lot of things in its developer program](https://developer.linkedin.com/blog/posts/2015/developer-program-changes). When using this API, your applications might break on May 12, 2015**. 
+
+Many documented URLs in this project are broken because LinkedIn changed the documentation pages. Here is the [old documentation via the WaybackMachine](https://web.archive.org/web/20140719025807/http://developer.linkedin.com/documents/people).
 
 > Starting on May 12, 2015, we will be limiting the open APIs to only support the following uses:
 
@@ -23,14 +32,11 @@ Sparkle.LinkedInNET will help you query the LinkedIn API :)
 
 > -- [Changes to our Developer Program](https://developer.linkedin.com/blog/posts/2015/developer-program-changes), February 12, 2015
 
+See also [Transition FAQ](https://developer.linkedin.com/blog/posts/2015/transition-faq), [D-Day's changes](https://developer.linkedin.com/blog/posts/2015/todays-changes).
+
 By using the LinkedIn APIs you agree to the [LinkedIn APIs Terms of Use](https://developer.linkedin.com/documents/linkedin-apis-terms-use).  
 This project is released under the LGPL v3 license.  
 This is NOT an official client library.
-
-Motivation
-------------
-
-Bring the .NET world a nice LinkedIn client library.
 
 Usage
 ------------
@@ -70,7 +76,7 @@ var api = new LinkedInApi(config);
 
 ### 3. Create OAuth2 authorize url
 
-The OAuth2 authentication process is fully supported. The `GetAUthorizationUrl` method will generate the OAuth2 url to navigate the user to.
+The OAuth2 authentication process is fully supported. The `GetAuthorizationUrl` method will generate the OAuth2 url to navigate the user to.
 
 ````csharp
 var scope = AuthorizationScope.ReadBasicProfile | AuthorizationScope.ReadEmailAddress;
@@ -82,7 +88,7 @@ var url = api.OAuth2.GetAuthorizationUrl(scope, state, redirectUrl);
 
 ### 4. Get access token
 
-When redirected to your own website, you can get an access code.
+When the user is redirected back to your website, you can get an access code.
 
 ````csharp
 // http://mywebsite/LinkedIn/OAuth2?code=...&state=...
@@ -109,7 +115,7 @@ var profile = api.Profiles.GetMyProfile(
 // https://api.linkedin.com/v1/people/~:(first-name,last-name,location:(name))
 ````
 
-The `.WithAllFields()` method will generate the list of all available fields. LinkedIn recommends not to do that.
+The `.WithAllFields()` method will generate the list of all available fields. It is not recommended to do that.
 
 ````csharp
 var profile = api.Profiles.GetMyProfile(
@@ -150,7 +156,7 @@ You should not catch `WebException`s as they are wrapped into `LinkedInApiExcept
 
 ### 8. Explore
 
-Code documentation is quite present. Use auto-completion to discover stuff.
+Code documentation is quite present. Use the auto-completion to discover stuff.
 
 The MVC demo app has a /Explore page that demonstrates most API calls. Have a look at it.
 
@@ -189,5 +195,7 @@ We are using a lot of code generation so it won't be difficult to target 4.5 or 
 
 Status
 ------------
+
+Because of the API policy changes, most API calls are now reserved to the partners LinkedIn chose. We will try to keep up using our basic API key.
 
 See our [internal to-do list](src/ToDo.md).
