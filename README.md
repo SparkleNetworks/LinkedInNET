@@ -4,6 +4,8 @@
 LinkedInNET
 ===========
 
+[![Join the chat at https://gitter.im/SparkleNetworks/LinkedInNET](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/SparkleNetworks/LinkedInNET?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 Sparkle.LinkedInNET will help you query the LinkedIn API :)
 
 Motivation
