@@ -69,7 +69,7 @@ namespace Sparkle.LinkedInNET.DemoMvc5.Controllers
             return this.View();
         }
 
-        public ActionResult Company(int id, string culture = "en-US")
+        public ActionResult Company(int id, string culture = "en-US", int start = 0, int count = 10, string eventType = null)
         {
             var token = this.data.GetAccessToken();
             this.ViewBag.Token = token;
@@ -85,7 +85,7 @@ namespace Sparkle.LinkedInNET.DemoMvc5.Controllers
 
             {
                 var fields = FieldSelector.For<CompanyUpdates>();
-                var shares = this.api.Companies.GetShares(user, id);
+                var shares = this.api.Companies.GetShares(user, id, start, count, eventType);
                 this.ViewBag.Shares = shares;
             }
             
