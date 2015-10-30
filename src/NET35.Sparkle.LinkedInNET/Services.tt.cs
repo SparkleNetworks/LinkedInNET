@@ -5835,11 +5835,14 @@ namespace Sparkle.LinkedInNET.Companies
         public Companies.CompanyUpdates GetShares(
               UserAuthorization user 
             , int id 
+            , int start 
+            , int count 
+            , string type 
             , FieldSelector<Companies.CompanyUpdates> fields = null
         )
         {
-            const string urlFormat = "/v1/companies/{int id}/updates";
-            var url = FormatUrl(urlFormat, fields, "int id", id);
+            const string urlFormat = "/v1/companies/{int id}/updates?start={int start}&count={int count}&event-type={type}";
+            var url = FormatUrl(urlFormat, fields, "int id", id, "int start", start, "int count", count, "type", type);
 
             var context = new RequestContext();
             context.UserAuthorization = user;
