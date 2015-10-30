@@ -800,6 +800,24 @@
 
   </ApiGroup>
 
+  <!--<ApiGroup Name="Messages"> WORK IN PROGRESS, see https://github.com/SparkleNetworks/LinkedInNET/issues/2
+    <ApiMethod MethodName="Send" HttpMethod="POST"
+      Path="/v1/people/~/mailbox"
+      RequiresUserAuthentication="1" />
+
+    <ReturnType Name="mailbox-item" ClassName="Message">
+      <Field Name="recipients" Type="MessageRecipients" IsCollection="1" />
+      <Field Name="subject" />
+      <Field Name="body" />
+    </ReturnType>
+    <ReturnType Name="MessageRecipients">
+      <Field Name="values" Type="MessageRecipient" IsCollection="1" />
+    </ReturnType>
+    <ReturnType Name="MessageRecipient">
+      <Field Name="values" Type="MessageRecipient" IsCollection="1" />
+    </ReturnType>
+  </ApiGroup>-->
+
   <ApiGroup Name="Common">
     <ReturnType Name="share" AutoGenerateFieldSelectors="1">
       <Field Name="id" />
