@@ -10,7 +10,7 @@
     <iconUrl>https://raw.githubusercontent.com/SparkleNetworks/LinkedInNET/master/src/LiNET-li.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Sparkle.LinkedInNET will help you query the LinkedIn API. License: GNU LGPL v3.</description>
-    <releaseNotes>Added new authorization scope w_share.</releaseNotes>
+    <releaseNotes>Added optional fields 'start', 'count', and 'event-type' to the Company GetShares method..</releaseNotes>
     <copyright>Sparkle Networks, SandRock, Tazacban, Andrew Clark</copyright>
     <tags>LinkedIn API</tags>
     <dependencies>
