@@ -53,6 +53,8 @@ PM> Install-Package Sparkle.LinkedInNET
 
 Or build the sources... You have to create your own .snk file.
 
+Supported frameworks: 3.5 (sync), 4.0 (sync), 4.5 (sync and task async).
+
 ### 2. Create API client with configuration
 
 The `LinkedInApi` class is the entry point for all API calls. You must instantiate it with a configuration object. The minimum configuration is the API key and secret.  [Get a LinkedIn API key](https://www.linkedin.com/secure/developer).
@@ -61,7 +63,7 @@ The `LinkedInApi` class is the entry point for all API calls. You must instantia
 // create from config file
 var config = LinkedInApiConfiguration.FromAppSettings("MyDemo.LinkedInConnect");
 // or manually
-var config = LinkedInApiConfiguration("api key", "api secret key");
+var config = LinkedInApiConfiguration("•api•key•••", "•api•secret•key••••••");
 
 // get the APIs client
 var api = new LinkedInApi(config);
@@ -70,8 +72,8 @@ var api = new LinkedInApi(config);
 ````xml
 <configuration>
   <appSettings>
-    <add key="MyDemo.LinkedInConnect.ApiKey" value="•••••••" />
-    <add key="MyDemo.LinkedInConnect.ApiSecretKey" value="•••••••••••••" />
+    <add key="MyDemo.LinkedInConnect.ApiKey" value="•api•key•••" />
+    <add key="MyDemo.LinkedInConnect.ApiSecretKey" value="•api•secret•key••••••" />
   </appSettings>
 </configuration>
 ````
@@ -86,6 +88,7 @@ var state = Guid.NewGuid().ToString();
 var redirectUrl = "http://mywebsite/LinkedIn/OAuth2";
 var url = api.OAuth2.GetAuthorizationUrl(scope, state, redirectUrl);
 // https://www.linkedin.com/uas/oauth2/authorization?response_type=code&client_id=...
+// now redirect your user there
 ````
 
 ### 4. Get access token
@@ -94,7 +97,20 @@ When the user is redirected back to your website, you can get an access code.
 
 ````csharp
 // http://mywebsite/LinkedIn/OAuth2?code=...&state=...
-var userToken = api.OAuth2.GetAccessToken(code, redirectUrl);
+public async Task<ActionResult> OAuth2(string code, string state, string error, string error_description)
+{
+    if (!string.IsNullOrEmpty(error) || !string.IsNullOrEmpty(error_description))
+    {
+        // handle error and error_description
+    }
+    else
+    {
+        var userToken = api.OAuth2.GetAccessToken(code, redirectUrl);
+        // keep this token for your API requests
+    }
+
+    // ...
+}
 ````
 
 ### 5. Example call: fetch user profile
@@ -165,12 +181,12 @@ The MVC demo app has a /Explore page that demonstrates most API calls. Have a lo
 Contribute
 ------------
 
-We are generating code based on a [XML file](DefinitionFile.md). 
-This XML file is manually filled to represent the API. 
-We worked hard to bring something reliable. 
+We are generating code based on a [XML file](DefinitionFile.md).  
+This XML file is manually filled to represent the API.  
+We worked hard to bring something reliable.  
 The API coverage should be implemented by expanding the XML file and enhancing code generation.
 
-To generate the API code, build the "ServiceDefinition" project in Debug mode, then "Run custom tool" on the `Service.tt` file. The XML file will be read and most of the code will be updated automagically. 
+To generate the API code, build the "ServiceDefinition" project in Debug mode, edit `LinkedInApi.xml`, then use "Run custom tool" on the `Service.tt` file. The XML file will be read and most of the code will be updated automagically. 
   
 To alter code generation, search for `CSharpGenerator.cs`. Different methods are responsible of generating different parts of C# code (return types, api groups, selectors).
   
@@ -189,10 +205,11 @@ https://developer.linkedin.com/documents/authentication
 
 Supported .NET Framework versions:
 
-* .NET 4.0 (dependencies: Newtonsoft.Json ≥ 4.5.8)
-* .NET 3.5 (dependencies: Newtonsoft.Json ≥ 4.5.8)
+* .NET 4.5 (dependencies: Newtonsoft.Json ≥ 6.0.8, Microsoft.Net.Http ≥ 2.2.29)
+* .NET 4.0 (dependencies: Newtonsoft.Json ≥ 6.0.8)
+* .NET 3.5 (dependencies: Newtonsoft.Json ≥ 6.0.8)
 
-We are using a lot of code generation so it won't be difficult to target 4.5 or any other framework. Implementing the async pattern won't be hard either.
+We are using a lot of code generation so it won't be difficult to target any other framework. 
 
 
 Status

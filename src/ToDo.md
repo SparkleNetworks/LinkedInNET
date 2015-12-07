@@ -24,47 +24,6 @@ Links are now broken. Here is the [old documentation via the WaybackMachine](htt
 - [ ] [Accessing Out of Network Profiles](https://developer.linkedin.com/documents/accessing-out-network-profiles)
 - [x] [Profile original picture](http://stackoverflow.com/questions/6955647/getting-linkedin-profile-picture/6963184)
 
-### Groups
-
-#### Group Memberships for a User
-
-- [ ] [Group Posts](https://developer.linkedin.com/documents/groups-api)
-- [ ] [Retrieving a Group's Profile Details](https://developer.linkedin.com/documents/groups-api)
-- [ ] [Group Memberships for a User](https://developer.linkedin.com/documents/groups-api)
-- [ ] [PUT a simple group membership request](https://developer.linkedin.com/documents/groups-api)
-
-####  Retrieving a Group's Discussion Posts
-
-- [ ] [Retrieving a Group's Discussion Posts](https://developer.linkedin.com/documents/groups-api)
-- [ ] [Show Latest Discussions for a Group](https://developer.linkedin.com/documents/groups-api)
-- [ ] [Show Most Popular Discussions for a Group](https://developer.linkedin.com/documents/groups-api)
-- [ ] [Show Posts a User has Started for a Group](https://developer.linkedin.com/documents/groups-api)
-- [ ] [Show Posts a User has Participated in for a Group](https://developer.linkedin.com/documents/groups-api)
-- [ ] [Show Posts a user is Following for a Group](https://developer.linkedin.com/documents/groups-api)
-
-####  Creating a Group Discussion Post
-
-- [ ] [Creating a Group Discussion Post](https://developer.linkedin.com/documents/groups-api)
-
-####  Interacting with a Discussion Post
-
-- [ ] [Paginate through all Comments of a Post](https://developer.linkedin.com/documents/groups-api)
-- [ ] [Like/Unlike a Post](https://developer.linkedin.com/documents/groups-api)
-- [ ] [Follow/Unfollow a Post](https://developer.linkedin.com/documents/groups-api)
-- [ ] [Flag a Post as a Promotion or Job](https://developer.linkedin.com/documents/groups-api)
-- [ ] [Delete a Post or Flag as Inappropriate](https://developer.linkedin.com/documents/groups-api)
-
-####  Interacting with Comments
-
-- [ ] [Comment Resource Full Field List](https://developer.linkedin.com/documents/groups-api)
-- [ ] [Add a Comment to a Post](https://developer.linkedin.com/documents/groups-api)
-- [ ] [Delete a Comment or Flag as Inappropriate](https://developer.linkedin.com/documents/groups-api)
-
-####  Suggested Groups for a LinkedIn Member
-
-- [ ] [Get Suggested Groups for a User](https://developer.linkedin.com/documents/groups-api)
-- [ ] [Remove a Group Suggestion for a User](https://developer.linkedin.com/documents/groups-api)
-
 ### Companies
 
 > For the purposes of testing, we've created a special LinkedIn Company Page that is available for all developers to use. This company page doesn't require the authenticated user making the API call to be an administrator of the company: https://www.linkedin.com/company/devtestco (Company ID 2414183) 
@@ -108,6 +67,47 @@ Links are now broken. Here is the [old documentation via the WaybackMachine](htt
     - [ ] [Start Following a Company](https://developer.linkedin.com/documents/company-follow-and-suggestions)
     - [ ] [Stop Following a Company](https://developer.linkedin.com/documents/company-follow-and-suggestions)
     - [ ] [Suggested Companies to Follow](https://developer.linkedin.com/documents/company-follow-and-suggestions)
+
+### Groups
+
+#### Group Memberships for a User
+
+- [ ] [Group Posts](https://developer.linkedin.com/documents/groups-api)
+- [ ] [Retrieving a Group's Profile Details](https://developer.linkedin.com/documents/groups-api)
+- [ ] [Group Memberships for a User](https://developer.linkedin.com/documents/groups-api)
+- [ ] [PUT a simple group membership request](https://developer.linkedin.com/documents/groups-api)
+
+####  Retrieving a Group's Discussion Posts
+
+- [ ] [Retrieving a Group's Discussion Posts](https://developer.linkedin.com/documents/groups-api)
+- [ ] [Show Latest Discussions for a Group](https://developer.linkedin.com/documents/groups-api)
+- [ ] [Show Most Popular Discussions for a Group](https://developer.linkedin.com/documents/groups-api)
+- [ ] [Show Posts a User has Started for a Group](https://developer.linkedin.com/documents/groups-api)
+- [ ] [Show Posts a User has Participated in for a Group](https://developer.linkedin.com/documents/groups-api)
+- [ ] [Show Posts a user is Following for a Group](https://developer.linkedin.com/documents/groups-api)
+
+####  Creating a Group Discussion Post
+
+- [ ] [Creating a Group Discussion Post](https://developer.linkedin.com/documents/groups-api)
+
+####  Interacting with a Discussion Post
+
+- [ ] [Paginate through all Comments of a Post](https://developer.linkedin.com/documents/groups-api)
+- [ ] [Like/Unlike a Post](https://developer.linkedin.com/documents/groups-api)
+- [ ] [Follow/Unfollow a Post](https://developer.linkedin.com/documents/groups-api)
+- [ ] [Flag a Post as a Promotion or Job](https://developer.linkedin.com/documents/groups-api)
+- [ ] [Delete a Post or Flag as Inappropriate](https://developer.linkedin.com/documents/groups-api)
+
+####  Interacting with Comments
+
+- [ ] [Comment Resource Full Field List](https://developer.linkedin.com/documents/groups-api)
+- [ ] [Add a Comment to a Post](https://developer.linkedin.com/documents/groups-api)
+- [ ] [Delete a Comment or Flag as Inappropriate](https://developer.linkedin.com/documents/groups-api)
+
+####  Suggested Groups for a LinkedIn Member
+
+- [ ] [Get Suggested Groups for a User](https://developer.linkedin.com/documents/groups-api)
+- [ ] [Remove a Group Suggestion for a User](https://developer.linkedin.com/documents/groups-api)
 
 ### Jobs
 
@@ -183,12 +183,9 @@ For developers
 
 - [x] Success HTTP codes: 200, 201  
 - [x] Error HTTP codes: 400, 401, 403, 404, 500  
+- [x] async/await pattern Windows Phone 8ish and RT  
 - [ ] Async pattern by callbacks for Silverlight and Windows Phone 7ish  
 - [x] Nuget package
 
-Extra / useless / decorative
----------------------------------
-
-- [ ] async/await pattern Windows Phone 8ish and RT  
 
 

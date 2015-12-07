@@ -69,6 +69,10 @@ echo:
 echo Copy libs
 echo -----------------------------
 mkdir %outputDirectory%\lib
+
+mkdir %outputDirectory%\lib\net35
+xcopy /Y /Q %solutionDirectory%\NET35.Sparkle.LinkedInNET\bin\Release\Sparkle* %outputDirectory%\lib\net35
+
 mkdir %outputDirectory%\lib\net40
 xcopy /Y /Q %solutionDirectory%\NET40.Sparkle.LinkedInNET\bin\Release\Sparkle* %outputDirectory%\lib\net40
 
