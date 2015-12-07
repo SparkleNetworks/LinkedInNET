@@ -105,13 +105,21 @@ public async Task<ActionResult> OAuth2(string code, string state, string error, 
     }
     else
     {
-        var userToken = api.OAuth2.GetAccessToken(code, redirectUrl);
+        var redirectUrl = "http://mywebsite/LinkedIn/OAuth2";
+        var userToken = await api.OAuth2.GetAccessTokenAsync(code, redirectUrl);
         // keep this token for your API requests
     }
 
     // ...
 }
 ````
+
+You will find in the source codes a nicer way to build the redirect url.
+
+````csharp
+var redirectUrl = this.Request.Compose() + this.Url.Action("OAuth2");
+````
+
 
 ### 5. Example call: fetch user profile
 
