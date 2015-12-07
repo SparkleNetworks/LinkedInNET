@@ -6,6 +6,9 @@ namespace Sparkle.LinkedInNET
     using System.Linq;
     using System.Text;
 
+    /// <summary>
+    /// Represents one or many fields to include in the requested object(s).
+    /// </summary>
     public class FieldSelectorValue
     {
         public FieldSelectorValue()

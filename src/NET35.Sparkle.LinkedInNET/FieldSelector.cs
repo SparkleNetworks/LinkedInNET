@@ -7,7 +7,7 @@ namespace Sparkle.LinkedInNET
     using System.Text;
 
     /// <summary>
-    /// Allows to accumulate a list of fields for API calls.
+    /// Allows to accumulate a list of fields for API calls for the specified generic object type.
     /// </summary>
     /// <typeparam name="TEntity">The type of the entity.</typeparam>
     public class FieldSelector<TEntity> : FieldSelector
@@ -79,7 +79,7 @@ namespace Sparkle.LinkedInNET
     }
 
     /// <summary>
-    /// Field selector extension methods.
+    /// Allows to accumulate a list of fields for API calls.
     /// </summary>
     public class FieldSelector
     {
