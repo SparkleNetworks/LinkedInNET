@@ -71,6 +71,9 @@ echo -----------------------------
 mkdir %outputDirectory%\lib
 mkdir %outputDirectory%\lib\net40
 xcopy /Y /Q %solutionDirectory%\NET40.Sparkle.LinkedInNET\bin\Release\Sparkle* %outputDirectory%\lib\net40
+
+mkdir %outputDirectory%\lib\net45
+xcopy /Y /Q %solutionDirectory%\NET451.Sparkle.LinkedInNET\bin\Release\Sparkle* %outputDirectory%\lib\net45
 echo Done.
 
 
@@ -101,7 +104,7 @@ echo -----------------------------
 echo Hit return to continue...
 pause 
 cd %outputDirectory%
-%nuget% pack Sparkle.LinkedInNet.nuspec -Version %version%
+%nuget% pack Sparkle.LinkedInNet.nuspec -Version %version%-alpha
 echo Done.
 
 
@@ -114,7 +117,7 @@ echo -----------------------------
 echo Hit return to continue...
 pause 
 cd %outputDirectory%
-%nuget% push Sparkle.LinkedInNet.%version%.nupkg
+%nuget% push Sparkle.LinkedInNet.%version%-alpha.nupkg
 echo Done.
 
 
