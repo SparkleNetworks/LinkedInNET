@@ -1,12 +1,41 @@
 ﻿
 @{
     ViewBag.Title = "OAuth2";
+    
+    string error = (string)this.ViewBag.Error;
+    string errorDescription = (string)this.ViewBag.ErrorDescription;
 }
 
 <h2>OAuth2</h2>
 
+<style type="text/css">
+    .ok {
+        color: #00b017;
+    }
+
+    .error {
+        color: #f00;
+    }
+
+    a.button {
+        display: inline-block;
+        border: 1px solid gray;
+        background: #e8e8e8;
+        border-radius: 2px;
+        padding: 5px;
+    }
+</style>
+
+
+@if (error != null)
+{
+    <h3 class="error"><code>@error</code></h3>
+    <p class="error"><code>@errorDescription</code></p>
+}
+else
+{
 <pre>Code:  @this.ViewBag.Code
 Token: @this.ViewBag.Token</pre>
-
+}
 <p>@Html.ActionLink("Back home", "Index")</p>
 

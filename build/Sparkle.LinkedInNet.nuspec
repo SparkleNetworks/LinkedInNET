@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>Sparkle.LinkedInNET</id>
-    <version>1.0.0</version>
+    <version>1.0.9</version>
     <authors>Sparkle Networks, SandRock, Tazacban, Andrew Clark</authors>
     <owners>Sparkle Networks</owners>
     <licenseUrl>https://github.com/SparkleNetworks/LinkedInNET/blob/master/LICENSE</licenseUrl>
@@ -10,11 +10,12 @@
     <iconUrl>https://raw.githubusercontent.com/SparkleNetworks/LinkedInNET/master/src/LiNET-li.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Sparkle.LinkedInNET will help you query the LinkedIn API. License: GNU LGPL v3.</description>
-    <releaseNotes>Added optional fields 'start', 'count', and 'event-type' to the Company GetShares method..</releaseNotes>
+    <releaseNotes>Experimental support for async methods.</releaseNotes>
     <copyright>Sparkle Networks, SandRock, Tazacban, Andrew Clark</copyright>
     <tags>LinkedIn API</tags>
     <dependencies>
-      <dependency id="Newtonsoft.Json" version="4.5.8" />
+      <dependency id="Newtonsoft.Json" version="6.0.8" />
+      <dependency id="Microsoft.Net.Http" version="2.2.29" />
     </dependencies>
   </metadata>
 </package>

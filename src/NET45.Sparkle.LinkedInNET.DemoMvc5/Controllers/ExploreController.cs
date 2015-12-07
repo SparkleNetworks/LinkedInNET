@@ -12,6 +12,7 @@ namespace Sparkle.LinkedInNET.DemoMvc5.Controllers
     using Sparkle.LinkedInNET.Common;
     using Newtonsoft.Json;
     using Sparkle.LinkedInNET.DemoMvc5.ViewModels.Explore;
+    using System.Threading.Tasks;
 
     public class ExploreController : Controller
     {
@@ -30,7 +31,7 @@ namespace Sparkle.LinkedInNET.DemoMvc5.Controllers
             this.apiConfig = apiConfig;
         }
 
-        public ActionResult Index(string culture = "en-US")
+        public async Task<ActionResult> Index(string culture = "en-US")
         {
             var token = this.data.GetAccessToken();
             this.ViewBag.Token = token;
@@ -46,11 +47,11 @@ namespace Sparkle.LinkedInNET.DemoMvc5.Controllers
                 this.ViewBag.Profile = this.ViewData["MyProfile"];
 
                 {
-                    var pictures = this.api.Profiles.GetOriginalProfilePicture(user)
-                        ?? new PictureUrls() { PictureUrl = new List<string>() };
+                    var pictures = await this.api.Profiles.GetOriginalProfilePictureAsync(user);
+                    pictures = pictures ?? new PictureUrls() { PictureUrl = new List<string>(), };
 
                     {
-                        var more = this.api.Profiles.GetProfilePicture(user, 120, 120);
+                        var more = await this.api.Profiles.GetProfilePictureAsync(user, 120, 120);
                         if (more != null && more.PictureUrl != null)
                         {
                             pictures.PictureUrl.AddRange(more.PictureUrl);
@@ -69,7 +70,7 @@ namespace Sparkle.LinkedInNET.DemoMvc5.Controllers
             return this.View();
         }
 
-        public ActionResult Company(int id, string culture = "en-US", int start = 0, int count = 10, string eventType = null)
+        public async Task<ActionResult> Company(int id, string culture = "en-US", int start = 0, int count = 10, string eventType = null)
         {
             var token = this.data.GetAccessToken();
             this.ViewBag.Token = token;
@@ -80,7 +81,7 @@ namespace Sparkle.LinkedInNET.DemoMvc5.Controllers
             {
                 var fields = FieldSelector.For<Company>()
                     .WithAllFields();
-                company = this.api.Companies.GetById(user, id.ToString(), fields);
+                company = await this.api.Companies.GetByIdAsync(user, id.ToString(), fields);
             }
 
             {

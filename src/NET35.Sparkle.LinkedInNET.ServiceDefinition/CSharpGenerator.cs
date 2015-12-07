@@ -285,6 +285,11 @@ namespace Sparkle.LinkedInNET.ServiceDefinition
             this.text.WriteLine(indent++, "{");
             this.WriteNamespace(indent, "System");
             this.WriteNamespace(indent, "System.Xml.Serialization");
+            this.text.WriteLine(--indent, "#if ASYNCTASKS");
+            indent++;
+            this.WriteNamespace(indent, "System.Threading.Tasks");
+            this.text.WriteLine(--indent, "#endif");
+            indent++;
             this.WriteNamespace(indent, this.RootNamespace + ".Internals");
             this.text.WriteLine();
             this.text.WriteLine(indent, "/// <summary>");
@@ -459,6 +464,119 @@ namespace Sparkle.LinkedInNET.ServiceDefinition
 
                 ////this.text.WriteLine(indent, "throw new NotImplementedException(url);");
                 this.text.WriteLine(--indent, "}");
+
+
+
+                this.text.WriteLine();
+                this.text.WriteLine(--indent, "#if ASYNCTASKS");
+                indent++;
+                // doc
+                this.text.WriteLine(indent, "/// <summary>");
+                this.text.WriteLine(indent, "/// " + method.Title);
+                this.text.WriteLine(indent, "/// </summary>");
+
+                if (method.Remark != null)
+                {
+                    this.text.WriteLine(indent, "/// <remarks>");
+                    this.text.WriteLine(indent, "/// " + method.Remark + "");
+                    this.text.WriteLine(indent, "/// </remarks>");
+                }
+
+                // name and arguments
+                this.text.WriteLine(indent++, "public async Task<" + returnType + "> " + this.GetPropertyName(method.MethodName, method.Path) + "Async(");
+
+                sep = "  ";
+                foreach (var parameter in parameters)
+                {
+                    this.text.WriteLine(indent, sep + (parameter.Type ?? "string") + " "
+                        + parameter.Name + " "
+                        + (parameter.Value != null ? ("= " + parameter.Value) : string.Empty));
+                    sep = ", ";
+                }
+
+                if (postReturnTypeType != null)
+                {
+                    this.text.WriteLine(indent, ", " + postReturnType + " postData");
+                }
+
+                if (returnType != null && method.UseFieldSelectors)
+                {
+                    this.text.WriteLine(indent, ", FieldSelector<" + returnType + "> fields = null");
+                }
+
+                this.text.WriteLine(--indent, ")");
+                this.text.WriteLine(indent++, "{");
+
+                // body / format url
+                if (urlParams.Count > 0)
+                {
+                    this.text.WriteLine(indent, "const string urlFormat = \"" + method.Path + "\";");
+
+                    this.text.WriteLine(indent, "var url = FormatUrl(urlFormat, " + (method.UseFieldSelectors ? "fields" : "default(FieldSelector)") + ", " + string.Join(", ", urlParams.Values.Select(p => "\"" + p.OriginalName + "\", " + p.Name).ToArray()) + ");");
+                }
+                else if (method.Path.Contains("FieldSelector"))
+                {
+                    this.text.WriteLine(indent, "const string urlFormat = \"" + method.Path + "\";");
+                    this.text.WriteLine(indent, "var url = FormatUrl(urlFormat, fields);");
+                }
+                else
+                {
+                    this.text.WriteLine(indent, "var url = \"" + method.Path + "\";");
+                }
+
+                // body / create context
+                this.text.WriteLine();
+                text.WriteLine(indent, "var context = new RequestContext();");
+
+                if (method.RequiresUserAuthentication)
+                {
+                    text.WriteLine(indent, "context.UserAuthorization = user;");
+                }
+
+                if (method.UsesAcceptLanguage)
+                {
+                    text.WriteLine(indent, "context.AcceptLanguages = acceptLanguages;");
+                }
+
+                text.WriteLine(indent, "context.Method =  \"" + method.HttpMethod + "\";");
+                text.WriteLine(indent, "context.UrlPath = this.LinkedInApi.Configuration.BaseApiUrl + url;");
+
+                if (postReturnTypeType != null)
+                {
+                    this.text.WriteLine(indent, "this.CreateJsonPostStream(context, postData);");
+                }
+
+                // body / execute
+                this.text.WriteLine();
+                text.WriteLine(indent, "var exec = await this.ExecuteQueryAsync(context);");
+                text.WriteLine(indent++, "if (!exec)");
+                ////text.WriteLine(indent--, "this.HandleXmlErrorResponse(context);");
+                ////text.WriteLine(indent, "return this.HandleXmlResponse<" + returnType + ">(context);");
+                text.WriteLine(indent--, "this.HandleJsonErrorResponse(context);");
+                text.WriteLine(indent, "");
+                text.WriteLine(indent, "var result = this.HandleJsonResponse<" + returnType + ">(context);");
+
+                if (returnTypeType != null && returnTypeType.Headers != null)
+                {
+                    foreach (var header in returnTypeType.Headers)
+                    {
+                        text.WriteLine(indent, "result." + header.PropertyName + " = this.ReadHeader<" + (header.Type ?? "string") + ">(context, \"" + header.Name + "\");");
+                    }
+                }
+
+                text.WriteLine(indent, "return result;");
+
+                // body / handle
+
+
+                // body / return
+
+                ////this.text.WriteLine(indent, "throw new NotImplementedException(url);");
+                this.text.WriteLine(--indent, "}");
+                this.text.WriteLine(--indent, "#endif");
+                indent++;
+                
+                
                 this.text.WriteLine(indent, "");
             }
         }

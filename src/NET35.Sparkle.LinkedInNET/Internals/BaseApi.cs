@@ -13,7 +13,7 @@ namespace Sparkle.LinkedInNET.Internals
     /// <summary>
     /// Base class for LinkedIn APIs.
     /// </summary>
-    public class BaseApi
+    public partial class BaseApi
     {
         private static int[] validHttpCodes = new int[] { 200, 201, 202, };
         private static int[] errorHttpCodes = new int[] { 400, 401, 403, 404, 500, };

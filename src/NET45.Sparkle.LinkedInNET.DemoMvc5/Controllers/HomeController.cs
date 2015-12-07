@@ -13,6 +13,7 @@ namespace Sparkle.LinkedInNET.DemoMvc5.Controllers
     using Sparkle.LinkedInNET.OAuth2;
     using Sparkle.LinkedInNET.Profiles;
     using Sparkle.LinkedInNET.Companies;
+    using System.Threading.Tasks;
     ////using Sparkle.LinkedInNET.ServiceDefinition;
 
     public class HomeController : Controller
@@ -28,13 +29,13 @@ namespace Sparkle.LinkedInNET.DemoMvc5.Controllers
             this.apiConfig = apiConfig;
         }
 
-        public ActionResult Index(string culture = "en-US")
+        public async Task<ActionResult> Index(string culture = "en-US")
         {
             // step 1: configuration
             this.ViewBag.Configuration = this.apiConfig;
             
             // step 2: authorize url
-            var scope = AuthorizationScope.ReadFullProfile | AuthorizationScope.ReadEmailAddress | AuthorizationScope.ReadNetwork | AuthorizationScope.ReadContactInfo | AuthorizationScope.ReadWriteCompanyPage;
+            var scope = AuthorizationScope.ReadEmailAddress | AuthorizationScope.ReadWriteCompanyPage;
             var state = Guid.NewGuid().ToString();
             var redirectUrl = this.Request.Compose() + this.Url.Action("OAuth2");
             this.ViewBag.LocalRedirectUrl = redirectUrl;
@@ -101,9 +102,9 @@ namespace Sparkle.LinkedInNET.DemoMvc5.Controllers
                         .WithPrimaryTwitterAccount()
                         .WithTwitterAccounts()
                         .WithSkills();
-                    var profile = this.api.Profiles.GetMyProfile(user, acceptLanguages, fields);
+                    var profile = await this.api.Profiles.GetMyProfileAsync(user, acceptLanguages, fields);
 
-                    var originalPicture = this.api.Profiles.GetOriginalProfilePicture(user);
+                    var originalPicture = await this.api.Profiles.GetOriginalProfilePictureAsync(user);
                     this.ViewBag.Picture = originalPicture;
 
                     this.ViewBag.Profile = profile;
@@ -124,10 +125,17 @@ namespace Sparkle.LinkedInNET.DemoMvc5.Controllers
             return this.View();
         }
 
-        public ActionResult OAuth2(string code, string state)
+        public async Task<ActionResult> OAuth2(string code, string state, string error, string error_description)
         {
+            if (!string.IsNullOrEmpty(error))
+            {
+                this.ViewBag.Error = error;
+                this.ViewBag.ErrorDescription = error_description;
+                return this.View();
+            }
+
             var redirectUrl = this.Request.Compose() + this.Url.Action("OAuth2");
-            var result = this.api.OAuth2.GetAccessToken(code, redirectUrl);
+            var result = await this.api.OAuth2.GetAccessTokenAsync(code, redirectUrl);
 
             this.ViewBag.Code = code;
             this.ViewBag.Token = result.AccessToken;

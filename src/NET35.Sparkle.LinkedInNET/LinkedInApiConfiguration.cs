@@ -53,6 +53,7 @@ namespace Sparkle.LinkedInNET
         /// </summary>
         public string ApiSecretKey { get; set; }
 
+#if !ASYNCTASKS
         /// <summary>
         /// Creates a configuration object froms the application settings.
         /// </summary>
@@ -72,6 +73,7 @@ namespace Sparkle.LinkedInNET
 
             return me;
         }
+#endif
 
         internal LinkedInApiConfiguration Clone()
         {

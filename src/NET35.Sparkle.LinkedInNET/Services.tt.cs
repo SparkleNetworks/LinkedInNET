@@ -5336,6 +5336,9 @@ namespace Sparkle.LinkedInNET.Profiles
 {
     using System;
     using System.Xml.Serialization;
+#if ASYNCTASKS
+    using System.Threading.Tasks;
+#endif
     using Sparkle.LinkedInNET.Internals;
 
     /// <summary>
@@ -5376,6 +5379,37 @@ namespace Sparkle.LinkedInNET.Profiles
             var result = this.HandleJsonResponse<Profiles.Person>(context);
             return result;
         }
+
+    #if ASYNCTASKS
+        /// <summary>
+        /// the profile of the current user
+        /// </summary>
+        /// <remarks>
+        /// See https://developer.linkedin.com/documents/profile-api
+        /// </remarks>
+        public async Task<Profiles.Person> GetMyProfileAsync(
+              UserAuthorization user 
+            , string[] acceptLanguages 
+            , FieldSelector<Profiles.Person> fields = null
+        )
+        {
+            const string urlFormat = "/v1/people/~{FieldSelector}";
+            var url = FormatUrl(urlFormat, fields);
+
+            var context = new RequestContext();
+            context.UserAuthorization = user;
+            context.AcceptLanguages = acceptLanguages;
+            context.Method =  "GET";
+            context.UrlPath = this.LinkedInApi.Configuration.BaseApiUrl + url;
+
+            var exec = await this.ExecuteQueryAsync(context);
+            if (!exec)
+                this.HandleJsonErrorResponse(context);
+            
+            var result = this.HandleJsonResponse<Profiles.Person>(context);
+            return result;
+        }
+    #endif
         
         /// <summary>
         /// the profile of a user in the network
@@ -5405,6 +5439,38 @@ namespace Sparkle.LinkedInNET.Profiles
             var result = this.HandleJsonResponse<Profiles.Person>(context);
             return result;
         }
+
+    #if ASYNCTASKS
+        /// <summary>
+        /// the profile of a user in the network
+        /// </summary>
+        /// <remarks>
+        /// See https://developer.linkedin.com/documents/profile-api
+        /// </remarks>
+        public async Task<Profiles.Person> GetProfileByIdAsync(
+              UserAuthorization user 
+            , string memberToken 
+            , string[] acceptLanguages 
+            , FieldSelector<Profiles.Person> fields = null
+        )
+        {
+            const string urlFormat = "/v1/people/id={MemberToken}{FieldSelector}";
+            var url = FormatUrl(urlFormat, fields, "MemberToken", memberToken);
+
+            var context = new RequestContext();
+            context.UserAuthorization = user;
+            context.AcceptLanguages = acceptLanguages;
+            context.Method =  "GET";
+            context.UrlPath = this.LinkedInApi.Configuration.BaseApiUrl + url;
+
+            var exec = await this.ExecuteQueryAsync(context);
+            if (!exec)
+                this.HandleJsonErrorResponse(context);
+            
+            var result = this.HandleJsonResponse<Profiles.Person>(context);
+            return result;
+        }
+    #endif
         
         /// <summary>
         /// the public profile of a user
@@ -5434,6 +5500,38 @@ namespace Sparkle.LinkedInNET.Profiles
             var result = this.HandleJsonResponse<Profiles.Person>(context);
             return result;
         }
+
+    #if ASYNCTASKS
+        /// <summary>
+        /// the public profile of a user
+        /// </summary>
+        /// <remarks>
+        /// See https://developer.linkedin.com/documents/profile-api
+        /// </remarks>
+        public async Task<Profiles.Person> GetPublicProfileAsync(
+              UserAuthorization user 
+            , string publicProfileUrl 
+            , string[] acceptLanguages 
+            , FieldSelector<Profiles.Person> fields = null
+        )
+        {
+            const string urlFormat = "/v1/people/url={PublicProfileUrl}{FieldSelector}";
+            var url = FormatUrl(urlFormat, fields, "PublicProfileUrl", publicProfileUrl);
+
+            var context = new RequestContext();
+            context.UserAuthorization = user;
+            context.AcceptLanguages = acceptLanguages;
+            context.Method =  "GET";
+            context.UrlPath = this.LinkedInApi.Configuration.BaseApiUrl + url;
+
+            var exec = await this.ExecuteQueryAsync(context);
+            if (!exec)
+                this.HandleJsonErrorResponse(context);
+            
+            var result = this.HandleJsonResponse<Profiles.Person>(context);
+            return result;
+        }
+    #endif
         
         /// <summary>
         /// returns a list of 1st degree connections for a user 
@@ -5459,6 +5557,34 @@ namespace Sparkle.LinkedInNET.Profiles
             var result = this.HandleJsonResponse<Profiles.Connections>(context);
             return result;
         }
+
+    #if ASYNCTASKS
+        /// <summary>
+        /// returns a list of 1st degree connections for a user 
+        /// </summary>
+        public async Task<Profiles.Connections> GetMyConnectionsAsync(
+              UserAuthorization user 
+            , int start 
+            , int count 
+            , FieldSelector<Profiles.Connections> fields = null
+        )
+        {
+            const string urlFormat = "/v1/people/~/connections{FieldSelector}?start={int start}&count={int count}";
+            var url = FormatUrl(urlFormat, fields, "int start", start, "int count", count);
+
+            var context = new RequestContext();
+            context.UserAuthorization = user;
+            context.Method =  "GET";
+            context.UrlPath = this.LinkedInApi.Configuration.BaseApiUrl + url;
+
+            var exec = await this.ExecuteQueryAsync(context);
+            if (!exec)
+                this.HandleJsonErrorResponse(context);
+            
+            var result = this.HandleJsonResponse<Profiles.Connections>(context);
+            return result;
+        }
+    #endif
         
         /// <summary>
         /// returns a list of 1st degree connections for a user 
@@ -5485,6 +5611,35 @@ namespace Sparkle.LinkedInNET.Profiles
             var result = this.HandleJsonResponse<Profiles.Connections>(context);
             return result;
         }
+
+    #if ASYNCTASKS
+        /// <summary>
+        /// returns a list of 1st degree connections for a user 
+        /// </summary>
+        public async Task<Profiles.Connections> GetConnectionsByProfileIdAsync(
+              UserAuthorization user 
+            , string memberToken 
+            , int start 
+            , int count 
+            , FieldSelector<Profiles.Connections> fields = null
+        )
+        {
+            const string urlFormat = "/v1/people/id={MemberToken}/connections{FieldSelector}?start={int start}&count={int count}";
+            var url = FormatUrl(urlFormat, fields, "MemberToken", memberToken, "int start", start, "int count", count);
+
+            var context = new RequestContext();
+            context.UserAuthorization = user;
+            context.Method =  "GET";
+            context.UrlPath = this.LinkedInApi.Configuration.BaseApiUrl + url;
+
+            var exec = await this.ExecuteQueryAsync(context);
+            if (!exec)
+                this.HandleJsonErrorResponse(context);
+            
+            var result = this.HandleJsonResponse<Profiles.Connections>(context);
+            return result;
+        }
+    #endif
         
         /// <summary>
         /// returns a list of 1st degree connections for a user 
@@ -5511,6 +5666,35 @@ namespace Sparkle.LinkedInNET.Profiles
             var result = this.HandleJsonResponse<Profiles.Connections>(context);
             return result;
         }
+
+    #if ASYNCTASKS
+        /// <summary>
+        /// returns a list of 1st degree connections for a user 
+        /// </summary>
+        public async Task<Profiles.Connections> GetConnectionsByPublicProfileAsync(
+              UserAuthorization user 
+            , string publicProfileUrl 
+            , int start 
+            , int count 
+            , FieldSelector<Profiles.Connections> fields = null
+        )
+        {
+            const string urlFormat = "/v1/people/url={PublicProfileUrl}/connections{FieldSelector}?start={int start}&count={int count}";
+            var url = FormatUrl(urlFormat, fields, "PublicProfileUrl", publicProfileUrl, "int start", start, "int count", count);
+
+            var context = new RequestContext();
+            context.UserAuthorization = user;
+            context.Method =  "GET";
+            context.UrlPath = this.LinkedInApi.Configuration.BaseApiUrl + url;
+
+            var exec = await this.ExecuteQueryAsync(context);
+            if (!exec)
+                this.HandleJsonErrorResponse(context);
+            
+            var result = this.HandleJsonResponse<Profiles.Connections>(context);
+            return result;
+        }
+    #endif
         
         /// <summary>
         /// returns a list of 1st degree connections for a user 
@@ -5538,6 +5722,36 @@ namespace Sparkle.LinkedInNET.Profiles
             var result = this.HandleJsonResponse<Profiles.Connections>(context);
             return result;
         }
+
+    #if ASYNCTASKS
+        /// <summary>
+        /// returns a list of 1st degree connections for a user 
+        /// </summary>
+        public async Task<Profiles.Connections> GetNewConnectionsByProfileIdAsync(
+              UserAuthorization user 
+            , string memberToken 
+            , int start 
+            , int count 
+            , long modifiedSince 
+            , FieldSelector<Profiles.Connections> fields = null
+        )
+        {
+            const string urlFormat = "/v1/people/id={MemberToken}/connections{FieldSelector}?start={int start}&count={int count}&modified=new&modified-since={long modifiedSince}";
+            var url = FormatUrl(urlFormat, fields, "MemberToken", memberToken, "int start", start, "int count", count, "long modifiedSince", modifiedSince);
+
+            var context = new RequestContext();
+            context.UserAuthorization = user;
+            context.Method =  "GET";
+            context.UrlPath = this.LinkedInApi.Configuration.BaseApiUrl + url;
+
+            var exec = await this.ExecuteQueryAsync(context);
+            if (!exec)
+                this.HandleJsonErrorResponse(context);
+            
+            var result = this.HandleJsonResponse<Profiles.Connections>(context);
+            return result;
+        }
+    #endif
         
         /// <summary>
         /// returns a list of 1st degree connections for a user 
@@ -5565,6 +5779,36 @@ namespace Sparkle.LinkedInNET.Profiles
             var result = this.HandleJsonResponse<Profiles.Connections>(context);
             return result;
         }
+
+    #if ASYNCTASKS
+        /// <summary>
+        /// returns a list of 1st degree connections for a user 
+        /// </summary>
+        public async Task<Profiles.Connections> GetNewConnectionsByPublicProfileAsync(
+              UserAuthorization user 
+            , string publicProfileUrl 
+            , int start 
+            , int count 
+            , long modifiedSince 
+            , FieldSelector<Profiles.Connections> fields = null
+        )
+        {
+            const string urlFormat = "/v1/people/url={PublicProfileUrl}/connections{FieldSelector}?start={int start}&count={int count}&modified=new&modified-since={long modifiedSince}";
+            var url = FormatUrl(urlFormat, fields, "PublicProfileUrl", publicProfileUrl, "int start", start, "int count", count, "long modifiedSince", modifiedSince);
+
+            var context = new RequestContext();
+            context.UserAuthorization = user;
+            context.Method =  "GET";
+            context.UrlPath = this.LinkedInApi.Configuration.BaseApiUrl + url;
+
+            var exec = await this.ExecuteQueryAsync(context);
+            if (!exec)
+                this.HandleJsonErrorResponse(context);
+            
+            var result = this.HandleJsonResponse<Profiles.Connections>(context);
+            return result;
+        }
+    #endif
         
         /// <summary>
         /// returns a list of 1st degree connections for a user 
@@ -5592,6 +5836,36 @@ namespace Sparkle.LinkedInNET.Profiles
             var result = this.HandleJsonResponse<Profiles.Connections>(context);
             return result;
         }
+
+    #if ASYNCTASKS
+        /// <summary>
+        /// returns a list of 1st degree connections for a user 
+        /// </summary>
+        public async Task<Profiles.Connections> GetUpdatedConnectionsByProfileIdAsync(
+              UserAuthorization user 
+            , string memberToken 
+            , int start 
+            , int count 
+            , long modifiedSince 
+            , FieldSelector<Profiles.Connections> fields = null
+        )
+        {
+            const string urlFormat = "/v1/people/id={MemberToken}/connections{FieldSelector}?start={int start}&count={int count}&modified=updated&modified-since={long modifiedSince}";
+            var url = FormatUrl(urlFormat, fields, "MemberToken", memberToken, "int start", start, "int count", count, "long modifiedSince", modifiedSince);
+
+            var context = new RequestContext();
+            context.UserAuthorization = user;
+            context.Method =  "GET";
+            context.UrlPath = this.LinkedInApi.Configuration.BaseApiUrl + url;
+
+            var exec = await this.ExecuteQueryAsync(context);
+            if (!exec)
+                this.HandleJsonErrorResponse(context);
+            
+            var result = this.HandleJsonResponse<Profiles.Connections>(context);
+            return result;
+        }
+    #endif
         
         /// <summary>
         /// returns a list of 1st degree connections for a user 
@@ -5619,6 +5893,36 @@ namespace Sparkle.LinkedInNET.Profiles
             var result = this.HandleJsonResponse<Profiles.Connections>(context);
             return result;
         }
+
+    #if ASYNCTASKS
+        /// <summary>
+        /// returns a list of 1st degree connections for a user 
+        /// </summary>
+        public async Task<Profiles.Connections> GetUpdatedConnectionsByPublicProfileAsync(
+              UserAuthorization user 
+            , string publicProfileUrl 
+            , int start 
+            , int count 
+            , long modifiedSince 
+            , FieldSelector<Profiles.Connections> fields = null
+        )
+        {
+            const string urlFormat = "/v1/people/url={PublicProfileUrl}/connections{FieldSelector}?start={int start}&count={int count}&modified=updated&modified-since={long modifiedSince}";
+            var url = FormatUrl(urlFormat, fields, "PublicProfileUrl", publicProfileUrl, "int start", start, "int count", count, "long modifiedSince", modifiedSince);
+
+            var context = new RequestContext();
+            context.UserAuthorization = user;
+            context.Method =  "GET";
+            context.UrlPath = this.LinkedInApi.Configuration.BaseApiUrl + url;
+
+            var exec = await this.ExecuteQueryAsync(context);
+            if (!exec)
+                this.HandleJsonErrorResponse(context);
+            
+            var result = this.HandleJsonResponse<Profiles.Connections>(context);
+            return result;
+        }
+    #endif
         
         /// <summary>
         /// returns the original picture posted by the user, fields selector are ignored
@@ -5640,6 +5944,30 @@ namespace Sparkle.LinkedInNET.Profiles
             var result = this.HandleJsonResponse<Profiles.PictureUrls>(context);
             return result;
         }
+
+    #if ASYNCTASKS
+        /// <summary>
+        /// returns the original picture posted by the user, fields selector are ignored
+        /// </summary>
+        public async Task<Profiles.PictureUrls> GetOriginalProfilePictureAsync(
+              UserAuthorization user 
+        )
+        {
+            var url = "/v1/people/~/picture-urls::(original)";
+
+            var context = new RequestContext();
+            context.UserAuthorization = user;
+            context.Method =  "GET";
+            context.UrlPath = this.LinkedInApi.Configuration.BaseApiUrl + url;
+
+            var exec = await this.ExecuteQueryAsync(context);
+            if (!exec)
+                this.HandleJsonErrorResponse(context);
+            
+            var result = this.HandleJsonResponse<Profiles.PictureUrls>(context);
+            return result;
+        }
+    #endif
         
         /// <summary>
         /// returns the original picture posted by the user, fields selector are ignored
@@ -5664,6 +5992,33 @@ namespace Sparkle.LinkedInNET.Profiles
             var result = this.HandleJsonResponse<Profiles.PictureUrls>(context);
             return result;
         }
+
+    #if ASYNCTASKS
+        /// <summary>
+        /// returns the original picture posted by the user, fields selector are ignored
+        /// </summary>
+        public async Task<Profiles.PictureUrls> GetProfilePictureAsync(
+              UserAuthorization user 
+            , short width 
+            , short height 
+        )
+        {
+            const string urlFormat = "/v1/people/~/picture-urls::({short width}x{short height})";
+            var url = FormatUrl(urlFormat, default(FieldSelector), "short width", width, "short height", height);
+
+            var context = new RequestContext();
+            context.UserAuthorization = user;
+            context.Method =  "GET";
+            context.UrlPath = this.LinkedInApi.Configuration.BaseApiUrl + url;
+
+            var exec = await this.ExecuteQueryAsync(context);
+            if (!exec)
+                this.HandleJsonErrorResponse(context);
+            
+            var result = this.HandleJsonResponse<Profiles.PictureUrls>(context);
+            return result;
+        }
+    #endif
         
         /// <summary>
         /// returns the original picture posted by the user, fields selector are ignored
@@ -5687,6 +6042,32 @@ namespace Sparkle.LinkedInNET.Profiles
             var result = this.HandleJsonResponse<Profiles.PictureUrls>(context);
             return result;
         }
+
+    #if ASYNCTASKS
+        /// <summary>
+        /// returns the original picture posted by the user, fields selector are ignored
+        /// </summary>
+        public async Task<Profiles.PictureUrls> GetOriginalProfilePictureAsync(
+              UserAuthorization user 
+            , string memberToken 
+        )
+        {
+            const string urlFormat = "/v1/people/id={MemberToken}/picture-urls::(original)";
+            var url = FormatUrl(urlFormat, default(FieldSelector), "MemberToken", memberToken);
+
+            var context = new RequestContext();
+            context.UserAuthorization = user;
+            context.Method =  "GET";
+            context.UrlPath = this.LinkedInApi.Configuration.BaseApiUrl + url;
+
+            var exec = await this.ExecuteQueryAsync(context);
+            if (!exec)
+                this.HandleJsonErrorResponse(context);
+            
+            var result = this.HandleJsonResponse<Profiles.PictureUrls>(context);
+            return result;
+        }
+    #endif
         
         /// <summary>
         /// returns the original picture posted by the user, fields selector are ignored
@@ -5712,6 +6093,34 @@ namespace Sparkle.LinkedInNET.Profiles
             var result = this.HandleJsonResponse<Profiles.PictureUrls>(context);
             return result;
         }
+
+    #if ASYNCTASKS
+        /// <summary>
+        /// returns the original picture posted by the user, fields selector are ignored
+        /// </summary>
+        public async Task<Profiles.PictureUrls> GetProfilePictureAsync(
+              UserAuthorization user 
+            , string memberToken 
+            , short width 
+            , short height 
+        )
+        {
+            const string urlFormat = "/v1/people/id={MemberToken}/picture-urls::({short width}x{short height})";
+            var url = FormatUrl(urlFormat, default(FieldSelector), "MemberToken", memberToken, "short width", width, "short height", height);
+
+            var context = new RequestContext();
+            context.UserAuthorization = user;
+            context.Method =  "GET";
+            context.UrlPath = this.LinkedInApi.Configuration.BaseApiUrl + url;
+
+            var exec = await this.ExecuteQueryAsync(context);
+            if (!exec)
+                this.HandleJsonErrorResponse(context);
+            
+            var result = this.HandleJsonResponse<Profiles.PictureUrls>(context);
+            return result;
+        }
+    #endif
         
     }
 }
@@ -5721,6 +6130,9 @@ namespace Sparkle.LinkedInNET.Companies
 {
     using System;
     using System.Xml.Serialization;
+#if ASYNCTASKS
+    using System.Threading.Tasks;
+#endif
     using Sparkle.LinkedInNET.Internals;
 
     /// <summary>
@@ -5756,6 +6168,32 @@ namespace Sparkle.LinkedInNET.Companies
             var result = this.HandleJsonResponse<Companies.Company>(context);
             return result;
         }
+
+    #if ASYNCTASKS
+        /// <summary>
+        /// Hacker Summary
+        /// </summary>
+        public async Task<Companies.Company> GetListAsync(
+              UserAuthorization user 
+            , FieldSelector<Companies.Company> fields = null
+        )
+        {
+            const string urlFormat = "/v1/companies{FieldSelector}";
+            var url = FormatUrl(urlFormat, fields);
+
+            var context = new RequestContext();
+            context.UserAuthorization = user;
+            context.Method =  "GET";
+            context.UrlPath = this.LinkedInApi.Configuration.BaseApiUrl + url;
+
+            var exec = await this.ExecuteQueryAsync(context);
+            if (!exec)
+                this.HandleJsonErrorResponse(context);
+            
+            var result = this.HandleJsonResponse<Companies.Company>(context);
+            return result;
+        }
+    #endif
         
         /// <summary>
         /// retrieve a company by using the company ID
@@ -5780,6 +6218,33 @@ namespace Sparkle.LinkedInNET.Companies
             var result = this.HandleJsonResponse<Companies.Company>(context);
             return result;
         }
+
+    #if ASYNCTASKS
+        /// <summary>
+        /// retrieve a company by using the company ID
+        /// </summary>
+        public async Task<Companies.Company> GetByIdAsync(
+              UserAuthorization user 
+            , string companyId 
+            , FieldSelector<Companies.Company> fields = null
+        )
+        {
+            const string urlFormat = "/v1/companies/{CompanyId}{FieldSelector}";
+            var url = FormatUrl(urlFormat, fields, "CompanyId", companyId);
+
+            var context = new RequestContext();
+            context.UserAuthorization = user;
+            context.Method =  "GET";
+            context.UrlPath = this.LinkedInApi.Configuration.BaseApiUrl + url;
+
+            var exec = await this.ExecuteQueryAsync(context);
+            if (!exec)
+                this.HandleJsonErrorResponse(context);
+            
+            var result = this.HandleJsonResponse<Companies.Company>(context);
+            return result;
+        }
+    #endif
         
         /// <summary>
         /// Retrieve a company by universal-name.
@@ -5804,6 +6269,33 @@ namespace Sparkle.LinkedInNET.Companies
             var result = this.HandleJsonResponse<Companies.Company>(context);
             return result;
         }
+
+    #if ASYNCTASKS
+        /// <summary>
+        /// Retrieve a company by universal-name.
+        /// </summary>
+        public async Task<Companies.Company> GetByNameAsync(
+              UserAuthorization user 
+            , string universalName 
+            , FieldSelector<Companies.Company> fields = null
+        )
+        {
+            const string urlFormat = "/v1/companies/universal-name={UniversalName}{FieldSelector}";
+            var url = FormatUrl(urlFormat, fields, "UniversalName", universalName);
+
+            var context = new RequestContext();
+            context.UserAuthorization = user;
+            context.Method =  "GET";
+            context.UrlPath = this.LinkedInApi.Configuration.BaseApiUrl + url;
+
+            var exec = await this.ExecuteQueryAsync(context);
+            if (!exec)
+                this.HandleJsonErrorResponse(context);
+            
+            var result = this.HandleJsonResponse<Companies.Company>(context);
+            return result;
+        }
+    #endif
         
         /// <summary>
         /// This returns an array of companies that match to the specified email domain.
@@ -5828,6 +6320,33 @@ namespace Sparkle.LinkedInNET.Companies
             var result = this.HandleJsonResponse<Companies.Company>(context);
             return result;
         }
+
+    #if ASYNCTASKS
+        /// <summary>
+        /// This returns an array of companies that match to the specified email domain.
+        /// </summary>
+        public async Task<Companies.Company> GetListByEmailDomainAsync(
+              UserAuthorization user 
+            , string universalName 
+            , FieldSelector<Companies.Company> fields = null
+        )
+        {
+            const string urlFormat = "/v1/companies/universal-name={UniversalName}{FieldSelector}";
+            var url = FormatUrl(urlFormat, fields, "UniversalName", universalName);
+
+            var context = new RequestContext();
+            context.UserAuthorization = user;
+            context.Method =  "GET";
+            context.UrlPath = this.LinkedInApi.Configuration.BaseApiUrl + url;
+
+            var exec = await this.ExecuteQueryAsync(context);
+            if (!exec)
+                this.HandleJsonErrorResponse(context);
+            
+            var result = this.HandleJsonResponse<Companies.Company>(context);
+            return result;
+        }
+    #endif
         
         /// <summary>
         /// Retrieve the company's updates
@@ -5855,6 +6374,36 @@ namespace Sparkle.LinkedInNET.Companies
             var result = this.HandleJsonResponse<Companies.CompanyUpdates>(context);
             return result;
         }
+
+    #if ASYNCTASKS
+        /// <summary>
+        /// Retrieve the company's updates
+        /// </summary>
+        public async Task<Companies.CompanyUpdates> GetSharesAsync(
+              UserAuthorization user 
+            , int id 
+            , int start 
+            , int count 
+            , string type 
+            , FieldSelector<Companies.CompanyUpdates> fields = null
+        )
+        {
+            const string urlFormat = "/v1/companies/{int id}/updates?start={int start}&count={int count}&event-type={type}";
+            var url = FormatUrl(urlFormat, fields, "int id", id, "int start", start, "int count", count, "type", type);
+
+            var context = new RequestContext();
+            context.UserAuthorization = user;
+            context.Method =  "GET";
+            context.UrlPath = this.LinkedInApi.Configuration.BaseApiUrl + url;
+
+            var exec = await this.ExecuteQueryAsync(context);
+            if (!exec)
+                this.HandleJsonErrorResponse(context);
+            
+            var result = this.HandleJsonResponse<Companies.CompanyUpdates>(context);
+            return result;
+        }
+    #endif
         
         /// <summary>
         /// 
@@ -5881,6 +6430,35 @@ namespace Sparkle.LinkedInNET.Companies
             var result = this.HandleJsonResponse<Companies.CompanySearch>(context);
             return result;
         }
+
+    #if ASYNCTASKS
+        /// <summary>
+        /// 
+        /// </summary>
+        public async Task<Companies.CompanySearch> SearchAsync(
+              UserAuthorization user 
+            , int start 
+            , int count 
+            , string keywords 
+            , FieldSelector<Companies.CompanySearch> fields = null
+        )
+        {
+            const string urlFormat = "/v1/company-search{FieldSelector}?start={int start}&count={int count}&keywords={keywords}";
+            var url = FormatUrl(urlFormat, fields, "int start", start, "int count", count, "keywords", keywords);
+
+            var context = new RequestContext();
+            context.UserAuthorization = user;
+            context.Method =  "GET";
+            context.UrlPath = this.LinkedInApi.Configuration.BaseApiUrl + url;
+
+            var exec = await this.ExecuteQueryAsync(context);
+            if (!exec)
+                this.HandleJsonErrorResponse(context);
+            
+            var result = this.HandleJsonResponse<Companies.CompanySearch>(context);
+            return result;
+        }
+    #endif
         
         /// <summary>
         /// 
@@ -5908,6 +6486,36 @@ namespace Sparkle.LinkedInNET.Companies
             var result = this.HandleJsonResponse<Companies.CompanySearch>(context);
             return result;
         }
+
+    #if ASYNCTASKS
+        /// <summary>
+        /// 
+        /// </summary>
+        public async Task<Companies.CompanySearch> FacetSearchAsync(
+              UserAuthorization user 
+            , int start 
+            , int count 
+            , string keywords 
+            , string facet 
+            , FieldSelector<Companies.CompanySearch> fields = null
+        )
+        {
+            const string urlFormat = "/v1/company-search{FieldSelector}?start={int start}&count={int count}&keywords={keywords}&facet={facet}";
+            var url = FormatUrl(urlFormat, fields, "int start", start, "int count", count, "keywords", keywords, "facet", facet);
+
+            var context = new RequestContext();
+            context.UserAuthorization = user;
+            context.Method =  "GET";
+            context.UrlPath = this.LinkedInApi.Configuration.BaseApiUrl + url;
+
+            var exec = await this.ExecuteQueryAsync(context);
+            if (!exec)
+                this.HandleJsonErrorResponse(context);
+            
+            var result = this.HandleJsonResponse<Companies.CompanySearch>(context);
+            return result;
+        }
+    #endif
         
         /// <summary>
         /// Share a new company update.
@@ -5937,6 +6545,38 @@ namespace Sparkle.LinkedInNET.Companies
             result.Location = this.ReadHeader<string>(context, "Location");
             return result;
         }
+
+    #if ASYNCTASKS
+        /// <summary>
+        /// Share a new company update.
+        /// </summary>
+        /// <remarks>
+        /// See https://developer.linkedin.com/creating-company-shares
+        /// </remarks>
+        public async Task<Common.PostShareResult> ShareAsync(
+              UserAuthorization user 
+            , int companyId 
+            , Common.PostShare postData
+        )
+        {
+            const string urlFormat = "/v1/companies/{int companyId}/shares";
+            var url = FormatUrl(urlFormat, default(FieldSelector), "int companyId", companyId);
+
+            var context = new RequestContext();
+            context.UserAuthorization = user;
+            context.Method =  "POST";
+            context.UrlPath = this.LinkedInApi.Configuration.BaseApiUrl + url;
+            this.CreateJsonPostStream(context, postData);
+
+            var exec = await this.ExecuteQueryAsync(context);
+            if (!exec)
+                this.HandleJsonErrorResponse(context);
+            
+            var result = this.HandleJsonResponse<Common.PostShareResult>(context);
+            result.Location = this.ReadHeader<string>(context, "Location");
+            return result;
+        }
+    #endif
         
     }
 }
@@ -5946,6 +6586,9 @@ namespace Sparkle.LinkedInNET.Groups
 {
     using System;
     using System.Xml.Serialization;
+#if ASYNCTASKS
+    using System.Threading.Tasks;
+#endif
     using Sparkle.LinkedInNET.Internals;
 
     /// <summary>
@@ -5967,6 +6610,9 @@ namespace Sparkle.LinkedInNET.Jobs
 {
     using System;
     using System.Xml.Serialization;
+#if ASYNCTASKS
+    using System.Threading.Tasks;
+#endif
     using Sparkle.LinkedInNET.Internals;
 
     /// <summary>
@@ -5988,6 +6634,9 @@ namespace Sparkle.LinkedInNET.Social
 {
     using System;
     using System.Xml.Serialization;
+#if ASYNCTASKS
+    using System.Threading.Tasks;
+#endif
     using Sparkle.LinkedInNET.Internals;
 
     /// <summary>
@@ -6028,6 +6677,37 @@ namespace Sparkle.LinkedInNET.Social
             var result = this.HandleJsonResponse<Social.UserUpdates>(context);
             return result;
         }
+
+    #if ASYNCTASKS
+        /// <summary>
+        /// retrieve the member's updates
+        /// </summary>
+        public async Task<Social.UserUpdates> GetMyUpdatesAsync(
+              UserAuthorization user 
+            , int start = 0
+            , int count = 50
+            , DateTime? before = null
+            , DateTime? after = null
+            , bool showHiddenMembers = false
+            , FieldSelector<Social.UserUpdates> fields = null
+        )
+        {
+            const string urlFormat = "/v1/people/~/network/updates?scope=self&start={int start = 0}&count={int count = 50}&before={DateTime? before = null}&after={DateTime? after = null}&show-hidden-members={bool showHiddenMembers = false}";
+            var url = FormatUrl(urlFormat, fields, "int start = 0", start, "int count = 50", count, "DateTime? before = null", before, "DateTime? after = null", after, "bool showHiddenMembers = false", showHiddenMembers);
+
+            var context = new RequestContext();
+            context.UserAuthorization = user;
+            context.Method =  "GET";
+            context.UrlPath = this.LinkedInApi.Configuration.BaseApiUrl + url;
+
+            var exec = await this.ExecuteQueryAsync(context);
+            if (!exec)
+                this.HandleJsonErrorResponse(context);
+            
+            var result = this.HandleJsonResponse<Social.UserUpdates>(context);
+            return result;
+        }
+    #endif
         
     }
 }
@@ -6037,6 +6717,9 @@ namespace Sparkle.LinkedInNET.Common
 {
     using System;
     using System.Xml.Serialization;
+#if ASYNCTASKS
+    using System.Threading.Tasks;
+#endif
     using Sparkle.LinkedInNET.Internals;
 
     /// <summary>
