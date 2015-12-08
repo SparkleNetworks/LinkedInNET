@@ -108,7 +108,7 @@ echo -----------------------------
 echo Hit return to continue...
 pause 
 cd %outputDirectory%
-%nuget% pack Sparkle.LinkedInNet.nuspec -Version %version%-alpha
+%nuget% pack Sparkle.LinkedInNet.nuspec -Version %version%
 echo Done.
 
 
@@ -121,7 +121,7 @@ echo -----------------------------
 echo Hit return to continue...
 pause 
 cd %outputDirectory%
-%nuget% push Sparkle.LinkedInNet.%version%-alpha.nupkg
+%nuget% push Sparkle.LinkedInNet.%version%.nupkg
 echo Done.
 
 
