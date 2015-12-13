@@ -60,22 +60,11 @@ Supported frameworks: 3.5 (sync), 4.0 (sync), 4.5 (sync and task async).
 The `LinkedInApi` class is the entry point for all API calls. You must instantiate it with a configuration object. The minimum configuration is the API key and secret.  [Get a LinkedIn API key](https://www.linkedin.com/secure/developer).
 
 ````csharp
-// create from config file
-var config = LinkedInApiConfiguration.FromAppSettings("MyDemo.LinkedInConnect");
-// or manually
+// create a configuration object
 var config = new LinkedInApiConfiguration("•api•key•••", "•api•secret•key••••••");
 
 // get the APIs client
 var api = new LinkedInApi(config);
-````
-
-````xml
-<configuration>
-  <appSettings>
-    <add key="MyDemo.LinkedInConnect.ApiKey" value="•api•key•••" />
-    <add key="MyDemo.LinkedInConnect.ApiSecretKey" value="•api•secret•key••••••" />
-  </appSettings>
-</configuration>
 ````
 
 ### 3. Create OAuth2 authorize url
