@@ -63,7 +63,7 @@ The `LinkedInApi` class is the entry point for all API calls. You must instantia
 // create from config file
 var config = LinkedInApiConfiguration.FromAppSettings("MyDemo.LinkedInConnect");
 // or manually
-var config = LinkedInApiConfiguration("•api•key•••", "•api•secret•key••••••");
+var config = new LinkedInApiConfiguration("•api•key•••", "•api•secret•key••••••");
 
 // get the APIs client
 var api = new LinkedInApi(config);

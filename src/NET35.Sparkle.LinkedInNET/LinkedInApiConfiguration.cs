@@ -59,6 +59,7 @@ namespace Sparkle.LinkedInNET
         /// </summary>
         /// <param name="prefix">The prefix.</param>
         /// <returns></returns>
+        [Obsolete("This method will be removed in future builds.")]
         public static LinkedInApiConfiguration FromAppSettings(string prefix)
         {
             if (prefix != null)
