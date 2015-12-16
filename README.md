@@ -6,7 +6,7 @@ LinkedInNET
 
 [![Join the chat at https://gitter.im/SparkleNetworks/LinkedInNET](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/SparkleNetworks/LinkedInNET?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-Sparkle.LinkedInNET will help you query the LinkedIn API :)
+[Sparkle.LinkedInNET](https://github.com/SparkleNetworks/LinkedInNET/) will help you query the LinkedIn API :)
 
 Motivation
 ------------
@@ -178,10 +178,11 @@ The MVC demo app has a /Explore page that demonstrates most API calls. Have a lo
 Contribute
 ------------
 
+We welcome contributions. Especially if you can **suggest/access/test methods with a partner API key**.
+
 We are generating code based on a [XML file](DefinitionFile.md).  
 This XML file is manually filled to represent the API.  
-We worked hard to bring something reliable.  
-The API coverage should be implemented by expanding the XML file and enhancing code generation.
+The API coverage should be implemented by modifying the XML file and enhancing code generation.
 
 To generate the API code, build the "ServiceDefinition" project in Debug mode, edit `LinkedInApi.xml`, then use "Run custom tool" on the `Service.tt` file. The XML file will be read and most of the code will be updated automagically. 
   
@@ -212,6 +213,6 @@ We are using a lot of code generation so it won't be difficult to target any oth
 Status
 ------------
 
-Because of the API policy changes, most API calls are now reserved to the partners LinkedIn chose. We will try to keep up using our basic API key.
+Because of the API policy changes, most API calls are now reserved to the partners LinkedIn chose. The core team will try to keep up using basic API key.
 
-See our [internal to-do list](src/ToDo.md).
+Check our [internal to-do list](src/ToDo.md) to track missing/done things.
