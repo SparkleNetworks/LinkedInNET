@@ -6651,6 +6651,59 @@ namespace Sparkle.LinkedInNET.Social
         }
         
         /// <summary>
+        /// 
+        /// </summary>
+        public Common.PostShareResult Post(
+              UserAuthorization user 
+            , Common.PostShare postData
+            , FieldSelector<Common.PostShareResult> fields = null
+        )
+        {
+            var url = "/v1/people/~/shares";
+
+            var context = new RequestContext();
+            context.UserAuthorization = user;
+            context.Method =  "POST";
+            context.UrlPath = this.LinkedInApi.Configuration.BaseApiUrl + url;
+            this.CreateJsonPostStream(context, postData);
+
+            if (!this.ExecuteQuery(context))
+                this.HandleJsonErrorResponse(context);
+            
+            var result = this.HandleJsonResponse<Common.PostShareResult>(context);
+            result.Location = this.ReadHeader<string>(context, "Location");
+            return result;
+        }
+
+    #if ASYNCTASKS
+        /// <summary>
+        /// 
+        /// </summary>
+        public async Task<Common.PostShareResult> PostAsync(
+              UserAuthorization user 
+            , Common.PostShare postData
+            , FieldSelector<Common.PostShareResult> fields = null
+        )
+        {
+            var url = "/v1/people/~/shares";
+
+            var context = new RequestContext();
+            context.UserAuthorization = user;
+            context.Method =  "POST";
+            context.UrlPath = this.LinkedInApi.Configuration.BaseApiUrl + url;
+            this.CreateJsonPostStream(context, postData);
+
+            var exec = await this.ExecuteQueryAsync(context);
+            if (!exec)
+                this.HandleJsonErrorResponse(context);
+            
+            var result = this.HandleJsonResponse<Common.PostShareResult>(context);
+            result.Location = this.ReadHeader<string>(context, "Location");
+            return result;
+        }
+    #endif
+        
+        /// <summary>
         /// retrieve the member's updates
         /// </summary>
         public Social.UserUpdates GetMyUpdates(
