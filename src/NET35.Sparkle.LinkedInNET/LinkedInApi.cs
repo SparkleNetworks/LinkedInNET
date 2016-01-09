@@ -6,6 +6,7 @@ namespace Sparkle.LinkedInNET
     using System.Linq;
     using System.Text;
     using Sparkle.LinkedInNET.OAuth2;
+    using Sparkle.LinkedInNET.Internals;
 
     /// <summary>
     /// LinkedIn API client.
@@ -39,6 +40,69 @@ namespace Sparkle.LinkedInNET
         internal LinkedInApiConfiguration Configuration
         {
             get { return this.configuration; }
+        }
+
+        /// <summary>
+        /// Executes a custom GET API query.
+        /// </summary>
+        /// <param name="path">The URL path and query (ex: /v1/companies?whatnot=stuff).</param>
+        /// <returns>The resulting JSON response.</returns>
+        public string RawGetJsonQuery(string path)
+        {
+            return this.RawGetJsonQuery(path, null);
+        }
+
+        /// <summary>
+        /// Executes a custom GET API query.
+        /// </summary>
+        /// <param name="path">The URL path and query (ex: /v1/companies?whatnot=stuff).</param>
+        /// <param name="user">The user access token.</param>
+        /// <returns>The resulting JSON response.</returns>
+        public string RawGetJsonQuery(string path, UserAuthorization user)
+        {
+            var context = new RequestContext();
+            context.UserAuthorization = user;
+            context.Method = "GET";
+            context.UrlPath = path;
+
+            if (!this.ExecuteQuery(context))
+                this.HandleJsonErrorResponse(context);
+
+            var result = this.HandleJsonRawResponse(context);
+            return result;
+        }
+
+        /// <summary>
+        /// Executes a custom POST API query.
+        /// </summary>
+        /// <param name="path">The URL path and query (ex: /v1/companies?whatnot=stuff).</param>
+        /// <param name="content">The JSON content to POST.</param>
+        /// <returns>The resulting JSON response.</returns>
+        public string RawPostJsonQuery(string path, string content)
+        {
+            return this.RawPostJsonQuery(path, content, null);
+        }
+
+        /// <summary>
+        /// Executes a custom POST API query.
+        /// </summary>
+        /// <param name="path">The URL path and query (ex: /v1/companies?whatnot=stuff).</param>
+        /// <param name="user">The user access token.</param>
+        /// <param name="content">The JSON content to POST.</param>
+        /// <returns>The resulting JSON response.</returns>
+        public string RawPostJsonQuery(string path, string content, UserAuthorization user)
+        {
+            var context = new RequestContext();
+            context.UserAuthorization = user;
+            context.Method = "POST";
+            context.UrlPath = path;
+            this.CreateJsonPostStream(context, content);
+
+            if (!this.ExecuteQuery(context))
+                this.HandleJsonErrorResponse(context);
+
+            var result = this.HandleJsonRawResponse(context);
+            return result;
         }
     }
 }

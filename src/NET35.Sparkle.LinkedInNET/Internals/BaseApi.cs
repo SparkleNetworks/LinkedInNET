@@ -438,29 +438,7 @@ namespace Sparkle.LinkedInNET.Internals
             else if (errorHttpCodes.Contains(context.HttpStatusCode))
             {
                 // the HTTP code matches a error response
-                try
-                {
-                    errorResult = JsonConvert.DeserializeObject<ApiError>(json);
-                }
-                catch (Exception ex)
-                {
-                    var ex1 = FX.InternalException("SerializerDeserializeError", ex, ex.Message);
-                    TryAttachContextDetails(context, ex1);
-                    throw ex1;
-                }
-
-                {
-                    var ex1 = FX.ApiException("ApiErrorResult", errorResult.Status, errorResult.Message, context.UrlPath);
-                    TryAttachContextDetails(context, null);
-                    ex1.Data.Add("ErrorResult", errorResult);
-                    if (errorResult != null)
-                    {
-                        if (errorResult.Status == 401)
-                            ex1.Data["ShouldRenewToken"] = true;
-                    }
-
-                    throw ex1;
-                }
+                ThrowJsonErrorResult(context, errorResult, json);
             }
             else
             {
@@ -478,6 +456,76 @@ namespace Sparkle.LinkedInNET.Internals
             }
 
             return result;
+        }
+
+        internal string HandleJsonRawResponse(RequestContext context)
+        {
+            ApiError errorResult = null;
+
+            // create serializers
+            // it may fail if attributes are wrong
+            ////XmlSerializer serializer, errorSerializer;
+            var settings = new JsonSerializerSettings
+            {
+            };
+
+            string json;
+            try
+            {
+                var reader = new StreamReader(context.ResponseStream, Encoding.UTF8);
+                json = reader.ReadToEnd();
+            }
+            catch (Exception ex)
+            {
+                throw FX.InternalException("ReadStreamAsText", ex, ex.Message);
+            }
+
+            if (validHttpCodes.Contains(context.HttpStatusCode))
+            {
+                // the HTTP code matches a success response
+                // do nothing here
+            }
+            else if (errorHttpCodes.Contains(context.HttpStatusCode))
+            {
+                // the HTTP code matches a error response
+                ThrowJsonErrorResult(context, errorResult, json);
+            }
+            else
+            {
+                // unknown HTTP code
+                var ex1 = FX.ApiException("ApiUnknownHttpCode", context.HttpStatusCode);
+                TryAttachContextDetails(context, null);
+                throw ex1;
+            }
+
+            return json;
+        }
+
+        private static void ThrowJsonErrorResult(RequestContext context, ApiError errorResult, string json)
+        {
+            try
+            {
+                errorResult = JsonConvert.DeserializeObject<ApiError>(json);
+            }
+            catch (Exception ex)
+            {
+                var ex1 = FX.InternalException("SerializerDeserializeError", ex, ex.Message);
+                TryAttachContextDetails(context, ex1);
+                throw ex1;
+            }
+
+            {
+                var ex1 = FX.ApiException("ApiErrorResult", errorResult.Status, errorResult.Message, context.UrlPath);
+                TryAttachContextDetails(context, null);
+                ex1.Data.Add("ErrorResult", errorResult);
+                if (errorResult != null)
+                {
+                    if (errorResult.Status == 401)
+                        ex1.Data["ShouldRenewToken"] = true;
+                }
+
+                throw ex1;
+            }
         }
 
         private static void TryAttachContextDetails(RequestContext context, LinkedInNetException ex1)
