@@ -773,7 +773,9 @@
   </ApiGroup>
 
   <ApiGroup Name="Social">
-    <!--<ApiMethod MethodName="Post" HttpMethod="POST" Path="/v1/people/~/shares" RequiresUserAuthentication="1" />-->
+    <ApiMethod MethodName="Post" HttpMethod="POST" PostReturnType="Common.PostShare" ReturnType="Common.PostShareResult" 
+      Path="/v1/people/~/shares"
+      RequiresUserAuthentication="1" UseFieldSelectors="0" />
     <ApiMethod MethodName="GetMyUpdates" HttpMethod="GET" ReturnType="UserUpdates"
       Path="/v1/people/~/network/updates?scope=self&amp;start={int start = 0}&amp;count={int count = 50}&amp;before={DateTime? before = null}&amp;after={DateTime? after = null}&amp;show-hidden-members={bool showHiddenMembers = false}"
       Title="retrieve the member's updates" 
@@ -870,6 +872,8 @@
 
     <ReturnType Name="PostShareResult">
       <Header Name="Location" />
+      <Field Name="update-key" Remark="You can use the update key to request the XML or JSON representation of the newly created share." />
+      <Field Name="update-url" Remark="This URL serves as a direct link to the posted share on LinkedIn.com so they can view the share in the browser." />
     </ReturnType>
   </ApiGroup>
 </Root>

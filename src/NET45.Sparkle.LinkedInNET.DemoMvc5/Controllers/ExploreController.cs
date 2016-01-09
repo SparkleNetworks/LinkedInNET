@@ -195,7 +195,6 @@ namespace Sparkle.LinkedInNET.DemoMvc5.Controllers
 
         public ActionResult CompanyShare(string ShareId)
         {
-
             var item = new Sparkle.LinkedInNET.Common.PostShare
             {
                 Visibility = new Visibility
@@ -243,7 +242,61 @@ namespace Sparkle.LinkedInNET.DemoMvc5.Controllers
             var user = new UserAuthorization(token);
             var result = this.api.Companies.Share(user, model.CompanyId, item);
 
-            this.ViewBag.Result = result != null ? result.Location : null;
+            this.ViewBag.Result = result;
+
+            return this.View(model);
+        }
+
+        public ActionResult UserShare(string ShareId)
+        {
+            // PERMISSION REQUIRED: rw_nus
+            var item = new Sparkle.LinkedInNET.Common.PostShare
+            {
+                Visibility = new Visibility
+                {
+                    Code = "anyone",
+                },
+                Comment = "Testing a user share with Sparkle.LinkedInNET in C#.NET!",
+            };
+
+            if (ShareId != null)
+            {
+                item.Attribution = new Attribution
+                {
+                    Share = ShareId,
+                };
+            }
+            else
+            {
+                item.Content = new PostShareContent
+                {
+                    SubmittedUrl = "https://github.com/SparkleNetworks/LinkedInNET",
+                    Title = "SparkleNetworks/LinkedInNET",
+                    Description = "Sparkle.LinkedInNET will help you query the LinkedIn API with C# :)",
+                    SubmittedImageUrl = "https://raw.githubusercontent.com/SparkleNetworks/LinkedInNET/master/src/LiNET-200.png",
+                };
+            }
+
+            this.ViewBag.Share = item;
+
+            var model = new CompanyShareModel
+            {
+                Json = JsonConvert.SerializeObject(item, Formatting.Indented, shareSettings),
+            };
+            return this.View(model);
+        }
+
+        [HttpPost]
+        public ActionResult UserShare(CompanyShareModel model)
+        {
+            var item = JsonConvert.DeserializeObject<Sparkle.LinkedInNET.Common.PostShare>(model.Json);
+            this.ViewBag.Share = item;
+
+            var token = this.data.GetAccessToken();
+            var user = new UserAuthorization(token);
+            var result = this.api.Social.Post(user, item);
+
+            this.ViewBag.Result = result;
 
             return this.View(model);
         }

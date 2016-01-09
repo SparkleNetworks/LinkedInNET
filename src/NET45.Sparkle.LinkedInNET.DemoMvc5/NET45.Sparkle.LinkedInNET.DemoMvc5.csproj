@@ -167,6 +167,7 @@
     <Content Include="Views\Explore\Connections.cshtml" />
     <Content Include="Views\Explore\SearchCompany.cshtml" />
     <Content Include="Views\Explore\CompanyShare.cshtml" />
+    <Content Include="Views\Explore\UserShare.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

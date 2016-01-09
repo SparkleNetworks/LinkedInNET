@@ -5201,6 +5201,20 @@ namespace Sparkle.LinkedInNET.Common
     public class PostShareResult
     {
         /// <summary>
+        /// Field: 'update-key' (on-demand)
+        /// </summary>
+        [XmlElement(ElementName = "update-key")]
+        [JsonProperty(PropertyName = "updateKey")]
+        public string UpdateKey { get; set; }
+
+        /// <summary>
+        /// Field: 'update-url' (on-demand)
+        /// </summary>
+        [XmlElement(ElementName = "update-url")]
+        [JsonProperty(PropertyName = "updateUrl")]
+        public string UpdateUrl { get; set; }
+
+        /// <summary>
         /// HTTP header 'Location'
         /// </summary>
         public string Location { get; set; }
@@ -6649,6 +6663,57 @@ namespace Sparkle.LinkedInNET.Social
             : base(linkedInApi)
         {
         }
+        
+        /// <summary>
+        /// 
+        /// </summary>
+        public Common.PostShareResult Post(
+              UserAuthorization user 
+            , Common.PostShare postData
+        )
+        {
+            var url = "/v1/people/~/shares";
+
+            var context = new RequestContext();
+            context.UserAuthorization = user;
+            context.Method =  "POST";
+            context.UrlPath = this.LinkedInApi.Configuration.BaseApiUrl + url;
+            this.CreateJsonPostStream(context, postData);
+
+            if (!this.ExecuteQuery(context))
+                this.HandleJsonErrorResponse(context);
+            
+            var result = this.HandleJsonResponse<Common.PostShareResult>(context);
+            result.Location = this.ReadHeader<string>(context, "Location");
+            return result;
+        }
+
+    #if ASYNCTASKS
+        /// <summary>
+        /// 
+        /// </summary>
+        public async Task<Common.PostShareResult> PostAsync(
+              UserAuthorization user 
+            , Common.PostShare postData
+        )
+        {
+            var url = "/v1/people/~/shares";
+
+            var context = new RequestContext();
+            context.UserAuthorization = user;
+            context.Method =  "POST";
+            context.UrlPath = this.LinkedInApi.Configuration.BaseApiUrl + url;
+            this.CreateJsonPostStream(context, postData);
+
+            var exec = await this.ExecuteQueryAsync(context);
+            if (!exec)
+                this.HandleJsonErrorResponse(context);
+            
+            var result = this.HandleJsonResponse<Common.PostShareResult>(context);
+            result.Location = this.ReadHeader<string>(context, "Location");
+            return result;
+        }
+    #endif
         
         /// <summary>
         /// retrieve the member's updates

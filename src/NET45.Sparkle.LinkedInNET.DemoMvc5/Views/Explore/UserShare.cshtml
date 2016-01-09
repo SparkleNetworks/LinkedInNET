@@ -8,20 +8,18 @@
 @if (result != null)
 {
     <h2>Result</h2>
-<p>Success! </p>
+    <p>Success! </p>
     <pre>Location  = @result.Location
 UpdateKey = @result.UpdateKey
 UpdateUrl = @result.UpdateUrl</pre>
 }
 
-<h2>Post as company</h2>
+<h2>Post as yourself</h2>
 
-@using (Html.BeginForm("CompanyShare", "Explore", FormMethod.Post)) {
-<p><label>Company ID: @Html.TextBox("CompanyId", Model.CompanyId)</label></p>
+@using (Html.BeginForm("UserShare", "Explore", FormMethod.Post)) {
 <p><label>Content: <br />@Html.TextArea("Json", Model.Json, new { rows = 14, cols = 120, })</label></p>
 <p><input type="submit" value="Post" /></p>
 }
 
 <h2>Infos</h2>
-<p>You can use <a href="https://www.linkedin.com/company/2414183">the test company</a> of id <code>2414183</code>.</p>
-<p><a href="https://developer.linkedin.com/creating-company-shares">developer.linkedin.com: Creating Company Shares</a></p>
+<p>To execute this request, you must request the permission <code>rw_nus</code>. </p>

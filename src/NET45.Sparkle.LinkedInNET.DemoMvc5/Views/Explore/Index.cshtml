@@ -1,4 +1,23 @@
 ﻿
+<style type="text/css">
+    .ok {
+        color: #00b017;
+    }
+
+    .error {
+        color: #f00;
+    }
+
+    a.button {
+        display: inline-block;
+        border: 1px solid gray;
+        background: #e8e8e8;
+        border-radius: 2px;
+        padding: 5px;
+    }
+</style>
+
+
 <h1>@Html.ActionLink("Explore", "Index")</h1>
 
 <h2>Search</h2>
@@ -8,8 +27,9 @@
 <input type="submit" value="Search company" />
 }
 
-<h2>Share as company</h2>
-<p>@Html.ActionLink("Compose...", "CompanyShare")</p>
+<h2>Share...</h2>
+<p>@Html.ActionLink("Compose share as yourself...", "UserShare", null, new { @class = "button", })</p>
+<p>@Html.ActionLink("Compose share as company...", "CompanyShare", null, new { @class = "button", })</p>
 
 <h2>You</h2>
 @{
