@@ -4,9 +4,9 @@
 LinkedInNET
 ===========
 
-[![Join the chat at https://gitter.im/SparkleNetworks/LinkedInNET](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/SparkleNetworks/LinkedInNET?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[Sparkle.LinkedInNET](https://github.com/SparkleNetworks/LinkedInNET/) ([NuGet](https://www.nuget.org/packages/Sparkle.LinkedInNET/))will help you query the LinkedIn API :)
 
-[Sparkle.LinkedInNET](https://github.com/SparkleNetworks/LinkedInNET/) will help you query the LinkedIn API :)
+Have any question? You may reach the authors on the dedicated chat room: [![Join the chat at https://gitter.im/SparkleNetworks/LinkedInNET](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/SparkleNetworks/LinkedInNET?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 Motivation
 ------------
