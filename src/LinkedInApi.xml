@@ -556,6 +556,9 @@
     <ApiMethod MethodName="GetList" HttpMethod="GET" Path="/v1/companies{FieldSelector}" ReturnType="Company"
       Title="Hacker Summary"
       RequiresUserAuthentication="1" />
+    <ApiMethod MethodName="GetBasicCompany" HttpMethod="GET" Path="/v1/companies?format=json&amp;is-company-admin=true{FieldSelector}" ReturnType="BasicCompany"
+      Title="Gets a list of all ids the person is administrator of"
+      RequiresUserAuthentication="1" />
     <ApiMethod MethodName="GetById"   HttpMethod="GET" Path="/v1/companies/{CompanyId}{FieldSelector}" ReturnType="Company"
       Title="retrieve a company by using the company ID"
       RequiresUserAuthentication="1" />
@@ -568,7 +571,7 @@
       Path="/v1/companies/universal-name={UniversalName}{FieldSelector}"
       RequiresUserAuthentication="1" />
 
-    <ApiMethod MethodName="GetShares" HttpMethod="GET" Path="/v1/companies/{int id}/updates?start={int start}&amp;count={int count}&amp;event-type={type}" ReturnType="CompanyUpdates"
+    <ApiMethod MethodName="GetShares" HttpMethod="GET" Path="/v1/companies/{int id}/updates?" ReturnType="CompanyUpdates"
       Title="Retrieve the company's updates"
       RequiresUserAuthentication="1" />
 
@@ -584,7 +587,10 @@
       Title="Share a new company update." Remark="See https://developer.linkedin.com/creating-company-shares"
       RequiresUserAuthentication="1" UseFieldSelectors="0" />
     <!--<ApiMethod MethodName="Repost" HttpMethod="POST" Path="/v1/companies/{int companyId}/shares" PostReturnType="Common.PostShare" ReturnType="Common.PostShareResult" RequiresUserAuthentication="1" UseFieldSelectors="0" Title="Share a company update based on an existing update." Remark="See https://developer.linkedin.com/creating-company-shares" />-->
-    
+    <ReturnType Name="basiccompany" ClassName="BasicCompany" AutoGenerateFieldSelectors="1">
+      <Field Name="total" IsAttribute="1" Type="int" />
+      <Field Name="company" Type="Company" IsCollection="1" />
+    </ReturnType>
     <ReturnType Name="company" ClassName="Company" AutoGenerateFieldSelectors="1">
       <Field Name="id" Type="long" Title="Default. The unique internal numeric company identifier." IsDefault="1" />
       <Field Name="name" Title="Default. The human readable name of the company." IsDefault="1" />
@@ -663,6 +669,8 @@
       <Field Name="update-key" />
       <Field Name="update-type" />
       <Field Name="update-content" Type="CompanyUpdateContent" />
+      <Field Name="updateComments" Type="CompanyUpdateComments"/>
+      <Field Name="likes" Type="CompanyUpdateComments"/>
       <Field Name="is-commentable" Type="bool?" />
       <!--<Field Name="update-comments.total" />-->
       <Field Name="is-likable"     Type="bool?" />
@@ -677,6 +685,26 @@
       <Field Name="company-status-update"  Type="CompanyStatusUpdate" />
     </ReturnType>
 
+    <ReturnType Name="CompanyUpdateComments">
+      <Field Name="total" IsAttribute="1"  Type="int" />
+      <Field Name="comment" Type="CompanyUpdateComment" IsCollection="1"/>
+    </ReturnType>
+    <ReturnType Name="CompanyUpdateLikes">
+      <Field Name="total" IsAttribute="1"  Type="int" />
+      <Field Name="like" Type="CompanyUpdateLike" IsCollection="1"/>
+    </ReturnType>
+    <ReturnType Name="CompanyUpdateComment">
+      <Field Name="comment"                Type="string"/>
+      <Field Name="id"                     Type="long?"/>
+      <Field Name="person"                 Type="Sparkle.LinkedInNET.Profiles.Person"/>
+      <Field Name="company"                Type="Sparkle.LinkedInNET.Companies.Company"/>
+      <Field Name="sequenceNumber"        Type="int?"/>
+      <Field Name="timestamp"              Type="long?"/>
+    </ReturnType>
+    <ReturnType Name="CompanyUpdateLike">
+      <Field Name="company"                Type="Sparkle.LinkedInNET.Companies.Company"/>
+      <Field Name="person"                 Type="Sparkle.LinkedInNET.Profiles.Person"/>
+    </ReturnType>
     <ReturnType Name="CompanyIdentifier">
       <Field Name="id" Type="int" />
       <Field Name="name" />
