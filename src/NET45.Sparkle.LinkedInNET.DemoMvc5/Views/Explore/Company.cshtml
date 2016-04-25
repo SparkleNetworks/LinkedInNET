@@ -1,4 +1,7 @@
 ﻿@model Sparkle.LinkedInNET.Companies.Company
+@{
+    int id = this.ViewBag.Id;
+}
 
 <h1>@Html.ActionLink("Explore", "Index")</h1>
 
@@ -41,7 +44,8 @@
     <dt>Logo</dt>
     <dd>@if (Model.LogoUrl != null){ <img src="@Model.LogoUrl" alt="Logo of @Model.Name" /> }</dd>
 
-@if (Model.Locations != null && Model.Locations.Location != null){
+@if (Model.Locations != null && Model.Locations.Location != null)
+{
     foreach (var location in Model.Locations.Location){
     <dt>Location</dt>
     <dd><ul>
@@ -92,10 +96,30 @@
     </dd>
 </dl>
 
-<h2 class="clear">Shares</h2>
+<h2 class="clear" id="Shares">Shares</h2>
 @{
     var shares = (Sparkle.LinkedInNET.Companies.CompanyUpdates)this.ViewBag.Shares;
+    var sharesTotal = this.ViewBag.SharesTotal != null ? (int)this.ViewBag.SharesTotal : 0;
+    var sharesCount = (int)this.ViewBag.SharesCount;
+    var sharesStart = (int)this.ViewBag.SharesStart;
+    var sharePages = (int)Math.Ceiling((double)sharesTotal / (double)sharesCount);
+    string eventType = this.ViewBag.EventType;
+    var eventTypes = new List<string> { "job-posting", "new-product", "status-update", };
+    if (!string.IsNullOrEmpty(eventType) && !eventTypes.Contains(eventType)) { eventTypes.Add(eventType); }
 }
+<p>
+@for (int i = 0; i < sharePages; i++)
+{
+    <a href="@Url.Action("Company", new { id = id, count = sharesCount, start = (i*sharesCount), eventType = eventType, })#Shares">P-@i</a>
+}
+</p>
+<p>Filter by: 
+    <a href="@Url.Action("Company", new { id = id, count = sharesCount, start = 0, eventType = "", })#Shares">all</a>
+@foreach (var eventTypeValue in eventTypes)
+{
+    @:, <a href="@Url.Action("Company", new { id = id, count = sharesCount, start = 0, eventType = eventTypeValue, })#Shares">@eventTypeValue</a>
+}
+</p>
 @if (shares != null && shares.Update != null && shares.Update.Count > 0)
 {
 <dl>

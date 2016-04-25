@@ -56,6 +56,7 @@
     </Compile>
     <Compile Include="ApiError.cs" />
     <Compile Include="FieldSelectorValue.cs" />
+    <Compile Include="ILinkedInException.cs" />
     <Compile Include="LinkedInNetException.cs" />
     <Compile Include="FieldSelector.cs" />
     <Compile Include="Internals\BaseApi.cs" />

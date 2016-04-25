@@ -571,8 +571,12 @@
       Path="/v1/companies/universal-name={UniversalName}{FieldSelector}"
       RequiresUserAuthentication="1" />
 
-    <ApiMethod MethodName="GetShares" HttpMethod="GET" Path="/v1/companies/{int id}/updates?" ReturnType="CompanyUpdates"
+    <ApiMethod MethodName="GetShares" HttpMethod="GET" Path="/v1/companies/{int id}/updates?start={int start}&amp;count={int count}" ReturnType="CompanyUpdates"
       Title="Retrieve the company's updates"
+      RequiresUserAuthentication="1" />
+    <ApiMethod MethodName="GetShares" HttpMethod="GET" Path="/v1/companies/{int id}/updates?start={int start}&amp;count={int count}&amp;event-type={type}" ReturnType="CompanyUpdates"
+      Title="Retrieve the company's updates"
+      Remark="event-type: job-posting, new-product, status-update"
       RequiresUserAuthentication="1" />
 
     <ApiMethod MethodName="Search" HttpMethod="GET" ReturnType="company-search"
@@ -662,6 +666,8 @@
     </ReturnType>
 
     <ReturnType Name="updates" ClassName="CompanyUpdates">
+      <Field Name="total" IsAttribute="1"  Type="int" />
+      <Field Name="count" IsAttribute="1"  Type="int" />
       <Field Name="update" Type="CompanyUpdate" IsCollection="1" />
     </ReturnType>
     <ReturnType Name="CompanyUpdate">

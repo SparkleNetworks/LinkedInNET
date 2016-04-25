@@ -11,7 +11,7 @@ namespace Sparkle.LinkedInNET
     /// Exception for library internal errors.
     /// </summary>
     [Serializable]
-    public class LinkedInNetException : Exception
+    public class LinkedInNetException : Exception, ILinkedInException
     {
         internal LinkedInNetException()
         {
@@ -36,5 +36,7 @@ namespace Sparkle.LinkedInNET
             : base(info, context)
         {
         }
+
+        public int StatusCode { get; set; }
     }
 }

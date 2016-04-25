@@ -72,6 +72,9 @@ namespace Sparkle.LinkedInNET.DemoMvc5.Controllers
 
         public async Task<ActionResult> Company(int id, string culture = "en-US", int start = 0, int count = 10, string eventType = null)
         {
+            this.ViewBag.Id = id;
+            this.ViewBag.EventType = eventType;
+
             var token = this.data.GetAccessToken();
             this.ViewBag.Token = token;
             var user = new UserAuthorization(token);
@@ -81,12 +84,40 @@ namespace Sparkle.LinkedInNET.DemoMvc5.Controllers
             {
                 var fields = FieldSelector.For<Company>()
                     .WithAllFields();
-                company = await this.api.Companies.GetByIdAsync(user, id.ToString(), fields);
+                try
+                {
+                    company = await this.api.Companies.GetByIdAsync(user, id.ToString(), fields);
+                }
+                catch (LinkedInApiException ex)
+                {
+                    if (ex.StatusCode == 403)
+                    {
+                        company = new Company();
+                        company.Id = id;
+                        company.Name = ex.Message;
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
             }
 
             {
                 var fields = FieldSelector.For<CompanyUpdates>();
-                var shares = this.api.Companies.GetShares(user, id, start, count, eventType);
+                Companies.CompanyUpdates shares;
+                if (string.IsNullOrEmpty(eventType))
+                {
+                    shares = await this.api.Companies.GetSharesAsync(user, id, start, count);
+                }
+                else
+                {
+                    shares = await this.api.Companies.GetSharesAsync(user, id, start, count, eventType);
+                }
+
+                this.ViewBag.SharesStart = start;
+                this.ViewBag.SharesCount = count;
+                this.ViewBag.SharesTotal = shares.Total;
                 this.ViewBag.Shares = shares;
             }
             
@@ -299,6 +330,14 @@ namespace Sparkle.LinkedInNET.DemoMvc5.Controllers
             this.ViewBag.Result = result;
 
             return this.View(model);
+        }
+
+        public async Task<ActionResult> Companies()
+        {
+            var token = this.data.GetAccessToken();
+            var user = new UserAuthorization(token);
+            var result = await this.api.Companies.GetListAsync(user);
+            return this.View(result);
         }
     }
 }

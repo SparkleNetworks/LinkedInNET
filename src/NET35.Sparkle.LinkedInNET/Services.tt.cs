@@ -3184,6 +3184,37 @@ namespace Sparkle.LinkedInNET.Profiles
 
 #region ReturnTypes for Companies
 
+// WriteReturnTypes(Companies, basiccompany)
+namespace Sparkle.LinkedInNET.Companies
+{
+    using System;
+    using System.Collections.Generic;
+    using System.Xml.Serialization;
+    using Newtonsoft.Json;
+
+    /// <summary>
+    /// Name: 'basiccompany'
+    /// </summary>
+    [Serializable, XmlRoot("basiccompany")]
+    public class BasicCompany
+    {
+        /// <summary>
+        /// Field: 'total' (on-demand)
+        /// </summary>
+        [XmlAttribute(AttributeName = "total")]
+        [JsonProperty(PropertyName = "_total")]
+        public int Total { get; set; }
+
+        /// <summary>
+        /// Field: 'company' (on-demand)
+        /// </summary>
+        [XmlElement(ElementName = "company")]
+        [JsonProperty(PropertyName = "values")]
+        public List<Company> Company { get; set; }
+
+    }
+}
+
 // WriteReturnTypes(Companies, company)
 namespace Sparkle.LinkedInNET.Companies
 {
@@ -3655,6 +3686,20 @@ namespace Sparkle.LinkedInNET.Companies
     public class CompanyUpdates
     {
         /// <summary>
+        /// Field: 'total' (on-demand)
+        /// </summary>
+        [XmlAttribute(AttributeName = "total")]
+        [JsonProperty(PropertyName = "_total")]
+        public int Total { get; set; }
+
+        /// <summary>
+        /// Field: 'count' (on-demand)
+        /// </summary>
+        [XmlAttribute(AttributeName = "count")]
+        [JsonProperty(PropertyName = "_count")]
+        public int Count { get; set; }
+
+        /// <summary>
         /// Field: 'update' (on-demand)
         /// </summary>
         [XmlElement(ElementName = "update")]
@@ -3705,6 +3750,20 @@ namespace Sparkle.LinkedInNET.Companies
         [XmlElement(ElementName = "update-content")]
         [JsonProperty(PropertyName = "updateContent")]
         public CompanyUpdateContent UpdateContent { get; set; }
+
+        /// <summary>
+        /// Field: 'updateComments' (on-demand)
+        /// </summary>
+        [XmlElement(ElementName = "updateComments")]
+        [JsonProperty(PropertyName = "updateComments")]
+        public CompanyUpdateComments UpdateComments { get; set; }
+
+        /// <summary>
+        /// Field: 'likes' (on-demand)
+        /// </summary>
+        [XmlElement(ElementName = "likes")]
+        [JsonProperty(PropertyName = "likes")]
+        public CompanyUpdateComments Likes { get; set; }
 
         /// <summary>
         /// Field: 'is-commentable' (on-demand)
@@ -3778,6 +3837,158 @@ namespace Sparkle.LinkedInNET.Companies
         [XmlElement(ElementName = "company-status-update")]
         [JsonProperty(PropertyName = "companyStatusUpdate")]
         public CompanyStatusUpdate CompanyStatusUpdate { get; set; }
+
+    }
+}
+
+// WriteReturnTypes(Companies, CompanyUpdateComments)
+namespace Sparkle.LinkedInNET.Companies
+{
+    using System;
+    using System.Collections.Generic;
+    using System.Xml.Serialization;
+    using Newtonsoft.Json;
+
+    /// <summary>
+    /// Name: 'CompanyUpdateComments'
+    /// </summary>
+    [Serializable, XmlRoot("CompanyUpdateComments")]
+    public class CompanyUpdateComments
+    {
+        /// <summary>
+        /// Field: 'total' (on-demand)
+        /// </summary>
+        [XmlAttribute(AttributeName = "total")]
+        [JsonProperty(PropertyName = "_total")]
+        public int Total { get; set; }
+
+        /// <summary>
+        /// Field: 'comment' (on-demand)
+        /// </summary>
+        [XmlElement(ElementName = "comment")]
+        [JsonProperty(PropertyName = "values")]
+        public List<CompanyUpdateComment> Comment { get; set; }
+
+    }
+}
+
+// WriteReturnTypes(Companies, CompanyUpdateLikes)
+namespace Sparkle.LinkedInNET.Companies
+{
+    using System;
+    using System.Collections.Generic;
+    using System.Xml.Serialization;
+    using Newtonsoft.Json;
+
+    /// <summary>
+    /// Name: 'CompanyUpdateLikes'
+    /// </summary>
+    [Serializable, XmlRoot("CompanyUpdateLikes")]
+    public class CompanyUpdateLikes
+    {
+        /// <summary>
+        /// Field: 'total' (on-demand)
+        /// </summary>
+        [XmlAttribute(AttributeName = "total")]
+        [JsonProperty(PropertyName = "_total")]
+        public int Total { get; set; }
+
+        /// <summary>
+        /// Field: 'like' (on-demand)
+        /// </summary>
+        [XmlElement(ElementName = "like")]
+        [JsonProperty(PropertyName = "values")]
+        public List<CompanyUpdateLike> Like { get; set; }
+
+    }
+}
+
+// WriteReturnTypes(Companies, CompanyUpdateComment)
+namespace Sparkle.LinkedInNET.Companies
+{
+    using System;
+    using System.Collections.Generic;
+    using System.Xml.Serialization;
+    using Newtonsoft.Json;
+
+    /// <summary>
+    /// Name: 'CompanyUpdateComment'
+    /// </summary>
+    [Serializable, XmlRoot("CompanyUpdateComment")]
+    public class CompanyUpdateComment
+    {
+        /// <summary>
+        /// Field: 'comment' (on-demand)
+        /// </summary>
+        [XmlElement(ElementName = "comment")]
+        [JsonProperty(PropertyName = "comment")]
+        public string Comment { get; set; }
+
+        /// <summary>
+        /// Field: 'id' (on-demand)
+        /// </summary>
+        [XmlElement(ElementName = "id")]
+        [JsonProperty(PropertyName = "id")]
+        public long? Id { get; set; }
+
+        /// <summary>
+        /// Field: 'person' (on-demand)
+        /// </summary>
+        [XmlElement(ElementName = "person")]
+        [JsonProperty(PropertyName = "person")]
+        public Sparkle.LinkedInNET.Profiles.Person Person { get; set; }
+
+        /// <summary>
+        /// Field: 'company' (on-demand)
+        /// </summary>
+        [XmlElement(ElementName = "company")]
+        [JsonProperty(PropertyName = "company")]
+        public Sparkle.LinkedInNET.Companies.Company Company { get; set; }
+
+        /// <summary>
+        /// Field: 'sequenceNumber' (on-demand)
+        /// </summary>
+        [XmlElement(ElementName = "sequenceNumber")]
+        [JsonProperty(PropertyName = "sequenceNumber")]
+        public int? SequenceNumber { get; set; }
+
+        /// <summary>
+        /// Field: 'timestamp' (on-demand)
+        /// </summary>
+        [XmlElement(ElementName = "timestamp")]
+        [JsonProperty(PropertyName = "timestamp")]
+        public long? Timestamp { get; set; }
+
+    }
+}
+
+// WriteReturnTypes(Companies, CompanyUpdateLike)
+namespace Sparkle.LinkedInNET.Companies
+{
+    using System;
+    using System.Collections.Generic;
+    using System.Xml.Serialization;
+    using Newtonsoft.Json;
+
+    /// <summary>
+    /// Name: 'CompanyUpdateLike'
+    /// </summary>
+    [Serializable, XmlRoot("CompanyUpdateLike")]
+    public class CompanyUpdateLike
+    {
+        /// <summary>
+        /// Field: 'company' (on-demand)
+        /// </summary>
+        [XmlElement(ElementName = "company")]
+        [JsonProperty(PropertyName = "company")]
+        public Sparkle.LinkedInNET.Companies.Company Company { get; set; }
+
+        /// <summary>
+        /// Field: 'person' (on-demand)
+        /// </summary>
+        [XmlElement(ElementName = "person")]
+        [JsonProperty(PropertyName = "person")]
+        public Sparkle.LinkedInNET.Profiles.Person Person { get; set; }
 
     }
 }
@@ -4360,9 +4571,23 @@ namespace Sparkle.LinkedInNET.Companies
     using System.Xml.Serialization;
 
     /// <summary>
-    /// Field selectors for the 'company', 'locations', 'location', 'address', 'contact-info', 'email-domains', 'company-key-value', 'industries', 'industry', 'updates', 'CompanyUpdate', 'CompanyUpdateContent', 'CompanyIdentifier', 'CompanyJobUpdate', 'CompanyJobUpdateJob', 'PositionIdentifier', 'UrlIdentifier', 'CompanyProductUpdate', 'CompanyProduct', 'company‐status­‐update', 'specialties', 'company-search', 'SearchCompanyList', 'SearchFacetList', 'facet', 'buckets', 'bucket', 'action', 'event-type' return types.
+    /// Field selectors for the 'basiccompany', 'company', 'locations', 'location', 'address', 'contact-info', 'email-domains', 'company-key-value', 'industries', 'industry', 'updates', 'CompanyUpdate', 'CompanyUpdateContent', 'CompanyUpdateComments', 'CompanyUpdateLikes', 'CompanyUpdateComment', 'CompanyUpdateLike', 'CompanyIdentifier', 'CompanyJobUpdate', 'CompanyJobUpdateJob', 'PositionIdentifier', 'UrlIdentifier', 'CompanyProductUpdate', 'CompanyProduct', 'company‐status­‐update', 'specialties', 'company-search', 'SearchCompanyList', 'SearchFacetList', 'facet', 'buckets', 'bucket', 'action', 'event-type' return types.
     /// </summary>
     public static class CompaniesFields {
+        /// <summary>
+        /// Includes the field 'company'.
+        /// </summary>
+        /// <param name="me">The field selector.</param>
+        /// <returns>The field selector.</returns>
+        public static FieldSelector<BasicCompany> WithCompany(this FieldSelector<BasicCompany> me) { return me.Add("company"); }
+        
+        /// <summary>
+        /// Includes all the fields.
+        /// </summary>
+        /// <param name="me">The field selector.</param>
+        /// <returns>The field selector.</returns>
+        public static FieldSelector<BasicCompany> WithAllFields(this FieldSelector<BasicCompany> me) { return me.AddRange("company"); }
+        
         /// <summary>
         /// Includes the field 'id'.
         /// </summary>
@@ -6210,6 +6435,55 @@ namespace Sparkle.LinkedInNET.Companies
     #endif
         
         /// <summary>
+        /// Gets a list of all ids the person is administrator of
+        /// </summary>
+        public Companies.BasicCompany GetBasicCompany(
+              UserAuthorization user 
+            , FieldSelector<Companies.BasicCompany> fields = null
+        )
+        {
+            const string urlFormat = "/v1/companies?format=json&is-company-admin=true{FieldSelector}";
+            var url = FormatUrl(urlFormat, fields);
+
+            var context = new RequestContext();
+            context.UserAuthorization = user;
+            context.Method =  "GET";
+            context.UrlPath = this.LinkedInApi.Configuration.BaseApiUrl + url;
+
+            if (!this.ExecuteQuery(context))
+                this.HandleJsonErrorResponse(context);
+            
+            var result = this.HandleJsonResponse<Companies.BasicCompany>(context);
+            return result;
+        }
+
+    #if ASYNCTASKS
+        /// <summary>
+        /// Gets a list of all ids the person is administrator of
+        /// </summary>
+        public async Task<Companies.BasicCompany> GetBasicCompanyAsync(
+              UserAuthorization user 
+            , FieldSelector<Companies.BasicCompany> fields = null
+        )
+        {
+            const string urlFormat = "/v1/companies?format=json&is-company-admin=true{FieldSelector}";
+            var url = FormatUrl(urlFormat, fields);
+
+            var context = new RequestContext();
+            context.UserAuthorization = user;
+            context.Method =  "GET";
+            context.UrlPath = this.LinkedInApi.Configuration.BaseApiUrl + url;
+
+            var exec = await this.ExecuteQueryAsync(context);
+            if (!exec)
+                this.HandleJsonErrorResponse(context);
+            
+            var result = this.HandleJsonResponse<Companies.BasicCompany>(context);
+            return result;
+        }
+    #endif
+        
+        /// <summary>
         /// retrieve a company by using the company ID
         /// </summary>
         public Companies.Company GetById(
@@ -6370,6 +6644,64 @@ namespace Sparkle.LinkedInNET.Companies
             , int id 
             , int start 
             , int count 
+            , FieldSelector<Companies.CompanyUpdates> fields = null
+        )
+        {
+            const string urlFormat = "/v1/companies/{int id}/updates?start={int start}&count={int count}";
+            var url = FormatUrl(urlFormat, fields, "int id", id, "int start", start, "int count", count);
+
+            var context = new RequestContext();
+            context.UserAuthorization = user;
+            context.Method =  "GET";
+            context.UrlPath = this.LinkedInApi.Configuration.BaseApiUrl + url;
+
+            if (!this.ExecuteQuery(context))
+                this.HandleJsonErrorResponse(context);
+            
+            var result = this.HandleJsonResponse<Companies.CompanyUpdates>(context);
+            return result;
+        }
+
+    #if ASYNCTASKS
+        /// <summary>
+        /// Retrieve the company's updates
+        /// </summary>
+        public async Task<Companies.CompanyUpdates> GetSharesAsync(
+              UserAuthorization user 
+            , int id 
+            , int start 
+            , int count 
+            , FieldSelector<Companies.CompanyUpdates> fields = null
+        )
+        {
+            const string urlFormat = "/v1/companies/{int id}/updates?start={int start}&count={int count}";
+            var url = FormatUrl(urlFormat, fields, "int id", id, "int start", start, "int count", count);
+
+            var context = new RequestContext();
+            context.UserAuthorization = user;
+            context.Method =  "GET";
+            context.UrlPath = this.LinkedInApi.Configuration.BaseApiUrl + url;
+
+            var exec = await this.ExecuteQueryAsync(context);
+            if (!exec)
+                this.HandleJsonErrorResponse(context);
+            
+            var result = this.HandleJsonResponse<Companies.CompanyUpdates>(context);
+            return result;
+        }
+    #endif
+        
+        /// <summary>
+        /// Retrieve the company's updates
+        /// </summary>
+        /// <remarks>
+        /// event-type: job-posting, new-product, status-update
+        /// </remarks>
+        public Companies.CompanyUpdates GetShares(
+              UserAuthorization user 
+            , int id 
+            , int start 
+            , int count 
             , string type 
             , FieldSelector<Companies.CompanyUpdates> fields = null
         )
@@ -6393,6 +6725,9 @@ namespace Sparkle.LinkedInNET.Companies
         /// <summary>
         /// Retrieve the company's updates
         /// </summary>
+        /// <remarks>
+        /// event-type: job-posting, new-product, status-update
+        /// </remarks>
         public async Task<Companies.CompanyUpdates> GetSharesAsync(
               UserAuthorization user 
             , int id 

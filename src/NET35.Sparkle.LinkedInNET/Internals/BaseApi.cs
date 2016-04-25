@@ -264,14 +264,16 @@ namespace Sparkle.LinkedInNET.Internals
         {
             var error = this.HandleJsonResponse<ApiError>(context);
 
-            Exception ex1;
+            LinkedInApiException ex1;
             if (error != null)
             {
                 ex1 = FX.ApiException("ApiErrorResult", error.Status, error.Message);
+                ex1.StatusCode = error.Status;
             }
             else
             {
                 ex1 = FX.ApiException("ApiEmptyErrorResult", (int)(context.HttpStatusCode));
+                ex1.StatusCode = (int)(context.HttpStatusCode);
             }
 
             throw ex1;
@@ -418,7 +420,9 @@ namespace Sparkle.LinkedInNET.Internals
             }
             catch (Exception ex)
             {
-                throw FX.InternalException("ReadStreamAsText", ex, ex.Message);
+                var ex1 = FX.InternalException("ReadStreamAsText", ex, ex.Message);
+                ex1.StatusCode = context.HttpStatusCode;
+                throw ex1;
             }
 
             if (validHttpCodes.Contains(context.HttpStatusCode))
@@ -516,7 +520,7 @@ namespace Sparkle.LinkedInNET.Internals
 
             {
                 var ex1 = FX.ApiException("ApiErrorResult", errorResult.Status, errorResult.Message, context.UrlPath);
-                TryAttachContextDetails(context, null);
+                TryAttachContextDetails(context, ex1);
                 ex1.Data.Add("ErrorResult", errorResult);
                 if (errorResult != null)
                 {
@@ -528,24 +532,27 @@ namespace Sparkle.LinkedInNET.Internals
             }
         }
 
-        private static void TryAttachContextDetails(RequestContext context, LinkedInNetException ex1)
+        private static void TryAttachContextDetails(RequestContext context, ILinkedInException ex1)
         {
             if (context == null || ex1 == null)
                 return;
 
+            ex1.StatusCode = context.HttpStatusCode;
+
             try
             {
-                ex1.Data["ResponseStream"] = context.ResponseStream;
-                ex1.Data["AcceptLanguages"] = context.AcceptLanguages;
-                ex1.Data["BufferizeResponseStream"] = context.BufferizeResponseStream;
-                ex1.Data["HttpStatusCode"] = context.HttpStatusCode;
-                ex1.Data["Method"] = context.Method;
-                ex1.Data["UrlPath"] = context.UrlPath;
+                var data = ((Exception)ex1).Data;
+                data["ResponseStream"] = context.ResponseStream;
+                data["AcceptLanguages"] = context.AcceptLanguages;
+                data["BufferizeResponseStream"] = context.BufferizeResponseStream;
+                data["HttpStatusCode"] = context.HttpStatusCode;
+                data["Method"] = context.Method;
+                data["UrlPath"] = context.UrlPath;
 
                 if (context.BufferizeResponseStream)
                 {
                     context.ResponseStream.Seek(0L, SeekOrigin.Begin);
-                    ex1.Data["ResponseText"] = new StreamReader(context.ResponseStream).ReadToEnd();
+                    data["ResponseText"] = new StreamReader(context.ResponseStream).ReadToEnd();
                     context.ResponseStream.Seek(0L, SeekOrigin.Begin);
                 }
             }

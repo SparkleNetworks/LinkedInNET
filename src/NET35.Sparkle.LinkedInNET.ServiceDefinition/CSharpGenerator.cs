@@ -115,7 +115,7 @@ namespace Sparkle.LinkedInNET.ServiceDefinition
                     var field = fieldGroup.First();
                     var selectors = fieldGroup.Where(f => f.Selectors != null).SelectMany(f => f.Selectors).ToArray();
 
-                    if (selectors.Length == 0 && returnType.AutoGenerateFieldSelectors)
+                    if (selectors.Length == 0 && returnType.AutoGenerateFieldSelectors && !field.IsAttribute)
                     {
                         var name = field.Name;
                         var fieldName = this.GetPropertyName(null, field.Name);
