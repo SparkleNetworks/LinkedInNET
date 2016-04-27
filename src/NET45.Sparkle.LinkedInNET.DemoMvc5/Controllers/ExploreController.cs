@@ -80,6 +80,7 @@ namespace Sparkle.LinkedInNET.DemoMvc5.Controllers
             var user = new UserAuthorization(token);
             var acceptLanguages = new string[] { culture ?? "en-US", "fr-FR", };
 
+            Exception error = null;
             Company company;
             {
                 var fields = FieldSelector.For<Company>()
@@ -94,7 +95,8 @@ namespace Sparkle.LinkedInNET.DemoMvc5.Controllers
                     {
                         company = new Company();
                         company.Id = id;
-                        company.Name = ex.Message;
+                        company.Name = "Company " + id + " - Permission error";
+                        error = ex;
                     }
                     else
                     {
@@ -103,23 +105,41 @@ namespace Sparkle.LinkedInNET.DemoMvc5.Controllers
                 }
             }
 
+            this.ViewBag.SharesStart = start;
+            this.ViewBag.SharesCount = count;
+            this.ViewBag.SharesTotal = 0;
+            if (error != null)
             {
                 var fields = FieldSelector.For<CompanyUpdates>();
                 Companies.CompanyUpdates shares;
-                if (string.IsNullOrEmpty(eventType))
+                try
                 {
-                    shares = await this.api.Companies.GetSharesAsync(user, id, start, count);
-                }
-                else
-                {
-                    shares = await this.api.Companies.GetSharesAsync(user, id, start, count, eventType);
-                }
+                    if (string.IsNullOrEmpty(eventType))
+                    {
+                        shares = await this.api.Companies.GetSharesAsync(user, id, start, count);
+                    }
+                    else
+                    {
+                        shares = await this.api.Companies.GetSharesAsync(user, id, start, count, eventType);
+                    }
 
-                this.ViewBag.SharesStart = start;
-                this.ViewBag.SharesCount = count;
-                this.ViewBag.SharesTotal = shares.Total;
-                this.ViewBag.Shares = shares;
+                    this.ViewBag.SharesTotal = shares.Total;
+                    this.ViewBag.Shares = shares;
+                }
+                catch (LinkedInApiException ex)
+                {
+                    if (ex.StatusCode == 403)
+                    {
+                        error = ex;
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
             }
+
+            this.ViewBag.Error = error;
             
             return this.View(company);
         }
@@ -332,11 +352,11 @@ namespace Sparkle.LinkedInNET.DemoMvc5.Controllers
             return this.View(model);
         }
 
-        public async Task<ActionResult> Companies()
+        public async Task<ActionResult> CompaniesAdminList()
         {
             var token = this.data.GetAccessToken();
             var user = new UserAuthorization(token);
-            var result = await this.api.Companies.GetListAsync(user);
+            var result = await this.api.Companies.GetAdminListAsync(user);
             return this.View(result);
         }
     }

@@ -3196,7 +3196,7 @@ namespace Sparkle.LinkedInNET.Companies
     /// Name: 'basiccompany'
     /// </summary>
     [Serializable, XmlRoot("basiccompany")]
-    public class BasicCompany
+    public class BasicCompanyList
     {
         /// <summary>
         /// Field: 'total' (on-demand)
@@ -3210,7 +3210,7 @@ namespace Sparkle.LinkedInNET.Companies
         /// </summary>
         [XmlElement(ElementName = "company")]
         [JsonProperty(PropertyName = "values")]
-        public List<Company> Company { get; set; }
+        public List<Company> Items { get; set; }
 
     }
 }
@@ -3763,7 +3763,7 @@ namespace Sparkle.LinkedInNET.Companies
         /// </summary>
         [XmlElement(ElementName = "likes")]
         [JsonProperty(PropertyName = "likes")]
-        public CompanyUpdateComments Likes { get; set; }
+        public CompanyUpdateLike Likes { get; set; }
 
         /// <summary>
         /// Field: 'is-commentable' (on-demand)
@@ -4579,14 +4579,14 @@ namespace Sparkle.LinkedInNET.Companies
         /// </summary>
         /// <param name="me">The field selector.</param>
         /// <returns>The field selector.</returns>
-        public static FieldSelector<BasicCompany> WithCompany(this FieldSelector<BasicCompany> me) { return me.Add("company"); }
+        public static FieldSelector<BasicCompanyList> WithCompany(this FieldSelector<BasicCompanyList> me) { return me.Add("company"); }
         
         /// <summary>
         /// Includes all the fields.
         /// </summary>
         /// <param name="me">The field selector.</param>
         /// <returns>The field selector.</returns>
-        public static FieldSelector<BasicCompany> WithAllFields(this FieldSelector<BasicCompany> me) { return me.AddRange("company"); }
+        public static FieldSelector<BasicCompanyList> WithAllFields(this FieldSelector<BasicCompanyList> me) { return me.AddRange("company"); }
         
         /// <summary>
         /// Includes the field 'id'.
@@ -6435,11 +6435,11 @@ namespace Sparkle.LinkedInNET.Companies
     #endif
         
         /// <summary>
-        /// Gets a list of all ids the person is administrator of
+        /// Gets a list of all companies the authenticated user is an administrator of
         /// </summary>
-        public Companies.BasicCompany GetBasicCompany(
+        public Companies.BasicCompanyList GetAdminList(
               UserAuthorization user 
-            , FieldSelector<Companies.BasicCompany> fields = null
+            , FieldSelector<Companies.BasicCompanyList> fields = null
         )
         {
             const string urlFormat = "/v1/companies?format=json&is-company-admin=true{FieldSelector}";
@@ -6453,17 +6453,17 @@ namespace Sparkle.LinkedInNET.Companies
             if (!this.ExecuteQuery(context))
                 this.HandleJsonErrorResponse(context);
             
-            var result = this.HandleJsonResponse<Companies.BasicCompany>(context);
+            var result = this.HandleJsonResponse<Companies.BasicCompanyList>(context);
             return result;
         }
 
     #if ASYNCTASKS
         /// <summary>
-        /// Gets a list of all ids the person is administrator of
+        /// Gets a list of all companies the authenticated user is an administrator of
         /// </summary>
-        public async Task<Companies.BasicCompany> GetBasicCompanyAsync(
+        public async Task<Companies.BasicCompanyList> GetAdminListAsync(
               UserAuthorization user 
-            , FieldSelector<Companies.BasicCompany> fields = null
+            , FieldSelector<Companies.BasicCompanyList> fields = null
         )
         {
             const string urlFormat = "/v1/companies?format=json&is-company-admin=true{FieldSelector}";
@@ -6478,7 +6478,7 @@ namespace Sparkle.LinkedInNET.Companies
             if (!exec)
                 this.HandleJsonErrorResponse(context);
             
-            var result = this.HandleJsonResponse<Companies.BasicCompany>(context);
+            var result = this.HandleJsonResponse<Companies.BasicCompanyList>(context);
             return result;
         }
     #endif

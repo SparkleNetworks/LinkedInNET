@@ -1,11 +1,36 @@
 ﻿@model Sparkle.LinkedInNET.Companies.Company
 @{
     int id = this.ViewBag.Id;
+    Exception error = this.ViewBag.Error;
 }
 
-<h1>@Html.ActionLink("Explore", "Index")</h1>
+<style>
+    .pagination{
+        display:block;
+    }
+    .pagination > a {
+        display:inline-block;
+        padding:0px 10px;
+        border:1px solid gray;
+        background-color:lightgray;
+        line-height:10px;
+    }
+    .pagination > a.active {
+        display:inline-block;
+        border:1px solid #384dd6;
+        background-color:#d2ddff;
+    }
+</style>
+
+<h1>@Html.ActionLink("Explore", "Index") - @Html.ActionLink("Company " + Model.Name, "Company", new { id = Model.Id, })</h1>
 
 <h2>@Model.Name</h2>
+
+@if (error != null)
+{
+    <pre style="color:red;">@error.ToString()</pre>
+}
+
 <dl class="srkdl">
     <dt>Id</dt>
     <dd>@Model.Id</dd>
@@ -15,7 +40,8 @@
 
     <dt>EmailDomains</dt>
     <dd>
-@if (Model.EmailDomains != null && Model.EmailDomains.EmailDomain != null){
+@if (Model.EmailDomains != null && Model.EmailDomains.EmailDomain != null)
+{
     @:@string.Join(", ", Model.EmailDomains.EmailDomain)
 }
     </dd>
@@ -30,13 +56,16 @@
     <dd>@Html.DisplayUrl("https://www.linkedin.com/company/" + Model.Id)</dd>
 
     <dt>WebsiteUrl</dt>
-    <dd>@Html.DisplayUrl(Model.WebsiteUrl)</dd>
+    <dd>@(Model.WebsiteUrl != null ? Html.DisplayUrl(Model.WebsiteUrl) : null)</dd>
 
     <dt>Status</dt>
     <dd>
-@if (Model.Status != null){
+@if (Model.Status != null)
+{
     @:@Model.Status.Name
-} else {
+}
+else
+{
     @: ???
 }
     </dd>
@@ -107,33 +136,73 @@
     var eventTypes = new List<string> { "job-posting", "new-product", "status-update", };
     if (!string.IsNullOrEmpty(eventType) && !eventTypes.Contains(eventType)) { eventTypes.Add(eventType); }
 }
-<p>
-@for (int i = 0; i < sharePages; i++)
-{
-    <a href="@Url.Action("Company", new { id = id, count = sharesCount, start = (i*sharesCount), eventType = eventType, })#Shares">P-@i</a>
-}
-</p>
-<p>Filter by: 
-    <a href="@Url.Action("Company", new { id = id, count = sharesCount, start = 0, eventType = "", })#Shares">all</a>
+<p class="pagination">Filter by: 
+    <a href="@Url.Action("Company", new { id = id, count = sharesCount, start = 0, eventType = "", })#Shares" class="@(string.IsNullOrEmpty(eventType) ? "active" : "")">all</a>
 @foreach (var eventTypeValue in eventTypes)
 {
-    @:, <a href="@Url.Action("Company", new { id = id, count = sharesCount, start = 0, eventType = eventTypeValue, })#Shares">@eventTypeValue</a>
+    @: <a href="@Url.Action("Company", new { id = id, count = sharesCount, start = 0, eventType = eventTypeValue, })#Shares" class="@(eventType == eventTypeValue ? "active" : "")">@eventTypeValue</a>
+}
+</p>
+<p class="pagination">
+@for (int i = 0; i < sharePages; i++)
+{
+    var offset = i * sharesCount;
+    <a href="@Url.Action("Company", new { id = id, count = sharesCount, start = offset, eventType = eventType, })#Shares" class="@(sharesStart == offset ? "active" : "")">P-@i</a>
 }
 </p>
 @if (shares != null && shares.Update != null && shares.Update.Count > 0)
 {
 <dl>
-    @foreach (var share in shares.Update) {
-    <dt class="clear">@share.Timestamp.FromUnixTime()</dt>
+    @foreach (var share in shares.Update)
+    {
+    <dt class="clear">
+    @share.Timestamp.FromUnixTime()
+    </dt>
+    if (share.UpdateContent != null && share.UpdateContent.CompanyStatusUpdate != null && share.UpdateContent.CompanyStatusUpdate.Share != null && share.UpdateContent.CompanyStatusUpdate.Share.Comment != null)
+    {
+        string[] lines = new string[] { share.UpdateContent.CompanyStatusUpdate.Share.Comment, };
+        if (lines[0].Contains("\r\n"))
+        {
+            lines = lines[0].Split(new string[] { "\r\n", }, StringSplitOptions.None);
+        }
+        else if (lines[0].Contains("\n"))
+        {
+            lines = lines[0].Split('\n');
+        }
+        string sep = "";
+    <dd><blockquote><p>@foreach (var line in lines)
+        {
+            @:@Html.Raw(sep)@line
+            sep = "<br />";
+        }</p></blockquote></dd>
+    }
     <dd>
-        @if (share.UpdateContent != null) {
+        @if (share.UpdateContent != null)
+        {
             var content = share.UpdateContent;
             
-            if (content.CompanyJobUpdate != null) {
-                if (content.CompanyJobUpdate.Job != null) {
+            if (content.CompanyJobUpdate != null)
+            {
+                if (content.CompanyJobUpdate.Job != null)
+                {
                     var job = content.CompanyJobUpdate.Job;
-        <p>@job.Id @job.Description</p>
-        <p>@job.Location</p>
+        <p>@job.Id</p>
+        string[] lines = new string[] { job.Description, };
+        if (lines[0].Contains("\r\n"))
+        {
+            lines = lines[0].Split(new string[] { "\r\n", }, StringSplitOptions.None);
+        }
+        else if (lines[0].Contains("\n"))
+        {
+            lines = lines[0].Split('\n');
+        }
+        string sep = "";
+        <blockquote><p>@foreach (var line in lines)
+        {
+            @:@Html.Raw(sep)@line
+            sep = "<br />";
+        }</p></blockquote>
+        <p>Location:@job.Location</p>
                     if (job.Position != null) {
         <p>@job.Position.Title</p>
                     }
@@ -172,7 +241,16 @@
     </dd>
     }
 </dl>
-} else {
+<p class="pagination">
+@for (int i = 0; i < sharePages; i++)
+{
+    var offset = i * sharesCount;
+    <a href="@Url.Action("Company", new { id = id, count = sharesCount, start = offset, eventType = eventType, })#Shares" class="@(sharesStart == offset ? "active" : "")">P-@i</a>
+}
+</p>
+}
+else
+{
 <p>No shares.</p>
 }
 

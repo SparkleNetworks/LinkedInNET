@@ -556,8 +556,8 @@
     <ApiMethod MethodName="GetList" HttpMethod="GET" Path="/v1/companies{FieldSelector}" ReturnType="Company"
       Title="Hacker Summary"
       RequiresUserAuthentication="1" />
-    <ApiMethod MethodName="GetBasicCompany" HttpMethod="GET" Path="/v1/companies?format=json&amp;is-company-admin=true{FieldSelector}" ReturnType="BasicCompany"
-      Title="Gets a list of all ids the person is administrator of"
+    <ApiMethod MethodName="GetAdminList" HttpMethod="GET" Path="/v1/companies?format=json&amp;is-company-admin=true{FieldSelector}" ReturnType="BasicCompanyList"
+      Title="Gets a list of all companies the authenticated user is an administrator of"
       RequiresUserAuthentication="1" />
     <ApiMethod MethodName="GetById"   HttpMethod="GET" Path="/v1/companies/{CompanyId}{FieldSelector}" ReturnType="Company"
       Title="retrieve a company by using the company ID"
@@ -591,9 +591,9 @@
       Title="Share a new company update." Remark="See https://developer.linkedin.com/creating-company-shares"
       RequiresUserAuthentication="1" UseFieldSelectors="0" />
     <!--<ApiMethod MethodName="Repost" HttpMethod="POST" Path="/v1/companies/{int companyId}/shares" PostReturnType="Common.PostShare" ReturnType="Common.PostShareResult" RequiresUserAuthentication="1" UseFieldSelectors="0" Title="Share a company update based on an existing update." Remark="See https://developer.linkedin.com/creating-company-shares" />-->
-    <ReturnType Name="basiccompany" ClassName="BasicCompany" AutoGenerateFieldSelectors="1">
+    <ReturnType Name="basiccompany" ClassName="BasicCompanyList" AutoGenerateFieldSelectors="1">
       <Field Name="total" IsAttribute="1" Type="int" />
-      <Field Name="company" Type="Company" IsCollection="1" />
+      <Field Name="company" PropertyName="Items" Type="Company" IsCollection="1" />
     </ReturnType>
     <ReturnType Name="company" ClassName="Company" AutoGenerateFieldSelectors="1">
       <Field Name="id" Type="long" Title="Default. The unique internal numeric company identifier." IsDefault="1" />
@@ -676,7 +676,7 @@
       <Field Name="update-type" />
       <Field Name="update-content" Type="CompanyUpdateContent" />
       <Field Name="updateComments" Type="CompanyUpdateComments"/>
-      <Field Name="likes" Type="CompanyUpdateComments"/>
+      <Field Name="likes"          Type="CompanyUpdateLike"/>
       <Field Name="is-commentable" Type="bool?" />
       <!--<Field Name="update-comments.total" />-->
       <Field Name="is-likable"     Type="bool?" />

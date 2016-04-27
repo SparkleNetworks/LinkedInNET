@@ -1,0 +1,28 @@
+﻿@model Sparkle.LinkedInNET.Companies.BasicCompanyList
+@{
+
+}
+
+<h1>@Html.ActionLink("Explore", "Index") - @Html.ActionLink("CompaniesAdminList", "CompaniesAdminList")</h1>
+
+<h3>Results</h3>
+
+@if (Model.Items != null && Model.Items.Count > 0)
+{
+<ul>
+    @foreach (var company in Model.Items)
+    {
+    <li>@Html.ActionLink(company.Name, "Company", new { id = company.Id, })</li>
+    }
+</ul>
+}
+else if (Model.Items != null && Model.Items.Count == 0)
+{
+    <p>There is no company you are an administrator of.</p>
+}
+else
+{
+    <p>The API returned nothing. Maybe there is no company you are an administrator of.</p>
+}
+<div class="clear"></div>
+
