@@ -39,6 +39,16 @@ namespace Sparkle.LinkedInNET.Tests
         }
 
         [TestMethod]
+        public void Add_ProfilePicture()
+        {
+            var target = new FieldSelector<FieldSelectorTests>();
+            var result = target.Add("picture-urls::(original)");
+            Assert.AreEqual(1, target.Items.Length);
+            Assert.AreEqual("picture-urls::(original)", target.Items[0]);
+            Assert.AreSame(target, result);
+        }
+
+        [TestMethod]
         public void Remove()
         {
             var target = new FieldSelector<FieldSelectorTests>();
