@@ -24,9 +24,9 @@ Many documented URLs in this project are broken because LinkedIn changed the doc
 > Starting on May 12, 2015, we will be limiting the open APIs to only support the following uses:
 >
 > - Allowing members to represent their professional identity via their LinkedIn profile using our Profile API.
-- Enabling members to post certifications directly to their LinkedIn profile with our Add to Profile tools.
-- Enabling members to share professional content to their LinkedIn network from across the Web leveraging our Share API.
-- Enabling companies to share professional content to LinkedIn with our Company API.
+> - Enabling members to post certifications directly to their LinkedIn profile with our Add to Profile tools.
+> - Enabling members to share professional content to their LinkedIn network from across the Web leveraging our Share API.
+> - Enabling companies to share professional content to LinkedIn with our Company API.
 >
 > All other APIs will require developers to become a member of one of our partnership programs.
 >
