@@ -35,7 +35,7 @@ namespace Sparkle.LinkedInNET.DemoMvc5.Controllers
             this.ViewBag.Configuration = this.apiConfig;
             
             // step 2: authorize url
-            var scope = AuthorizationScope.ReadEmailAddress | AuthorizationScope.ReadWriteCompanyPage;
+            var scope = AuthorizationScope.ReadEmailAddress | AuthorizationScope.ReadWriteCompanyPage | AuthorizationScope.WriteShare;
             var state = Guid.NewGuid().ToString();
             var redirectUrl = this.Request.Compose() + this.Url.Action("OAuth2");
             this.ViewBag.LocalRedirectUrl = redirectUrl;
@@ -252,6 +252,20 @@ namespace Sparkle.LinkedInNET.DemoMvc5.Controllers
             var result = new ApiResponse<Sparkle.LinkedInNET.ServiceDefinition.ApisRoot>(builder.Root);
 
             return this.Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult LogOff(string ReturnUrl)
+        {
+            this.data.ClearAccessToken();
+
+            if (this.Url.IsLocalUrl(ReturnUrl))
+            {
+                return this.Redirect(ReturnUrl);
+            }
+            else
+            {
+                return this.RedirectToAction("Index");
+            }
         }
 
         public class ApiResponse<T>

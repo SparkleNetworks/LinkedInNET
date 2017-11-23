@@ -43,16 +43,24 @@ namespace Sparkle.LinkedInNET.DemoMvc5.Domain
             }
         }
 
+        internal string GetAccessToken()
+        {
+            return this.Data.AccessToken;
+        }
+
+        internal void ClearAccessToken()
+        {
+            using (var transaction = this.store.Write())
+            {
+                transaction.Data.AccessToken = null;
+            }
+        }
+
         [DataContract]
         public class RootData
         {
             [DataMember]
             public string AccessToken { get; set; }
-        }
-
-        internal string GetAccessToken()
-        {
-            return this.Data.AccessToken;
         }
     }
 }

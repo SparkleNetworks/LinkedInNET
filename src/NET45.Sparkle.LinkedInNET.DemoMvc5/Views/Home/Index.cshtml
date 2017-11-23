@@ -50,6 +50,10 @@
 {
 <p>API call duration: @this.ViewBag.ProfileDuration</p>
 }
+@if (this.ViewBag.Token != null)
+{
+    <p>@Html.ActionLink("Log off", "LogOff", null, new { @class="button", })</p>
+}
 
 <h2>4. Make API calls</h2>
 <p>Here is the user's profile.</p>
