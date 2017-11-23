@@ -136,6 +136,9 @@ else
     var eventTypes = new List<string> { "job-posting", "new-product", "status-update", };
     if (!string.IsNullOrEmpty(eventType) && !eventTypes.Contains(eventType)) { eventTypes.Add(eventType); }
 }
+<p>
+    @Html.ActionLink("New share...", "CompanyShare", new { CompanyId = Model.Id, })
+</p>
 <p class="pagination">Filter by: 
     <a href="@Url.Action("Company", new { id = id, count = sharesCount, start = 0, eventType = "", })#Shares" class="@(string.IsNullOrEmpty(eventType) ? "active" : "")">all</a>
 @foreach (var eventTypeValue in eventTypes)

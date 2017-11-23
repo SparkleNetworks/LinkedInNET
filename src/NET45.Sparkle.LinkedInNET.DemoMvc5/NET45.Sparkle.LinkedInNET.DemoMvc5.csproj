@@ -169,6 +169,7 @@
     <Content Include="Views\Explore\CompanyShare.cshtml" />
     <Content Include="Views\Explore\UserShare.cshtml" />
     <Content Include="Views\Explore\CompaniesAdminList.cshtml" />
+    <Content Include="Views\Explore\CompanyShareDetails.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -63,7 +63,15 @@ namespace Sparkle.LinkedInNET
             var context = new RequestContext();
             context.UserAuthorization = user;
             context.Method = "GET";
-            context.UrlPath = path;
+
+            if (path.StartsWith("https:") || path.StartsWith("http:"))
+            {
+                context.UrlPath = path;
+            }
+            else
+            {
+                context.UrlPath = this.Configuration.BaseApiUrl + path;
+            }
 
             if (!this.ExecuteQuery(context))
                 this.HandleJsonErrorResponse(context);
@@ -95,7 +103,16 @@ namespace Sparkle.LinkedInNET
             var context = new RequestContext();
             context.UserAuthorization = user;
             context.Method = "POST";
-            context.UrlPath = path;
+
+            if (path.StartsWith("https:") || path.StartsWith("http:"))
+            {
+                context.UrlPath = path;
+            }
+            else
+            {
+                context.UrlPath = this.Configuration.BaseApiUrl + path;
+            }
+
             this.CreateJsonPostStream(context, content);
 
             if (!this.ExecuteQuery(context))

@@ -244,7 +244,7 @@ namespace Sparkle.LinkedInNET.DemoMvc5.Controllers
             return this.View(result);
         }
 
-        public ActionResult CompanyShare(string ShareId)
+        public ActionResult CompanyShare(string ShareId, string CompanyId)
         {
             var item = new Sparkle.LinkedInNET.Common.PostShare
             {
@@ -280,6 +280,13 @@ namespace Sparkle.LinkedInNET.DemoMvc5.Controllers
                 CompanyId = 2414183,
                 Json = JsonConvert.SerializeObject(item, Formatting.Indented, shareSettings),
             };
+
+            int id;
+            if (!string.IsNullOrEmpty(CompanyId) && int.TryParse(CompanyId, out id))
+            {
+                model.CompanyId = id;
+            }
+
             return this.View(model);
         }
 
@@ -350,6 +357,22 @@ namespace Sparkle.LinkedInNET.DemoMvc5.Controllers
             this.ViewBag.Result = result;
 
             return this.View(model);
+        }
+
+        public ActionResult CompanyShareDetails(int CompanyId, string ShareId)
+        {
+            this.ViewBag.CompanyId = CompanyId;
+            this.ViewBag.ShareId = ShareId;
+
+            // demonstrates raw API queries
+            // usefull when something is missing in the library
+            // access this page using: /Explore/CompanyShareDetails?CompanyId=2414183&ShareId=UPDATE-c2414183-6339433061230342144
+            var token = this.data.GetAccessToken();
+            var user = new UserAuthorization(token);
+            var jsonResponse = this.api.RawGetJsonQuery("/v1/companies/" + CompanyId + "/updates/key=" + Uri.EscapeDataString(ShareId) + "?format=json", user);
+
+            this.ViewData.Model = jsonResponse;
+            return this.View();
         }
 
         public async Task<ActionResult> CompaniesAdminList()
