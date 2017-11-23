@@ -22,16 +22,16 @@ Before you start - About LinkedIn API recent changes
 Many documented URLs in this project are broken because LinkedIn changed the documentation pages. Here is the [old documentation via the WaybackMachine](https://web.archive.org/web/20140719025807/http://developer.linkedin.com/documents/people).
 
 > Starting on May 12, 2015, we will be limiting the open APIs to only support the following uses:
-
+>
 > - Allowing members to represent their professional identity via their LinkedIn profile using our Profile API.
 - Enabling members to post certifications directly to their LinkedIn profile with our Add to Profile tools.
 - Enabling members to share professional content to their LinkedIn network from across the Web leveraging our Share API.
 - Enabling companies to share professional content to LinkedIn with our Company API.
-
+>
 > All other APIs will require developers to become a member of one of our partnership programs.
-
+>
 > For many developers, we understand that today’s changes may be disappointing and disruptive, but we believe these changes will provide further clarity and focus on which types of integrations will be supported by LinkedIn.
-
+>
 > -- [Changes to our Developer Program](https://developer.linkedin.com/blog/posts/2015/developer-program-changes), February 12, 2015
 
 See also [Transition FAQ](https://developer.linkedin.com/blog/posts/2015/transition-faq), [D-Day's changes](https://developer.linkedin.com/blog/posts/2015/todays-changes).
@@ -174,6 +174,18 @@ You should not catch `WebException`s as they are wrapped into `LinkedInApiExcept
 Code documentation is quite present. Use the auto-completion to discover stuff.
 
 The MVC demo app has a /Explore page that demonstrates most API calls. Have a look at it.
+
+### 9. Raw queries
+
+A method is missing in the library? You may contribute to create it... Or you may use the raw query methods `RawGetJsonQuery`, `RawPostJsonQuery` or `RawQuery`.
+
+This example shows how to fetch a company share.
+
+````csharp
+string shareAsJson = this.api.RawGetJsonQuery("/v1/companies/" + CompanyId + "/updates/key=" + Uri.EscapeDataString(ShareId) + "?format=json", user);
+````
+
+More details [here](https://github.com/SparkleNetworks/LinkedInNET/blob/dffaea840eac044654c7cee59df50a8db6f101a3/src/NET45.Sparkle.LinkedInNET.DemoMvc5/Controllers/ExploreController.cs#L363).
 
 Contribute
 ------------
