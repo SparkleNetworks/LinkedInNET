@@ -121,5 +121,45 @@ namespace Sparkle.LinkedInNET
             var result = this.HandleJsonRawResponse(context);
             return result;
         }
+
+        /// <summary>
+        /// Executes a custom query. You may need to read the library's source codes to understand how that works.
+        /// </summary>
+        /// <param name="responseHandling">One of JSON / XML / RAW</param>
+        public string RawQuery(RequestContext context, string responseHandling)
+        {
+            if (context == null)
+                throw new ArgumentNullException("context");
+            if (string.IsNullOrEmpty(context.UrlPath))
+                throw new ArgumentException("The UrlPath cannot be empty", "context.UrlPath");
+
+            if (context.UrlPath.StartsWith("https:") || context.UrlPath.StartsWith("http:"))
+            {
+                // let it go
+            }
+            else
+            {
+                context.UrlPath = this.Configuration.BaseApiUrl + context.UrlPath;
+            }
+
+            if (!this.ExecuteQuery(context))
+                this.HandleJsonErrorResponse(context);
+
+            if ("JSON".Equals(responseHandling, StringComparison.OrdinalIgnoreCase))
+            {
+                var result = this.HandleJsonRawResponse(context);
+                return result;
+            }
+            else if ("XML".Equals(responseHandling, StringComparison.OrdinalIgnoreCase))
+            {
+                var result = this.HandleXmlRawResponse(context);
+                return result;
+            }
+            else
+            {
+                var result = this.HandleRawResponse(context, Encoding.UTF8);
+                return result;
+            }
+        }
     }
 }

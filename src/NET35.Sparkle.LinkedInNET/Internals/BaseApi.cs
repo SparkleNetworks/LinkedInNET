@@ -405,13 +405,6 @@ namespace Sparkle.LinkedInNET.Internals
             T result = null;
             ApiError errorResult = null;
 
-            // create serializers
-            // it may fail if attributes are wrong
-            ////XmlSerializer serializer, errorSerializer;
-            var settings = new JsonSerializerSettings
-            {
-            };
-
             string json;
             try
             {
@@ -462,16 +455,45 @@ namespace Sparkle.LinkedInNET.Internals
             return result;
         }
 
-        internal string HandleJsonRawResponse(RequestContext context)
+        internal string HandleXmlRawResponse(RequestContext context)
         {
             ApiError errorResult = null;
 
-            // create serializers
-            // it may fail if attributes are wrong
-            ////XmlSerializer serializer, errorSerializer;
-            var settings = new JsonSerializerSettings
+            string xmlText;
+            try
             {
-            };
+                var reader = new StreamReader(context.ResponseStream, Encoding.UTF8);
+                xmlText = reader.ReadToEnd();
+            }
+            catch (Exception ex)
+            {
+                throw FX.InternalException("ReadStreamAsText", ex, ex.Message);
+            }
+
+            if (validHttpCodes.Contains(context.HttpStatusCode))
+            {
+                // the HTTP code matches a success response
+                // do nothing here
+            }
+            else if (errorHttpCodes.Contains(context.HttpStatusCode))
+            {
+                // the HTTP code matches a error response
+                ThrowXmlErrorResult(context, errorResult, xmlText);
+            }
+            else
+            {
+                // unknown HTTP code
+                var ex1 = FX.ApiException("ApiUnknownHttpCode", context.HttpStatusCode);
+                TryAttachContextDetails(context, null);
+                throw ex1;
+            }
+
+            return xmlText;
+        }
+
+        internal string HandleJsonRawResponse(RequestContext context)
+        {
+            ApiError errorResult = null;
 
             string json;
             try
@@ -505,6 +527,42 @@ namespace Sparkle.LinkedInNET.Internals
             return json;
         }
 
+        internal string HandleRawResponse(RequestContext context, Encoding encoding)
+        {
+            string text;
+            try
+            {
+                var reader = new StreamReader(context.ResponseStream, encoding);
+                text = reader.ReadToEnd();
+            }
+            catch (Exception ex)
+            {
+                throw FX.InternalException("ReadStreamAsText", ex, ex.Message);
+            }
+
+            if (validHttpCodes.Contains(context.HttpStatusCode))
+            {
+                // the HTTP code matches a success response
+                // do nothing here
+            }
+            else if (errorHttpCodes.Contains(context.HttpStatusCode))
+            {
+                // the HTTP code matches a error response
+                var ex1 = FX.ApiException("ApiRawErrorResult");
+                TryAttachContextDetails(context, ex1);
+                throw ex1;
+            }
+            else
+            {
+                // unknown HTTP code
+                var ex1 = FX.ApiException("ApiUnknownHttpCode", context.HttpStatusCode);
+                TryAttachContextDetails(context, null);
+                throw ex1;
+            }
+
+            return text;
+        }
+
         private static void ThrowJsonErrorResult(RequestContext context, ApiError errorResult, string json)
         {
             try
@@ -514,6 +572,46 @@ namespace Sparkle.LinkedInNET.Internals
             catch (Exception ex)
             {
                 var ex1 = FX.InternalException("SerializerDeserializeError", ex, ex.Message);
+                TryAttachContextDetails(context, ex1);
+                throw ex1;
+            }
+
+            {
+                var ex1 = FX.ApiException("ApiErrorResult", errorResult.Status, errorResult.Message, context.UrlPath);
+                TryAttachContextDetails(context, ex1);
+                ex1.Data.Add("ErrorResult", errorResult);
+                if (errorResult != null)
+                {
+                    if (errorResult.Status == 401)
+                        ex1.Data["ShouldRenewToken"] = true;
+                }
+
+                throw ex1;
+            }
+        }
+
+        private static void ThrowXmlErrorResult(RequestContext context, ApiError errorResult, string json)
+        {
+            // create serializers
+            // it may fail if attributes are wrong
+            XmlSerializer errorSerializer;
+            try
+            {
+                errorSerializer = new XmlSerializer(typeof(ApiError));
+            }
+            catch (Exception ex)
+            {
+                throw FX.InternalException("SerializerCtor", ex, ex.Message);
+            }
+
+            ApiError result;
+            try
+            {
+                result = (ApiError)errorSerializer.Deserialize(context.ResponseStream);
+            }
+            catch (Exception ex)
+            {
+                var ex1 = FX.InternalException("SerializerDeserialize", ex, ex.Message);
                 TryAttachContextDetails(context, ex1);
                 throw ex1;
             }

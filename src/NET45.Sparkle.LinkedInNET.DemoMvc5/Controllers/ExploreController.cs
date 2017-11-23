@@ -13,6 +13,7 @@ namespace Sparkle.LinkedInNET.DemoMvc5.Controllers
     using Newtonsoft.Json;
     using Sparkle.LinkedInNET.DemoMvc5.ViewModels.Explore;
     using System.Threading.Tasks;
+    using System.Text;
 
     public class ExploreController : Controller
     {
@@ -370,6 +371,16 @@ namespace Sparkle.LinkedInNET.DemoMvc5.Controllers
             var token = this.data.GetAccessToken();
             var user = new UserAuthorization(token);
             var jsonResponse = this.api.RawGetJsonQuery("/v1/companies/" + CompanyId + "/updates/key=" + Uri.EscapeDataString(ShareId) + "?format=json", user);
+
+            // you may also use the low-level HTTP abstraction to fully customize the query
+            /*
+            var context = new Sparkle.LinkedInNET.Internals.RequestContext();
+            context.Method = "POST";
+            context.PostDataType = "application/json";
+            context.RequestHeaders.Add("x-li-format", "json");
+            context.PostData = Encoding.UTF8.GetBytes("{POST DATA HERE}");
+            var result = this.api.RawQuery(context, "JSON");
+            */
 
             this.ViewData.Model = jsonResponse;
             return this.View();
