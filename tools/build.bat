@@ -55,19 +55,24 @@ echo -----------------------------
 cd ..
 cd src
 set solutionDirectory=%CD%
-%msbuild4% Sparkle.LinkedInNET.sln /p:Configuration=Release /nologo /verbosity:q
-
-if not %ERRORLEVEL% == 0 (
- echo ERROR: build failed. exiting.
- cd %currentDirectory%
- pause
- exit
-)
-echo Done.
+REM     %msbuild4% Sparkle.LinkedInNET.sln /p:Configuration=Release /nologo /verbosity:q 
+REM     
+REM     if not %ERRORLEVEL% == 0 (
+REM      echo ERROR: build failed. exiting.
+REM      cd %currentDirectory%
+REM      pause
+REM      exit
+REM     )
+REM     echo Done.
+echo SKIPPED!
 
 echo:
 echo Copy libs
 echo -----------------------------
+
+echo solutionDirectory = %solutionDirectory%
+echo outputDirectory   = %outputDirectory%
+
 mkdir %outputDirectory%\lib
 
 mkdir %outputDirectory%\lib\net35

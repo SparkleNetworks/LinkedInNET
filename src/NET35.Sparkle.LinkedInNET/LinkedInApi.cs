@@ -125,6 +125,7 @@ namespace Sparkle.LinkedInNET
         /// <summary>
         /// Executes a custom query. You may need to read the library's source codes to understand how that works.
         /// </summary>
+        /// <param name="context">HTTP request description</param>
         /// <param name="responseHandling">One of JSON / XML / RAW</param>
         public string RawQuery(RequestContext context, string responseHandling)
         {

@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>Sparkle.LinkedInNET</id>
-    <version>1.0.9</version>
+    <version>1.0.14</version>
     <authors>Sparkle Networks, SandRock, Tazacban, Andrew Clark, Rayyan Tahir</authors>
     <owners>Sparkle Networks</owners>
     <licenseUrl>https://github.com/SparkleNetworks/LinkedInNET/blob/master/LICENSE</licenseUrl>
@@ -10,7 +10,7 @@
     <iconUrl>https://raw.githubusercontent.com/SparkleNetworks/LinkedInNET/master/src/LiNET-li.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Sparkle.LinkedInNET will help you query the LinkedIn API. License: GNU LGPL v3.</description>
-    <releaseNotes>List of companies your are an admin of (thanks to Rayyan Tahir). Companies.GetShares overload. Added comments ond likes on company shares.</releaseNotes>
+    <releaseNotes>Can now make raw queries.</releaseNotes>
     <copyright>Sparkle Networks, SandRock, Tazacban, Andrew Clark, Rayyan Tahir</copyright>
     <tags>LinkedIn API</tags>
     <dependencies>
