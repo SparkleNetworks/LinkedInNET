@@ -128,3 +128,16 @@
 </p>
 
 
+
+<h2>Persons</h2>
+
+<h3>Profile by public URL</h3>
+@using (Html.BeginForm("PublicProfile", "Explore", FormMethod.Get))
+{
+<label>URL: @Html.TextBox("url", null, new { placeholder = "http://www.linkedin.com/in/jeffweiner08", style = "width: 20em;", })</label>
+<input type="submit" value="Open" />
+}
+
+
+
+

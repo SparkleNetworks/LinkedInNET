@@ -386,6 +386,41 @@ namespace Sparkle.LinkedInNET.DemoMvc5.Controllers
             return this.View();
         }
 
+        public ActionResult PublicProfile(string url, string culture = "en-US")
+        {
+            if (string.IsNullOrEmpty(url))
+            {
+                return this.HttpNotFound();
+            }
+
+            var token = this.data.GetAccessToken();
+            this.ViewBag.Token = token;
+            var user = new UserAuthorization(token);
+            var acceptLanguages = new string[] { culture ?? "en-US", "fr-FR", };
+
+            var fields = FieldSelector.For<Person>()
+                .WithId()
+                .WithPositions().WithPictureUrl()
+                .WithFirstName().WithLastName().WithHeadline()
+                .WithLanguageId().WithLanguageName().WithLanguageProficiency()
+                .WithConnections();
+            var profile = this.api.Profiles.GetPublicProfile(user, url, acceptLanguages, fields);
+
+            {
+                var pictures = this.api.Profiles.GetOriginalProfilePicture(user, profile.Id)
+                     ?? new PictureUrls() { PictureUrl = new List<string>() };
+                var more = this.api.Profiles.GetProfilePicture(user, profile.Id, 120, 120);
+                if (more != null && more.PictureUrl != null)
+                {
+                    pictures.PictureUrl.AddRange(more.PictureUrl);
+                }
+
+                this.ViewBag.Pictures = this.ViewData["ProfilePictures"] = pictures;
+            }
+
+            return this.View("Person", profile);
+        }
+
         public async Task<ActionResult> CompaniesAdminList()
         {
             var token = this.data.GetAccessToken();
