@@ -10,7 +10,7 @@
     <iconUrl>https://raw.githubusercontent.com/SparkleNetworks/LinkedInNET/master/src/LiNET-li.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Sparkle.LinkedInNET will help you query the LinkedIn API. License: GNU LGPL v3.</description>
-    <releaseNotes>Can now make raw queries.</releaseNotes>
+    <releaseNotes>Fixed issue 22.</releaseNotes>
     <copyright>Sparkle Networks, SandRock, Tazacban, Andrew Clark, Rayyan Tahir</copyright>
     <tags>LinkedIn API</tags>
     <dependencies>

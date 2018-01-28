@@ -110,6 +110,7 @@ echo:
 echo Build NuGet package
 echo -----------------------------
 
+echo UPDATE NUSPEC FILES!
 echo Hit return to continue...
 pause 
 cd %outputDirectory%
@@ -126,7 +127,7 @@ echo -----------------------------
 echo Hit return to continue...
 pause 
 cd %outputDirectory%
-%nuget% push Sparkle.LinkedInNet.%version%.nupkg
+%nuget% push Sparkle.LinkedInNet.%version%.nupkg -Source https://www.nuget.org
 echo Done.
 
 
