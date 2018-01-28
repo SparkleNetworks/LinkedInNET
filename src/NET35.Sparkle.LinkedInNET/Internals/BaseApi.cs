@@ -110,7 +110,7 @@ namespace Sparkle.LinkedInNET.Internals
                 var value = dic[key];
                 if (value != null)
                 {
-                    result = result.Replace("{" + key + "}", value);
+                    result = result.Replace("{" + key + "}", Uri.EscapeDataString(value));
                 }
                 else
                 {
