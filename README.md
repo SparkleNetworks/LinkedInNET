@@ -4,7 +4,7 @@
 LinkedInNET
 ===========
 
-[Sparkle.LinkedInNET](https://github.com/SparkleNetworks/LinkedInNET/) ([NuGet](https://www.nuget.org/packages/Sparkle.LinkedInNET/))will help you query the LinkedIn API :)
+[Sparkle.LinkedInNET](https://github.com/SparkleNetworks/LinkedInNET/) ([NuGet](https://www.nuget.org/packages/Sparkle.LinkedInNET/)) will help you query the LinkedIn API :)
 
 Have any question? You may reach the authors on the dedicated chat room: [![Join the chat at https://gitter.im/SparkleNetworks/LinkedInNET](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/SparkleNetworks/LinkedInNET?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
@@ -13,8 +13,17 @@ Motivation
 
 Bring the .NET world a nice LinkedIn client library.
 
+Before you start - About the new LinkedIn's V2 API (2018)
+----------------------------------------------------------------
 
-Before you start - About LinkedIn API recent changes
+As discussed in [issue 23](https://github.com/SparkleNetworks/LinkedInNET/issues/23), **this project might not be able to implement the new API specifications**. Too much stuff needs to change. 
+
+Please [Join the chat](https://gitter.im/SparkleNetworks/LinkedInNET) to organize a new project or discuss the future of this project in the [issue 23](https://github.com/SparkleNetworks/LinkedInNET/issues/23).
+
+It has been a cool adventure to make this library. Is it not the time to have a new one? I will continue to support the V1 API so that those who will create the V2 code/SDK won't have to support V1 *and* V2.
+
+
+Before you start - About LinkedIn API recent changes (2015)
 ----------------------------------------------------------------
 
 **[LinkedIn recently changed a lot of things in its developer program](https://developer.linkedin.com/blog/posts/2015/developer-program-changes). When using this API, your applications might break on May 12, 2015**. 
@@ -35,6 +44,10 @@ Many documented URLs in this project are broken because LinkedIn changed the doc
 > -- [Changes to our Developer Program](https://developer.linkedin.com/blog/posts/2015/developer-program-changes), February 12, 2015
 
 See also [Transition FAQ](https://developer.linkedin.com/blog/posts/2015/transition-faq), [D-Day's changes](https://developer.linkedin.com/blog/posts/2015/todays-changes).
+
+
+Before you start - Notice
+----------------------------------------------------------------
 
 By using the LinkedIn APIs you agree to the [LinkedIn APIs Terms of Use](https://developer.linkedin.com/documents/linkedin-apis-terms-use).  
 This project is released under the LGPL v3 license.  
