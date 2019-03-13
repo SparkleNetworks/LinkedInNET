@@ -8,10 +8,15 @@ LinkedInNET
 
 Have any question? You may reach the authors on the dedicated chat room: [![Join the chat at https://gitter.im/SparkleNetworks/LinkedInNET](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/SparkleNetworks/LinkedInNET?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-Motivation
-------------
+Before you start - Forks of this project (2018)
+----------------------------------------------------------------
 
-Bring the .NET world a nice LinkedIn client library.
+This project will **not support the V2 API** for the reason described below.
+
+The following forks may be of interest:
+
+- [247GradLabs/LinkedInNET](https://github.com/247GradLabs/LinkedInNET/) is making support for V2 (no nuget)
+- [gianni-rg/LinkedInNET](https://github.com/gianni-rg/LinkedInNET/tree/netstandard2) is working on netstandard2.0 support (no nuget)
 
 Before you start - About the new LinkedIn's V2 API (2018)
 ----------------------------------------------------------------
@@ -53,8 +58,15 @@ By using the LinkedIn APIs you agree to the [LinkedIn APIs Terms of Use](https:/
 This project is released under the LGPL v3 license.  
 This is NOT an official client library.
 
+Motivation (2015-2016)
+------------
+
+Bring the .NET world a nice LinkedIn client library.
+
 Usage
 ------------
+
+**If you still think this project may help you**, here is how to start.
 
 ### 1. Installation
 
