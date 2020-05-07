@@ -1,22 +1,19 @@
 
 ![](https://raw.githubusercontent.com/SparkleNetworks/LinkedInNET/master/src/LiNET-200.png)
 
-LinkedInNET
-===========
+LinkedInNET -- DEPRECATED
+==========================
 
-[Sparkle.LinkedInNET](https://github.com/SparkleNetworks/LinkedInNET/) ([NuGet](https://www.nuget.org/packages/Sparkle.LinkedInNET/)) will help you query the LinkedIn API :)
-
-Have any question? You may reach the authors on the dedicated chat room: [![Join the chat at https://gitter.im/SparkleNetworks/LinkedInNET](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/SparkleNetworks/LinkedInNET?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-
-Before you start - Forks of this project (2018)
+Before you start - Forks of this project (2018-2019)
 ----------------------------------------------------------------
 
-This project will **not support the V2 API** for the reason described below.
+🚫 This project will **not support the V2 API** for the reason described below.  
+🚫 **Support for the V1 API has ended.**
 
-The following forks may be of interest:
+Consider the following forks instead:
 
-- [247GradLabs/LinkedInNET](https://github.com/247GradLabs/LinkedInNET/) is making support for V2 (no nuget)
-- [gianni-rg/LinkedInNET](https://github.com/gianni-rg/LinkedInNET/tree/netstandard2) is working on netstandard2.0 support (no nuget)
+➡ [247GradLabs/LinkedInNET](https://github.com/247GradLabs/LinkedInNET/) is making support for V2 (nuget [LinkedInNET.ApiV2](https://www.nuget.org/packages/LinkedInNET.ApiV2/)) ✌
+
 
 Before you start - About the new LinkedIn's V2 API (2018)
 ----------------------------------------------------------------
@@ -58,6 +55,15 @@ By using the LinkedIn APIs you agree to the [LinkedIn APIs Terms of Use](https:/
 This project is released under the LGPL v3 license.  
 This is NOT an official client library.
 
+
+Project description
+----------------------
+
+[Sparkle.LinkedInNET](https://github.com/SparkleNetworks/LinkedInNET/) ([NuGet](https://www.nuget.org/packages/Sparkle.LinkedInNET/)) will help you query the LinkedIn API :)
+
+Have any question? You may reach the authors on the dedicated chat room: [![Join the chat at https://gitter.im/SparkleNetworks/LinkedInNET](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/SparkleNetworks/LinkedInNET?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
+
 Motivation (2015-2016)
 ------------
 
@@ -92,7 +98,7 @@ var config = new LinkedInApiConfiguration("•api•key•••", "•api•sec
 var api = new LinkedInApi(config);
 ````
 
-### 3. Create OAuth2 authorize url
+### 3. Create OAuth2 authorize url -- deprecated
 
 The OAuth2 authentication process is fully supported. The `GetAuthorizationUrl` method will generate the OAuth2 url to navigate the user to.
 
@@ -105,7 +111,7 @@ var url = api.OAuth2.GetAuthorizationUrl(scope, state, redirectUrl);
 // now redirect your user there
 ````
 
-### 4. Get access token
+### 4. Get access token -- deprecated
 
 When the user is redirected back to your website, you can get an access code.
 
@@ -135,7 +141,7 @@ var redirectUrl = this.Request.Compose() + this.Url.Action("OAuth2");
 ````
 
 
-### 5. Example call: fetch user profile
+### 5. Example call: fetch user profile -- deprecated
 
 ````csharp
 var user = new UserAuthorization(userToken.AccessToken);
@@ -212,10 +218,11 @@ string shareAsJson = this.api.RawGetJsonQuery("/v1/companies/" + CompanyId + "/u
 
 More details [here](https://github.com/SparkleNetworks/LinkedInNET/blob/dffaea840eac044654c7cee59df50a8db6f101a3/src/NET45.Sparkle.LinkedInNET.DemoMvc5/Controllers/ExploreController.cs#L363).
 
+
 Contribute
 ------------
 
-We welcome contributions. Especially if you can **suggest/access/test methods with a partner API key**.
+This project is no more maintained. There is no need to contribute. Look at the available forks. 
 
 We are generating code based on a [XML file](DefinitionFile.md).  
 This XML file is manually filled to represent the API.  
@@ -247,7 +254,7 @@ Supported .NET Framework versions:
 We are using a lot of code generation so it won't be difficult to target any other framework. 
 
 
-Status
+Status -- deprecated
 ------------
 
 Because of the API policy changes, most API calls are now reserved to the partners LinkedIn chose. The core team will try to keep up using basic API key.
